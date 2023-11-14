@@ -1,5 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Green -->
+    <color name="Green600">#0B663E</color>
+    <color name="MainGreen400">#23B877</color>
+    <color name="Green200">#23B877</color>
+    <color name="Green100">#9BE6C5</color>
+
+    <!-- Red -->
+    <color name="Red400">#FF4F17</color>
+    <color name="Red200">#FF7E55</color>
+
+    <!-- Gray -->
+    <color name="Gray900">#15171E</color>
+    <color name="Gray700">#1D1F29</color>
+    <color name="Gray600">#292C3C</color>
+    <color name="Gray500">#36394F</color>
+    <color name="Gray400">#4A4D63</color>
+    <color name="Gray300">#6B6E82</color>
+    <color name="Gray200">#9093A8</color>
+    <color name="Gray100">#C3C4CE</color>
+
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+
 </resources>
