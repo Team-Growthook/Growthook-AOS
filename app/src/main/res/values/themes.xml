@@ -1,8 +1,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.GrowthookAOS" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    <style name="Base.Theme.GrowthookAOS" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/MainGreen400</item>
+        <item name="colorPrimaryVariant">@color/Gray900</item>
+        <item name="colorPrimaryDark">@color/Gray900</item>
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:windowBackground">@color/Gray700</item>
+
     </style>
 
     <style name="Theme.GrowthookAOS" parent="Base.Theme.GrowthookAOS" />

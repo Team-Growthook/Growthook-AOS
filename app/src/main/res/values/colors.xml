@@ -20,8 +20,8 @@
     <color name="Gray200">#9093A8</color>
     <color name="Gray100">#C3C4CE</color>
 
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="Black000">#151515</color>
+    <color name="White000">#FFFFFF</color>
 
 
 </resources>
