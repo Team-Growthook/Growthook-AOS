@@ -1,7 +1,8 @@
-package com.growthook.aos
+package com.growthook.aos.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.growthook.aos.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
