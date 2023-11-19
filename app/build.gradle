@@ -6,6 +6,9 @@ plugins {
     id 'org.jetbrains.kotlin.plugin.serialization' version '1.8.0'
 }
 
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
 android {
     namespace 'com.growthook.aos'
     compileSdk 33
@@ -18,6 +21,10 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField "String", "NATIVE_APP_KEY", properties["native.app.key"]
+
+        manifestPlaceholders["NATIVE_APP_KEY"] =
+                properties.getProperty("native.app.key.no.quotes")
     }
 
     buildTypes {
@@ -34,6 +41,7 @@ android {
         jvmTarget = '17'
     }
     buildFeatures {
+        buildConfig true
         viewBinding = true
     }
 }
@@ -71,6 +79,12 @@ dependencies {
     // serialization
     implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1'
     implementation 'com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0'
+
+    // kakao login
+    implementation "com.kakao.sdk:v2-user:2.18.0"
+
+    // Timber
+    implementation 'com.jakewharton.timber:timber:5.0.1'
 }
 kapt {
     correctErrorTypes true
