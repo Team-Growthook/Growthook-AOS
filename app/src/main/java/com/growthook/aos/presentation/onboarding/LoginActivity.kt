@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.growthook.aos.R
 import com.growthook.aos.data.service.KakaoAuthService
 import com.growthook.aos.databinding.ActivityLoginBinding
 import com.growthook.aos.presentation.MainActivity
@@ -23,7 +22,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
-        setContentView(R.layout.activity_login)
+        setContentView(binding.root)
 
         startKakaoLogin()
         isKakaoLogin()
