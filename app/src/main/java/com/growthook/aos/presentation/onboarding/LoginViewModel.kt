@@ -6,10 +6,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.growthook.aos.util.extension.KakaoLoginCallback
 import com.kakao.sdk.auth.model.OAuthToken
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import javax.inject.Inject
 
-class LoginViewModel() :
+@HiltViewModel
+class LoginViewModel @Inject constructor() :
     ViewModel() {
     private val _isKakaoLogin = MutableLiveData<Boolean>()
     val isKakaoLogin: LiveData<Boolean> = _isKakaoLogin
