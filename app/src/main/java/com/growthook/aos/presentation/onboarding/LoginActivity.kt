@@ -3,13 +3,14 @@ package com.growthook.aos.presentation.onboarding
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.growthook.aos.R
-import com.growthook.aos.databinding.ActivityOnboardingBinding
+import com.growthook.aos.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityOnboardingBinding
+    private lateinit var binding: ActivityLoginBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityOnboardingBinding.inflate(layoutInflater)
-        setContentView(R.layout.activity_onboarding)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(R.layout.activity_login)
+
     }
 }
