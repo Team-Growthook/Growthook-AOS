@@ -20,11 +20,11 @@ class LoginViewModel @Inject constructor() :
     val kakaoLoginCallback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
         KakaoLoginCallback {
             _isKakaoLogin.value = true
-            Timber.d("LoginViewModel", "카카오 로그인 set 토큰 $token")
+            Timber.d("LoginViewModel 카카오 로그인 set 토큰 $token")
         }.handleResult(token, error)
     }
 
     fun login(socialPlatform: String) = viewModelScope.launch {
-        Timber.d("LoginViewModel", "로그인 함수 호출")
+        Timber.d("LoginViewModel 로그인 함수 호출")
     }
 }
