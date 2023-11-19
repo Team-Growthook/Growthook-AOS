@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.growthook.aos.R
 import com.growthook.aos.databinding.ActivityOnboardingBinding
 
-class MainActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityOnboardingBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
