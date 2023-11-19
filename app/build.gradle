@@ -82,7 +82,9 @@ dependencies {
 
     // kakao login
     implementation "com.kakao.sdk:v2-user:2.18.0"
-    
+
+    // Timber
+    implementation 'com.jakewharton.timber:timber:5.0.1'
 }
 kapt {
     correctErrorTypes true
