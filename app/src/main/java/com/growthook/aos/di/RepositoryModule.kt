@@ -1,7 +1,9 @@
 package com.growthook.aos.di
 
 import com.growthook.aos.data.repository.TokenRepositoryImpl
+import com.growthook.aos.data.repository.UserRepositoryImpl
 import com.growthook.aos.domain.repository.TokenRepository
+import com.growthook.aos.domain.repository.UserRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -18,5 +20,5 @@ abstract class RepositoryModule {
 
     @Singleton
     @Binds
-    abstract fun providesUserRepository(repoImpl: TokenRepositoryImpl): TokenRepository
+    abstract fun providesUserRepository(repoImpl: UserRepositoryImpl): UserRepository
 }
