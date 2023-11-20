@@ -56,7 +56,7 @@ class KakaoUserCallback(private val onSuccess: (userName: String) -> Unit) {
                 }
             }
         } else if (user != null) {
-            Timber.d("로그인 성공")
+            Timber.d("유저 조회 성공")
             user.kakaoAccount?.profile?.nickname?.let { onSuccess(it) }
         }
     }
