@@ -8,6 +8,7 @@ import com.growthook.aos.data.service.KakaoAuthService
 import com.growthook.aos.databinding.ActivityLoginBinding
 import com.growthook.aos.presentation.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -24,6 +25,7 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         isAlreadyLogin()
+        getUserKakaoNickName()
         startKakaoLogin()
         isKakaoLogin()
     }
@@ -32,6 +34,10 @@ class LoginActivity : AppCompatActivity() {
         binding.btnLoginKakao.setOnClickListener {
             kakaoAuthService.startKakaoLogin(viewModel.kakaoLoginCallback)
         }
+    }
+
+    private fun getUserKakaoNickName(){
+        kakaoAuthService.kakaoGetUserInfo(viewModel.kakaoUserCallback)
     }
 
     private fun isKakaoLogin() {

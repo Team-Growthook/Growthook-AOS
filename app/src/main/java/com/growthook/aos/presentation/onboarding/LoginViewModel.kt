@@ -8,7 +8,9 @@ import com.growthook.aos.domain.usecase.local.GetUserUseCase
 import com.growthook.aos.domain.usecase.local.PostTokenUseCase
 import com.growthook.aos.domain.usecase.local.PostUserUseCase
 import com.growthook.aos.util.callback.KakaoLoginCallback
+import com.growthook.aos.util.callback.KakaoUserCallback
 import com.kakao.sdk.auth.model.OAuthToken
+import com.kakao.sdk.user.model.User
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -34,6 +36,15 @@ class LoginViewModel @Inject constructor(
         }.handleResult(token, error)
     }
 
+    val kakaoUserCallback: (User?, Throwable?) -> Unit = { user, error ->
+        KakaoUserCallback { userName ->
+            viewModelScope.launch {
+                postUserUseCase.invoke(userName)
+                Timber.d("유저 닉네임: ${getUserUseCase.invoke().name}")
+            }
+        }.handleResult(user, error)
+    }
+
     fun login(socialPlatform: String) = viewModelScope.launch {
         Timber.d("LoginViewModel 로그인 함수 호출")
     }
@@ -42,5 +53,6 @@ class LoginViewModel @Inject constructor(
         var userInfo = getUserUseCase.invoke()
         _isAlreadyLogin.value = !userInfo.name.isNullOrBlank()
         Timber.d("자동 로그인 여부 $isAlreadyLogin")
+        Timber.d("닉네임: ${getUserUseCase.invoke().name}")
     }
 }
