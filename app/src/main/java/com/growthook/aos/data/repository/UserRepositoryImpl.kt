@@ -8,8 +8,8 @@ import javax.inject.Inject
 
 class UserRepositoryImpl @Inject constructor(private val dataStore: DataStore<User>) :
     UserRepository {
-    override suspend fun setUserInfo(userInfo: User) {
-        dataStore.updateData { User(userInfo.name) }
+    override suspend fun setUserInfo(userName: String) {
+        dataStore.updateData { User(userName) }
     }
 
     override suspend fun getUserInfo(): User = dataStore.data.first()

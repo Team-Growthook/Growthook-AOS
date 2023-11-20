@@ -4,6 +4,6 @@ import com.growthook.aos.data.entity.User
 
 interface UserRepository {
 
-    suspend fun setUserInfo(userInfo: User)
+    suspend fun setUserInfo(userName: String)
     suspend fun getUserInfo(): User
 }
