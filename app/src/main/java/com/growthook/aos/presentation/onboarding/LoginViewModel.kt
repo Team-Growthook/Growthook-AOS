@@ -23,15 +23,15 @@ class LoginViewModel @Inject constructor(
     private val postTokenUseCase: PostTokenUseCase,
 ) :
     ViewModel() {
-    private val _isKakaoLogin = MutableLiveData<Boolean>()
-    val isKakaoLogin: LiveData<Boolean> = _isKakaoLogin
+    private val _isLoginSuccess = MutableLiveData<Boolean>()
+    val isLoginSuccess: LiveData<Boolean> = _isLoginSuccess
 
     private val _isAlreadyLogin = MutableLiveData<Boolean>()
     val isAlreadyLogin: LiveData<Boolean> get() = _isAlreadyLogin
 
     val kakaoLoginCallback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
         KakaoLoginCallback {
-            _isKakaoLogin.value = true
+            _isLoginSuccess.value = true
             Timber.d("LoginViewModel 카카오 로그인 set 토큰 $token")
         }.handleResult(token, error)
     }
