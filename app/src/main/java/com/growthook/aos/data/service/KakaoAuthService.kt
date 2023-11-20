@@ -3,6 +3,7 @@ package com.growthook.aos.data.service
 import android.content.Context
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.user.UserApiClient
+import com.kakao.sdk.user.model.User
 import dagger.hilt.android.qualifiers.ActivityContext
 import javax.inject.Inject
 
@@ -39,6 +40,10 @@ class KakaoAuthService @Inject constructor(@ActivityContext private val context:
     // 탈퇴퇴
     fun kakaoDeleteAccount(kakaoLogoutCallBack: (Throwable?) -> Unit) {
         UserApiClient.instance.unlink(kakaoLogoutCallBack)
+    }
+
+    fun kakaoGetUserInfo(userCallback: (User?, Throwable?) -> Unit) {
+        UserApiClient.instance.me(callback = userCallback)
     }
 
     companion object {
