@@ -35,6 +35,10 @@ class MypageFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        clickLogout()
+    }
+
+    private fun clickLogout() {
         binding.btnMypageLogout.setOnClickListener {
             kakaoAuthService.kakaoLogout(viewModel.kakaoLogoutCallback)
             viewModel.isLogoutSuccess.observe(viewLifecycleOwner) {
