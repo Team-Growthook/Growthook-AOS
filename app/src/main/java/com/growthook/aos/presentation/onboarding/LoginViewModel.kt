@@ -52,7 +52,7 @@ class LoginViewModel @Inject constructor(
     fun checkIsAlreadyLogin() = viewModelScope.launch {
         var userInfo = getUserUseCase.invoke()
         _isAlreadyLogin.value = !userInfo.name.isNullOrBlank()
-        Timber.d("자동 로그인 여부 $isAlreadyLogin")
+        Timber.d("자동 로그인 여부 ${isAlreadyLogin.value}")
         Timber.d("닉네임: ${getUserUseCase.invoke().name}")
     }
 }
