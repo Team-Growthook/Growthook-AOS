@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.growthook.aos.domain.usecase.local.GetUserUseCase
 import com.growthook.aos.domain.usecase.local.PostTokenUseCase
 import com.growthook.aos.domain.usecase.local.PostUserUseCase
-import com.growthook.aos.util.extension.KakaoLoginCallback
+import com.growthook.aos.util.callback.KakaoLoginCallback
 import com.kakao.sdk.auth.model.OAuthToken
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

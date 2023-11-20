@@ -1,4 +1,4 @@
-package com.growthook.aos.util.extension
+package com.growthook.aos.util.callback
 
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.AuthErrorCause
