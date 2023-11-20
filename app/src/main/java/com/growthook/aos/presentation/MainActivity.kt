@@ -10,7 +10,9 @@ import com.growthook.aos.databinding.ActivityMainBinding
 import com.growthook.aos.presentation.home.HomeFragment
 import com.growthook.aos.presentation.mypage.MypageFragment
 import com.growthook.aos.presentation.planlist.PlanlistFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
