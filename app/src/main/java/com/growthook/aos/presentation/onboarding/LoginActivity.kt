@@ -23,7 +23,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        isAlreadyLogin()
         startKakaoLogin()
         isKakaoLogin()
     }
@@ -34,10 +34,28 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    private fun getUserKakaoNickName() {
+        kakaoAuthService.kakaoGetUserInfo(viewModel.kakaoUserCallback)
+    }
+
     private fun isKakaoLogin() {
-        viewModel.isKakaoLogin.observe(this) { isLogin ->
-            if (isLogin) {
+        viewModel.isLoginSuccess.observe(this) { isSuccess ->
+            if (isSuccess) {
+                getUserKakaoNickName()
                 val intent = Intent(this, MainActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+                finish()
+            }
+        }
+    }
+
+    private fun isAlreadyLogin() {
+        viewModel.checkIsAlreadyLogin()
+        viewModel.isAlreadyLogin.observe(this) { isAlreadyLogin ->
+            if (isAlreadyLogin) {
+                val intent =
+                    Intent(this@LoginActivity, MainActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
                 finish()

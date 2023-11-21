@@ -8,15 +8,17 @@ import androidx.fragment.app.replace
 import com.growthook.aos.R
 import com.growthook.aos.databinding.ActivityMainBinding
 import com.growthook.aos.presentation.home.HomeFragment
-import com.growthook.aos.presentation.mypage.MypageFragment
+import com.growthook.aos.presentation.mypage.MyPageFragment
 import com.growthook.aos.presentation.planlist.PlanlistFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(R.layout.activity_main)
+        setContentView(binding.root)
         initBottomNavigation()
     }
 
@@ -28,7 +30,7 @@ class MainActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.menu_home -> navigateTo<HomeFragment>()
                 R.id.menu_planlist -> navigateTo<PlanlistFragment>()
-                R.id.menu_mypage -> navigateTo<MypageFragment>()
+                R.id.menu_mypage -> navigateTo<MyPageFragment>()
             }
             true
         }
