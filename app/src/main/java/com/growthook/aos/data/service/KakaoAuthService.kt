@@ -37,7 +37,6 @@ class KakaoAuthService @Inject constructor(@ActivityContext private val context:
         UserApiClient.instance.logout(kakaoLogoutCallBack)
     }
 
-    // 탈퇴퇴
     fun kakaoDeleteAccount(kakaoLogoutCallBack: (Throwable?) -> Unit) {
         UserApiClient.instance.unlink(kakaoLogoutCallBack)
     }
