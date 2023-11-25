@@ -163,38 +163,35 @@
         android:text="스크랩"
         android:textAppearance="@style/detail3_reg"
         android:textColor="@color/sel_home_scrap"
-        app:layout_constraintEnd_toEndOf="@id/rv_home_insignt"
         app:layout_constraintBottom_toTopOf="@id/rv_home_insignt"
+        app:layout_constraintEnd_toEndOf="@id/rv_home_insignt"
         app:useMaterialThemeColors="false" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_home_insignt"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="32dp"
         android:layout_marginHorizontal="18dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_home_insight_title" />
 
-    <com.google.android.material.button.MaterialButton
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="18dp"
         android:layout_marginBottom="18dp"
-        android:background="@drawable/rect_green400_fill_50"
-        android:gravity="center"
-        android:includeFontPadding="false"
-        android:paddingStart="22dp"
-        android:paddingTop="10dp"
-        android:paddingEnd="21dp"
-        android:paddingBottom="14dp"
+        android:backgroundTint="@color/MainGreen400"
         android:text="씨앗"
+        app:iconPadding="5dp"
         android:textAppearance="@style/body1_bold"
+        android:textColor="@color/White000"
         app:icon="@drawable/ic_insight_plus"
         app:iconGravity="textEnd"
-        app:iconPadding="5dp"
+        app:iconSize="14dp"
+        app:iconTint="@color/White000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
