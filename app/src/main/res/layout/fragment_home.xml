@@ -134,6 +134,7 @@
         app:layout_constraintTop_toBottomOf="@id/rv_home_cave" />
 
     <TextView
+        android:id="@+id/tv_home_insight_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="18dp"
@@ -145,30 +146,57 @@
         tools:text="00개의 씨앗을 모았어요!" />
 
     <CheckBox
-        android:checked="false"
-        android:includeFontPadding="false"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableTint="@color/sel_home_scrap"
-        android:drawableStart="@drawable/sel_home_scrap"
-        app:useMaterialThemeColors="false"
-        android:textColor="@color/sel_home_scrap"
-        android:text="스크랩"
-        android:textAppearance="@style/detail3_reg"
-        android:drawableLeft="18dp"
+        android:layout_marginTop="36dp"
+        android:background="@null"
         android:button="@null"
+        android:checked="false"
+        android:drawableStart="@drawable/sel_home_scrap"
+        android:drawablePadding="4dp"
+        android:drawableTint="@color/sel_home_scrap"
+        android:gravity="end|center"
+        android:includeFontPadding="false"
+        android:paddingStart="18dp"
         android:paddingTop="14dp"
         android:paddingBottom="14dp"
-        android:paddingStart="18dp"
-        android:drawablePadding="4dp"
+        android:text="스크랩"
+        android:textAppearance="@style/detail3_reg"
+        android:textColor="@color/sel_home_scrap"
+        app:layout_constraintEnd_toEndOf="@id/rv_home_insignt"
+        app:layout_constraintBottom_toTopOf="@id/rv_home_insignt"
+        app:useMaterialThemeColors="false" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_home_insignt"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginHorizontal="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="36dp"
-        app:layout_constraintTop_toBottomOf="@id/view_home_line"
-        android:gravity="end|center"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_home_insight_title" />
 
-
-
-
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="18dp"
+        android:layout_marginBottom="18dp"
+        android:background="@drawable/rect_green400_fill_50"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:paddingStart="22dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="21dp"
+        android:paddingBottom="14dp"
+        android:text="씨앗"
+        android:textAppearance="@style/body1_bold"
+        app:icon="@drawable/ic_insight_plus"
+        app:iconGravity="textEnd"
+        app:iconPadding="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
