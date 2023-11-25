@@ -146,19 +146,25 @@
 
     <CheckBox
         android:checked="false"
-        android:layout_width="100dp"
-        android:layout_height="0dp"
+        android:includeFontPadding="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableTint="@color/sel_home_scrap"
+        android:drawableStart="@drawable/sel_home_scrap"
         app:useMaterialThemeColors="false"
         android:textColor="@color/sel_home_scrap"
         android:text="스크랩"
-        app:buttonTint="@color/sel_home_scrap"
-        android:button="@drawable/sel_home_scrap"
-        android:buttonTint="@color/sel_home_scrap"
-        app:layout_constraintDimensionRatio="100:44"
+        android:textAppearance="@style/detail3_reg"
+        android:drawableLeft="18dp"
+        android:button="@null"
+        android:paddingTop="14dp"
+        android:paddingBottom="14dp"
+        android:paddingStart="18dp"
+        android:drawablePadding="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="36dp"
         app:layout_constraintTop_toBottomOf="@id/view_home_line"
-        android:gravity="end"/>
+        android:gravity="end|center"/>
 
 
 
