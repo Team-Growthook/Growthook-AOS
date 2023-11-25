@@ -11,7 +11,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 abstract class BaseBottomSheetFragment<T : ViewBinding>(@LayoutRes private val layoutResId: Int) :
     BottomSheetDialogFragment() {
     private var _binding: T? = null
-    private val binding: T
+    val binding: T
         get() = requireNotNull(_binding) { "${this::class.java.simpleName}에서 에러가 발생했습니다." }
 
     abstract fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): T
