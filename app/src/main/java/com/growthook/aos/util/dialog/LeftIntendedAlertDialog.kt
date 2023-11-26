@@ -20,26 +20,46 @@ class LeftIntendedAlertDialog : BaseAlertDialog() {
     }
 
     override fun setTitle() {
-        TODO("Not yet implemented")
+        binding.tvLeftIntendedTitle.text = title
     }
 
     override fun setDescription() {
-        TODO("Not yet implemented")
+        binding.tvLeftIntendedDesc.text = description
     }
 
     override fun setPositiveText() {
-        TODO("Not yet implemented")
+        binding.tvLeftIntendedLeft.text = positiveText
     }
 
     override fun setNegativeText() {
-        TODO("Not yet implemented")
+        binding.tvLeftIntendedRight.text = negativeText
+    }
+
+    override fun setTipText() {
+    }
+
+    override fun setTipVisility() {
+    }
+
+    override fun remainThookVisility() {
+    }
+
+    override fun backgroundImageVisility() {
+    }
+
+    override fun descriptionVisility() {
+        if (isDescriptionVisility == true) {
+            binding.tvLeftIntendedDesc.visibility = View.VISIBLE
+        } else {
+            binding.tvLeftIntendedDesc.visibility = View.GONE
+        }
     }
 
     override fun setPositiveClick(action: () -> Unit) {
-        TODO("Not yet implemented")
+        binding.tvLeftIntendedLeft.setOnClickListener { action() }
     }
 
     override fun setNegativeClick(action: () -> Unit) {
-        TODO("Not yet implemented")
+        binding.tvLeftIntendedRight.setOnClickListener { action() }
     }
 }

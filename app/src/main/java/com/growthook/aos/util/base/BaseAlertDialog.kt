@@ -18,11 +18,28 @@ abstract class BaseAlertDialog : DialogFragment() {
     protected var description: String? = null
     protected var positiveText: String? = null
     protected var negativeText: String? = null
+    protected var tipText: String? = null
+    protected var isTipVisility: Boolean? = false
+    protected var isRemainThookVisility: Boolean? = false
+    protected var isBackgroundImageVisility: Boolean? = false
+    protected var isDescriptionVisility: Boolean? = false
     protected lateinit var positiveAction: () -> Unit
     protected lateinit var negativeAction: () -> Unit
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setSize()
+        setBackgroundTransparent()
+        setTitle()
+        setDescription()
+        setPositiveText()
+        setNegativeText()
+        setTipText()
+        setTipVisility()
+        remainThookVisility()
+        backgroundImageVisility()
+        setPositiveClick { positiveAction(); dismiss() }
+        setNegativeClick { negativeAction(); dismiss() }
     }
 
     private fun setSize() {
@@ -38,6 +55,12 @@ abstract class BaseAlertDialog : DialogFragment() {
     abstract fun setDescription()
     abstract fun setPositiveText()
     abstract fun setNegativeText()
+    abstract fun setTipText()
+    abstract fun setTipVisility()
+    abstract fun remainThookVisility()
+    abstract fun backgroundImageVisility()
+    abstract fun descriptionVisility()
+
     abstract fun setPositiveClick(action: () -> Unit)
     abstract fun setNegativeClick(action: () -> Unit)
 
@@ -50,6 +73,11 @@ abstract class BaseAlertDialog : DialogFragment() {
             description: String,
             positiveText: String,
             negativeText: String,
+            tipText: String,
+            isTipVisility: Boolean,
+            isRemainThookVisility: Boolean,
+            isBackgroundImageVisility: Boolean,
+            isDescriptionVisility: Boolean,
             positiveAction: () -> Unit,
             negativeAction: () -> Unit,
         ): BaseAlertDialog {
@@ -58,6 +86,11 @@ abstract class BaseAlertDialog : DialogFragment() {
                 this.description = description
                 this.positiveText = positiveText
                 this.negativeText = negativeText
+                this.tipText = tipText
+                this.isTipVisility = isTipVisility
+                this.isRemainThookVisility = isRemainThookVisility
+                this.isBackgroundImageVisility = isBackgroundImageVisility
+                this.isDescriptionVisility = isDescriptionVisility
                 this.positiveAction = positiveAction
                 this.negativeAction = negativeAction
                 this.isCancelable = this@Builder.isCancelable
@@ -85,12 +118,6 @@ abstract class BaseAlertDialog : DialogFragment() {
         SINGLE_INTENDED {
             override fun getInstance(): BaseAlertDialog = SingleIntendedAlertDialog()
         },
-//        RIGHT_INTENDED_WITH_INNER_VIEW {
-//            override fun getInstance(): BaseAlertDialog = RightIntendedWithInnerViewAlertDialog()
-//        },
-//        SINGLE_INTENDED_WITH_INNER_VIEW {
-//            override fun getInstance(): BaseAlertDialog = SingleIntendedWithInnerViewAlertDialog()
-//        },
         ;
 
         abstract fun getInstance(): BaseAlertDialog

@@ -31,14 +31,79 @@
         app:layout_constraintTop_toBottomOf="@id/tv_right_intended_title"
         tools:text="삭제한 인사이트는 다시 복구할 수 없으니\n신중하게 결정해 주세요!" />
 
+    <TextView
+        android:id="@+id/tv_right_intended_tip"
+        style="@style/detail3_reg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="12dp"
+        android:layout_marginTop="14dp"
+        android:background="@drawable/rec_radius_4"
+        android:backgroundTint="@color/Gray500"
+        android:gravity="center"
+        android:paddingHorizontal="7dp"
+        android:paddingVertical="10dp"
+        android:textColor="@color/Gray200"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_right_intended_desc"
+        tools:text="Tip. 인사이트 ‘계획하기’를 통해 액션 플랜을 설정하고,\n달성하면 새로운 쑥을 얻을 수 있어요!"
+        />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_right_intended_remain_thook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/rec_radius_14_green400"
+        android:paddingHorizontal="13dp"
+        android:paddingVertical="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_right_intended_tip"
+        >
+
+        <TextView
+            android:id="@+id/tv_right_intended_remain_thook"
+            style="@style/detail2_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="현재 남은 쑥"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_right_intended_remain_thook"
+            android:layout_width="10dp"
+            android:layout_height="12dp"
+            android:layout_marginStart="3dp"
+            android:src="@drawable/img_thook"
+            app:layout_constraintBottom_toBottomOf="@id/tv_right_intended_remain_thook"
+            app:layout_constraintDimensionRatio="0.83"
+            app:layout_constraintStart_toEndOf="@id/tv_right_intended_remain_thook"
+            app:layout_constraintTop_toTopOf="@id/tv_right_intended_remain_thook" />
+
+        <TextView
+            android:id="@+id/tv_right_intended_remain_thook_number"
+            style="@style/detail2_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="00"
+            app:layout_constraintBottom_toBottomOf="@id/iv_right_intended_remain_thook"
+            app:layout_constraintStart_toEndOf="@id/iv_right_intended_remain_thook"
+            app:layout_constraintTop_toTopOf="@id/iv_right_intended_remain_thook" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <com.google.android.material.divider.MaterialDivider
         android:id="@+id/divider_right_intended"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:layout_marginTop="34dp"
+        android:layout_marginTop="23dp"
         app:dividerColor="@color/Gray300"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_right_intended_desc" />
+        app:layout_constraintTop_toBottomOf="@id/cl_right_intended_remain_thook" />
 
     <TextView
         android:id="@+id/tv_right_intended_left"

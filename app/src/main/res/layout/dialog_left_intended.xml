@@ -29,7 +29,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_left_intended_title"
-        tools:text="삭제한 인사이트는 다시 복구할 수 없으니\n신중하게 결정해 주세요!" />
+        tools:text="삭제한 인사이트는 다시 복구할 수 없으니\n신중하게 결정해 주세요!"
+        />
 
     <com.google.android.material.divider.MaterialDivider
         android:id="@+id/divider_left_intended"

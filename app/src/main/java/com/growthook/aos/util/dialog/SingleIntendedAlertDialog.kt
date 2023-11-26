@@ -1,29 +1,68 @@
 package com.growthook.aos.util.dialog
 
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import com.growthook.aos.databinding.DialogSingleIntendedBinding
 import com.growthook.aos.util.base.BaseAlertDialog
 
 class SingleIntendedAlertDialog : BaseAlertDialog() {
+    private val binding: DialogSingleIntendedBinding get() = _binding!! as DialogSingleIntendedBinding
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View {
+        _binding = DialogSingleIntendedBinding.inflate(layoutInflater)
+        return binding.root
+    }
+
     override fun setTitle() {
-        TODO("Not yet implemented")
+        binding.tvSingleIntendedTitle.text = title
     }
 
     override fun setDescription() {
-        TODO("Not yet implemented")
+        binding.tvSingleIntendedDesc.text = description
     }
 
     override fun setPositiveText() {
-        TODO("Not yet implemented")
+        binding.tvSingleIntendedBottom.text = positiveText
     }
 
     override fun setNegativeText() {
-        TODO("Not yet implemented")
+    }
+
+    override fun setTipText() {
+    }
+
+    override fun setTipVisility() {
+        if (isTipVisility == true) {
+            binding.tvSingleIntendedTip.visibility = View.VISIBLE
+        } else {
+            binding.tvSingleIntendedTip.visibility = View.GONE
+        }
+    }
+
+    override fun remainThookVisility() {
+    }
+
+    override fun backgroundImageVisility() {
+        if (isBackgroundImageVisility == true) {
+            binding.ivSingleIntendedRewardThook.visibility = View.VISIBLE
+        } else {
+            binding.ivSingleIntendedRewardThook.visibility = View.GONE
+        }
+    }
+
+    override fun descriptionVisility() {
     }
 
     override fun setPositiveClick(action: () -> Unit) {
-        TODO("Not yet implemented")
+        binding.tvSingleIntendedBottom.setOnClickListener { action() }
     }
 
     override fun setNegativeClick(action: () -> Unit) {
-        TODO("Not yet implemented")
     }
 }
