@@ -48,11 +48,15 @@ class HomeFragment : Fragment() {
 
     private fun setAdapter() {
         val homeInsightAdapter = HomeInsightAdapter()
-        homeInsightAdapter.submitList(viewModel.dummyInsights)
+        viewModel.insights.observe(viewLifecycleOwner) {
+            homeInsightAdapter.submitList(it)
+        }
         binding.rvHomeInsight.adapter = homeInsightAdapter
 
         val caveAdapter = CaveAdapter()
-        caveAdapter.submitList(viewModel.dummyCave)
+        viewModel.caves.observe(viewLifecycleOwner) {
+            caveAdapter.submitList(it)
+        }
         binding.rvHomeCave.adapter = caveAdapter
     }
 
