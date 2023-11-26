@@ -111,6 +111,9 @@ dependencies {
     debugImplementation 'com.facebook.flipper:flipper-network-plugin:0.174.0'
     releaseImplementation 'com.facebook.flipper:flipper-noop:0.174.0'
 
+    // ballon
+    implementation("com.github.skydoves:balloon:1.6.3")
+
 }
 kapt {
     correctErrorTypes true

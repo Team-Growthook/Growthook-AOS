@@ -22,12 +22,20 @@ class HomeViewModel @Inject constructor(
     private val _insightAmount = MutableLiveData(0)
     val insightAmount: LiveData<Int> = _insightAmount
 
+    private val _alertAmount = MutableLiveData<Int>()
+    val alertAmount: LiveData<Int> = _alertAmount
+
     init {
         viewModelScope.launch {
             getUserUseCase.invoke().name.let { nickName ->
                 _nickName.value = nickName
             }
+            getAlertCount()
         }
+    }
+
+    private fun getAlertCount() {
+        _alertAmount.value = 0
     }
 
     var dummyInsights = listOf(
