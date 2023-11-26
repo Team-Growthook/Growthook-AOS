@@ -32,12 +32,12 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initTitleText()
-        initAdapter()
+        setTitleText()
+        setAdapter()
         setAlertMessage()
     }
 
-    private fun initTitleText() {
+    private fun setTitleText() {
         viewModel.nickname.observe(viewLifecycleOwner) { nickName ->
             binding.tvHomeAppbarTitle.text = "${nickName}님의 동굴 속"
         }
@@ -46,7 +46,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun initAdapter() {
+    private fun setAdapter() {
         val homeInsightAdapter = HomeInsightAdapter()
         homeInsightAdapter.submitList(viewModel.dummyInsights)
         binding.rvHomeInsight.adapter = homeInsightAdapter
