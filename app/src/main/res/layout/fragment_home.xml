@@ -146,6 +146,7 @@
         tools:text="00개의 씨앗을 모았어요!" />
 
     <CheckBox
+        android:id="@+id/chb_home_scrap"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"

@@ -9,6 +9,7 @@ import com.growthook.aos.domain.entity.Insight
 import com.growthook.aos.domain.usecase.local.GetUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -37,6 +38,7 @@ class HomeViewModel @Inject constructor(
                 _nickName.value = nickName
             }
             getAlertCount()
+            getCaves()
             getInsights()
         }
     }
@@ -45,7 +47,7 @@ class HomeViewModel @Inject constructor(
         _alertAmount.value = 0
     }
 
-    private fun getInsights() {
+    fun getInsights() {
         var dummyInsights = listOf(
             Insight(
                 "제목1",
@@ -121,6 +123,11 @@ class HomeViewModel @Inject constructor(
         )
 
         _insights.value = dummyInsights
+    }
+
+    fun getScrapedInsight() {
+        _insights.value = _insights.value?.filter { it.isScraped }
+        Timber.d("getScrapedInsight ${_insights.value?.size}")
     }
 
     fun getCaves() {

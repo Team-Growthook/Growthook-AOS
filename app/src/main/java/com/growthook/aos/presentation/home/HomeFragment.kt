@@ -35,6 +35,20 @@ class HomeFragment : Fragment() {
         setTitleText()
         setAdapter()
         setAlertMessage()
+
+        binding.chbHomeScrap.setOnCheckedChangeListener { button, isChecked ->
+            if (isChecked) {
+                viewModel.getScrapedInsight()
+            } else {
+                viewModel.getInsights()
+            }
+        }
+
+        if (!binding.chbHomeScrap.isChecked) {
+            viewModel.getInsights()
+        } else {
+            viewModel.getScrapedInsight()
+        }
     }
 
     private fun setTitleText() {
