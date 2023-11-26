@@ -1,5 +1,6 @@
 package com.growthook.aos.presentation.insight.noactionplan
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,16 +11,18 @@ import com.growthook.aos.databinding.ItemInsightCaveBinding
 import com.growthook.aos.domain.entity.Cave
 import com.growthook.aos.util.extension.ItemDiffCallback
 
-class InsightCaveAdapter(private val selectedItem: () -> Unit) :
+class InsightCaveAdapter(private val selectedItem: (String) -> Unit) :
     ListAdapter<Cave, InsightCaveAdapter.InsightCaveViewHolder>(
         ItemDiffCallback<Cave>(
             onContentsTheSame = { old, new -> old == new },
             onItemsTheSame = { old, new -> old.id == new.id },
         ),
     ) {
-    class InsightCaveViewHolder(
+    private var selectedItemPosition = RecyclerView.NO_POSITION
+
+    inner class InsightCaveViewHolder(
         private val binding: ItemInsightCaveBinding,
-        private val selectedItem: () -> Unit,
+        private val selectedItem: (String) -> Unit,
     ) :
         RecyclerView.ViewHolder(binding.root) {
         private var isItemSelected = false
@@ -28,10 +31,13 @@ class InsightCaveAdapter(private val selectedItem: () -> Unit) :
                 tvItemCaveTitle.text = data.name
                 clItemCaveMain.setOnClickListener {
                     isItemSelected = !isItemSelected
-                    selectedItem()
+                    selectedItemPosition = bindingAdapterPosition
+                    val selectedCaveItem = getItem(selectedItemPosition)
+                    Log.d("insightCaveAdaper", "selectedCaveItem:: ${selectedCaveItem.name}")
                     if (isItemSelected) {
                         clItemCaveMain.setBackgroundResource(R.color.Gray500)
                         ivItemCaveSelected.visibility = View.VISIBLE
+                        selectedItem(selectedCaveItem.name)
                     } else {
                         clItemCaveMain.setBackgroundResource(R.color.Gray400)
                         ivItemCaveSelected.visibility = View.INVISIBLE
