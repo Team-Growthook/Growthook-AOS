@@ -58,7 +58,7 @@ class InsightCaveBottomsheet :
                 delay(100)
                 dismiss()
             }
-            Toast.makeText(context, "씨앗을 옮겨 심었어요", Toast.LENGTH_LONG).show()
+            Toast.makeText(context, "씨앗을 옮겨 심었어요", Toast.LENGTH_SHORT).show()
         }
     }
 }
