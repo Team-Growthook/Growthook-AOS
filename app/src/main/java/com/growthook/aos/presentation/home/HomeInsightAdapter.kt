@@ -63,7 +63,7 @@ class HomeInsightAdapter : ListAdapter<Insight, RecyclerView.ViewHolder>(diffCal
     class LockedInsightViewHolder(private val binding: ItemHomeInsightLockBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun onBind(item: Insight) {
-            if (item.isLocked) {
+            if (item.isScraped) {
                 binding.btnHomeScrap.setImageResource(R.drawable.ic_insight_no_action_yes_scrap)
             }
             binding.tvHomeInsightTitle.text = item.title
@@ -74,7 +74,7 @@ class HomeInsightAdapter : ListAdapter<Insight, RecyclerView.ViewHolder>(diffCal
     class YesActionViewHolder(private val binding: ItemHomeInsightYesActionBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun onBind(item: Insight) {
-            if (item.isLocked) {
+            if (item.isScraped) {
                 binding.btnHomeScrap.setImageResource(R.drawable.ic_insight_yes_action_yes_scrap)
             }
             binding.tvHomeInsightTitle.text = item.title
@@ -85,7 +85,7 @@ class HomeInsightAdapter : ListAdapter<Insight, RecyclerView.ViewHolder>(diffCal
     class NoActionViewHolder(private val binding: ItemHomeInsightNoActionBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun onBind(item: Insight) {
-            if (item.isLocked) {
+            if (item.isScraped) {
                 binding.btnHomeScrap.setImageResource(R.drawable.ic_insight_no_action_yes_scrap)
             }
             binding.tvHomeInsightTitle.text = item.title
