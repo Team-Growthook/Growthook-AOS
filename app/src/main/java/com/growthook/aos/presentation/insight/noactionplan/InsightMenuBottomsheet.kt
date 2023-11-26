@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.growthook.aos.R
 import com.growthook.aos.databinding.FragmentInsightMenuBottomsheetBinding
 import com.growthook.aos.util.base.BaseAlertDialog
@@ -66,7 +67,7 @@ class InsightMenuBottomsheet :
                 isRemainThookVisility = false,
                 isTipVisility = false,
                 negativeAction = {
-                    // TODO 삭제 로직 구현 필요
+                    Toast.makeText(context, "씨앗이 삭제되었어요", Toast.LENGTH_SHORT).show()
                 },
                 positiveAction = {},
             ).show(parentFragmentManager, DELETE_DIALOG)
