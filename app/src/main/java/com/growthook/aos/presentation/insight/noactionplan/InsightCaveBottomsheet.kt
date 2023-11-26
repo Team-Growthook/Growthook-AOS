@@ -31,6 +31,7 @@ class InsightCaveBottomsheet :
         super.onViewCreated(view, savedInstanceState)
         observeCaveData()
         initAdapter()
+        clickBottomBtn()
     }
 
     private fun initAdapter() {
@@ -47,11 +48,17 @@ class InsightCaveBottomsheet :
         }
     }
 
-    private fun clickCaveItem() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            delay(1000)
-            dismiss()
+    private fun clickCaveItem(caveName: String) {
+        // TODO 뷰모델에 선택한 아이템 정보 담기
+    }
+
+    private fun clickBottomBtn() {
+        binding.btnInsightCave.setOnClickListener {
+            viewLifecycleOwner.lifecycleScope.launch {
+                delay(100)
+                dismiss()
+            }
+            Toast.makeText(context, "씨앗을 옮겨 심었어요", Toast.LENGTH_LONG).show()
         }
-        Toast.makeText(context, "씨앗을 옮겨 심었어요", Toast.LENGTH_LONG).show()
     }
 }
