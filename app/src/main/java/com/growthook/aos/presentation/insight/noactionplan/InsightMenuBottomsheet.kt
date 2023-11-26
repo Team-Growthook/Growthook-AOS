@@ -1,4 +1,4 @@
-package com.growthook.aos.presentation.insight
+package com.growthook.aos.presentation.insight.noactionplan
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -20,7 +20,13 @@ class InsightMenuBottomsheet :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setClickListeners()
+    }
+
+    private fun setClickListeners() {
         clickMoveMenu()
+        clickDeletedMenu()
+        clickModifyMenu()
     }
 
     private fun clickMoveMenu() {
@@ -28,6 +34,18 @@ class InsightMenuBottomsheet :
             dismiss()
             val bottomSheetDialog = InsightCaveBottomsheet()
             bottomSheetDialog.show(parentFragmentManager, "show")
+        }
+    }
+
+    private fun clickDeletedMenu() {
+        binding.clInsightMenuDelete.setOnClickListener {
+            // 삭제하기 다이얼로그 구현
+        }
+    }
+
+    private fun clickModifyMenu() {
+        binding.clInsightMenuModify.setOnClickListener {
+            // 수정하기 액티비티로 이동
         }
     }
 }
