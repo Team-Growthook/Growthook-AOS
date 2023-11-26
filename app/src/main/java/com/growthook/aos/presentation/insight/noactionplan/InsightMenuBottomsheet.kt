@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.growthook.aos.R
 import com.growthook.aos.databinding.FragmentInsightMenuBottomsheetBinding
+import com.growthook.aos.util.base.BaseAlertDialog
 import com.growthook.aos.util.base.BaseBottomSheetFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -39,7 +40,8 @@ class InsightMenuBottomsheet :
 
     private fun clickDeletedMenu() {
         binding.clInsightMenuDelete.setOnClickListener {
-            // 삭제하기 다이얼로그 구현
+            dismiss()
+            showDeleteDialog()
         }
     }
 
@@ -47,5 +49,30 @@ class InsightMenuBottomsheet :
         binding.clInsightMenuModify.setOnClickListener {
             // 수정하기 액티비티로 이동
         }
+    }
+
+    private fun showDeleteDialog() {
+        BaseAlertDialog.Builder()
+            .setCancelable(false)
+            .build(
+                type = BaseAlertDialog.DialogType.LEFT_INTENDED,
+                title = "정말로 삭제할까요?",
+                description = "삭제한 인사이트는 다시 복구할 수 없으니\n신중하게 결정해 주세요!",
+                positiveText = "유지하기",
+                negativeText = "삭제하기",
+                tipText = "",
+                isBackgroundImageVisility = false,
+                isDescriptionVisility = true,
+                isRemainThookVisility = false,
+                isTipVisility = false,
+                negativeAction = {
+                    // TODO 삭제 로직 구현 필요
+                },
+                positiveAction = {},
+            ).show(parentFragmentManager, DELETE_DIALOG)
+    }
+
+    companion object {
+        const val DELETE_DIALOG = "delete dialog"
     }
 }
