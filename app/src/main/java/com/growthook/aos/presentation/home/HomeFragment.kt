@@ -82,7 +82,7 @@ class HomeFragment : Fragment() {
             .setHeight(BalloonSizeSpec.WRAP)
             .setMarginRight(13)
             .setLifecycleOwner(viewLifecycleOwner)
-            .setAutoDismissDuration(3000L)
+            .setAutoDismissDuration(2000L)
             .build()
 
         val noAlertBalloon = Balloon.Builder(requireContext())
