@@ -23,6 +23,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private val viewModel: HomeViewModel by viewModels()
 
+    private var _caveAdapter: CaveAdapter? = null
+    private val caveAdapter
+        get() = requireNotNull(_caveAdapter) { "adapter is null" }
+
+    private var _insightAdapter: HomeInsightAdapter? = null
+    private val insightAdapter
+        get() = requireNotNull(_insightAdapter) { "adapter is null" }
+
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -60,11 +68,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun setAdapter() {
-        val homeInsightAdapter = HomeInsightAdapter(::clickedInsight)
+        _insightAdapter = HomeInsightAdapter(::clickedInsight)
         viewModel.insights.observe(viewLifecycleOwner) {
-            homeInsightAdapter.submitList(it)
+            insightAdapter.submitList(it)
         }
-        binding.rvHomeInsight.adapter = homeInsightAdapter
+        binding.rvHomeInsight.adapter = insightAdapter
 
         val tracker = SelectionTracker.Builder<Long>(
             "mySelection",
@@ -75,9 +83,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         ).withSelectionPredicate(
             SelectionPredicates.createSelectSingleAnything(),
         ).build()
-        homeInsightAdapter.setSelectionTracker(tracker)
+        insightAdapter.setSelectionTracker(tracker)
 
-        val caveAdapter = CaveAdapter()
+        _caveAdapter = CaveAdapter()
         viewModel.caves.observe(viewLifecycleOwner) {
             caveAdapter.submitList(it)
         }
@@ -125,6 +133,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     override fun onDestroyView() {
+        _caveAdapter = null
+        _insightAdapter = null
         super.onDestroyView()
     }
 }
