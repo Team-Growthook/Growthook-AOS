@@ -1,5 +1,6 @@
 package com.growthook.aos.domain.entity
 
 data class Cave(
-    val title: String,
+    val id: Int,
+    val name: String,
 )
