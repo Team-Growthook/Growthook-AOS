@@ -5,33 +5,26 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.growthook.aos.data.service.KakaoAuthService
 import com.growthook.aos.databinding.FragmentMypageBinding
 import com.growthook.aos.presentation.onboarding.LoginActivity
+import com.growthook.aos.util.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MyPageFragment : Fragment() {
-    private var _binding: FragmentMypageBinding? = null
-    private val binding: FragmentMypageBinding
-        get() = requireNotNull(_binding) { "binding is null" }
+class MyPageFragment : BaseFragment<FragmentMypageBinding>() {
 
     @Inject
     lateinit var kakaoAuthService: KakaoAuthService
 
     private val viewModel: MyPageViewModel by viewModels()
 
-    override fun onCreateView(
+    override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View {
-        _binding = FragmentMypageBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+    ): FragmentMypageBinding = FragmentMypageBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -49,10 +42,5 @@ class MyPageFragment : Fragment() {
                 }
             }
         }
-    }
-
-    override fun onDestroyView() {
-        _binding = null
-        super.onDestroyView()
     }
 }
