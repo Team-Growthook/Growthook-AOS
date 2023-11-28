@@ -44,5 +44,18 @@
         app:layout_constraintTop_toBottomOf="@id/tv_home_insight_title"
         tools:text="00일 후 잠금" />
 
+    <View
+        android:id="@+id/view_home_insight_click"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/bg_home_insight_check"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
