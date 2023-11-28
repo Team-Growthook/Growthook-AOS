@@ -132,14 +132,14 @@ class HomeViewModel @Inject constructor(
 
     fun getCaves() {
         val dummyCave = listOf(
-            Cave("연습용"),
-            Cave("연습연습연습연습"),
-            Cave("ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"),
-            Cave("동굴"),
-            Cave("연습용"),
-            Cave("연습연습연습연습"),
-            Cave("ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"),
-            Cave("동굴"),
+            Cave(1, "연습용"),
+            Cave(2, "연습연습연습연습"),
+            Cave(3, "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"),
+            Cave(4,"동굴"),
+            Cave(5, "연습용"),
+            Cave(6,"연습연습연습연습"),
+            Cave(7,"ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"),
+            Cave(8,"동굴"),
         )
 
         _caves.value = dummyCave

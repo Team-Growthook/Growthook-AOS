@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.growthook.aos.databinding.ItemHomeCaveBinding
 import com.growthook.aos.domain.entity.Cave
-import com.growthook.aos.util.ItemDiffCallback
+import com.growthook.aos.util.extension.ItemDiffCallback
 
 class CaveAdapter : ListAdapter<Cave, CaveAdapter.CaveViewHolder>(diffCallback) {
 
@@ -25,7 +25,7 @@ class CaveAdapter : ListAdapter<Cave, CaveAdapter.CaveViewHolder>(diffCallback) 
     class CaveViewHolder(private val binding: ItemHomeCaveBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun onBind(item: Cave) {
-            binding.tvHomeCaveTitle.text = item.title
+            binding.tvHomeCaveTitle.text = item.name
         }
     }
 

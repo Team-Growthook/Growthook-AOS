@@ -14,7 +14,7 @@ import com.growthook.aos.databinding.ItemHomeInsightLockBinding
 import com.growthook.aos.databinding.ItemHomeInsightNoActionBinding
 import com.growthook.aos.databinding.ItemHomeInsightYesActionBinding
 import com.growthook.aos.domain.entity.Insight
-import com.growthook.aos.util.ItemDiffCallback
+import com.growthook.aos.util.extension.ItemDiffCallback
 import timber.log.Timber
 import javax.annotation.Nullable
 
