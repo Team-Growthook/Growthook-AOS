@@ -40,22 +40,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         setTitleText()
-        setAdapter()
+        setInsightAdapter()
         setAlertMessage()
-
-        binding.chbHomeScrap.setOnCheckedChangeListener { button, isChecked ->
-            if (isChecked) {
-                viewModel.getScrapedInsight()
-            } else {
-                viewModel.getInsights()
-            }
-        }
-
-        if (!binding.chbHomeScrap.isChecked) {
-            viewModel.getInsights()
-        } else {
-            viewModel.getScrapedInsight()
-        }
+        clickScrap()
+        setCaveAdapter()
     }
 
     private fun setTitleText() {
@@ -67,7 +55,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         }
     }
 
-    private fun setAdapter() {
+    private fun setInsightAdapter() {
         _insightAdapter = HomeInsightAdapter(::clickedInsight)
         viewModel.insights.observe(viewLifecycleOwner) {
             insightAdapter.submitList(it)
@@ -84,7 +72,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             SelectionPredicates.createSelectSingleAnything(),
         ).build()
         insightAdapter.setSelectionTracker(tracker)
+    }
 
+    private fun setCaveAdapter() {
         _caveAdapter = CaveAdapter()
         viewModel.caves.observe(viewLifecycleOwner) {
             caveAdapter.submitList(it)
@@ -128,6 +118,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     yesAlertBalloon.showAlignBottom(it)
                     yesAlertBalloon.dismiss()
                 }
+            }
+        }
+    }
+
+    private fun clickScrap() {
+        binding.chbHomeScrap.setOnCheckedChangeListener { button, isChecked ->
+            if (isChecked) {
+                viewModel.getScrapedInsight()
+            } else {
+                viewModel.getInsights()
             }
         }
     }
