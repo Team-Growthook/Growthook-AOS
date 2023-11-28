@@ -6,11 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.selection.SelectionPredicates
+import androidx.recyclerview.selection.SelectionTracker
+import androidx.recyclerview.selection.StableIdKeyProvider
+import androidx.recyclerview.selection.StorageStrategy
 import com.growthook.aos.R
 import com.growthook.aos.databinding.FragmentHomeBinding
+import com.growthook.aos.domain.entity.Insight
 import com.skydoves.balloon.Balloon
 import com.skydoves.balloon.BalloonSizeSpec
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -61,17 +67,32 @@ class HomeFragment : Fragment() {
     }
 
     private fun setAdapter() {
-        val homeInsightAdapter = HomeInsightAdapter()
+        val homeInsightAdapter = HomeInsightAdapter(::clickedInsight)
         viewModel.insights.observe(viewLifecycleOwner) {
             homeInsightAdapter.submitList(it)
         }
         binding.rvHomeInsight.adapter = homeInsightAdapter
+
+        val tracker = SelectionTracker.Builder<Long>(
+            "mySelection",
+            binding.rvHomeInsight,
+            StableIdKeyProvider(binding.rvHomeInsight),
+            HomeInsightAdapter.InsightDetailsLookup(binding.rvHomeInsight),
+            StorageStrategy.createLongStorage(),
+        ).withSelectionPredicate(
+            SelectionPredicates.createSelectSingleAnything(),
+        ).build()
+        homeInsightAdapter.setSelectionTracker(tracker)
 
         val caveAdapter = CaveAdapter()
         viewModel.caves.observe(viewLifecycleOwner) {
             caveAdapter.submitList(it)
         }
         binding.rvHomeCave.adapter = caveAdapter
+    }
+
+    private fun clickedInsight(insight: Insight) {
+        Timber.d("클릭된 insight $insight")
     }
 
     private fun setAlertMessage() {
