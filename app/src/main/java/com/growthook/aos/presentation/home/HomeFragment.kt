@@ -13,6 +13,7 @@ import androidx.recyclerview.selection.StableIdKeyProvider
 import androidx.recyclerview.selection.StorageStrategy
 import com.growthook.aos.R
 import com.growthook.aos.databinding.FragmentHomeBinding
+import com.growthook.aos.domain.entity.Insight
 import com.growthook.aos.presentation.insight.noactionplan.NoActionplanInsightActivity
 import com.growthook.aos.util.base.BaseFragment
 import com.skydoves.balloon.Balloon
@@ -58,7 +59,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun setInsightAdapter() {
-        _insightAdapter = HomeInsightAdapter()
+        _insightAdapter = HomeInsightAdapter(::selectedItem)
         viewModel.insights.observe(viewLifecycleOwner) {
             insightAdapter.submitList(it)
         }
@@ -74,18 +75,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             SelectionPredicates.createSelectSingleAnything(),
         ).build()
 
-        val tracker = SelectionTracker.Builder<Long>(
-            "mySelection",
-            binding.rvHomeInsight,
-            StableIdKeyProvider(binding.rvHomeInsight),
-            HomeInsightAdapter.InsightDetailsLookup(binding.rvHomeInsight),
-            StorageStrategy.createLongStorage(),
-        ).withSelectionPredicate(
-            SelectionPredicates.createSelectSingleAnything(),
-        ).build()
-
         insightAdapter.setSelectionLongTracker(longTracker)
-        insightAdapter.setSelectionTracker(tracker)
 
         longTracker.addObserver(object : SelectionTracker.SelectionObserver<Long>() {
             override fun onSelectionChanged() {
@@ -95,26 +85,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 Timber.d("선택된 longInsight: $selectedInsight")
             }
         })
+    }
 
-        tracker.addObserver(object : SelectionTracker.SelectionObserver<Long>() {
-            override fun onSelectionChanged() {
-                super.onSelectionChanged()
-
-                val selectedInsight = insightAdapter.getSelectedInsight()
-                Timber.d("선택된 insight: $selectedInsight")
-
-                selectedInsight?.let {
-                    if (it.isLocked) {
-                        Toast.makeText(context, "잠금 해제하기", Toast.LENGTH_SHORT).show()
-                    } else if (!it.isAction) {
-                        val intent =
-                            Intent(requireActivity(), NoActionplanInsightActivity::class.java)
-                        intent.putExtra("insightId", selectedInsight?.insightId)
-                        startActivity(intent)
-                    }
-                }
-            }
-        })
+    private fun selectedItem(item: Insight) {
+        if (item.isLocked) {
+            Toast.makeText(context, "잠금 해제하기", Toast.LENGTH_SHORT).show()
+        } else if (!item.isAction) {
+            val intent =
+                Intent(requireActivity(), NoActionplanInsightActivity::class.java)
+            intent.putExtra("insightId", item.insightId)
+            startActivity(intent)
+        }
     }
 
     private fun setCaveAdapter() {

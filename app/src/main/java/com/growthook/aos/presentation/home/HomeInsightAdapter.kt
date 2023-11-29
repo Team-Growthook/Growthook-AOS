@@ -18,7 +18,7 @@ import com.growthook.aos.util.extension.ItemDiffCallback
 import timber.log.Timber
 import javax.annotation.Nullable
 
-class HomeInsightAdapter() :
+class HomeInsightAdapter(private val selectedItem: (Insight) -> Unit) :
     ListAdapter<Insight, RecyclerView.ViewHolder>(diffCallback) {
 
     init {
@@ -26,7 +26,6 @@ class HomeInsightAdapter() :
     }
 
     private lateinit var selectionLongTracker: SelectionTracker<Long>
-    private lateinit var selectionTracker: SelectionTracker<Long>
 
     override fun getItemId(position: Int): Long {
         return position.toLong()
@@ -34,10 +33,6 @@ class HomeInsightAdapter() :
 
     fun setSelectionLongTracker(selectionTracker: SelectionTracker<Long>) {
         this.selectionLongTracker = selectionTracker
-    }
-
-    fun setSelectionTracker(selectionTracker: SelectionTracker<Long>) {
-        this.selectionTracker = selectionTracker
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -100,7 +95,7 @@ class HomeInsightAdapter() :
             binding.tvHomeInsightLock.text = "${item.remainedLock}일 후 잠금"
             binding.root.setOnClickListener {
                 selectionLongTracker.select(itemPosition.toLong())
-                selectionTracker.select(itemPosition.toLong())
+                selectedItem(item)
                 Timber.d("선택된 아이템 ${selectionLongTracker.selection}")
             }
         }
@@ -136,8 +131,7 @@ class HomeInsightAdapter() :
             }
             binding.root.setOnClickListener {
                 selectionLongTracker.select(itemPosition.toLong())
-                selectionTracker.select(itemPosition.toLong())
-                Timber.d("선택된 아이템 ${selectionLongTracker.selection}")
+                selectedItem(item)
             }
             if (!selectionLongTracker.isSelected(itemPosition.toLong())) {
                 binding.viewHomeInsightClick.visibility = View.INVISIBLE
@@ -171,13 +165,11 @@ class HomeInsightAdapter() :
             binding.root.setOnLongClickListener {
                 binding.viewHomeInsightClick.visibility = View.VISIBLE
                 selectionLongTracker.select(itemPosition.toLong())
-                binding.viewHomeInsightClick.visibility = View.VISIBLE
                 Timber.d("선택된 아이템 ${selectionLongTracker.selection}")
                 true
             }
             binding.root.setOnClickListener {
-                selectionLongTracker.select(itemPosition.toLong())
-                selectionTracker.select(itemPosition.toLong())
+                selectedItem(item)
             }
             if (!selectionLongTracker.isSelected(itemPosition.toLong())) {
                 binding.viewHomeInsightClick.visibility = View.INVISIBLE
@@ -219,15 +211,6 @@ class HomeInsightAdapter() :
 
     fun getSelectedLongInsight(): Insight? {
         val selectedItemId = selectionLongTracker.selection.firstOrNull()
-        return if (selectedItemId == null) {
-            null
-        } else {
-            currentList[selectedItemId.toInt()]
-        }
-    }
-
-    fun getSelectedInsight(): Insight? {
-        val selectedItemId = selectionTracker.selection.firstOrNull()
         return if (selectedItemId == null) {
             null
         } else {
