@@ -18,7 +18,7 @@ import com.growthook.aos.util.extension.ItemDiffCallback
 import timber.log.Timber
 import javax.annotation.Nullable
 
-class HomeInsightAdapter(private val selectedItem: (Insight) -> Unit) :
+class HomeInsightAdapter() :
     ListAdapter<Insight, RecyclerView.ViewHolder>(diffCallback) {
 
     init {
@@ -205,6 +205,15 @@ class HomeInsightAdapter(private val selectedItem: (Insight) -> Unit) :
                 }
             }
             return null
+        }
+    }
+
+    fun getSelectedInsight(): Insight? {
+        val selectedItemId = selectionTracker.selection.firstOrNull()
+        return if (selectedItemId == null) {
+            null
+        } else {
+            currentList[selectedItemId.toInt()]
         }
     }
 
