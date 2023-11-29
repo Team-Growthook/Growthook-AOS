@@ -1,9 +1,11 @@
 package com.growthook.aos.presentation.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.selection.SelectionPredicates
 import androidx.recyclerview.selection.SelectionTracker
@@ -11,6 +13,7 @@ import androidx.recyclerview.selection.StableIdKeyProvider
 import androidx.recyclerview.selection.StorageStrategy
 import com.growthook.aos.R
 import com.growthook.aos.databinding.FragmentHomeBinding
+import com.growthook.aos.presentation.insight.noactionplan.NoActionplanInsightActivity
 import com.growthook.aos.util.base.BaseFragment
 import com.skydoves.balloon.Balloon
 import com.skydoves.balloon.BalloonSizeSpec
@@ -62,6 +65,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         binding.rvHomeInsight.adapter = insightAdapter
 
         val longTracker = SelectionTracker.Builder<Long>(
+            "myLongSelection",
+            binding.rvHomeInsight,
+            StableIdKeyProvider(binding.rvHomeInsight),
+            HomeInsightAdapter.InsightDetailsLookup(binding.rvHomeInsight),
+            StorageStrategy.createLongStorage(),
+        ).withSelectionPredicate(
+            SelectionPredicates.createSelectSingleAnything(),
+        ).build()
+
+        val tracker = SelectionTracker.Builder<Long>(
             "mySelection",
             binding.rvHomeInsight,
             StableIdKeyProvider(binding.rvHomeInsight),
@@ -70,14 +83,36 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         ).withSelectionPredicate(
             SelectionPredicates.createSelectSingleAnything(),
         ).build()
+
         insightAdapter.setSelectionLongTracker(longTracker)
+        insightAdapter.setSelectionTracker(tracker)
 
         longTracker.addObserver(object : SelectionTracker.SelectionObserver<Long>() {
             override fun onSelectionChanged() {
                 super.onSelectionChanged()
 
                 val selectedInsight = insightAdapter.getSelectedLongInsight()
+                Timber.d("선택된 longInsight: $selectedInsight")
+            }
+        })
+
+        tracker.addObserver(object : SelectionTracker.SelectionObserver<Long>() {
+            override fun onSelectionChanged() {
+                super.onSelectionChanged()
+
+                val selectedInsight = insightAdapter.getSelectedInsight()
                 Timber.d("선택된 insight: $selectedInsight")
+
+                selectedInsight?.let {
+                    if (it.isLocked) {
+                        Toast.makeText(context, "잠금 해제하기", Toast.LENGTH_SHORT).show()
+                    } else if (!it.isAction) {
+                        val intent =
+                            Intent(requireActivity(), NoActionplanInsightActivity::class.java)
+                        intent.putExtra("insightId", selectedInsight?.insightId)
+                        startActivity(intent)
+                    }
+                }
             }
         })
     }
