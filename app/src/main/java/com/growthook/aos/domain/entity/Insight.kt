@@ -10,4 +10,5 @@ data class Insight(
     val isScraped: Boolean,
     val isLocked: Boolean,
     val isAction: Boolean,
+    val insightId: Int
 ) : Parcelable

@@ -55,6 +55,7 @@ class HomeViewModel @Inject constructor(
                 isScraped = true,
                 isLocked = false,
                 isAction = false,
+                1,
             ),
             Insight(
                 "제목2",
@@ -62,6 +63,7 @@ class HomeViewModel @Inject constructor(
                 isScraped = false,
                 isLocked = false,
                 isAction = false,
+                2,
             ),
             Insight(
                 "제목3",
@@ -69,6 +71,7 @@ class HomeViewModel @Inject constructor(
                 isScraped = true,
                 isLocked = true,
                 isAction = false,
+                3,
             ),
             Insight(
                 "제목4",
@@ -76,6 +79,7 @@ class HomeViewModel @Inject constructor(
                 isScraped = true,
                 isLocked = false,
                 isAction = false,
+                4,
             ),
             Insight(
                 "제목5",
@@ -83,6 +87,7 @@ class HomeViewModel @Inject constructor(
                 isScraped = false,
                 isLocked = true,
                 isAction = false,
+                5,
             ),
             Insight(
                 "제목6",
@@ -90,6 +95,7 @@ class HomeViewModel @Inject constructor(
                 isScraped = true,
                 isLocked = false,
                 isAction = false,
+                6,
             ),
             Insight(
                 "제목7",
@@ -97,6 +103,7 @@ class HomeViewModel @Inject constructor(
                 isScraped = false,
                 isLocked = false,
                 isAction = true,
+                7,
             ),
             Insight(
                 "제목8",
@@ -104,6 +111,7 @@ class HomeViewModel @Inject constructor(
                 isScraped = true,
                 isLocked = false,
                 isAction = false,
+                8,
             ),
             Insight(
                 "제목9",
@@ -111,6 +119,7 @@ class HomeViewModel @Inject constructor(
                 isScraped = true,
                 isLocked = true,
                 isAction = false,
+                9,
             ),
             Insight(
                 "제목10",
@@ -118,6 +127,7 @@ class HomeViewModel @Inject constructor(
                 isScraped = false,
                 isLocked = false,
                 isAction = true,
+                10,
             ),
 
         )
