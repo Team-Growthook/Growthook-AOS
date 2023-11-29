@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
-    android:background="@color/MainGreen400">
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:background="@color/MainGreen400"
+        tools:context=".presentation.home.SelectMenuBottomSheet">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_home_select_move"
@@ -17,16 +19,17 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="4dp"
-            android:background="@null"
             android:includeFontPadding="false"
             android:minWidth="0dp"
             android:minHeight="0dp"
-            app:layout_constraintEnd_toStartOf="@id/btn_home_select_delete"
             android:text="이동"
             android:textAppearance="@style/detail3_reg"
+            android:textColor="@color/White000"
             app:icon="@drawable/ic_insight_move"
             app:iconGravity="textTop"
+            app:iconTint="@color/White000"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_home_select_delete"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -36,14 +39,15 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="4dp"
-            android:background="@null"
             android:includeFontPadding="false"
             android:minWidth="0dp"
             android:minHeight="0dp"
             android:text="삭제"
             android:textAppearance="@style/detail3_reg"
+            android:textColor="@color/White000"
             app:icon="@drawable/ic_insight_delete"
             app:iconGravity="textTop"
+            app:iconTint="@color/White000"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/btn_home_select_move"
