@@ -108,7 +108,7 @@ class HomeInsightAdapter(private val selectedItem: (Insight) -> Unit) :
                     if (viewHolder == null) {
                         return RecyclerView.NO_POSITION
                     }
-                    return viewHolder.adapterPosition
+                    return viewHolder.absoluteAdapterPosition
                 }
             }
         }
@@ -146,7 +146,7 @@ class HomeInsightAdapter(private val selectedItem: (Insight) -> Unit) :
                     if (viewHolder == null) {
                         return RecyclerView.NO_POSITION
                     }
-                    return viewHolder.adapterPosition
+                    return viewHolder.absoluteAdapterPosition
                 }
             }
         }
@@ -185,7 +185,7 @@ class HomeInsightAdapter(private val selectedItem: (Insight) -> Unit) :
                     if (viewHolder == null) {
                         return RecyclerView.NO_POSITION
                     }
-                    return viewHolder.adapterPosition
+                    return viewHolder.absoluteAdapterPosition
                 }
             }
         }
