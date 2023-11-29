@@ -25,13 +25,14 @@ class HomeInsightAdapter() :
         setHasStableIds(true)
     }
 
-    private lateinit var selectionTracker: SelectionTracker<Long>
+    private lateinit var selectionLongTracker: SelectionTracker<Long>
+
     override fun getItemId(position: Int): Long {
         return position.toLong()
     }
 
-    fun setSelectionTracker(selectionTracker: SelectionTracker<Long>) {
-        this.selectionTracker = selectionTracker
+    fun setSelectionLongTracker(selectionTracker: SelectionTracker<Long>) {
+        this.selectionLongTracker = selectionTracker
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -93,8 +94,8 @@ class HomeInsightAdapter() :
             binding.tvHomeInsightTitle.text = item.title
             binding.tvHomeInsightLock.text = "${item.remainedLock}일 후 잠금"
             binding.root.setOnClickListener {
-                selectionTracker.select(itemPosition.toLong())
-                Timber.d("선택된 아이템 ${selectionTracker.selection}")
+                selectionLongTracker.select(itemPosition.toLong())
+                Timber.d("선택된 아이템 ${selectionLongTracker.selection}")
             }
         }
 
@@ -123,15 +124,15 @@ class HomeInsightAdapter() :
             binding.tvHomeInsightTitle.text = item.title
             binding.tvHomeInsightLock.text = "${item.remainedLock}일 후 잠금"
             binding.root.setOnLongClickListener {
-                selectionTracker.select(itemPosition.toLong())
+                selectionLongTracker.select(itemPosition.toLong())
                 binding.viewHomeInsightClick.visibility = View.VISIBLE
                 true
             }
             binding.root.setOnClickListener {
-                selectionTracker.select(itemPosition.toLong())
-                Timber.d("선택된 아이템 ${selectionTracker.selection}")
+                selectionLongTracker.select(itemPosition.toLong())
+                Timber.d("선택된 아이템 ${selectionLongTracker.selection}")
             }
-            if (!selectionTracker.isSelected(itemPosition.toLong())) {
+            if (!selectionLongTracker.isSelected(itemPosition.toLong())) {
                 binding.viewHomeInsightClick.visibility = View.INVISIBLE
             }
         }
@@ -162,15 +163,15 @@ class HomeInsightAdapter() :
             binding.tvHomeInsightLock.text = "${item.remainedLock}일 후 잠금"
             binding.root.setOnLongClickListener {
                 binding.viewHomeInsightClick.visibility = View.VISIBLE
-                selectionTracker.select(itemPosition.toLong())
+                selectionLongTracker.select(itemPosition.toLong())
                 binding.viewHomeInsightClick.visibility = View.VISIBLE
-                Timber.d("선택된 아이템 ${selectionTracker.selection}")
+                Timber.d("선택된 아이템 ${selectionLongTracker.selection}")
                 true
             }
             binding.root.setOnClickListener {
-                selectionTracker.select(itemPosition.toLong())
+                selectionLongTracker.select(itemPosition.toLong())
             }
-            if (!selectionTracker.isSelected(itemPosition.toLong())) {
+            if (!selectionLongTracker.isSelected(itemPosition.toLong())) {
                 binding.viewHomeInsightClick.visibility = View.INVISIBLE
             }
         }
@@ -208,8 +209,8 @@ class HomeInsightAdapter() :
         }
     }
 
-    fun getSelectedInsight(): Insight? {
-        val selectedItemId = selectionTracker.selection.firstOrNull()
+    fun getSelectedLongInsight(): Insight? {
+        val selectedItemId = selectionLongTracker.selection.firstOrNull()
         return if (selectedItemId == null) {
             null
         } else {

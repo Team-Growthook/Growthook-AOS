@@ -61,7 +61,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         }
         binding.rvHomeInsight.adapter = insightAdapter
 
-        val tracker = SelectionTracker.Builder<Long>(
+        val longTracker = SelectionTracker.Builder<Long>(
             "mySelection",
             binding.rvHomeInsight,
             StableIdKeyProvider(binding.rvHomeInsight),
@@ -70,15 +70,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         ).withSelectionPredicate(
             SelectionPredicates.createSelectSingleAnything(),
         ).build()
-        insightAdapter.setSelectionTracker(tracker)
+        insightAdapter.setSelectionLongTracker(longTracker)
 
-        tracker.addObserver(object : SelectionTracker.SelectionObserver<Long>() {
+        longTracker.addObserver(object : SelectionTracker.SelectionObserver<Long>() {
             override fun onSelectionChanged() {
                 super.onSelectionChanged()
 
-                val selectedItemId = tracker.selection.firstOrNull()
-
-                val selectedInsight = insightAdapter.getSelectedInsight()
+                val selectedInsight = insightAdapter.getSelectedLongInsight()
                 Timber.d("선택된 insight: $selectedInsight")
             }
         })
