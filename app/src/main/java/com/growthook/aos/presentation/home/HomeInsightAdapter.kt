@@ -94,7 +94,6 @@ class HomeInsightAdapter(private val selectedItem: (Insight) -> Unit) :
             binding.tvHomeInsightTitle.text = item.title
             binding.tvHomeInsightLock.text = "${item.remainedLock}일 후 잠금"
             binding.root.setOnClickListener {
-                selectionLongTracker.select(itemPosition.toLong())
                 selectedItem(item)
                 Timber.d("선택된 아이템 ${selectionLongTracker.selection}")
             }
@@ -130,7 +129,6 @@ class HomeInsightAdapter(private val selectedItem: (Insight) -> Unit) :
                 true
             }
             binding.root.setOnClickListener {
-                selectionLongTracker.select(itemPosition.toLong())
                 selectedItem(item)
             }
             if (!selectionLongTracker.isSelected(itemPosition.toLong())) {

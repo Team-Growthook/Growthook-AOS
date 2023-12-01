@@ -36,8 +36,6 @@ class SelectMenuBottomSheet() :
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
-        Toast.makeText(requireContext(), "바텀시트 내려감", Toast.LENGTH_SHORT)
-        Timber.d("바텀시트 내려감 on fragment")
         viewModel.isMenuDismissed.value = true
     }
 }

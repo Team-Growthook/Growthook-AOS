@@ -20,7 +20,6 @@ import com.growthook.aos.util.base.BaseFragment
 import com.skydoves.balloon.Balloon
 import com.skydoves.balloon.BalloonSizeSpec
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
@@ -88,7 +87,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 super.onSelectionChanged()
 
                 val selectedInsight = insightAdapter.getSelectedLongInsight()
-                Timber.d("선택된 longInsight: $selectedInsight")
 
                 selectedInsight?.let {
                     val activity = activity as MainActivity
@@ -100,7 +98,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         })
 
         viewModel.isMenuDismissed.observe(viewLifecycleOwner) {
-            Timber.d("viewModel 바텀시트 dismiss $it")
             longTracker.clearSelection()
         }
     }
