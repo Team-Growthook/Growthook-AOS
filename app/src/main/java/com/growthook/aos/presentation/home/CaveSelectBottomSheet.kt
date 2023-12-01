@@ -15,6 +15,10 @@ class CaveSelectBottomSheet :
     BaseBottomSheetFragment<FragmentCaveSelectBottomsheetBinding>(R.layout.fragment_cave_select_bottomsheet) {
     private val viewModel by viewModels<CaveSelectBottomSheetViewModel>()
 
+    private var _adapter: CaveSelectAdapter? = null
+    private val adapter
+        get() = requireNotNull(_adapter) { "adapter is null" }
+
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -24,11 +28,20 @@ class CaveSelectBottomSheet :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getCaves()
+        setAdapter()
+    }
 
+    private fun setAdapter() {
+        _adapter = CaveSelectAdapter()
+        binding.rcvHomeSelectCave.adapter = adapter
+        viewModel.getCaves()
+        viewModel.caves.observe(viewLifecycleOwner) {
+            adapter.submitList(it)
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+        _adapter = null
     }
 }
