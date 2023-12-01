@@ -14,6 +14,7 @@ import androidx.recyclerview.selection.StorageStrategy
 import com.growthook.aos.R
 import com.growthook.aos.databinding.FragmentHomeBinding
 import com.growthook.aos.domain.entity.Insight
+import com.growthook.aos.presentation.MainActivity
 import com.growthook.aos.presentation.insight.noactionplan.NoActionplanInsightActivity
 import com.growthook.aos.util.base.BaseFragment
 import com.skydoves.balloon.Balloon
@@ -83,6 +84,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
                 val selectedInsight = insightAdapter.getSelectedLongInsight()
                 Timber.d("선택된 longInsight: $selectedInsight")
+
+                val activity = activity as MainActivity
+                activity.hideBottomNavigation(true)
+
+                val selectMenuBottomSheet = SelectMenuBottomSheet()
+                selectMenuBottomSheet.show(parentFragmentManager, "show")
             }
         })
     }
