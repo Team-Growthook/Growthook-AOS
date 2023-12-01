@@ -1,5 +1,6 @@
 package com.growthook.aos.presentation.home
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -29,6 +30,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private var _caveAdapter: CaveAdapter? = null
 
     private lateinit var selectMenuBottomSheet: SelectMenuBottomSheet
+    private lateinit var activity: MainActivity
 
     private val caveAdapter
         get() = requireNotNull(_caveAdapter) { "adapter is null" }
@@ -52,6 +54,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         setCaveAdapter()
 
         selectMenuBottomSheet = SelectMenuBottomSheet()
+        activity = requireActivity() as MainActivity
     }
 
     private fun setTitleText() {
@@ -89,7 +92,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 val selectedInsight = insightAdapter.getSelectedLongInsight()
 
                 selectedInsight?.let {
-                    val activity = activity as MainActivity
                     activity.hideBottomNavigation(true)
 
                     selectMenuBottomSheet.show(parentFragmentManager, "show")
@@ -99,6 +101,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
         viewModel.isMenuDismissed.observe(viewLifecycleOwner) {
             longTracker.clearSelection()
+            activity.hideBottomNavigation(false)
         }
     }
 
