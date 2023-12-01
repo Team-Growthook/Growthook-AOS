@@ -8,9 +8,8 @@ import com.growthook.aos.databinding.ItemHomeCaveBinding
 import com.growthook.aos.domain.entity.Cave
 import com.growthook.aos.util.extension.ItemDiffCallback
 
-class CaveAdapter : ListAdapter<Cave, CaveAdapter.CaveViewHolder>(diffCallback) {
-
-    private var listener: OnItemClickListener? = null
+class CaveAdapter(private val selectedItem: (Cave) -> Unit) :
+    ListAdapter<Cave, CaveAdapter.CaveViewHolder>(diffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CaveViewHolder {
         val binding: ItemHomeCaveBinding =
@@ -22,19 +21,15 @@ class CaveAdapter : ListAdapter<Cave, CaveAdapter.CaveViewHolder>(diffCallback) 
         return holder.onBind(currentList[position])
     }
 
-    class CaveViewHolder(private val binding: ItemHomeCaveBinding) :
+    inner class CaveViewHolder(private val binding: ItemHomeCaveBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun onBind(item: Cave) {
             binding.tvHomeCaveTitle.text = item.name
+
+            binding.root.setOnClickListener {
+                selectedItem(item)
+            }
         }
-    }
-
-    interface OnItemClickListener {
-        fun onItemClick(item: Cave)
-    }
-
-    fun setOnItemClickListener(listener: OnItemClickListener) {
-        this.listener = listener
     }
 
     companion object {

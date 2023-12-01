@@ -1,6 +1,5 @@
 package com.growthook.aos.presentation.home
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,8 +13,10 @@ import androidx.recyclerview.selection.StableIdKeyProvider
 import androidx.recyclerview.selection.StorageStrategy
 import com.growthook.aos.R
 import com.growthook.aos.databinding.FragmentHomeBinding
+import com.growthook.aos.domain.entity.Cave
 import com.growthook.aos.domain.entity.Insight
 import com.growthook.aos.presentation.MainActivity
+import com.growthook.aos.presentation.cavedetail.CaveDetailActivity
 import com.growthook.aos.presentation.insight.noactionplan.NoActionplanInsightActivity
 import com.growthook.aos.util.base.BaseFragment
 import com.skydoves.balloon.Balloon
@@ -116,11 +117,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun setCaveAdapter() {
-        _caveAdapter = CaveAdapter()
+        _caveAdapter = CaveAdapter(::clickedCave)
         viewModel.caves.observe(viewLifecycleOwner) {
             caveAdapter.submitList(it)
         }
         binding.rvHomeCave.adapter = caveAdapter
+    }
+
+    private fun clickedCave(item: Cave) {
+        val intent = Intent(requireActivity(), CaveDetailActivity::class.java)
+        intent.putExtra("caveId", item.id)
+        startActivity(intent)
     }
 
     private fun setAlertMessage() {
