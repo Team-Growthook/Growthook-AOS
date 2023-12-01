@@ -27,11 +27,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private val viewModel: HomeViewModel by activityViewModels()
 
-    private var _caveAdapter: CaveAdapter? = null
-
     private lateinit var selectMenuBottomSheet: SelectMenuBottomSheet
     private lateinit var activity: MainActivity
 
+    private var _caveAdapter: CaveAdapter? = null
     private val caveAdapter
         get() = requireNotNull(_caveAdapter) { "adapter is null" }
 
