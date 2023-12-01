@@ -30,12 +30,19 @@ class SelectMenuBottomSheet() :
         super.onViewCreated(view, savedInstanceState)
 
         setDisableDim()
+        clickMoveBtn()
+        clickDeleteBtn()
+    }
+
+    private fun clickMoveBtn() {
         caveSelectBottomSheet = CaveSelectBottomSheet()
 
         binding.btnHomeSelectMove.setOnClickListener {
             caveSelectBottomSheet.show(parentFragmentManager, "show")
         }
+    }
 
+    private fun clickDeleteBtn() {
         binding.btnHomeSelectDelete.setOnClickListener {
             BaseAlertDialog.Builder()
                 .setCancelable(false)
