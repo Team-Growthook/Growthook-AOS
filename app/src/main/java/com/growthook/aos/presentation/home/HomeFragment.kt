@@ -139,7 +139,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             .setHeight(BalloonSizeSpec.WRAP)
             .setLifecycleOwner(viewLifecycleOwner)
             .setMarginRight(13)
-            .setAutoDismissDuration(3000L)
+            .setAutoDismissDuration(2000L)
             .build()
 
         viewModel.alertAmount.observe(viewLifecycleOwner) { alertAmount ->
