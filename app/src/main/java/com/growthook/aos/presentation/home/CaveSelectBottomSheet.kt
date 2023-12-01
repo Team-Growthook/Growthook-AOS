@@ -23,6 +23,9 @@ class CaveSelectBottomSheet :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel.getCaves()
+
     }
 
     override fun onDestroyView() {
