@@ -22,6 +22,7 @@ import com.growthook.aos.util.base.BaseFragment
 import com.skydoves.balloon.Balloon
 import com.skydoves.balloon.BalloonSizeSpec
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
@@ -67,7 +68,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun setInsightAdapter() {
-        _insightAdapter = HomeInsightAdapter(::selectedItem)
+        _insightAdapter = HomeInsightAdapter(::selectedItem, ::clickedScrap)
         viewModel.insights.observe(viewLifecycleOwner) {
             insightAdapter.submitList(it)
         }
@@ -128,6 +129,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         val intent = Intent(requireActivity(), CaveDetailActivity::class.java)
         intent.putExtra("caveId", item.id)
         startActivity(intent)
+    }
+
+    private fun clickedScrap(isScrap: Boolean) {
+        viewModel.changeScrap(isScrap)
+        Timber.d("스크랩 $isScrap")
+        Toast.makeText(requireContext(), "스크랩 완료", Toast.LENGTH_SHORT).show()
     }
 
     private fun setAlertMessage() {

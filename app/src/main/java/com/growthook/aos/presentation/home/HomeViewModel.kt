@@ -156,4 +156,8 @@ class HomeViewModel @Inject constructor(
 
         _caves.value = dummyCave
     }
+
+    fun changeScrap(isScrap: Boolean) {
+        // TODO 스크랩 api 구현
+    }
 }

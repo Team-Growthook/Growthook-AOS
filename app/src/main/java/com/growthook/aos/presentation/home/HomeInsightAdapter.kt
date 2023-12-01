@@ -18,7 +18,10 @@ import com.growthook.aos.util.extension.ItemDiffCallback
 import timber.log.Timber
 import javax.annotation.Nullable
 
-class HomeInsightAdapter(private val selectedItem: (Insight) -> Unit) :
+class HomeInsightAdapter(
+    private val selectedItem: (Insight) -> Unit,
+    private val clickScrap: (Boolean) -> Unit,
+) :
     ListAdapter<Insight, RecyclerView.ViewHolder>(diffCallback) {
 
     init {
@@ -133,6 +136,11 @@ class HomeInsightAdapter(private val selectedItem: (Insight) -> Unit) :
             }
             if (!selectionLongTracker.isSelected(itemPosition.toLong())) {
                 binding.viewHomeInsightClick.visibility = View.INVISIBLE
+            } else {
+                binding.viewHomeInsightClick.visibility = View.VISIBLE
+            }
+            binding.btnHomeScrap.setOnClickListener {
+                clickScrap(!item.isScraped)
             }
         }
 
@@ -171,6 +179,11 @@ class HomeInsightAdapter(private val selectedItem: (Insight) -> Unit) :
             }
             if (!selectionLongTracker.isSelected(itemPosition.toLong())) {
                 binding.viewHomeInsightClick.visibility = View.INVISIBLE
+            } else {
+                binding.viewHomeInsightClick.visibility = View.VISIBLE
+            }
+            binding.btnHomeScrap.setOnClickListener {
+                clickScrap(!item.isScraped)
             }
         }
 
