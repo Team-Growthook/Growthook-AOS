@@ -17,7 +17,9 @@ import com.growthook.aos.domain.entity.Cave
 import com.growthook.aos.domain.entity.Insight
 import com.growthook.aos.presentation.MainActivity
 import com.growthook.aos.presentation.cavedetail.CaveDetailActivity
+import com.growthook.aos.presentation.insight.noactionplan.InsightMenuBottomsheet
 import com.growthook.aos.presentation.insight.noactionplan.NoActionplanInsightActivity
+import com.growthook.aos.util.base.BaseAlertDialog
 import com.growthook.aos.util.base.BaseFragment
 import com.skydoves.balloon.Balloon
 import com.skydoves.balloon.BalloonSizeSpec
@@ -108,7 +110,31 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private fun selectedItem(item: Insight) {
         if (item.isLocked) {
-            Toast.makeText(context, "잠금 해제하기", Toast.LENGTH_SHORT).show()
+            BaseAlertDialog.Builder()
+                .setCancelable(false)
+                .build(
+                    type = BaseAlertDialog.DialogType.RIGHT_INTENDED,
+                    title = "잠금 해제하기",
+                    description = "씨앗의 잠금을 해제하기 위해\n" +
+                        "쑥 1개를 사용합니다.",
+                    positiveText = "사용하기",
+                    negativeText = "포기하기",
+                    tipText = "Tip. 인사이트 ‘계획하기’를 통해 액션 플랜을 설정하고,\n" +
+                        "이를 달성하면 새로운 쑥을 얻을 수 있어요!",
+                    isBackgroundImageVisility = false,
+                    isDescriptionVisility = true,
+                    isRemainThookVisility = true,
+                    isTipVisility = true,
+                    negativeAction = {
+                    },
+                    positiveAction = {
+                        Toast.makeText(context, "잠금이 영구적으로 해제되었어요!", Toast.LENGTH_SHORT).show()
+                        val intent =
+                            Intent(requireActivity(), NoActionplanInsightActivity::class.java)
+                        intent.putExtra("insightId", item.insightId)
+                        startActivity(intent)
+                    },
+                ).show(parentFragmentManager, InsightMenuBottomsheet.DELETE_DIALOG)
         } else if (!item.isAction) {
             val intent =
                 Intent(requireActivity(), NoActionplanInsightActivity::class.java)
