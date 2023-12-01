@@ -1,6 +1,7 @@
 package com.growthook.aos.presentation
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
@@ -39,6 +40,15 @@ class MainActivity : AppCompatActivity() {
     private inline fun <reified T : Fragment> navigateTo() {
         supportFragmentManager.commit {
             replace<T>(R.id.fcv_home, T::class.simpleName)
+        }
+    }
+
+    fun hideBottomNavigation(state: Boolean) {
+        if (state) {
+            binding.bnvHome.visibility = View.GONE
+        } else {
+            binding.bnvHome.visibility =
+                View.VISIBLE
         }
     }
 }
