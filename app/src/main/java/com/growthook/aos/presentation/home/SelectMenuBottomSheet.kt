@@ -27,6 +27,10 @@ class SelectMenuBottomSheet() :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setDisableDim()
+    }
+
+    private fun setDisableDim() {
         context?.let {
             dialog?.let { dialog ->
                 dialog.window?.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
