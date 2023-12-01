@@ -160,11 +160,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
         viewModel.alertAmount.observe(viewLifecycleOwner) { alertAmount ->
             if (alertAmount == 0) {
+                binding.ibHomeAlert.setImageResource(R.drawable.ic_home_no_alert)
                 binding.ibHomeAlert.setOnClickListener {
                     noAlertBalloon.showAlignBottom(it)
                     noAlertBalloon.dismiss()
                 }
             } else if (alertAmount >= 1) {
+                binding.ibHomeAlert.setImageResource(R.drawable.ic_home_yes_alert)
                 binding.ibHomeAlert.setOnClickListener {
                     yesAlertBalloon.showAlignBottom(it)
                     yesAlertBalloon.dismiss()
