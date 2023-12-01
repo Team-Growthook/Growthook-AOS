@@ -38,7 +38,7 @@
             android:layout_marginEnd="8dp"
             android:background="@null"
             android:scaleType="center"
-            android:src="@drawable/ic_home_bell"
+            android:src="@drawable/ic_home_no_alert"
             app:layout_constraintBottom_toBottomOf="@id/tv_home_appbar_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_home_appbar_title" />
