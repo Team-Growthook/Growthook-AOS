@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.selection.SelectionPredicates
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StableIdKeyProvider
@@ -25,9 +25,12 @@ import timber.log.Timber
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
-    private val viewModel: HomeViewModel by viewModels()
+    private val viewModel: HomeViewModel by activityViewModels()
 
     private var _caveAdapter: CaveAdapter? = null
+
+    private lateinit var selectMenuBottomSheet: SelectMenuBottomSheet
+
     private val caveAdapter
         get() = requireNotNull(_caveAdapter) { "adapter is null" }
 
@@ -48,6 +51,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         setAlertMessage()
         clickScrap()
         setCaveAdapter()
+
+        selectMenuBottomSheet = SelectMenuBottomSheet()
     }
 
     private fun setTitleText() {
@@ -85,13 +90,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 val selectedInsight = insightAdapter.getSelectedLongInsight()
                 Timber.d("선택된 longInsight: $selectedInsight")
 
-                val activity = activity as MainActivity
-                activity.hideBottomNavigation(true)
+                selectedInsight?.let {
+                    val activity = activity as MainActivity
+                    activity.hideBottomNavigation(true)
 
-                val selectMenuBottomSheet = SelectMenuBottomSheet()
-                selectMenuBottomSheet.show(parentFragmentManager, "show")
+                    selectMenuBottomSheet.show(parentFragmentManager, "show")
+                }
             }
         })
+
+        viewModel.isMenuDismissed.observe(viewLifecycleOwner) {
+            Timber.d("viewModel 바텀시트 dismiss $it")
+            longTracker.clearSelection()
+        }
     }
 
     private fun selectedItem(item: Insight) {

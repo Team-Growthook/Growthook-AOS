@@ -32,6 +32,8 @@ class HomeViewModel @Inject constructor(
     private val _caves = MutableLiveData<List<Cave>>()
     val caves: LiveData<List<Cave>> = _caves
 
+    val isMenuDismissed = MutableLiveData<Boolean>()
+
     init {
         viewModelScope.launch {
             getUserUseCase.invoke().name.let { nickName ->

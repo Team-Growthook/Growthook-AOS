@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+    android:layout_height="wrap_content">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        app:behavior_peekHeight="200dp"
+        android:background="@color/MainGreen400"
+        android:id="@+id/cl_home_select_menu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/MainGreen400"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
         tools:context=".presentation.home.SelectMenuBottomSheet">
 
         <com.google.android.material.button.MaterialButton
@@ -55,4 +57,4 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</FrameLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
