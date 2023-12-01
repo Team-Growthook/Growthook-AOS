@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.selection.SelectionPredicates
@@ -22,6 +23,7 @@ import timber.log.Timber
 class CaveSelectBottomSheet :
     BaseBottomSheetFragment<FragmentCaveSelectBottomsheetBinding>(R.layout.fragment_cave_select_bottomsheet) {
     private val viewModel by viewModels<CaveSelectBottomSheetViewModel>()
+    private val homeViewModel by activityViewModels<HomeViewModel>()
 
     private var _adapter: CaveSelectAdapter? = null
     private val adapter
@@ -75,9 +77,10 @@ class CaveSelectBottomSheet :
         binding.btnHomeSelectCave.setOnClickListener {
             lifecycleScope.launch {
                 viewModel.selectedCave.collect {
+                    dismiss()
                     Toast.makeText(
                         requireContext(),
-                        "${it}에 옮깁니다",
+                        "${it?.name}에 ${homeViewModel.longClickInsight.value}를 옮깁니다",
                         Toast.LENGTH_SHORT,
                     ).show()
                 }

@@ -34,6 +34,8 @@ class HomeViewModel @Inject constructor(
 
     val isMenuDismissed = MutableLiveData<Boolean>()
 
+    val longClickInsight = MutableLiveData<Insight>()
+
     init {
         viewModelScope.launch {
             getUserUseCase.invoke().name.let { nickName ->

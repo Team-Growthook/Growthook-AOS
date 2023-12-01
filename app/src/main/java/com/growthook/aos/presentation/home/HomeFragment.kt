@@ -94,8 +94,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
                 selectedInsight?.let {
                     activity.hideBottomNavigation(true)
-
                     selectMenuBottomSheet.show(parentFragmentManager, "show")
+                    viewModel.longClickInsight.value = it
                 }
             }
         })
