@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.growthook.aos.databinding.ActivityNoActionplanInsightBinding
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class NoActionplanInsightActivity : AppCompatActivity() {
@@ -14,6 +15,9 @@ class NoActionplanInsightActivity : AppCompatActivity() {
         binding = ActivityNoActionplanInsightBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setClickListeners()
+
+        val insightId = intent.getIntExtra("insightId", 0)
+        Timber.d("인사이트 id $insightId")
     }
 
     private fun setClickListeners() {

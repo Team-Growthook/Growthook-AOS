@@ -9,14 +9,14 @@
     tools:context=".presentation.insight.noactionplan.InsightCaveBottomsheet">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_insight_cave_main"
+        android:id="@+id/cl_home_cave_select_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rcv_insight_cave"
+            android:id="@+id/rcv_home_select_cave"
             android:layout_width="0dp"
             android:layout_height="270dp"
             android:layout_marginTop="39dp"
@@ -31,7 +31,7 @@
 
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_insight_cave"
+        android:id="@+id/btn_home_select_cave"
         style="@style/body1_bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
         android:textColor="@color/White000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cl_insight_cave_main" />
+        app:layout_constraintTop_toBottomOf="@id/cl_home_cave_select_main" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

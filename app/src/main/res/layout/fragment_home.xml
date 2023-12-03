@@ -1,14 +1,209 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".presentation.home.HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tb_invitation_home"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/tv_home_appbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="31dp"
+            android:layout_marginBottom="17dp"
+            android:includeFontPadding="false"
+            android:textAppearance="@style/head1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="EON님의 동굴 속" />
+
+        <ImageButton
+            android:id="@+id/ib_home_alert"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="end"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="8dp"
+            android:background="@null"
+            android:scaleType="center"
+            android:src="@drawable/ic_home_no_alert"
+            app:layout_constraintBottom_toBottomOf="@id/tv_home_appbar_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_home_appbar_title" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="60dp"
+            android:layout_height="28dp"
+            android:layout_gravity="end"
+            android:layout_marginTop="35dp"
+            android:background="@drawable/rect_green400_fill_20"
+            android:gravity="center"
+            android:paddingHorizontal="11dp"
+            android:paddingVertical="5dp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_home_appbar_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/ib_home_alert"
+            app:layout_constraintTop_toTopOf="@id/tv_home_appbar_title">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="2dp"
+                android:src="@drawable/ic_temp_thook" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:textAppearance="@style/detail2_bold"
+                tools:text="00" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_home_cave"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toStartOf="@id/iv_home_add_cave"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tb_invitation_home"
+        tools:listitem="@layout/item_home_cave" />
+
+    <View
+        android:layout_width="42dp"
+        android:layout_height="0dp"
+        android:background="@drawable/rect_gray700_gradient_0"
+        app:layout_constraintBottom_toBottomOf="@id/rv_home_cave"
+        app:layout_constraintEnd_toEndOf="@id/rv_home_cave"
+        app:layout_constraintTop_toTopOf="@id/rv_home_cave" />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="27dp"
+        android:background="@color/White000"
+        app:layout_constraintBottom_toBottomOf="@id/rv_home_cave"
+        app:layout_constraintEnd_toEndOf="@id/rv_home_cave"
+        app:layout_constraintTop_toTopOf="@id/rv_home_cave" />
+
+
+    <ImageButton
+        android:id="@+id/iv_home_add_cave"
+        android:layout_width="62dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="20dp"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_add_cave"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/rv_home_cave"
+        app:layout_constraintTop_toTopOf="@id/rv_home_cave" />
+
+    <View
+        android:id="@+id/view_home_line"
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="14dp"
+        android:background="@color/Gray400"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rv_home_cave" />
+
+    <TextView
+        android:id="@+id/tv_home_insight_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="20dp"
+        android:includeFontPadding="false"
+        android:textAppearance="@style/head4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_home_line"
+        tools:text="00개의 씨앗을 모았어요!" />
+
+    <CheckBox
+        android:id="@+id/chb_home_scrap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:background="@null"
+        android:button="@null"
+        android:checked="false"
+        android:drawableStart="@drawable/sel_home_scrap"
+        android:drawablePadding="4dp"
+        android:drawableTint="@color/sel_home_scrap"
+        android:gravity="end|center"
+        android:includeFontPadding="false"
+        android:paddingStart="18dp"
+        android:paddingTop="14dp"
+        android:paddingBottom="14dp"
+        android:text="스크랩"
+        android:textAppearance="@style/detail3_reg"
+        android:textColor="@color/sel_home_scrap"
+        app:layout_constraintBottom_toTopOf="@id/rv_home_insight"
+        app:layout_constraintEnd_toEndOf="@id/rv_home_insight"
+        app:useMaterialThemeColors="false" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_home_insight"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        tools:listitem="@layout/item_home_insight_no_action"
+        android:layout_marginHorizontal="18dp"
+        android:layout_marginTop="32dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_home_insight_title" />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="18dp"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:layout_marginBottom="18dp"
+        android:backgroundTint="@color/MainGreen400"
+        android:text="씨앗"
+        android:includeFontPadding="false"
+        app:iconPadding="5dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="14dp"
+        android:paddingStart="22dp"
+        android:paddingEnd="21dp"
+        android:textAppearance="@style/body1_bold"
+        android:textColor="@color/White000"
+        app:icon="@drawable/ic_insight_plus"
+        app:iconGravity="textEnd"
+        app:iconSize="14dp"
+        app:iconTint="@color/White000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
