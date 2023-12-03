@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/iv_home_add_cave"
+        android:id="@+id/iv_home_cave"
         android:layout_width="62dp"
         android:layout_height="0dp"
         android:layout_marginTop="6dp"
@@ -30,7 +30,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_home_add_cave"
+        app:layout_constraintTop_toBottomOf="@id/iv_home_cave"
         tools:text="일곱글자까지만" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

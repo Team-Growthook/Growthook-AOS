@@ -41,13 +41,12 @@ class CaveAdapter(private val selectedItem: (Cave) -> Unit) :
                 selectedItem(item)
             }
 
-            when(itemViewType) {
-                sunrise -> binding.ivHomeAddCave.setImageResource(R.drawable.ic_home_cave_sunrise)
-                sunset -> binding.ivHomeAddCave.setImageResource(R.drawable.ic_home_cave_sunset)
-                pink -> binding.ivHomeAddCave.setImageResource(R.drawable.ic_home_cave_pink)
-                night -> binding.ivHomeAddCave.setImageResource(R.drawable.ic_home_cave_night)
+            when (itemViewType) {
+                sunrise -> binding.ivHomeCave.setImageResource(R.drawable.ic_home_cave_sunrise)
+                sunset -> binding.ivHomeCave.setImageResource(R.drawable.ic_home_cave_sunset)
+                pink -> binding.ivHomeCave.setImageResource(R.drawable.ic_home_cave_pink)
+                night -> binding.ivHomeCave.setImageResource(R.drawable.ic_home_cave_night)
             }
-
         }
     }
 
