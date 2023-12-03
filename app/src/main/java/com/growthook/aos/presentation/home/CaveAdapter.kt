@@ -4,12 +4,23 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.growthook.aos.R
 import com.growthook.aos.databinding.ItemHomeCaveBinding
 import com.growthook.aos.domain.entity.Cave
 import com.growthook.aos.util.extension.ItemDiffCallback
 
 class CaveAdapter(private val selectedItem: (Cave) -> Unit) :
     ListAdapter<Cave, CaveAdapter.CaveViewHolder>(diffCallback) {
+
+    override fun getItemViewType(position: Int): Int {
+        return when (position % 4) {
+            0 -> sunrise
+            1 -> sunset
+            2 -> pink
+            3 -> night
+            else -> sunrise
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CaveViewHolder {
         val binding: ItemHomeCaveBinding =
@@ -29,10 +40,24 @@ class CaveAdapter(private val selectedItem: (Cave) -> Unit) :
             binding.root.setOnClickListener {
                 selectedItem(item)
             }
+
+            when(itemViewType) {
+                sunrise -> binding.ivHomeAddCave.setImageResource(R.drawable.ic_home_cave_sunrise)
+                sunset -> binding.ivHomeAddCave.setImageResource(R.drawable.ic_home_cave_sunset)
+                pink -> binding.ivHomeAddCave.setImageResource(R.drawable.ic_home_cave_pink)
+                night -> binding.ivHomeAddCave.setImageResource(R.drawable.ic_home_cave_night)
+            }
+
         }
     }
 
     companion object {
+
+        private const val sunrise = 0
+        private const val sunset = 1
+        private const val pink = 2
+        private const val night = 3
+
         private val diffCallback =
             ItemDiffCallback<Cave>(
                 onContentsTheSame = { old, new -> old == new },
