@@ -61,7 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="2dp"
-                android:src="@drawable/ic_temp_thook" />
+                android:src="@drawable/ic_thook" />
 
             <TextView
                 android:layout_width="wrap_content"
