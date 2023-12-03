@@ -155,7 +155,6 @@
         android:checked="false"
         android:drawableStart="@drawable/sel_home_scrap"
         android:drawablePadding="4dp"
-        android:drawableTint="@color/sel_home_scrap"
         android:gravity="end|center"
         android:includeFontPadding="false"
         android:paddingStart="18dp"
