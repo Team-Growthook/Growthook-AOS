@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/rect_gray500_fill_5"
+    android:paddingVertical="24dp"
+    android:paddingHorizontal="18dp"
+    android:layout_height="wrap_content">
+    
+    <ImageView
+        android:id="@+id/iv_home_alert_lock"
+        android:layout_width="12dp"
+        android:layout_height="14dp"
+        android:src="@drawable/ic_insight_no_lock"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_home_alert_first"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="씨앗의 잠금이 3일\n남았을 때 알려드릴게요!"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textAppearance="@style/body3_reg"
+        app:layout_constraintTop_toBottomOf="@id/iv_home_alert_lock"
+        android:layout_marginTop="8dp"
+        android:includeFontPadding="false"/>
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

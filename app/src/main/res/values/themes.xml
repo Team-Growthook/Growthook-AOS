@@ -6,7 +6,17 @@
         <item name="colorPrimaryDark">@color/Gray900</item>
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <item name="android:windowBackground">@color/Gray700</item>
+        <item name="extendedFloatingActionButtonStyle">@style/InsightPlusFloatingActionButtonStyle</item>
     </style>
 
     <style name="Theme.GrowthookAOS" parent="Base.Theme.GrowthookAOS" />
+
+    <style name="InsightPlusFloatingActionButtonStyle" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
+        <item name="shapeAppearanceOverlay">@style/Radius50</item>
+    </style>
+
+    <style name="Radius50" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerSize">50dp</item>
+    </style>
+
 </resources>

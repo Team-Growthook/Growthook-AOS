@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/rect_gray500_fill_5"
+    android:paddingVertical="24dp"
+    android:paddingHorizontal="18dp"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/iv_home_alert_lock"
+        android:layout_width="12dp"
+        android:layout_height="14dp"
+        android:src="@drawable/ic_insight_lock"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_home_alert_first"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="잠금이 "
+        app:layout_constraintStart_toStartOf="parent"
+        android:textAppearance="@style/body3_reg"
+        app:layout_constraintTop_toBottomOf="@id/iv_home_alert_lock"
+        android:layout_marginTop="8dp"
+        android:includeFontPadding="false"/>
+
+    <TextView
+        android:id="@+id/tv_home_alert_remained_day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:text="3일 이하"
+        android:textAppearance="@style/body3_bold"
+        android:textColor="@color/Red200"
+        app:layout_constraintStart_toEndOf="@id/tv_home_alert_first"
+        app:layout_constraintTop_toTopOf="@id/tv_home_alert_first"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="로"
+        android:textAppearance="@style/body3_reg"
+        app:layout_constraintStart_toEndOf="@id/tv_home_alert_remained_day"
+        app:layout_constraintTop_toTopOf="@id/tv_home_alert_first"
+        android:includeFontPadding="false"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/tv_home_alert_insight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:text="남은 씨앗이 "
+        android:textAppearance="@style/body3_reg"
+        app:layout_constraintStart_toStartOf="@id/tv_home_alert_first"
+        app:layout_constraintTop_toBottomOf="@id/tv_home_alert_first"/>
+
+    <TextView
+        android:id="@+id/tv_home_alert_insight_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:textAppearance="@style/body3_bold"
+        android:text="3개"
+        app:layout_constraintStart_toEndOf="@id/tv_home_alert_insight"
+        app:layout_constraintTop_toTopOf="@id/tv_home_alert_insight"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:textAppearance="@style/body3_reg"
+        android:text=" 있어요"
+        app:layout_constraintStart_toEndOf="@id/tv_home_alert_insight_count"
+        app:layout_constraintTop_toTopOf="@id/tv_home_alert_insight"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
