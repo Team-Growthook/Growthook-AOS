@@ -10,6 +10,7 @@
         android:id="@+id/cl_noaction_insight_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/Gray600"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -36,6 +37,7 @@
             app:layout_constraintTop_toTopOf="@id/iv_noaction_insight_back" />
 
         <TextView
+            style="@style/body1_bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="15dp"
@@ -43,10 +45,9 @@
             android:paddingStart="10dp"
             android:paddingEnd="8dp"
             android:text="완료"
-            style="@style/body1_bold"
             android:textColor="@color/Gray300"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="@id/tv_noaction_insight_toolbar_title"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_noaction_insight_toolbar_title" />
 
 
@@ -56,6 +57,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/rec_radius_bottom_10_gray600"
+        android:animateLayoutChanges="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cl_noaction_insight_toolbar">
@@ -102,8 +104,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:animateLayoutChanges="true"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_action_insight_title">
 
@@ -118,10 +119,12 @@
 
             <TextView
                 android:id="@+id/tv_action_insight_more"
+                style="@style/detail2_reg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingVertical="10dp"
                 android:text="더보기"
+                android:textColor="@color/Gray200"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/divider_action_insight_second" />
@@ -138,13 +141,13 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_action_insight_date"
-            android:layout_width="wrap_content"
+            android:id="@+id/cl_action_insight_expanded"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:visibility="gone"
+            android:layout_marginTop="16dp"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="@id/tv_action_insight_title"
             app:layout_constraintStart_toStartOf="@id/tv_action_insight_title"
             app:layout_constraintTop_toBottomOf="@id/tv_action_insight_title">
 
@@ -153,6 +156,7 @@
                 style="@style/detail2_reg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
                 android:text="2023.11.08"
                 android:textColor="@color/Gray200"
                 app:layout_constraintStart_toStartOf="parent"
@@ -179,6 +183,68 @@
                 app:layout_constraintBottom_toBottomOf="@id/divider_action_insight_first"
                 app:layout_constraintStart_toEndOf="@id/divider_action_insight_first"
                 app:layout_constraintTop_toTopOf="@id/divider_action_insight_first" />
+
+            <ScrollView
+                android:id="@+id/scv_action_insight_content"
+                android:layout_width="match_parent"
+                android:layout_height="147dp"
+                android:layout_marginHorizontal="18dp"
+                android:paddingTop="9dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_action_insight_date">
+
+                <TextView
+                    android:id="@+id/tv_action_insight_content"
+                    style="@style/body3_reg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="앱잼 합숙 기간 새벽에 먹으면 더욱 효과적으로 행복할 수 있다. 현 그로쑥 전 퍼즐링이 합숙할 때도 먹었는데 진짜 행복했다 아무래도 함께하는 사람들이 좋으니까.행복했겠지 아무래도 그렇지 암암 앱잼 합숙 기간 새벽에 먹으면 더욱 효과적으로 행복할 수 있다. 현 그로쑥 전 퍼즐링이 합숙할 때도 먹었는데 진짜 행복했다 아무래도 함께하는 사람들이 좋으니까.행복했겠지 아무래도 그렇지 암암"
+                    android:textColor="@color/White000" />
+
+            </ScrollView>
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/divider_action_insight_expanded"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="18dp"
+                app:dividerColor="@color/Gray400"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/scv_action_insight_content" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_action_insight_expanded_main"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider_action_insight_expanded">
+
+                <TextView
+                    android:id="@+id/tv_action_insight_fold"
+                    style="@style/detail2_reg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="10dp"
+                    android:text="접기"
+                    android:textColor="@color/Gray200"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/iv_action_insight_fold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:src="@drawable/ic_collapse"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_action_insight_fold"
+                    app:layout_constraintStart_toEndOf="@id/tv_action_insight_fold"
+                    app:layout_constraintTop_toTopOf="@id/tv_action_insight_fold" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
