@@ -18,19 +18,21 @@
 
     <TextView
         android:id="@+id/tv_home_cave_title"
-        android:layout_width="wrap_content"
+        android:layout_width="78dp"
+        android:gravity="center"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="4dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"
         android:includeFontPadding="false"
         android:maxLength="7"
-        android:layout_marginTop="6dp"
+        android:maxLines="1"
         android:textAppearance="@style/detail2_reg"
-        android:layout_marginHorizontal="4dp"
         android:textColor="@color/White000"
-        android:layout_marginBottom="6dp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_home_cave"
-        tools:text="일곱글자까지만" />
+        tools:text="일곱" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

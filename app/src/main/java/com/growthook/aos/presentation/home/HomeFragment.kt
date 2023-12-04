@@ -19,6 +19,7 @@ import com.growthook.aos.presentation.MainActivity
 import com.growthook.aos.presentation.cavedetail.CaveDetailActivity
 import com.growthook.aos.presentation.insight.noactionplan.InsightMenuBottomsheet
 import com.growthook.aos.presentation.insight.noactionplan.NoActionplanInsightActivity
+import com.growthook.aos.util.EmptyDataObserver
 import com.growthook.aos.util.base.BaseAlertDialog
 import com.growthook.aos.util.base.BaseFragment
 import com.skydoves.balloon.Balloon
@@ -87,6 +88,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         ).build()
 
         insightAdapter.setSelectionLongTracker(longTracker)
+        insightAdapter.registerAdapterDataObserver(
+            EmptyDataObserver(
+                binding.rvHomeInsight,
+                binding.tvHomeEmptyInsight,
+                binding.ivHomeEmptyInsight,
+            ),
+        )
 
         longTracker.addObserver(object : SelectionTracker.SelectionObserver<Long>() {
             override fun onSelectionChanged() {
@@ -146,9 +154,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private fun setCaveAdapter() {
         _caveAdapter = CaveAdapter(::clickedCave)
         viewModel.caves.observe(viewLifecycleOwner) {
+            Timber.d("리사이클러뷰 동굴 개수 ${it.size}")
             caveAdapter.submitList(it)
         }
         binding.rvHomeCave.adapter = caveAdapter
+        caveAdapter.registerAdapterDataObserver(
+            EmptyDataObserver(
+                binding.rvHomeCave,
+                binding.tvHomeEmptyCave,
+            ),
+        )
     }
 
     private fun clickedCave(item: Cave) {
