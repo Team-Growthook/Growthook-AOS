@@ -46,7 +46,7 @@ class CreateStorageActivity : AppCompatActivity() {
     }
 
     private fun clickOpenSwitchBtn() {
-        binding.switchOpen.setOnCheckedChangeListener{ CompoundButton, onSwitch ->
+        binding.switchOpen.setOnCheckedChangeListener { CompoundButton, onSwitch ->
             if (onSwitch) {
                 //
             } else {
@@ -56,8 +56,8 @@ class CreateStorageActivity : AppCompatActivity() {
     }
 
     private fun initGetStorageContent() {
-        with (binding) {
-            edtStorageName.addTextChangedListener(object : TextWatcher{
+        with(binding) {
+            edtStorageName.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 }
 
@@ -69,7 +69,7 @@ class CreateStorageActivity : AppCompatActivity() {
                 }
             })
 
-            edtStorageIntroduction.addTextChangedListener(object : TextWatcher{
+            edtStorageIntroduction.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 }
 
@@ -85,15 +85,13 @@ class CreateStorageActivity : AppCompatActivity() {
 
     private fun setBtnEnabled() {
         viewModel.checkBtnEnabled.observe(this) {
-            if (it) {
-                with (binding) {
-                    btnStorageCreate.isEnabled = true
-                    btnStorageCreate.setBackgroundResource(R.drawable.shape_storage_btn_active)
-                }
-            } else {
-                with (binding) {
-                    btnStorageCreate.isEnabled = false
-                    btnStorageCreate.setBackgroundResource(R.drawable.shape_storage_btn_inactive)
+            with(binding.btnStorageCreate) {
+                if (it) {
+                    isEnabled = true
+                    setBackgroundResource(R.drawable.shape_storage_btn_active)
+                } else {
+                    isEnabled = false
+                    setBackgroundResource(R.drawable.shape_storage_btn_inactive)
                 }
             }
         }

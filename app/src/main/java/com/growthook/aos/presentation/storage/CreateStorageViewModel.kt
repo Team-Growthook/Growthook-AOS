@@ -31,6 +31,6 @@ class CreateStorageViewModel @Inject constructor() : ViewModel() {
         addSource(storageIntroduction) { value = checkCreateStorageEnabled() }
     }
 
-    private fun checkCreateStorageEnabled() : Boolean =
+    private fun checkCreateStorageEnabled(): Boolean =
         !storageName.value.isNullOrBlank() && !storageIntroduction.value.isNullOrBlank()
 }
