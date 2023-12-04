@@ -65,15 +65,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         viewModel.nickname.observe(viewLifecycleOwner) { nickName ->
             binding.tvHomeAppbarTitle.text = "${nickName}님의 동굴 속"
         }
-        viewModel.insightAmount.observe(viewLifecycleOwner) { insightAmount ->
-            binding.tvHomeInsightTitle.text = "${insightAmount}개의 씨앗을 모았어요!"
-        }
     }
 
     private fun setInsightAdapter() {
         _insightAdapter = HomeInsightAdapter(::selectedItem, ::clickedScrap)
         viewModel.insights.observe(viewLifecycleOwner) {
             insightAdapter.submitList(it)
+            binding.tvHomeInsightTitle.text = "${it.size}개의 씨앗을 모았어요!"
         }
         binding.rvHomeInsight.adapter = insightAdapter
 
