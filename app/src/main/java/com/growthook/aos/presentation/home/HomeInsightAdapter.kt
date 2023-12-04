@@ -92,7 +92,7 @@ class HomeInsightAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun onBind(item: Insight, itemPosition: Int) {
             if (item.isScraped) {
-                binding.btnHomeScrap.setImageResource(R.drawable.ic_insight_no_action_yes_scrap)
+                binding.btnHomeScrap.setImageResource(R.drawable.ic_scrap_unselected)
             }
             binding.tvHomeInsightTitle.text = item.title
             binding.tvHomeInsightLock.text = "${item.remainedLock}일 후 잠금"
@@ -122,7 +122,7 @@ class HomeInsightAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun onBind(item: Insight, itemPosition: Int) {
             if (item.isScraped) {
-                binding.btnHomeScrap.setImageResource(R.drawable.ic_insight_yes_action_yes_scrap)
+                binding.btnHomeScrap.setImageResource(R.drawable.ic_scrap_yes_action_selected)
             }
             binding.tvHomeInsightTitle.text = item.title
             binding.tvHomeInsightLock.text = "${item.remainedLock}일 후 잠금"
@@ -164,7 +164,7 @@ class HomeInsightAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun onBind(item: Insight, itemPosition: Int) {
             if (item.isScraped) {
-                binding.btnHomeScrap.setImageResource(R.drawable.ic_insight_no_action_yes_scrap)
+                binding.btnHomeScrap.setImageResource(R.drawable.ic_scrap_selected)
             }
             binding.tvHomeInsightTitle.text = item.title
             binding.tvHomeInsightLock.text = "${item.remainedLock}일 후 잠금"

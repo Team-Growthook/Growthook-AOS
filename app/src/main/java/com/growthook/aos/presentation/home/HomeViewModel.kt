@@ -20,9 +20,6 @@ class HomeViewModel @Inject constructor(
     private val _nickName = MutableLiveData<String>()
     val nickname: LiveData<String> = _nickName
 
-    private val _insightAmount = MutableLiveData(0)
-    val insightAmount: LiveData<Int> = _insightAmount
-
     private val _alertAmount = MutableLiveData<Int>()
     val alertAmount: LiveData<Int> = _alertAmount
 
