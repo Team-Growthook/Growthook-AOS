@@ -10,6 +10,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.growthook.aos.R
 import com.growthook.aos.databinding.ActivityCreateStorageBinding
+import com.growthook.aos.util.base.BaseAlertDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -46,11 +47,24 @@ class CreateStorageActivity : AppCompatActivity() {
     }
 
     private fun clickOpenSwitchBtn() {
-        binding.switchOpen.setOnCheckedChangeListener { CompoundButton, onSwitch ->
+        binding.switchOpen.setOnCheckedChangeListener { _, onSwitch ->
             if (onSwitch) {
-                //
-            } else {
-                //
+                BaseAlertDialog.Builder()
+                    .setCancelable(false)
+                    .build(
+                        type = BaseAlertDialog.DialogType.SINGLE_INTENDED,
+                        title = "내 동굴에 친구를 초대해\n  인사이트를 공유해요!",
+                        description = "해당 기능은 추후 업데이트 예정이에요 :)",
+                        isTipVisility = false,
+                        isRemainThookVisility = false,
+                        isBackgroundImageVisility = false,
+                        isDescriptionVisility = true,
+                        positiveText = "확인",
+                        negativeText = "",
+                        tipText = "",
+                        negativeAction = {},
+                        positiveAction = {}
+                    ).show(supportFragmentManager, "delete dialog")
             }
         }
     }
