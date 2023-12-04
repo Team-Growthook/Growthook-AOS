@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.selection.SelectionPredicates
@@ -13,6 +14,7 @@ import androidx.recyclerview.selection.StableIdKeyProvider
 import androidx.recyclerview.selection.StorageStrategy
 import com.growthook.aos.R
 import com.growthook.aos.databinding.FragmentHomeBinding
+import com.growthook.aos.databinding.ItemHomeYesAlertBinding
 import com.growthook.aos.domain.entity.Cave
 import com.growthook.aos.domain.entity.Insight
 import com.growthook.aos.presentation.MainActivity
@@ -187,6 +189,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             .setAutoDismissDuration(2000L)
             .build()
 
+        val insightCountView = yesAlertBalloon.getContentView()
+            .findViewById<TextView>(R.id.tv_home_alert_insight_count)
+
         val noAlertBalloon = Balloon.Builder(requireContext())
             .setLayout(R.layout.item_home_no_alert)
             .setIsVisibleArrow(false)
@@ -205,6 +210,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     noAlertBalloon.dismiss()
                 }
             } else if (alertAmount >= 1) {
+                insightCountView.text = "${alertAmount}개"
                 binding.ibHomeAlert.setImageResource(R.drawable.ic_home_yes_alert)
                 binding.ibHomeAlert.setOnClickListener {
                     yesAlertBalloon.showAlignBottom(it)
