@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.insight.actionplan.ActionplanInsightActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_noaction_insight_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_noaction_insight_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_back"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_noaction_insight_toolbar_title"
+            style="@style/body1_reg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="액션 만들기"
+            app:layout_constraintBottom_toBottomOf="@id/iv_noaction_insight_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_noaction_insight_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:paddingVertical="12dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="8dp"
+            android:text="완료"
+            style="@style/body1_bold"
+            android:textColor="@color/Gray300"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/tv_noaction_insight_toolbar_title"
+            app:layout_constraintTop_toTopOf="@id/tv_noaction_insight_toolbar_title" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rec_radius_bottom_10_gray600"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cl_noaction_insight_toolbar">
+
+        <TextView
+            android:id="@+id/tv_action_insight_chip"
+            style="@style/detail1_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/rec_radius_4"
+            android:backgroundTint="@color/Green100"
+            android:paddingHorizontal="7dp"
+            android:paddingVertical="2dp"
+            android:text="괵괵"
+            android:textColor="@color/Green600"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_action_insight_seed"
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/ic_seed_unselected"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_action_insight_title"
+            style="@style/body2_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="야식에 불닭과 만두의 조합 좋다"
+            android:textColor="@color/White000"
+            app:layout_constraintStart_toStartOf="@id/tv_action_insight_chip"
+            app:layout_constraintTop_toBottomOf="@id/tv_action_insight_chip" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_action_insight_collapse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:animateLayoutChanges="true"
+            android:visibility="visible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_action_insight_title">
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/divider_action_insight_second"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="18dp"
+                app:dividerColor="@color/Gray400"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_action_insight_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="10dp"
+                android:text="더보기"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider_action_insight_second" />
+
+            <ImageView
+                android:id="@+id/iv_action_insight_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:src="@drawable/ic_more"
+                app:layout_constraintBottom_toBottomOf="@id/tv_action_insight_more"
+                app:layout_constraintStart_toEndOf="@id/tv_action_insight_more"
+                app:layout_constraintTop_toTopOf="@id/tv_action_insight_more" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_action_insight_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@id/tv_action_insight_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_action_insight_title">
+
+            <TextView
+                android:id="@+id/tv_action_insight_date"
+                style="@style/detail2_reg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2023.11.08"
+                android:textColor="@color/Gray200"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/divider_action_insight_first"
+                android:layout_width="1dp"
+                android:layout_height="12dp"
+                android:layout_marginStart="10dp"
+                app:dividerColor="@color/Gray300"
+                app:layout_constraintBottom_toBottomOf="@id/tv_action_insight_date"
+                app:layout_constraintStart_toEndOf="@+id/tv_action_insight_date"
+                app:layout_constraintTop_toTopOf="@+id/tv_action_insight_date" />
+
+            <TextView
+                android:id="@+id/tv_action_insight_dday"
+                style="@style/detail2_bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="D-21"
+                android:textColor="@color/Red200"
+                app:layout_constraintBottom_toBottomOf="@id/divider_action_insight_first"
+                app:layout_constraintStart_toEndOf="@id/divider_action_insight_first"
+                app:layout_constraintTop_toTopOf="@id/divider_action_insight_first" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
