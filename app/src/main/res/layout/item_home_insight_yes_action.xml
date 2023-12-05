@@ -16,7 +16,7 @@
         android:paddingVertical="13dp"
         android:paddingStart="14dp"
         android:paddingEnd="12dp"
-        android:src="@drawable/ic_insight_yes_action_no_scap"
+        android:src="@drawable/ic_scrap_yes_action_unselected"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

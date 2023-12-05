@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.selection.SelectionPredicates
@@ -13,12 +14,14 @@ import androidx.recyclerview.selection.StableIdKeyProvider
 import androidx.recyclerview.selection.StorageStrategy
 import com.growthook.aos.R
 import com.growthook.aos.databinding.FragmentHomeBinding
+import com.growthook.aos.databinding.ItemHomeYesAlertBinding
 import com.growthook.aos.domain.entity.Cave
 import com.growthook.aos.domain.entity.Insight
 import com.growthook.aos.presentation.MainActivity
 import com.growthook.aos.presentation.cavedetail.CaveDetailActivity
 import com.growthook.aos.presentation.insight.noactionplan.InsightMenuBottomsheet
 import com.growthook.aos.presentation.insight.noactionplan.NoActionplanInsightActivity
+import com.growthook.aos.util.EmptyDataObserver
 import com.growthook.aos.util.base.BaseAlertDialog
 import com.growthook.aos.util.base.BaseFragment
 import com.skydoves.balloon.Balloon
@@ -64,15 +67,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         viewModel.nickname.observe(viewLifecycleOwner) { nickName ->
             binding.tvHomeAppbarTitle.text = "${nickName}님의 동굴 속"
         }
-        viewModel.insightAmount.observe(viewLifecycleOwner) { insightAmount ->
-            binding.tvHomeInsightTitle.text = "${insightAmount}개의 씨앗을 모았어요!"
-        }
     }
 
     private fun setInsightAdapter() {
         _insightAdapter = HomeInsightAdapter(::selectedItem, ::clickedScrap)
         viewModel.insights.observe(viewLifecycleOwner) {
             insightAdapter.submitList(it)
+            binding.tvHomeInsightTitle.text = "${it.size}개의 씨앗을 모았어요!"
         }
         binding.rvHomeInsight.adapter = insightAdapter
 
@@ -87,6 +88,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         ).build()
 
         insightAdapter.setSelectionLongTracker(longTracker)
+        insightAdapter.registerAdapterDataObserver(
+            EmptyDataObserver(
+                binding.rvHomeInsight,
+                binding.tvHomeEmptyInsight,
+                binding.ivHomeEmptyInsight,
+            ),
+        )
 
         longTracker.addObserver(object : SelectionTracker.SelectionObserver<Long>() {
             override fun onSelectionChanged() {
@@ -146,9 +154,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private fun setCaveAdapter() {
         _caveAdapter = CaveAdapter(::clickedCave)
         viewModel.caves.observe(viewLifecycleOwner) {
+            Timber.d("리사이클러뷰 동굴 개수 ${it.size}")
             caveAdapter.submitList(it)
         }
         binding.rvHomeCave.adapter = caveAdapter
+        caveAdapter.registerAdapterDataObserver(
+            EmptyDataObserver(
+                binding.rvHomeCave,
+                binding.tvHomeEmptyCave,
+            ),
+        )
     }
 
     private fun clickedCave(item: Cave) {
@@ -174,6 +189,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             .setAutoDismissDuration(2000L)
             .build()
 
+        val insightCountView = yesAlertBalloon.getContentView()
+            .findViewById<TextView>(R.id.tv_home_alert_insight_count)
+
         val noAlertBalloon = Balloon.Builder(requireContext())
             .setLayout(R.layout.item_home_no_alert)
             .setIsVisibleArrow(false)
@@ -192,6 +210,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     noAlertBalloon.dismiss()
                 }
             } else if (alertAmount >= 1) {
+                insightCountView.text = "${alertAmount}개"
                 binding.ibHomeAlert.setImageResource(R.drawable.ic_home_yes_alert)
                 binding.ibHomeAlert.setOnClickListener {
                     yesAlertBalloon.showAlignBottom(it)

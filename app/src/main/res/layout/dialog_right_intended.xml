@@ -76,7 +76,7 @@
             android:layout_width="10dp"
             android:layout_height="12dp"
             android:layout_marginStart="3dp"
-            android:src="@drawable/img_thook"
+            android:src="@drawable/ic_thook"
             app:layout_constraintBottom_toBottomOf="@id/tv_right_intended_remain_thook"
             app:layout_constraintDimensionRatio="0.83"
             app:layout_constraintStart_toEndOf="@id/tv_right_intended_remain_thook"
