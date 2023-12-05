@@ -1,6 +1,7 @@
 package com.growthook.aos.presentation.cavedetail
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.growthook.aos.databinding.ActivityCaveDetailBinding
 import com.growthook.aos.presentation.insight.noactionplan.InsightMenuBottomsheet
@@ -11,12 +12,18 @@ import dagger.hilt.android.AndroidEntryPoint
 class CaveDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCaveDetailBinding
 
+    private val viewModel: CaveDetailViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCaveDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         clickLock()
+
+        val caveId = intent.getIntExtra("caveId", 0)
+        viewModel.getCaveDetail(caveId)
+
     }
 
     private fun clickLock() {
