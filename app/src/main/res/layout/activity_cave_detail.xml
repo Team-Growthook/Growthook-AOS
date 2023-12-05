@@ -1,18 +1,171 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tb_cave_detail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/Gray600"
+        android:minHeight="?attr/actionBarSize"
+        android:paddingStart="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_back">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="8dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_mainmenu" />
+
+
+    </androidx.appcompat.widget.Toolbar>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_cave_detail_cave_desc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/Gray600"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tb_cave_detail">
+
+        <TextView
+            android:id="@+id/tv_cave_detail_cave_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="24dp"
+            android:textAppearance="@style/head4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="동굴이름임다" />
+
+        <TextView
+            android:id="@+id/tv_cave_detail_cave_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:text="동굴 설명자리에요. 글자수는 어쩌고까지"
+            android:textAppearance="@style/body3_reg"
+            android:textColor="@color/Gray100"
+            app:layout_constraintStart_toStartOf="@id/tv_cave_detail_cave_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_cave_detail_cave_name" />
+
+
+        <ImageView
+            android:id="@+id/iv_cave_detail_user"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="16dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/img_bear"
+            app:layout_constraintStart_toStartOf="@id/tv_cave_detail_cave_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_cave_detail_cave_desc" />
+
+        <TextView
+            android:id="@+id/tv_cave_detail_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:textAppearance="@style/detail2_reg"
+            android:textColor="@color/Gray200"
+            app:layout_constraintBottom_toBottomOf="@id/iv_cave_detail_user"
+            app:layout_constraintStart_toEndOf="@id/iv_cave_detail_user"
+            app:layout_constraintTop_toTopOf="@id/iv_cave_detail_user"
+            tools:text="생성한사람닉네임자리" />
+
+        <ImageView
+            android:id="@+id/iv_cave_detail_isLock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="10dp"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="12dp"
+            android:src="@drawable/ic_lock"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_cave_detail_user" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
+        android:id="@+id/tv_cave_detail_insight_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="보관함 상세"
-        android:textSize="50sp"
-        android:textColor="@color/White000"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="34dp"
+        android:includeFontPadding="false"
+        android:textAppearance="@style/head4"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cl_cave_detail_cave_desc"
+        tools:text="00개의 씨앗을 모았어요" />
+
+    <CheckBox
+        android:id="@+id/chb_home_scrap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:background="@null"
+        android:button="@null"
+        android:checked="false"
+        android:drawableStart="@drawable/sel_home_scrap"
+        android:drawablePadding="4dp"
+        android:gravity="end|center"
+        android:includeFontPadding="false"
+        android:paddingStart="18dp"
+        android:paddingTop="14dp"
+        android:paddingBottom="14dp"
+        android:text="스크랩"
+        android:textAppearance="@style/detail3_reg"
+        android:textColor="@color/sel_home_scrap"
+        app:layout_constraintBottom_toTopOf="@id/rcv_cave_detail_insight"
+        app:layout_constraintEnd_toEndOf="@id/rcv_cave_detail_insight"
+        app:useMaterialThemeColors="false" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcv_cave_detail_insight"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="18dp"
+        android:layout_marginTop="32dp"
+        android:visibility="visible"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_cave_detail_insight_title"
+        tools:listitem="@layout/item_home_insight_no_action" />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="18dp"
+        android:backgroundTint="@color/MainGreen400"
+        android:includeFontPadding="false"
+        android:paddingStart="22dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="21dp"
+        android:paddingBottom="14dp"
+        android:text="씨앗심기"
+        android:layout_marginHorizontal="18dp"
+        app:shapeAppearanceOverlay="@style/Radius5"
+        android:textAppearance="@style/body1_bold"
+        android:textColor="@color/White000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
