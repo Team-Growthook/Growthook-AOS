@@ -2,14 +2,13 @@ package com.growthook.aos.presentation.cavedetail.cavemodify
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.MotionEvent
 import androidx.activity.viewModels
 import com.growthook.aos.databinding.ActivityCaveDetailModifyBinding
 import com.growthook.aos.presentation.MainActivity
 import com.growthook.aos.presentation.cavedetail.CaveDetailActivity
 import com.growthook.aos.util.base.BaseActivity
+import com.growthook.aos.util.extension.CommonTextWatcher
 import com.growthook.aos.util.extension.hideKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -28,17 +27,9 @@ class CaveDetailModifyActivity :
     }
 
     private fun observeIsModified() {
-        val textWatcher: TextWatcher = object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                viewModel.setIsModified(true)
-            }
-
-            override fun afterTextChanged(p0: Editable?) {
-            }
-        }
+        val textWatcher = CommonTextWatcher(onChanged = { _, _, _, _ ->
+            viewModel.setIsModified(true)
+        })
 
         binding.edtCaveModifyName.addTextChangedListener(textWatcher)
         binding.edtCaveModifyDesc.addTextChangedListener(textWatcher)
