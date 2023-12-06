@@ -119,6 +119,7 @@
             android:layout_margin="0dp"
             android:cursorVisible="true"
             android:gravity="top"
+            android:maxLength="20"
             android:maxLines="2"
             android:minLines="2"
             android:text="동굴 이름"
