@@ -10,8 +10,8 @@ import androidx.recyclerview.selection.StableIdKeyProvider
 import androidx.recyclerview.selection.StorageStrategy
 import com.growthook.aos.databinding.ActivityCaveDetailBinding
 import com.growthook.aos.domain.entity.Insight
+import com.growthook.aos.presentation.MainActivity
 import com.growthook.aos.presentation.home.HomeInsightAdapter
-import com.growthook.aos.presentation.home.SelectMenuBottomSheet
 import com.growthook.aos.presentation.insight.noactionplan.InsightMenuBottomsheet
 import com.growthook.aos.presentation.insight.noactionplan.NoActionplanInsightActivity
 import com.growthook.aos.util.EmptyDataObserver
@@ -45,6 +45,8 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
         setInsightAdapter()
         setNickName()
         clickScrap(caveId)
+
+        clickBackNavi()
     }
 
     private fun setInsightAdapter() {
@@ -171,6 +173,15 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
             } else {
                 viewModel.getInsights(caveId)
             }
+        }
+    }
+
+    private fun clickBackNavi() {
+        binding.tbCaveDetail.setNavigationOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+            finish()
         }
     }
 
