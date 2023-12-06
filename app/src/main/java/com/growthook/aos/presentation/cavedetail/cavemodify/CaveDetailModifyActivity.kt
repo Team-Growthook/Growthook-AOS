@@ -18,7 +18,7 @@ class CaveDetailModifyActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Timber.d("동굴 수정 ${intent.getStringExtra("caveName")}")
+        binding.edtCaveModifyName.setText(intent.getStringExtra("caveName"))
         observeIsModified()
         canClickFinishBtn()
         clickBackNavi()
