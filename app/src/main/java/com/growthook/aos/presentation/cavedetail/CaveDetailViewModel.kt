@@ -20,6 +20,10 @@ class CaveDetailViewModel @Inject constructor(
     private val _nickName = MutableLiveData<String>()
     val nickname: LiveData<String> = _nickName
 
+    val isMenuDismissed = MutableLiveData<Boolean>()
+
+    val longClickInsight = MutableLiveData<Insight>()
+
     init {
         viewModelScope.launch {
             getUserUseCase.invoke().name.let { nickName ->
@@ -28,7 +32,7 @@ class CaveDetailViewModel @Inject constructor(
         }
     }
 
-    fun getCaveDetail(caveId: Int) {
+    fun getInsights(caveId: Int) {
         var dummyInsights = listOf(
             Insight(
                 "제목1",
@@ -114,5 +118,13 @@ class CaveDetailViewModel @Inject constructor(
         )
 
         _insights.value = dummyInsights
+    }
+
+    fun changeScrap(isScrap: Boolean) {
+        // TODO 스크랩 api 구현
+    }
+
+    fun getScrapedInsight() {
+        _insights.value = _insights.value?.filter { it.isScraped }
     }
 }

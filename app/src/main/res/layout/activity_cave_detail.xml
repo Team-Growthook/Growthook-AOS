@@ -47,7 +47,7 @@
             android:textAppearance="@style/head4"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="동굴이름임다" />
+            android:text="동굴이름임다" />
 
         <TextView
             android:id="@+id/tv_cave_detail_cave_desc"
@@ -113,7 +113,7 @@
         tools:text="00개의 씨앗을 모았어요" />
 
     <CheckBox
-        android:id="@+id/chb_home_scrap"
+        android:id="@+id/chb_cave_detail_scrap"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
@@ -148,9 +148,34 @@
         app:layout_constraintTop_toBottomOf="@id/tv_cave_detail_insight_title"
         tools:listitem="@layout/item_home_insight_no_action" />
 
+    <ImageView
+        android:id="@+id/iv_cave_detail_empty_insight"
+        android:layout_width="112dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_empty_insight"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/chb_cave_detail_scrap"
+        app:layout_constraintVertical_bias="0.3" />
+
+    <TextView
+        android:id="@+id/tv_cave_detail_empty_insight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="아직 심겨진 씨앗이 없어요"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@id/iv_cave_detail_empty_insight"
+        app:layout_constraintStart_toStartOf="@id/iv_cave_detail_empty_insight"
+        app:layout_constraintTop_toBottomOf="@id/iv_cave_detail_empty_insight" />
+
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="18dp"
         android:layout_marginBottom="18dp"
         android:backgroundTint="@color/MainGreen400"
         android:includeFontPadding="false"
@@ -159,13 +184,12 @@
         android:paddingEnd="21dp"
         android:paddingBottom="14dp"
         android:text="씨앗심기"
-        android:layout_marginHorizontal="18dp"
-        app:shapeAppearanceOverlay="@style/Radius5"
         android:textAppearance="@style/body1_bold"
         android:textColor="@color/White000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:shapeAppearanceOverlay="@style/Radius5" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
