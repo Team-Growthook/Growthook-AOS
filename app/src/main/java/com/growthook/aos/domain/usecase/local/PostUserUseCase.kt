@@ -1,6 +1,5 @@
 package com.growthook.aos.domain.usecase.local
 
-import com.growthook.aos.data.entity.User
 import com.growthook.aos.domain.repository.UserRepository
 import javax.inject.Inject
 
