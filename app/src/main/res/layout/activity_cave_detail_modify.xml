@@ -34,8 +34,9 @@
             android:background="@android:color/transparent"
             android:minWidth="0dp"
             android:padding="8dp"
+            android:enabled="false"
             android:text="완료"
-            android:textColor="@color/Gray300" />
+            android:textColor="@color/sel_cave_modify_btn" />
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -69,6 +70,7 @@
         app:layout_constraintTop_toBottomOf="@id/tb_cave_modify">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_cave_modify_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="0dp"
@@ -103,6 +105,7 @@
         app:boxBackgroundMode="outline"
         app:counterEnabled="true"
         app:counterMaxLength="20"
+        android:gravity="top"
         app:counterTextAppearance="@style/CounterTextAppearance"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -110,6 +113,7 @@
         app:layout_goneMarginTop="60dp">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_cave_modify_desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="0dp"
