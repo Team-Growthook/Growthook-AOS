@@ -17,6 +17,8 @@ class CaveDetailViewModel @Inject constructor(
     private val _insights = MutableLiveData<List<Insight>>()
     val insights: LiveData<List<Insight>> = _insights
 
+    private val scrapedInsight = MutableLiveData<List<Insight>>()
+
     private val _nickName = MutableLiveData<String>()
     val nickname: LiveData<String> = _nickName
 
@@ -118,6 +120,7 @@ class CaveDetailViewModel @Inject constructor(
         )
 
         _insights.value = dummyInsights
+        scrapedInsight.value = _insights.value?.filter { it.isScraped }
     }
 
     fun changeScrap(isScrap: Boolean) {
@@ -125,6 +128,6 @@ class CaveDetailViewModel @Inject constructor(
     }
 
     fun getScrapedInsight() {
-        _insights.value = _insights.value?.filter { it.isScraped }
+        _insights.value = scrapedInsight.value
     }
 }
