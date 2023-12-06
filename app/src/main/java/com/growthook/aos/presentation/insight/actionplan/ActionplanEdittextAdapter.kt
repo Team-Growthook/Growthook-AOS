@@ -1,16 +1,16 @@
 package com.growthook.aos.presentation.insight.actionplan
 
-import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.growthook.aos.databinding.ItemActionplanEdittextBinding
-import timber.log.Timber
+import com.growthook.aos.util.extension.CommonTextWatcher
 
 class ActionplanEdittextAdapter(
     private val list: MutableList<String>,
+    private val onAddItem: () -> Unit,
+    private val onEditTextChanged: (position: Int, text: String) -> Unit,
 ) :
     RecyclerView.Adapter<ActionplanEdittextAdapter.ActionplanEdittextViewHolder>() {
 
@@ -19,6 +19,7 @@ class ActionplanEdittextAdapter(
     ) :
         RecyclerView.ViewHolder(binding.root) {
         var editText = binding.tilActionInsight
+        var textWatcher: TextWatcher? = null
     }
 
     override fun onCreateViewHolder(
@@ -36,28 +37,30 @@ class ActionplanEdittextAdapter(
     }
 
     override fun getItemCount(): Int {
-        Log.d("adapter", "list.size:: ${list.size}")
         return if (list.isEmpty()) 1 else list.size
     }
 
     override fun onBindViewHolder(holder: ActionplanEdittextViewHolder, position: Int) {
-        val currentItem = list[position]
-        holder.editText.editText?.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                Timber.tag("adapter").d("onTextChanged")
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                Timber.tag("adapter").d("currentItem.length:: %s", currentItem.length)
-            }
-        })
+        holder.editText.editText?.setText(list[position])
+        holder.editText.editText?.removeTextChangedListener(holder.textWatcher)
+        holder.textWatcher = CommonTextWatcher(
+            afterChanged = { editable ->
+                onEditTextChanged.invoke(
+                    holder.absoluteAdapterPosition,
+                    editable?.toString().orEmpty(),
+                )
+            },
+        )
+        holder.editText.editText?.addTextChangedListener(holder.textWatcher)
     }
 
     fun addItem(item: String) {
-        val insertPosition = list.size
-        list.add(item)
-        notifyItemInserted(insertPosition)
+        list.add(0, item)
+        onAddItem.invoke()
+        notifyItemInserted(0)
+    }
+
+    companion object {
+        const val TAG = "adapter"
     }
 }

@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/iv_noaction_insight_back"
+            android:id="@+id/iv_action_insight_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -31,12 +31,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="액션 만들기"
-            app:layout_constraintBottom_toBottomOf="@id/iv_noaction_insight_back"
+            app:layout_constraintBottom_toBottomOf="@id/iv_action_insight_back"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/iv_noaction_insight_back" />
+            app:layout_constraintTop_toTopOf="@id/iv_action_insight_back" />
 
         <TextView
+            android:id="@+id/tv_action_insight_complete"
             style="@style/body1_bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
