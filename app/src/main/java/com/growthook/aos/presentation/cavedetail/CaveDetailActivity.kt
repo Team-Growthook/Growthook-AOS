@@ -47,11 +47,9 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
         clickScrap(caveId)
 
         clickBackNavi()
-        binding.ibCaveDetailMainmenu.setOnClickListener {
-            val bottomSheet = CaveModifySelectBottomSheet()
-            bottomSheet.show(supportFragmentManager, "show")
-        }
+        clickMainMenu()
     }
+
 
     private fun setInsightAdapter() {
         _insightAdapter = HomeInsightAdapter(::selectedItem, ::clickedScrap)
@@ -186,6 +184,13 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
             finish()
+        }
+    }
+
+    private fun clickMainMenu() {
+        binding.ibCaveDetailMainmenu.setOnClickListener {
+            val bottomSheet = CaveModifySelectBottomSheet()
+            bottomSheet.show(supportFragmentManager, "show")
         }
     }
 
