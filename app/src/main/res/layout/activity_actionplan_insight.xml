@@ -262,35 +262,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/action_insight_background" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_action_insight"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcv_action_insight_edittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="18dp"
         android:layout_marginTop="8dp"
-        app:boxBackgroundColor="@color/Gray900"
-        app:counterEnabled="true"
-        app:counterMaxLength="40"
-        app:endIconMode="clear_text"
-        app:hintEnabled="false"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_action_insight_plus">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edt_action_insight"
-            style="@style/body3_bold"
-            android:layout_width="match_parent"
-            android:layout_height="68dp"
-            android:gravity="start"
-            android:hint="구체적인 계획을 설정해보세요"
-            android:includeFontPadding="false"
-            android:inputType="textMultiLine"
-            android:scrollHorizontally="false"
-            android:textAppearance="@style/body3_reg"
-            android:textColor="@color/White000"
-            android:textColorHint="@color/Gray300" />
-
-    </com.google.android.material.textfield.TextInputLayout>
+        app:layout_constraintTop_toBottomOf="@+id/iv_action_insight_plus"
+        tools:listitem="@layout/item_actionplan_edittext"
+        tools:itemCount="2"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
