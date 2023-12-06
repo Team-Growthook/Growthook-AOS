@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/Gray400">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_cave_detail_modify"
+        style="@style/body1_reg"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:background="@android:color/transparent"
+        android:gravity="start|center"
+        android:paddingVertical="15dp"
+        android:paddingStart="12dp"
+        android:text="수정하기"
+        app:icon="@drawable/ic_modify"
+        app:iconPadding="12dp"
+        app:iconTint="@color/White000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        style="@style/body1_reg"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:background="@android:color/transparent"
+        android:gravity="start|center"
+        android:paddingVertical="15dp"
+        android:paddingStart="12dp"
+        android:text="이동하기"
+        android:textColor="@color/Red200"
+        app:icon="@drawable/ic_trash"
+        app:iconPadding="12dp"
+        app:iconTint="@color/Red200"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_cave_detail_modify" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

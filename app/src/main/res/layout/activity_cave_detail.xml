@@ -12,12 +12,14 @@
         android:background="@color/Gray600"
         android:minHeight="?attr/actionBarSize"
         android:paddingStart="8dp"
+        android:paddingTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/ic_back">
 
         <ImageButton
+            android:id="@+id/ib_cave_detail_mainmenu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"

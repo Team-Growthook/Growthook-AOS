@@ -47,6 +47,10 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
         clickScrap(caveId)
 
         clickBackNavi()
+        binding.ibCaveDetailMainmenu.setOnClickListener {
+            val bottomSheet = CaveModifySelectBottomSheet()
+            bottomSheet.show(supportFragmentManager, "show")
+        }
     }
 
     private fun setInsightAdapter() {
