@@ -9,6 +9,7 @@ import android.widget.Toast
 import com.growthook.aos.R
 import com.growthook.aos.databinding.FragmentCaveModifySelectBottomsheetBinding
 import com.growthook.aos.presentation.MainActivity
+import com.growthook.aos.presentation.cavedetail.cavemodify.CaveDetailModifyActivity
 import com.growthook.aos.presentation.insight.noactionplan.InsightMenuBottomsheet
 import com.growthook.aos.util.base.BaseAlertDialog
 import com.growthook.aos.util.base.BaseBottomSheetFragment
@@ -24,6 +25,7 @@ class CaveModifySelectBottomSheet :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         clickDelete()
+        clickModify()
     }
 
     private fun clickDelete() {
@@ -50,6 +52,15 @@ class CaveModifySelectBottomSheet :
                     },
                     positiveAction = {},
                 ).show(parentFragmentManager, InsightMenuBottomsheet.DELETE_DIALOG)
+        }
+    }
+
+    private fun clickModify() {
+        binding.btnCaveDetailModify.setOnClickListener {
+            val intent = Intent(requireActivity(), CaveDetailModifyActivity::class.java)
+            intent.putExtra("caveName", "동굴 이름이름")
+            startActivity(intent)
+            dismiss()
         }
     }
 }
