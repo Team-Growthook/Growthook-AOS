@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Gray600">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tb_cave_modify"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        android:paddingStart="8dp"
+        android:paddingTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_back">
+
+        <TextView
+            style="@style/body1_reg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="동굴 편집" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_cave_modify"
+            style="@style/body1_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="8dp"
+            android:background="@android:color/transparent"
+            android:minWidth="0dp"
+            android:padding="8dp"
+            android:text="완료"
+            android:textColor="@color/Gray300" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+
+    <TextView
+        android:id="@+id/tv_cave_modify_name"
+        style="@style/body2_bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginBottom="8dp"
+        android:text="이름"
+        android:textColor="@color/White000"
+        app:layout_constraintBottom_toTopOf="@id/tl_cave_detail_name"
+        app:layout_constraintStart_toStartOf="@id/tl_cave_detail_name" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tl_cave_detail_name"
+        style="@style/TextInputLayoutStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="18dp"
+        android:layout_marginTop="68dp"
+        app:boxBackgroundColor="@color/Gray900"
+        app:boxBackgroundMode="outline"
+        app:counterEnabled="true"
+        app:counterMaxLength="7"
+        app:counterTextAppearance="@style/CounterTextAppearance"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tb_cave_modify">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="0dp"
+            android:cursorVisible="true"
+            android:maxLength="7"
+            android:text="동굴 이름"
+            android:textColor="@color/White000" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <TextView
+        android:id="@+id/tv_cave_modify_desc"
+        style="@style/body2_bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginBottom="8dp"
+        android:text="소개"
+        android:textColor="@color/White000"
+        app:layout_constraintBottom_toTopOf="@id/tl_cave_detail_desc"
+        app:layout_constraintStart_toStartOf="@id/tl_cave_detail_desc" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tl_cave_detail_desc"
+        style="@style/TextInputLayoutStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="18dp"
+        android:layout_marginTop="60dp"
+        app:boxBackgroundColor="@color/Gray900"
+        app:boxBackgroundMode="outline"
+        app:counterEnabled="true"
+        app:counterMaxLength="20"
+        app:counterTextAppearance="@style/CounterTextAppearance"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tl_cave_detail_name"
+        app:layout_goneMarginTop="60dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="0dp"
+            android:cursorVisible="true"
+            android:gravity="top"
+            android:maxLines="2"
+            android:minLines="2"
+            android:text="동굴 이름"
+            android:textColor="@color/White000" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <TextView
+        android:id="@+id/tv_cave_modify_isLock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="31dp"
+        android:text="공개 여부"
+        android:textAppearance="@style/body2_bold"
+        app:layout_constraintStart_toStartOf="@id/tl_cave_detail_desc"
+        app:layout_constraintTop_toBottomOf="@id/tl_cave_detail_desc" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="6dp"
+        android:background="@android:color/transparent"
+        android:padding="12dp"
+        android:src="@drawable/ic_lock"
+        app:layout_constraintBottom_toBottomOf="@id/tv_cave_modify_isLock"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_cave_modify_isLock" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -23,5 +23,32 @@
         <item name="cornerSize">5dp</item>
     </style>
 
+    <style name="TextInputLayoutStyle" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="endIconDrawable">@drawable/ic_textinput_cancel</item>
+        <item name="boxStrokeWidth">0.5dp</item>
+        <item name="cornerRadius">4dp</item>
+        <item name="boxStrokeWidthFocused">0.5dp</item>
+        <item name="strokeWidth">0.5dp</item>
+        <item name="endIconMode">clear_text</item>
+        <item name="counterMaxLength">7</item>
+        <item name="boxStrokeColor">@color/sel_textinput</item>
+        <item name="endIconTint">@color/Gray100</item>
+        <item name="iconGravity">top</item>
+        <item name="textOutlineColor">@color/White000</item>
+        <item name="counterTextColor">@color/Gray300</item>
+        <item name="counterTextAppearance">@style/CounterTextAppearance</item>
+        <item name="hintTextColor">@color/Gray300</item>
+    </style>
+
+
+
+    <style name="CounterTextAppearance">
+        <item name="android:textAppearance">@style/detail1_reg</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textColor">@color/Gray300</item>
+        <item name="android:layout_marginEnd">0dp</item>
+    </style>
+
+
 
 </resources>
