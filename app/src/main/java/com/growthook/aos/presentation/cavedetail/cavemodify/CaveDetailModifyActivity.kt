@@ -7,9 +7,9 @@ import android.text.TextWatcher
 import androidx.activity.viewModels
 import com.growthook.aos.databinding.ActivityCaveDetailModifyBinding
 import com.growthook.aos.presentation.MainActivity
+import com.growthook.aos.presentation.cavedetail.CaveDetailActivity
 import com.growthook.aos.util.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
 class CaveDetailModifyActivity :
@@ -22,6 +22,7 @@ class CaveDetailModifyActivity :
         observeIsModified()
         canClickFinishBtn()
         clickBackNavi()
+        clickFinishBtn()
     }
 
     private fun observeIsModified() {
@@ -50,6 +51,15 @@ class CaveDetailModifyActivity :
     private fun clickBackNavi() {
         binding.tbCaveModify.setNavigationOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+            finish()
+        }
+    }
+
+    private fun clickFinishBtn() {
+        binding.btnCaveModify.setOnClickListener {
+            val intent = Intent(this, CaveDetailActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
             finish()
