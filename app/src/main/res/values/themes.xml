@@ -30,7 +30,6 @@
         <item name="boxStrokeWidthFocused">0.5dp</item>
         <item name="strokeWidth">0.5dp</item>
         <item name="endIconMode">clear_text</item>
-        <item name="counterMaxLength">7</item>
         <item name="boxStrokeColor">@color/sel_textinput</item>
         <item name="endIconTint">@color/Gray100</item>
         <item name="iconGravity">top</item>
