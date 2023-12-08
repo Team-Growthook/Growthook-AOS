@@ -52,7 +52,6 @@ class CaveDetailModifyActivity :
     private fun clickFinishBtn() {
         binding.btnCaveModify.setOnClickListener {
             val intent = Intent(this, CaveDetailActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
             finish()
         }
