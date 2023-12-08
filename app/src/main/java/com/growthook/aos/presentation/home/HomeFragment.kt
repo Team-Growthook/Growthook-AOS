@@ -14,7 +14,6 @@ import androidx.recyclerview.selection.StableIdKeyProvider
 import androidx.recyclerview.selection.StorageStrategy
 import com.growthook.aos.R
 import com.growthook.aos.databinding.FragmentHomeBinding
-import com.growthook.aos.databinding.ItemHomeYesAlertBinding
 import com.growthook.aos.domain.entity.Cave
 import com.growthook.aos.domain.entity.Insight
 import com.growthook.aos.presentation.MainActivity
@@ -75,13 +74,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             insightAdapter.submitList(it)
             binding.tvHomeInsightTitle.text = "${it.size}개의 씨앗을 모았어요!"
         }
-        binding.rvHomeInsight.adapter = insightAdapter
+        binding.rcvHomeInsight.adapter = insightAdapter
 
         val longTracker = SelectionTracker.Builder<Long>(
             "myLongSelection",
-            binding.rvHomeInsight,
-            StableIdKeyProvider(binding.rvHomeInsight),
-            HomeInsightAdapter.InsightDetailsLookup(binding.rvHomeInsight),
+            binding.rcvHomeInsight,
+            StableIdKeyProvider(binding.rcvHomeInsight),
+            HomeInsightAdapter.InsightDetailsLookup(binding.rcvHomeInsight),
             StorageStrategy.createLongStorage(),
         ).withSelectionPredicate(
             SelectionPredicates.createSelectSingleAnything(),
@@ -90,7 +89,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         insightAdapter.setSelectionLongTracker(longTracker)
         insightAdapter.registerAdapterDataObserver(
             EmptyDataObserver(
-                binding.rvHomeInsight,
+                binding.rcvHomeInsight,
                 binding.tvHomeEmptyInsight,
                 binding.ivHomeEmptyInsight,
             ),
@@ -157,10 +156,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             Timber.d("리사이클러뷰 동굴 개수 ${it.size}")
             caveAdapter.submitList(it)
         }
-        binding.rvHomeCave.adapter = caveAdapter
+        binding.rcvHomeCave.adapter = caveAdapter
         caveAdapter.registerAdapterDataObserver(
             EmptyDataObserver(
-                binding.rvHomeCave,
+                binding.rcvHomeCave,
                 binding.tvHomeEmptyCave,
             ),
         )
