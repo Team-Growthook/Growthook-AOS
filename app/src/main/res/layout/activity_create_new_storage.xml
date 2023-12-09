@@ -155,7 +155,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:background="@drawable/rect_gray500_fill_5"
+        android:background="@drawable/sel_create_new_storage_btn"
         android:enabled="false"
         android:text="@string/storage_btn"
         android:textColor="@color/Gray300"

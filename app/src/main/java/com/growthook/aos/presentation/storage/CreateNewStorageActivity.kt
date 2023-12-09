@@ -5,11 +5,13 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.MotionEvent
+import android.widget.Toast
 import androidx.activity.viewModels
 import com.growthook.aos.R
 import com.growthook.aos.databinding.ActivityCreateNewStorageBinding
 import com.growthook.aos.util.base.BaseActivity
 import com.growthook.aos.util.base.BaseAlertDialog
+import com.growthook.aos.util.extension.CommonTextWatcher
 import com.growthook.aos.util.extension.hideKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -69,30 +71,15 @@ class CreateNewStorageActivity : BaseActivity<ActivityCreateNewStorageBinding>({
     }
 
     private fun initGetStorageContent() {
+        val nameTextWatcher = CommonTextWatcher(afterChanged = { edtName ->
+            viewModel.getStorageName(edtName.toString())
+        })
+        val introductionTextWatcher = CommonTextWatcher(afterChanged = { edtIntroduction ->
+            viewModel.getStorageIntroduction(edtIntroduction.toString())
+        })
         with(binding) {
-            edtStorageName.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                }
-
-                override fun onTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                }
-
-                override fun afterTextChanged(s: Editable?) {
-                    viewModel.getStorageName(s.toString())
-                }
-            })
-
-            edtStorageIntroduction.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                }
-
-                override fun onTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                }
-
-                override fun afterTextChanged(s: Editable?) {
-                    viewModel.getStorageIntroduction(s.toString())
-                }
-            })
+            edtStorageName.addTextChangedListener(nameTextWatcher)
+            edtStorageIntroduction.addTextChangedListener(introductionTextWatcher)
         }
     }
 
@@ -101,11 +88,9 @@ class CreateNewStorageActivity : BaseActivity<ActivityCreateNewStorageBinding>({
             with(binding.btnStorageCreate) {
                 if (it) {
                     isEnabled = true
-                    setBackgroundResource(R.drawable.rect_green400_fill_5)
                     clickStorageBtn()
                 } else {
                     isEnabled = false
-                    setBackgroundResource(R.drawable.rect_gray500_fill_5)
                 }
             }
         }
@@ -114,6 +99,7 @@ class CreateNewStorageActivity : BaseActivity<ActivityCreateNewStorageBinding>({
     private fun clickStorageBtn() {
         binding.btnStorageCreate.setOnClickListener {
             val intent = Intent(this, SeeNewStorageActivity::class.java)
+            Toast.makeText(this, "새 동굴을 만들었어요!", Toast.LENGTH_SHORT).show()
             startActivity(intent)
             finish()
         }
