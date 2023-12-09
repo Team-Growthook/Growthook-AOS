@@ -4,26 +4,24 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.MotionEvent
-import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
 import androidx.activity.viewModels
 import com.growthook.aos.R
-import com.growthook.aos.databinding.ActivityCreateStorageBinding
+import com.growthook.aos.databinding.ActivityCreateNewStorageBinding
 import com.growthook.aos.util.base.BaseActivity
 import com.growthook.aos.util.base.BaseAlertDialog
 import com.growthook.aos.util.extension.hideKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CreateStorageActivity : BaseActivity<ActivityCreateStorageBinding>({
-    ActivityCreateStorageBinding.inflate(it)
+class CreateNewStorageActivity : BaseActivity<ActivityCreateNewStorageBinding>({
+    ActivityCreateNewStorageBinding.inflate(it)
 }) {
 
     private val viewModel by viewModels<CreateStorageViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityCreateStorageBinding.inflate(layoutInflater)
+        binding = ActivityCreateNewStorageBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         initMakeStorageView()
