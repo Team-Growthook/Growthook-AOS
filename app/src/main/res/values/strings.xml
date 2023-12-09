@@ -10,4 +10,10 @@
     <string name="storage_introduction_hint">동굴을 간략히 소개해주세요.</string>
     <string name="storage_open">공개하기</string>
     <string name="storage_btn">새 동굴 만들기</string>
+    <string name="see_storage_title">동굴이름임다</string>
+    <string name="see_storage_sub_title">동굴 설명자리에요. 글자수는 어쩌고까지</string>
+    <string name="see_storage_user_nickname">생성한사람닉네임자리</string>
+    <string name="see_storage_scrap">스크랩만 보기</string>
+    <string name="see_storage_content">아직 심겨진 씨앗이 없어요</string>
+    <string name="see_storage_btn_content">씨앗심기</string>
 </resources>
