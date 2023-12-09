@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools" >
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -52,6 +52,11 @@
                     android:host="oauth"
                     android:scheme="kakao${NATIVE_APP_KEY}" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".presentation.storage.CreateStorageActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:exported="true">
         </activity>
     </application>
 

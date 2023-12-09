@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.MotionEvent
 import androidx.activity.viewModels
 import com.growthook.aos.databinding.ActivityCaveDetailModifyBinding
-import com.growthook.aos.presentation.MainActivity
 import com.growthook.aos.presentation.cavedetail.CaveDetailActivity
 import com.growthook.aos.util.base.BaseActivity
 import com.growthook.aos.util.extension.CommonTextWatcher
