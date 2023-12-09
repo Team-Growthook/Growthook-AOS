@@ -102,10 +102,10 @@ class CreateStorageActivity : BaseActivity<ActivityCreateStorageBinding>({
             with(binding.btnStorageCreate) {
                 if (it) {
                     isEnabled = true
-                    setBackgroundResource(R.drawable.shape_storage_btn_active)
+                    setBackgroundResource(R.drawable.rect_green400_fill_5)
                 } else {
                     isEnabled = false
-                    setBackgroundResource(R.drawable.shape_storage_btn_inactive)
+                    setBackgroundResource(R.drawable.rect_gray500_fill_5)
                 }
             }
         }
