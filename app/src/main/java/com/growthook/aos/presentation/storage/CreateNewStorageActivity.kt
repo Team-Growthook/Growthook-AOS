@@ -1,5 +1,6 @@
 package com.growthook.aos.presentation.storage
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -101,11 +102,20 @@ class CreateNewStorageActivity : BaseActivity<ActivityCreateNewStorageBinding>({
                 if (it) {
                     isEnabled = true
                     setBackgroundResource(R.drawable.rect_green400_fill_5)
+                    clickStorageBtn()
                 } else {
                     isEnabled = false
                     setBackgroundResource(R.drawable.rect_gray500_fill_5)
                 }
             }
+        }
+    }
+
+    private fun clickStorageBtn() {
+        binding.btnStorageCreate.setOnClickListener {
+            val intent = Intent(this, SeeNewStorageActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 }

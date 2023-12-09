@@ -54,10 +54,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".presentation.storage.CreateStorageActivity"
+            android:name=".presentation.storage.CreateNewStorageActivity"
             android:windowSoftInputMode="adjustResize"
             android:exported="true">
         </activity>
+        <activity
+            android:name=".presentation.storage.SeeNewStorageActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:exported="false"/>
     </application>
 
 </manifest>
