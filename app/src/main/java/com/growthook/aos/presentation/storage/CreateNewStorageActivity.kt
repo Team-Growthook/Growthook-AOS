@@ -8,6 +8,7 @@ import android.view.MotionEvent
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.growthook.aos.R
+import com.growthook.aos.data.entity.NewStorage
 import com.growthook.aos.databinding.ActivityCreateNewStorageBinding
 import com.growthook.aos.util.base.BaseActivity
 import com.growthook.aos.util.base.BaseAlertDialog
@@ -98,10 +99,27 @@ class CreateNewStorageActivity : BaseActivity<ActivityCreateNewStorageBinding>({
 
     private fun clickStorageBtn() {
         binding.btnStorageCreate.setOnClickListener {
-            val intent = Intent(this, SeeNewStorageActivity::class.java)
+            sendNewStorageData()
             Toast.makeText(this, "새 동굴을 만들었어요!", Toast.LENGTH_SHORT).show()
-            startActivity(intent)
-            finish()
         }
+    }
+
+    private fun sendNewStorageData() {
+        val intent = Intent(this, SeeNewStorageActivity::class.java)
+        with (binding) {
+            intent.putExtra(
+                NEW_STORAGE,
+                NewStorage(
+                    edtStorageName.text.toString(),
+                    edtStorageIntroduction.text.toString()
+                )
+            )
+        }
+        startActivity(intent)
+        finish()
+    }
+
+    companion object {
+        const val NEW_STORAGE = "NEW_STORAGE"
     }
 }
