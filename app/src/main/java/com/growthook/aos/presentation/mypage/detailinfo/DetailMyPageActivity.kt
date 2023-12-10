@@ -23,8 +23,15 @@ class DetailMyPageActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        setNickName()
         clickBackNavi()
         clickDeleteAccount()
+    }
+
+    private fun setNickName() {
+        viewModel.nickName.observe(this) {
+            binding.tvDetailMyPageNickname.text = it
+        }
     }
 
     private fun clickBackNavi() {

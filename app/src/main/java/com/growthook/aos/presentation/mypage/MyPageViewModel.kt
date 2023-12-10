@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.growthook.aos.domain.usecase.local.GetUserUseCase
 import com.growthook.aos.domain.usecase.local.PostUserUseCase
 import com.growthook.aos.util.callback.KakaoLogoutCallback
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,10 +15,14 @@ import javax.inject.Inject
 @HiltViewModel
 class MyPageViewModel @Inject constructor(
     private val postUserUseCase: PostUserUseCase,
+    private val getUserUseCase: GetUserUseCase,
 ) : ViewModel() {
 
     private val _isLogoutSuccess = MutableLiveData<Boolean>()
     val isLogoutSuccess: LiveData<Boolean> = _isLogoutSuccess
+
+    private val _nickName = MutableLiveData<String>()
+    val nickName: LiveData<String> = _nickName
 
     val kakaoLogoutCallback: (Throwable?) -> Unit = { error ->
         KakaoLogoutCallback {
@@ -27,5 +32,13 @@ class MyPageViewModel @Inject constructor(
                 postUserUseCase.invoke("")
             }
         }.handleResult(error)
+    }
+
+    init {
+        viewModelScope.launch {
+            getUserUseCase.invoke().name.let { nickName ->
+                _nickName.value = nickName
+            }
+        }
     }
 }

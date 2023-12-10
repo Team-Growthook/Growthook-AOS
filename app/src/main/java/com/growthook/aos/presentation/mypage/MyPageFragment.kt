@@ -29,8 +29,15 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setNickName()
         clickDetailMyInfo()
         clickLogout()
+    }
+
+    private fun setNickName() {
+        viewModel.nickName.observe(viewLifecycleOwner) {
+            binding.tvMyPageNickname.text = it
+        }
     }
 
     private fun clickDetailMyInfo() {
