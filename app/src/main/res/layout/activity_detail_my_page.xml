@@ -78,9 +78,9 @@
             android:focusableInTouchMode="false"
             android:includeFontPadding="false"
             android:minHeight="0dp"
+            android:paddingStart="0dp"
             android:paddingTop="26dp"
             android:paddingBottom="6dp"
-            android:paddingStart="0dp"
             android:textAppearance="@style/body3_bold"
             android:textColor="@color/White000"
             tools:text="eongoej" />
@@ -111,17 +111,33 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="26dp"
             android:layout_gravity="bottom"
             android:focusableInTouchMode="false"
             android:includeFontPadding="false"
             android:minHeight="0dp"
-            android:paddingBottom="6dp"
             android:paddingStart="0dp"
+            android:paddingTop="26dp"
+            android:paddingBottom="6dp"
             android:textAppearance="@style/body3_bold"
             android:textColor="@color/White000"
             tools:text="enii12517@naver.com" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/tv_detail_my_page_delete_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="18dp"
+        android:layout_marginBottom="8dp"
+        android:includeFontPadding="false"
+        android:paddingHorizontal="13dp"
+        android:paddingVertical="11dp"
+        android:text="@string/detail_my_page_delete_account"
+        android:textAppearance="@style/detail3_reg"
+        android:textColor="@color/Gray300"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

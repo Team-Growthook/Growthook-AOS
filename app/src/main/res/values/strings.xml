@@ -10,4 +10,6 @@
     <string name="storage_introduction_hint">동굴을 간략히 소개해주세요.</string>
     <string name="storage_open">공개하기</string>
     <string name="storage_btn">새 동굴 만들기</string>
+
+    <string name="detail_my_page_delete_account"><u>회원 탈퇴</u></string>
 </resources>
