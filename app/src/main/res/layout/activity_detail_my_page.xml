@@ -55,36 +55,24 @@
         android:layout_height="wrap_content"
         android:text="닉네임"
         android:textColor="@color/MainGreen400"
-        app:layout_constraintBottom_toTopOf="@id/tl_detail_my_page_nickname"
-        app:layout_constraintStart_toStartOf="@id/tl_detail_my_page_nickname" />
+        app:layout_constraintBottom_toTopOf="@id/tv_detail_my_page_nickname"
+        app:layout_constraintStart_toStartOf="@id/tv_detail_my_page_nickname" />
 
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tl_detail_my_page_nickname"
+    <TextView
+        android:id="@+id/tv_detail_my_page_nickname"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="18dp"
-        android:layout_marginTop="67dp"
-        app:boxBackgroundColor="@color/Gray700"
-        app:boxBackgroundMode="filled"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_detail_my_page_user">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:focusableInTouchMode="false"
-            android:includeFontPadding="false"
-            android:minHeight="0dp"
-            android:paddingStart="0dp"
-            android:paddingTop="26dp"
-            android:paddingBottom="6dp"
-            android:textAppearance="@style/body3_bold"
-            android:textColor="@color/White000"
-            tools:text="eongoej" />
-    </com.google.android.material.textfield.TextInputLayout>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_detail_my_page_user"
+        android:layout_marginTop="67dp"
+        android:text="djkfdjfks"
+        android:paddingTop="21dp"
+        style="@style/body3_bold"
+        android:paddingBottom="6dp"
+        android:background="@drawable/rect_gray200_botline_bot1"
+        android:layout_marginHorizontal="18dp"/>
 
     <TextView
         style="@style/head4"
@@ -92,36 +80,24 @@
         android:layout_height="wrap_content"
         android:text="연결된 계정"
         android:textColor="@color/MainGreen400"
-        app:layout_constraintBottom_toTopOf="@id/tl_detail_my_page_email"
-        app:layout_constraintStart_toStartOf="@id/tl_detail_my_page_email" />
+        app:layout_constraintBottom_toTopOf="@id/tv_detail_my_page_email"
+        app:layout_constraintStart_toStartOf="@id/tv_detail_my_page_email" />
 
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tl_detail_my_page_email"
+    <TextView
+        android:id="@+id/tv_detail_my_page_email"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="18dp"
-        android:layout_marginTop="73dp"
-        app:boxBackgroundColor="@color/Gray700"
-        app:boxBackgroundMode="filled"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tl_detail_my_page_nickname">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:focusableInTouchMode="false"
-            android:includeFontPadding="false"
-            android:minHeight="0dp"
-            android:paddingStart="0dp"
-            android:paddingTop="26dp"
-            android:paddingBottom="6dp"
-            android:textAppearance="@style/body3_bold"
-            android:textColor="@color/White000"
-            tools:text="enii12517@naver.com" />
-    </com.google.android.material.textfield.TextInputLayout>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_detail_my_page_nickname"
+        android:layout_marginTop="67dp"
+        android:text="djkfdjfks"
+        android:paddingTop="21dp"
+        style="@style/body3_bold"
+        android:paddingBottom="6dp"
+        android:background="@drawable/rect_gray200_botline_bot1"
+        android:layout_marginHorizontal="18dp"/>
 
     <TextView
         android:id="@+id/tv_detail_my_page_delete_account"
