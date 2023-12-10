@@ -32,7 +32,7 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>() {
     }
 
     private fun clickLogout() {
-        binding.btnMypageLogout.setOnClickListener {
+        binding.btnMyPageLogout.setOnClickListener {
             kakaoAuthService.kakaoLogout(viewModel.kakaoLogoutCallback)
             viewModel.isLogoutSuccess.observe(viewLifecycleOwner) {
                 if (it) {
