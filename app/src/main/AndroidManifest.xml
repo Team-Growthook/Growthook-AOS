@@ -28,6 +28,8 @@
         <activity
             android:name=".presentation.cavedetail.CaveDetailActivity"
             android:exported="false" />
+        <activity android:name=".presentation.mypage.detailinfo.DetailMyPageActivity"
+            android:exported="false"/>
         <activity
             android:name=".presentation.onboarding.LoginActivity"
             android:exported="true">

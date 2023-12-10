@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.growthook.aos.data.service.KakaoAuthService
 import com.growthook.aos.databinding.FragmentMypageBinding
+import com.growthook.aos.presentation.mypage.detailinfo.DetailMyPageActivity
 import com.growthook.aos.presentation.onboarding.LoginActivity
 import com.growthook.aos.util.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,7 +29,15 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        clickDetailMyInfo()
         clickLogout()
+    }
+
+    private fun clickDetailMyInfo() {
+        binding.btnMyPageMyInfo.setOnClickListener {
+            val intent = Intent(requireActivity(), DetailMyPageActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun clickLogout() {
