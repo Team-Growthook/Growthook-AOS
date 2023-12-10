@@ -9,5 +9,13 @@ class DetailMyPageActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        clickBackNavi()
+    }
+
+    private fun clickBackNavi() {
+        binding.tbMyPageDetail.setNavigationOnClickListener {
+            finish()
+        }
     }
 }
