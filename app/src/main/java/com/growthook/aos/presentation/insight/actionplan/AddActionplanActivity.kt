@@ -6,6 +6,7 @@ import android.view.View
 import androidx.activity.viewModels
 import com.growthook.aos.databinding.ActivityAddActionplanBinding
 import com.growthook.aos.util.base.BaseActivity
+import timber.log.Timber
 
 class AddActionplanActivity :
     BaseActivity<ActivityAddActionplanBinding>({ ActivityAddActionplanBinding.inflate(it) }) {
@@ -48,16 +49,17 @@ class AddActionplanActivity :
     }
 
     private fun observeActionplanList() {
-        viewModel.actionplanList.observe(this) {
-            if (it.isNotEmpty()) {
-                viewModel.isButtonEnabled.value = true
-            }
+        viewModel.actionplanList.observe(this) { actionplans ->
+            Timber.e("actionplanList size:: ${actionplans.size}")
+            Timber.e("actionplanList content:: $actionplans")
+            val isActionplanEmpty = actionplans.any { it.isBlank() }
+            viewModel.isButtonEnabled.value = !isActionplanEmpty && actionplans.size >= 1
         }
     }
 
     private fun observeButtonEnabled() {
         viewModel.isButtonEnabled.observe(this) { isEnabled ->
-            if (isEnabled == true) {
+            if (isEnabled) {
                 binding.tvAddActionplanComplete.setTextColor(Color.parseColor("#23B877"))
             } else {
                 binding.tvAddActionplanComplete.setTextColor(Color.parseColor("#6B6E82"))

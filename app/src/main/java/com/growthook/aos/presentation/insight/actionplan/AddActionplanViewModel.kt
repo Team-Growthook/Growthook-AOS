@@ -8,7 +8,7 @@ class AddActionplanViewModel : ViewModel() {
     private val _actionplanList = MutableLiveData<MutableList<String>>()
     val actionplanList: LiveData<MutableList<String>> = _actionplanList
 
-    val isButtonEnabled = MutableLiveData<Boolean>(false)
+    val isButtonEnabled = MutableLiveData(false)
 
     fun addItem(item: String) {
         val currentItems = _actionplanList.value.orEmpty().toMutableList()
