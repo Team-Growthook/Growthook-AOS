@@ -22,13 +22,13 @@ class AddActionplanActivity :
     }
 
     private fun foldInsightContent() {
-        binding.clActionInsightCollapse.setOnClickListener {
-            binding.clActionInsightCollapse.visibility = View.GONE
-            binding.clActionInsightExpanded.visibility = View.VISIBLE
+        binding.clAddActionplanCollapse.setOnClickListener {
+            binding.clAddActionplanCollapse.visibility = View.GONE
+            binding.clAddActionplanExpanded.visibility = View.VISIBLE
         }
-        binding.clActionInsightExpanded.setOnClickListener {
-            binding.clActionInsightExpanded.visibility = View.GONE
-            binding.clActionInsightCollapse.visibility = View.VISIBLE
+        binding.clAddActionplanExpanded.setOnClickListener {
+            binding.clAddActionplanExpanded.visibility = View.GONE
+            binding.clAddActionplanCollapse.visibility = View.VISIBLE
         }
     }
 
@@ -38,11 +38,11 @@ class AddActionplanActivity :
             onAddItem = { viewModel.addItem("") },
             onEditTextChanged = { position, text -> viewModel.updateItem(position, text) },
         )
-        binding.rcvActionInsightEdittext.adapter = _addActionplanAdapter
+        binding.rcvAddActionplanEdittext.adapter = _addActionplanAdapter
     }
 
     private fun clickPlusBtn() {
-        binding.ivActionInsightPlus.setOnClickListener {
+        binding.ivAddActionplanPlus.setOnClickListener {
             _addActionplanAdapter?.addItem("")
         }
     }
@@ -58,9 +58,9 @@ class AddActionplanActivity :
     private fun observeButtonEnabled() {
         viewModel.isButtonEnabled.observe(this) { isEnabled ->
             if (isEnabled == true) {
-                binding.tvActionInsightComplete.setTextColor(Color.parseColor("#23B877"))
+                binding.tvAddActionplanComplete.setTextColor(Color.parseColor("#23B877"))
             } else {
-                binding.tvActionInsightComplete.setTextColor(Color.parseColor("#6B6E82"))
+                binding.tvAddActionplanComplete.setTextColor(Color.parseColor("#6B6E82"))
             }
         }
     }

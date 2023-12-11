@@ -7,7 +7,7 @@
     tools:context=".presentation.insight.actionplan.AddActionplanActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_noaction_insight_toolbar"
+        android:id="@+id/cl_add_actionplan_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/Gray600"
@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/iv_action_insight_back"
+            android:id="@+id/iv_add_actionplan_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -26,18 +26,18 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_noaction_insight_toolbar_title"
+            android:id="@+id/tv_add_actionplan_toolbar_title"
             style="@style/body1_reg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="액션 만들기"
-            app:layout_constraintBottom_toBottomOf="@id/iv_action_insight_back"
+            app:layout_constraintBottom_toBottomOf="@id/iv_add_actionplan_back"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/iv_action_insight_back" />
+            app:layout_constraintTop_toTopOf="@id/iv_add_actionplan_back" />
 
         <TextView
-            android:id="@+id/tv_action_insight_complete"
+            android:id="@+id/tv_add_actionplan_complete"
             style="@style/body1_bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -47,25 +47,25 @@
             android:paddingEnd="8dp"
             android:text="완료"
             android:textColor="@color/Gray300"
-            app:layout_constraintBottom_toBottomOf="@id/tv_noaction_insight_toolbar_title"
+            app:layout_constraintBottom_toBottomOf="@id/tv_add_actionplan_toolbar_title"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_noaction_insight_toolbar_title" />
+            app:layout_constraintTop_toTopOf="@id/tv_add_actionplan_toolbar_title" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/action_insight_background"
+        android:id="@+id/cl_add_actionplan_background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:animateLayoutChanges="true"
         android:background="@drawable/rec_radius_bottom_10_gray600"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cl_noaction_insight_toolbar">
+        app:layout_constraintTop_toBottomOf="@id/cl_add_actionplan_toolbar">
 
         <TextView
-            android:id="@+id/tv_action_insight_chip"
+            android:id="@+id/tv_add_actionplan_chip"
             style="@style/detail1_bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -81,7 +81,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/iv_action_insight_seed"
+            android:id="@+id/iv_add_actionplan_seed"
             android:layout_width="48dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -91,27 +91,27 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_action_insight_title"
+            android:id="@+id/tv_add_actionplan_title"
             style="@style/body2_bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="야식에 불닭과 만두의 조합 좋다"
             android:textColor="@color/White000"
-            app:layout_constraintStart_toStartOf="@id/tv_action_insight_chip"
-            app:layout_constraintTop_toBottomOf="@id/tv_action_insight_chip" />
+            app:layout_constraintStart_toStartOf="@id/tv_add_actionplan_chip"
+            app:layout_constraintTop_toBottomOf="@id/tv_add_actionplan_chip" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_action_insight_collapse"
+            android:id="@+id/cl_add_actionplan_collapse"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:visibility="visible"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_action_insight_title">
+            app:layout_constraintTop_toBottomOf="@id/tv_add_actionplan_title">
 
             <com.google.android.material.divider.MaterialDivider
-                android:id="@+id/divider_action_insight_second"
+                android:id="@+id/divider_add_actionplan_second"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginHorizontal="18dp"
@@ -120,7 +120,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_action_insight_more"
+                android:id="@+id/tv_add_actionplan_more"
                 style="@style/detail2_reg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -129,32 +129,32 @@
                 android:textColor="@color/Gray200"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/divider_action_insight_second" />
+                app:layout_constraintTop_toBottomOf="@id/divider_add_actionplan_second" />
 
             <ImageView
-                android:id="@+id/iv_action_insight_more"
+                android:id="@+id/iv_add_actionplan_more"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:src="@drawable/ic_more"
-                app:layout_constraintBottom_toBottomOf="@id/tv_action_insight_more"
-                app:layout_constraintStart_toEndOf="@id/tv_action_insight_more"
-                app:layout_constraintTop_toTopOf="@id/tv_action_insight_more" />
+                app:layout_constraintBottom_toBottomOf="@id/tv_add_actionplan_more"
+                app:layout_constraintStart_toEndOf="@id/tv_add_actionplan_more"
+                app:layout_constraintTop_toTopOf="@id/tv_add_actionplan_more" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_action_insight_expanded"
+            android:id="@+id/cl_add_actionplan_expanded"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="@id/tv_action_insight_title"
-            app:layout_constraintStart_toStartOf="@id/tv_action_insight_title"
-            app:layout_constraintTop_toBottomOf="@id/tv_action_insight_title">
+            app:layout_constraintEnd_toEndOf="@id/tv_add_actionplan_title"
+            app:layout_constraintStart_toStartOf="@id/tv_add_actionplan_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_add_actionplan_title">
 
             <TextView
-                android:id="@+id/tv_action_insight_date"
+                android:id="@+id/tv_add_actionplan_date"
                 style="@style/detail2_reg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -165,39 +165,39 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.divider.MaterialDivider
-                android:id="@+id/divider_action_insight_first"
+                android:id="@+id/divider_add_actionplan_first"
                 android:layout_width="1dp"
                 android:layout_height="12dp"
                 android:layout_marginStart="10dp"
                 app:dividerColor="@color/Gray300"
-                app:layout_constraintBottom_toBottomOf="@id/tv_action_insight_date"
-                app:layout_constraintStart_toEndOf="@+id/tv_action_insight_date"
-                app:layout_constraintTop_toTopOf="@+id/tv_action_insight_date" />
+                app:layout_constraintBottom_toBottomOf="@id/tv_add_actionplan_date"
+                app:layout_constraintStart_toEndOf="@+id/tv_add_actionplan_date"
+                app:layout_constraintTop_toTopOf="@+id/tv_add_actionplan_date" />
 
             <TextView
-                android:id="@+id/tv_action_insight_dday"
+                android:id="@+id/tv_add_actionplan_dday"
                 style="@style/detail2_bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:text="D-21"
                 android:textColor="@color/Red200"
-                app:layout_constraintBottom_toBottomOf="@id/divider_action_insight_first"
-                app:layout_constraintStart_toEndOf="@id/divider_action_insight_first"
-                app:layout_constraintTop_toTopOf="@id/divider_action_insight_first" />
+                app:layout_constraintBottom_toBottomOf="@id/divider_add_actionplan_first"
+                app:layout_constraintStart_toEndOf="@id/divider_add_actionplan_first"
+                app:layout_constraintTop_toTopOf="@id/divider_add_actionplan_first" />
 
             <ScrollView
-                android:id="@+id/scv_action_insight_content"
+                android:id="@+id/scv_add_actionplan_content"
                 android:layout_width="match_parent"
                 android:layout_height="147dp"
                 android:layout_marginHorizontal="18dp"
                 android:paddingTop="9dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_action_insight_date">
+                app:layout_constraintTop_toBottomOf="@id/tv_add_actionplan_date">
 
                 <TextView
-                    android:id="@+id/tv_action_insight_content"
+                    android:id="@+id/tv_add_actionplan_content"
                     style="@style/body3_reg"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -207,25 +207,25 @@
             </ScrollView>
 
             <com.google.android.material.divider.MaterialDivider
-                android:id="@+id/divider_action_insight_expanded"
+                android:id="@+id/divider_add_actionplan_expanded"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginHorizontal="18dp"
                 app:dividerColor="@color/Gray400"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/scv_action_insight_content" />
+                app:layout_constraintTop_toBottomOf="@id/scv_add_actionplan_content" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_action_insight_expanded_main"
+                android:id="@+id/cl_add_actionplan_expanded_main"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/divider_action_insight_expanded">
+                app:layout_constraintTop_toBottomOf="@id/divider_add_actionplan_expanded">
 
                 <TextView
-                    android:id="@+id/tv_action_insight_fold"
+                    android:id="@+id/tv_add_actionplan_fold"
                     style="@style/detail2_reg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -237,14 +237,14 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
-                    android:id="@+id/iv_action_insight_fold"
+                    android:id="@+id/iv_add_actionplan_fold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:src="@drawable/ic_collapse"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_action_insight_fold"
-                    app:layout_constraintStart_toEndOf="@id/tv_action_insight_fold"
-                    app:layout_constraintTop_toTopOf="@id/tv_action_insight_fold" />
+                    app:layout_constraintBottom_toBottomOf="@id/tv_add_actionplan_fold"
+                    app:layout_constraintStart_toEndOf="@id/tv_add_actionplan_fold"
+                    app:layout_constraintTop_toTopOf="@id/tv_add_actionplan_fold" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -254,27 +254,26 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView
-        android:id="@+id/iv_action_insight_plus"
+        android:id="@+id/iv_add_actionplan_plus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="26dp"
         android:src="@drawable/ic_plus"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/action_insight_background" />
+        app:layout_constraintTop_toBottomOf="@id/cl_add_actionplan_background" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcv_action_insight_edittext"
+        android:id="@+id/rcv_add_actionplan_edittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_action_insight_plus"
-        tools:listitem="@layout/item_actionplan_edittext"
+        app:layout_constraintTop_toBottomOf="@+id/iv_add_actionplan_plus"
         tools:itemCount="2"
-        />
+        tools:listitem="@layout/item_actionplan_edittext" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
