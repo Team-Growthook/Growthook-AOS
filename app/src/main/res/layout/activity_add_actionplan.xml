@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.insight.actionplan.ActionplanInsightActivity">
+    tools:context=".presentation.insight.actionplan.AddActionplanActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_noaction_insight_toolbar"
@@ -71,7 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
             android:layout_marginTop="16dp"
-            android:background="@drawable/rec_radius_4"
+            android:background="@drawable/rect_radius_4"
             android:backgroundTint="@color/Green100"
             android:paddingHorizontal="7dp"
             android:paddingVertical="2dp"
@@ -86,7 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="8dp"
-            android:src="@drawable/ic_seed_unselected"
+            android:src="@drawable/ic_scrap_unselected"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
