@@ -17,10 +17,10 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.insight.noactionplan.SeedModifyActivity"
+            android:name=".presentation.insight.noactionplan.see.SeedModifyActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.insight.noactionplan.NoActionplanInsightActivity"
+            android:name=".presentation.insight.noactionplan.see.NoActionplanInsightActivity"
             android:exported="true"></activity>
         <activity
             android:name=".presentation.MainActivity"

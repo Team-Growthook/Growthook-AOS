@@ -1,4 +1,4 @@
-package com.growthook.aos.presentation.insight.actionplan
+package com.growthook.aos.presentation.insight.noactionplan.add
 
 import android.graphics.Color
 import android.os.Bundle
@@ -11,6 +11,8 @@ import timber.log.Timber
 class AddActionplanActivity :
     BaseActivity<ActivityAddActionplanBinding>({ ActivityAddActionplanBinding.inflate(it) }) {
     private var _addActionplanAdapter: AddActionplanAdapter? = null
+    private val addActionplanAdapter
+        get() = requireNotNull(_addActionplanAdapter) { "adapter is null" }
     private val viewModel by viewModels<AddActionplanViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,5 +67,10 @@ class AddActionplanActivity :
                 binding.tvAddActionplanComplete.setTextColor(Color.parseColor("#6B6E82"))
             }
         }
+    }
+
+    override fun onDestroy() {
+        _addActionplanAdapter = null
+        super.onDestroy()
     }
 }
