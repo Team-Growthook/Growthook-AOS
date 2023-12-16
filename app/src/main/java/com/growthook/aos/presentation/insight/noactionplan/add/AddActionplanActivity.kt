@@ -12,7 +12,7 @@ class AddActionplanActivity :
     BaseActivity<ActivityAddActionplanBinding>({ ActivityAddActionplanBinding.inflate(it) }) {
     private var _addActionplanAdapter: AddActionplanAdapter? = null
     private val addActionplanAdapter
-        get() = requireNotNull(_addActionplanAdapter) { "adapter is null" }
+        get() = requireNotNull(_addActionplanAdapter) { "addActionplanAdapter is null" }
     private val viewModel by viewModels<AddActionplanViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {

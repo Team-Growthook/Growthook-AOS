@@ -240,11 +240,15 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcv_actionplan_insight"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
+        android:layout_height="0dp"
+        android:layout_marginVertical="7dp"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cl_actionplan_insight_background"
+        app:layout_constraintBottom_toTopOf="@id/btn_actionplan_insight_add"
         tools:itemCount="4"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="vertical"
         tools:listitem="@layout/item_actionplan" />
 
     <androidx.appcompat.widget.AppCompatButton

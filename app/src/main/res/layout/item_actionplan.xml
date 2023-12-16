@@ -73,7 +73,7 @@
         android:backgroundTint="@color/Gray400"
         android:paddingStart="17dp"
         android:paddingEnd="18dp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
