@@ -40,6 +40,7 @@ class ActionplanAdapter(private val clickModify: () -> Unit, private val clickDe
                     clickModify()
                 }
                 tvActionplanDelete.setOnClickListener {
+                    clActionplanMenu.visibility = View.GONE
                     clickDelete()
                 }
             }
