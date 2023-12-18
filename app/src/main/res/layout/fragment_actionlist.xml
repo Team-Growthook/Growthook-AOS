@@ -20,10 +20,10 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:background="@drawable/rect_green600_fill_6"
         android:paddingHorizontal="8dp"
         android:paddingVertical="5dp"
-        android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="@id/tv_actionlist_title"
         app:layout_constraintTop_toBottomOf="@id/tv_actionlist_title">
 
@@ -37,18 +37,58 @@
             app:tint="@color/Green100" />
 
         <TextView
+            style="@style/detail1_bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="00% 달성!"
-            app:layout_constraintStart_toEndOf="@id/iv_actionplan_thook"
-            app:layout_constraintTop_toTopOf="@id/iv_actionplan_thook"
-            app:layout_constraintBottom_toBottomOf="@id/iv_actionplan_thook"
-            style="@style/detail1_bold"
-            android:textColor="@color/Green100"
             android:layout_marginStart="3dp"
-            />
+            android:text="00% 달성!"
+            android:textColor="@color/Green100"
+            app:layout_constraintBottom_toBottomOf="@id/iv_actionplan_thook"
+            app:layout_constraintStart_toEndOf="@id/iv_actionplan_thook"
+            app:layout_constraintTop_toTopOf="@id/iv_actionplan_thook" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tl_actionlist_main"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tabIndicatorColor="@color/MainGreen400"
+        app:tabIndicatorFullWidth="false"
+        app:tabPadding="0dp"
+        app:tabRippleColor="@android:color/transparent"
+        app:tabSelectedTextColor="@color/MainGreen400"
+        app:tabTextAppearance="@style/body1_bold"
+        app:tabTextColor="@color/Gray300">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/ti_first_menu"
+            style="@style/body1_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="진행중" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/ti_second_menu"
+            style="@style/body1_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="완료" />
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fcv_actionlist_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tl_actionlist_main"
+        tools:layout="@layout/fragment_proceeding_actionlist" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
