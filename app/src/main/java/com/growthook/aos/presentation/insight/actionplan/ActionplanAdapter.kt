@@ -9,23 +9,25 @@ import com.growthook.aos.databinding.ItemActionplanBinding
 import com.growthook.aos.domain.entity.Actionplan
 import com.growthook.aos.util.extension.ItemDiffCallback
 
-class ActionplanAdapter(private val clickModify: () -> Unit, private val clickDelete: () -> Unit) :
+class ActionplanAdapter(
+    private val clickModify: () -> Unit,
+    private val clickDelete: (position: Int) -> Unit,
+) :
     ListAdapter<Actionplan, ActionplanAdapter.ActionplanViewHolder>(
         ItemDiffCallback<Actionplan>(
             onContentsTheSame = { old, new -> old == new },
             onItemsTheSame = { old, new -> old.id == new.id },
         ),
     ) {
-    private var selectedItemPosition = RecyclerView.NO_POSITION
 
     inner class ActionplanViewHolder(
         private val binding: ItemActionplanBinding,
         private val clickModify: () -> Unit,
-        private val clickDelete: () -> Unit,
+        private val clickDelete: (position: Int) -> Unit,
     ) :
         RecyclerView.ViewHolder(binding.root) {
         private var isItemSelected = false
-        fun onBind(data: Actionplan) {
+        fun onBind(data: Actionplan, position: Int) {
             with(binding) {
                 tvActionplanTitle.text = data.content
                 ivActionplanMenu.setOnClickListener {
@@ -33,15 +35,15 @@ class ActionplanAdapter(private val clickModify: () -> Unit, private val clickDe
                     if (isItemSelected) {
                         clActionplanMenu.visibility = View.VISIBLE
                     } else {
-                        clActionplanMenu.visibility = View.GONE
+                        clActionplanMenu.visibility = View.INVISIBLE
                     }
                 }
                 tvActionplanModify.setOnClickListener {
                     clickModify()
                 }
                 tvActionplanDelete.setOnClickListener {
-                    clActionplanMenu.visibility = View.GONE
-                    clickDelete()
+                    clActionplanMenu.visibility = View.INVISIBLE
+                    clickDelete(absoluteAdapterPosition)
                 }
             }
         }
@@ -57,8 +59,6 @@ class ActionplanAdapter(private val clickModify: () -> Unit, private val clickDe
     }
 
     override fun onBindViewHolder(holder: ActionplanViewHolder, position: Int) {
-        holder.onBind(
-            getItem(position) as Actionplan,
-        )
+        holder.onBind(getItem(position) as Actionplan, position)
     }
 }

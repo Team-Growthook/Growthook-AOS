@@ -2,6 +2,7 @@ package com.growthook.aos.presentation.insight.actionplan
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import com.growthook.aos.databinding.ActivityActionplanInsightBinding
 import com.growthook.aos.util.base.BaseActivity
@@ -38,7 +39,7 @@ class ActionplanInsightActivity :
         Timber.e("수정 바텀시트 구현해야함")
     }
 
-    private fun clickDeleteMenu() {
+    private fun clickDeleteMenu(position: Int) {
         BaseAlertDialog.Builder()
             .setCancelable(true)
             .build(
@@ -54,6 +55,8 @@ class ActionplanInsightActivity :
                 isTipVisility = false,
                 negativeAction = {
                     // 삭제 로직 구현 필요
+                    viewModel.deleteActionplan(position)
+                    Toast.makeText(this, "액션이 삭제되었어요", Toast.LENGTH_SHORT).show()
                 },
                 positiveAction = {
                 },

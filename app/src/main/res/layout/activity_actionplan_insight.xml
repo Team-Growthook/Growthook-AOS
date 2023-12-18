@@ -42,10 +42,12 @@
         android:id="@+id/cl_actionplan_insight_background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="18dp"
         android:animateLayoutChanges="true"
         android:background="@drawable/rect_gray600_fill_bot10"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/rcv_actionplan_insight"
         app:layout_constraintTop_toBottomOf="@id/cl_actionplan_insight_toolbar">
 
         <TextView
@@ -241,7 +243,7 @@
         android:id="@+id/rcv_actionplan_insight"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginVertical="7dp"
+        android:layout_marginBottom="7dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cl_actionplan_insight_background"

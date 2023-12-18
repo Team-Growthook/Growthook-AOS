@@ -21,4 +21,12 @@ class ActionplanInsightViewModel : ViewModel() {
 
         )
     }
+
+    fun deleteActionplan(position: Int) {
+        val currentList = actionplanList.value.orEmpty().toMutableList()
+        if (position in currentList.indices) {
+            currentList.removeAt(position)
+            actionplanList.value = currentList.toList()
+        }
+    }
 }
