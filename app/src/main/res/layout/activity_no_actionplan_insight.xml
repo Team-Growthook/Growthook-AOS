@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.insight.noactionplan.NoActionplanInsightActivity">
+    tools:context=".presentation.insight.noactionplan.see.NoActionplanInsightActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_noaction_insight_toolbar"

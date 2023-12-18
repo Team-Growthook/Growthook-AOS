@@ -7,7 +7,7 @@
     android:background="@color/Gray400"
     android:paddingTop="24dp"
     android:paddingBottom="16dp"
-    tools:context=".presentation.insight.noactionplan.InsightMenuBottomsheet">
+    tools:context=".presentation.insight.noactionplan.see.InsightMenuBottomsheet">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_insight_menu_move"
