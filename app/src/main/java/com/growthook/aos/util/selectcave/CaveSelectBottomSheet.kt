@@ -36,11 +36,13 @@ class CaveSelectBottomSheet : CaveSelect() {
     }
 
     override fun setClickAction(action: (Cave?) -> Unit) {
-        binding.btnHomeSelectCave.setOnClickListener {
-            lifecycleScope.launch {
-                viewModel.selectedCave.collect {
-                    dismiss()
-                    clickBtnAction(it)
+        lifecycleScope.launch {
+            viewModel.selectedCave.collect { cave ->
+                binding.btnHomeSelectCave.setOnClickListener {
+                    cave?.let {
+                        clickBtnAction(it)
+                        dismiss()
+                    }
                 }
             }
         }
