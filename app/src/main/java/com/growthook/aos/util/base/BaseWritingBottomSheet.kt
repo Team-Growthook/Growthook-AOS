@@ -18,7 +18,7 @@ abstract class BaseWritingBottomSheet : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setClickSave { clickSaveBtn; dismiss() }
-        setClickNoWrite { clickNoWritingBtn; dismiss() }
+        setClickNoWrite { clickNoWritingBtn(); dismiss() }
         setTitle()
     }
 

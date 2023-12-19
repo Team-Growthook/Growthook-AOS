@@ -54,7 +54,7 @@ class LargeWritingBottomSheet : BaseWritingBottomSheet() {
 
     override fun setClickNoWrite(action: () -> Unit) {
         binding.btnLargeWritingNoWrite.setOnClickListener {
-            clickNoWritingBtn
+            action()
         }
     }
 
