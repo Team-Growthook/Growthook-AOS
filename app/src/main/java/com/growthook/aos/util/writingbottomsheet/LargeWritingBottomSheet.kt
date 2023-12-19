@@ -52,6 +52,12 @@ class LargeWritingBottomSheet : BaseWritingBottomSheet() {
         binding.tvLargeWritingTitle.text = title
     }
 
+    override fun setClickNoWrite(action: () -> Unit) {
+        binding.btnLargeWritingNoWrite.setOnClickListener {
+            clickNoWritingBtn
+        }
+    }
+
     private fun clickCloseBtn() {
         binding.ibLargeWritingClose.setOnClickListener {
             dismiss()

@@ -12,16 +12,20 @@ abstract class BaseWritingBottomSheet : BottomSheetDialogFragment() {
     var _binding: ViewBinding? = null
 
     protected lateinit var clickSaveBtn: (String) -> Unit
+    protected lateinit var clickNoWritingBtn: () -> Unit
     protected var title: String? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setClickSave { clickSaveBtn; dismiss() }
+        setClickNoWrite { clickNoWritingBtn; dismiss() }
         setTitle()
     }
 
     abstract fun setClickSave(action: (String) -> Unit)
     abstract fun setTitle()
+
+    abstract fun setClickNoWrite(action: () -> Unit)
 
     class Builder {
 
@@ -29,10 +33,12 @@ abstract class BaseWritingBottomSheet : BottomSheetDialogFragment() {
             type: WritingType,
             title: String,
             clickSaveBtn: (String) -> Unit,
+            clickNoWritingBtn: () -> Unit,
         ): BaseWritingBottomSheet {
             return type.getInstance().apply {
-                this.clickSaveBtn = clickSaveBtn
                 this.title = title
+                this.clickSaveBtn = clickSaveBtn
+                this.clickNoWritingBtn = clickNoWritingBtn
             }
         }
     }
