@@ -42,7 +42,7 @@ class SmallWritingBottomSheet : BaseWritingBottomSheet() {
         binding.edtSmallWriting.addTextChangedListener(textWatcher)
     }
 
-    override fun setClickSave(action: (String) -> Unit) {
+    override fun setClickSave() {
         binding.btnSmallWritingSave.setOnClickListener {
             clickSaveBtn(binding.edtSmallWriting.text.toString())
         }

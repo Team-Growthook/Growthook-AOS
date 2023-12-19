@@ -41,8 +41,9 @@ class LargeWritingBottomSheet : BaseWritingBottomSheet() {
         return dialog
     }
 
-    override fun setClickSave(action: (String) -> Unit) {
+    override fun setClickSave() {
         binding.btnLargeWritingSave.setOnClickListener {
+            dismiss()
             clickSaveBtn(binding.edtLargeWriting.text.toString())
         }
     }

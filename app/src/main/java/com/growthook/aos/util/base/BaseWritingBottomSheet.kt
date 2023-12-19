@@ -17,12 +17,12 @@ abstract class BaseWritingBottomSheet : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setClickSave { clickSaveBtn; dismiss() }
+        setClickSave()
         setClickNoWrite { clickNoWritingBtn(); dismiss() }
         setTitle()
     }
 
-    abstract fun setClickSave(action: (String) -> Unit)
+    abstract fun setClickSave()
     abstract fun setTitle()
 
     abstract fun setClickNoWrite(action: () -> Unit)
