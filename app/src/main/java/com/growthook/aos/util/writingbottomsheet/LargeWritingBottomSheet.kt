@@ -1,9 +1,12 @@
 package com.growthook.aos.util.writingbottomsheet
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.growthook.aos.databinding.FragmentLargeWritingBottomsheetBinding
 import com.growthook.aos.util.base.BaseWritingBottomSheet
 import com.growthook.aos.util.extension.CommonTextWatcher
@@ -27,6 +30,15 @@ class LargeWritingBottomSheet : BaseWritingBottomSheet() {
         super.onViewCreated(view, savedInstanceState)
         clickCloseBtn()
         observeTextInput()
+    }
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val dialog = BottomSheetDialog(requireContext(), theme).apply {
+            behavior.state = BottomSheetBehavior.STATE_EXPANDED
+            behavior.isDraggable = false
+        }
+
+        return dialog
     }
 
     override fun setClickSave(action: (String) -> Unit) {
