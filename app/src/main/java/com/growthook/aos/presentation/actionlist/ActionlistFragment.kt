@@ -10,6 +10,8 @@ import androidx.fragment.app.commit
 import com.google.android.material.tabs.TabLayout
 import com.growthook.aos.R
 import com.growthook.aos.databinding.FragmentActionlistBinding
+import com.growthook.aos.presentation.actionlist.completed.CompletedActionlistFragment
+import com.growthook.aos.presentation.actionlist.proceeding.ProceedingActionlistFragment
 import com.growthook.aos.presentation.home.HomeViewModel
 import com.growthook.aos.util.base.BaseFragment
 

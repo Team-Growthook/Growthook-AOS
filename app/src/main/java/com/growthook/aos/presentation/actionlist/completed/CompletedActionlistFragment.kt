@@ -1,18 +1,18 @@
-package com.growthook.aos.presentation.actionlist
+package com.growthook.aos.presentation.actionlist.completed
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.growthook.aos.databinding.FragmentProceedingActionlistBinding
+import com.growthook.aos.databinding.FragmentCompletedActionlistBinding
 import com.growthook.aos.util.base.BaseFragment
 
-class ProceedingActionlistFragment : BaseFragment<FragmentProceedingActionlistBinding>() {
+class CompletedActionlistFragment : BaseFragment<FragmentCompletedActionlistBinding>() {
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
-    ): FragmentProceedingActionlistBinding =
-        FragmentProceedingActionlistBinding.inflate(inflater, container, false)
+    ): FragmentCompletedActionlistBinding =
+        FragmentCompletedActionlistBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
