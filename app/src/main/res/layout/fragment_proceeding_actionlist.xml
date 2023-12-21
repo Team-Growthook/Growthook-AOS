@@ -1,14 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".presentation.actionlist.ProceedingActionlistFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <ImageView
+        android:id="@+id/iv_proceeding_actionlist_scrap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="4dp"
+        android:src="@drawable/ic_home_scrap_false"
+        app:layout_constraintEnd_toStartOf="@id/tv_proceeding_actionlist_scrap"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/tv_proceeding_actionlist_scrap"
+        style="@style/detail3_reg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="18dp"
+        android:text="스크랩만 보기"
+        app:layout_constraintBottom_toBottomOf="@id/iv_proceeding_actionlist_scrap"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/iv_proceeding_actionlist_scrap" />
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/divider_proceeding_actionlist_top"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="14dp"
+        app:dividerColor="@color/Gray400"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_proceeding_actionlist_scrap" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcV_proceeding_actionlist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divider_proceeding_actionlist_top"
+        tools:itemCount="3"
+        tools:listitem="@layout/item_proceeding_actionplan" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
