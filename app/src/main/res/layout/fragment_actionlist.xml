@@ -18,6 +18,7 @@
         tools:text="EON님의 액션" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_actionplan_thook"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -52,31 +53,26 @@
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tl_actionlist_main"
-        android:layout_width="170dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="15dp"
+        app:tabIndicatorFullWidth="true"
+        android:background="@drawable/shape_actionlist_tab"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cl_actionplan_thook"
         app:tabIndicatorColor="@color/MainGreen400"
-        app:tabIndicatorFullWidth="false"
-        app:tabPadding="0dp"
         app:tabRippleColor="@android:color/transparent"
         app:tabSelectedTextColor="@color/MainGreen400"
         app:tabTextAppearance="@style/body1_bold"
         app:tabTextColor="@color/Gray300">
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/ti_first_menu"
-            style="@style/body1_bold"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="진행중" />
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/ti_second_menu"
-            style="@style/body1_bold"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="완료" />
 
