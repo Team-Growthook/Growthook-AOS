@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_proceeding_actionplan_main"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingHorizontal="18dp"
         android:paddingTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -22,20 +24,20 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/tv_proceeding_actionplan_title"
             style="@style/body3_bold"
-            android:layout_width="wrap_content"
+            android:layout_width="284dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:text="북극성 지표를 적용해야 한다"
-            app:layout_constraintBottom_toBottomOf="@id/iv_proceeding_actionplan"
             app:layout_constraintStart_toEndOf="@id/iv_proceeding_actionplan"
-            app:layout_constraintTop_toTopOf="@id/iv_proceeding_actionplan" />
+            app:layout_constraintTop_toTopOf="@id/iv_proceeding_actionplan"
+            tools:text="쑥쑥이들이랑 같이 새벽 1시에 불닭을 끓여 갈비 만두와 함께 먹기" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_proceeding_actionplan">
+            app:layout_constraintTop_toBottomOf="@id/tv_proceeding_actionplan_title">
 
             <TextView
                 android:id="@+id/tv_proceeding_actionplan_btn_left"
