@@ -4,10 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.growthook.aos.databinding.FragmentCompletedActionlistBinding
 import com.growthook.aos.util.base.BaseFragment
 
 class CompletedActionlistFragment : BaseFragment<FragmentCompletedActionlistBinding>() {
+    private var _completedActionlistAdapter: CompletedActionlistAdapter? = null
+    private val completedActionlistAdapter
+        get() = requireNotNull(_completedActionlistAdapter) { "completedActionlistAdapter is null" }
+
+    private val viewModel by viewModels<CompletedActionlistViewModel>()
+
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -16,5 +24,19 @@ class CompletedActionlistFragment : BaseFragment<FragmentCompletedActionlistBind
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initActionplanAdapter()
+        observeActionplan()
+    }
+
+    private fun initActionplanAdapter() {
+        _completedActionlistAdapter = CompletedActionlistAdapter()
+        binding.rcvCompletedActionlist.adapter = _completedActionlistAdapter
+        binding.rcvCompletedActionlist.layoutManager = LinearLayoutManager(requireContext())
+    }
+
+    private fun observeActionplan() {
+        viewModel.completedActionplanList.observe(viewLifecycleOwner) {
+            _completedActionlistAdapter?.submitList(it)
+        }
     }
 }
