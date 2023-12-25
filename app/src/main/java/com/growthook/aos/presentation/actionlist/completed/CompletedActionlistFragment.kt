@@ -1,5 +1,6 @@
 package com.growthook.aos.presentation.actionlist.completed
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.growthook.aos.databinding.FragmentCompletedActionlistBinding
+import com.growthook.aos.presentation.insight.actionplan.ActionplanInsightActivity
 import com.growthook.aos.util.base.BaseFragment
 
 class CompletedActionlistFragment : BaseFragment<FragmentCompletedActionlistBinding>() {
@@ -29,7 +31,7 @@ class CompletedActionlistFragment : BaseFragment<FragmentCompletedActionlistBind
     }
 
     private fun initActionplanAdapter() {
-        _completedActionlistAdapter = CompletedActionlistAdapter()
+        _completedActionlistAdapter = CompletedActionlistAdapter(::clickSeedDetail)
         binding.rcvCompletedActionlist.adapter = _completedActionlistAdapter
         binding.rcvCompletedActionlist.layoutManager = LinearLayoutManager(requireContext())
     }
@@ -38,5 +40,12 @@ class CompletedActionlistFragment : BaseFragment<FragmentCompletedActionlistBind
         viewModel.completedActionplanList.observe(viewLifecycleOwner) {
             _completedActionlistAdapter?.submitList(it)
         }
+    }
+
+    private fun clickSeedDetail(seedId: Int) {
+        val intent =
+            Intent(requireActivity(), ActionplanInsightActivity::class.java)
+        intent.putExtra("insightId", seedId)
+        startActivity(intent)
     }
 }

@@ -8,17 +8,26 @@ import com.growthook.aos.databinding.ItemCompletedActionplanBinding
 import com.growthook.aos.domain.entity.Actionplan
 import com.growthook.aos.util.extension.ItemDiffCallback
 
-class CompletedActionlistAdapter :
+class CompletedActionlistAdapter(
+    private val clickSeedDetail: (Int) -> Unit,
+
+) :
     ListAdapter<Actionplan, CompletedActionlistAdapter.CompletedActionlistViewHolder>(
         ItemDiffCallback<Actionplan>(
             onContentsTheSame = { old, new -> old == new },
-            onItemsTheSame = { old, new -> old.id == new.id },
+            onItemsTheSame = { old, new -> old.actionplanId == new.actionplanId },
         ),
     ) {
-    class CompletedActionlistViewHolder(private val binding: ItemCompletedActionplanBinding) :
+    class CompletedActionlistViewHolder(
+        private val binding: ItemCompletedActionplanBinding,
+        private val selectedItem: (Int) -> Unit,
+    ) :
         RecyclerView.ViewHolder(binding.root) {
         fun onBind(data: Actionplan) {
             binding.tvCompletedActionplanTitle.text = data.content
+            binding.tvCompletedActionplanBtnLeft.setOnClickListener {
+                selectedItem(data.seedId)
+            }
         }
     }
 
@@ -32,7 +41,7 @@ class CompletedActionlistAdapter :
                 parent,
                 false,
             )
-        return CompletedActionlistViewHolder(binding)
+        return CompletedActionlistViewHolder(binding, clickSeedDetail)
     }
 
     override fun onBindViewHolder(holder: CompletedActionlistViewHolder, position: Int) {

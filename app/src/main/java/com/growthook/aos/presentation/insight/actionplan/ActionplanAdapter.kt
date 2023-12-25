@@ -16,7 +16,7 @@ class ActionplanAdapter(
     ListAdapter<Actionplan, ActionplanAdapter.ActionplanViewHolder>(
         ItemDiffCallback<Actionplan>(
             onContentsTheSame = { old, new -> old == new },
-            onItemsTheSame = { old, new -> old.id == new.id },
+            onItemsTheSame = { old, new -> old.actionplanId == new.actionplanId },
         ),
     ) {
 

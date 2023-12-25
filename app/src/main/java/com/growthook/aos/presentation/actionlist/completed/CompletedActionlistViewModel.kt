@@ -10,8 +10,8 @@ class CompletedActionlistViewModel : ViewModel() {
 
     init {
         completedActionplanList.value = listOf(
-            Actionplan(1, "1완"),
-            Actionplan(2, "2롼"),
+            Actionplan(1, 1, "1완"),
+            Actionplan(2, 1, "2롼"),
         )
     }
 }

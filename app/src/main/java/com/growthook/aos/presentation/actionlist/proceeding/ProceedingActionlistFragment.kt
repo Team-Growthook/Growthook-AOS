@@ -1,5 +1,6 @@
 package com.growthook.aos.presentation.actionlist.proceeding
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.growthook.aos.databinding.FragmentProceedingActionlistBinding
+import com.growthook.aos.presentation.insight.actionplan.ActionplanInsightActivity
 import com.growthook.aos.util.base.BaseFragment
 
 class ProceedingActionlistFragment : BaseFragment<FragmentProceedingActionlistBinding>() {
@@ -26,10 +28,11 @@ class ProceedingActionlistFragment : BaseFragment<FragmentProceedingActionlistBi
         super.onViewCreated(view, savedInstanceState)
         initActionplanAdapter()
         observeActionplan()
+        clickCompleteBtn()
     }
 
     private fun initActionplanAdapter() {
-        _proceedingActionlistAdapter = ProceedingActionlistAdapter()
+        _proceedingActionlistAdapter = ProceedingActionlistAdapter(::selectedActionplanItem)
         binding.rcvProceedingActionlist.adapter = _proceedingActionlistAdapter
         binding.rcvProceedingActionlist.layoutManager = LinearLayoutManager(requireContext())
     }
@@ -38,5 +41,16 @@ class ProceedingActionlistFragment : BaseFragment<FragmentProceedingActionlistBi
         viewModel.proceedingActionplanList.observe(viewLifecycleOwner) {
             _proceedingActionlistAdapter?.submitList(it)
         }
+    }
+
+    private fun clickCompleteBtn() {
+        // 리뷰 작성 바텀시트
+    }
+
+    private fun selectedActionplanItem(seedId: Int) {
+        val intent =
+            Intent(requireActivity(), ActionplanInsightActivity::class.java)
+        intent.putExtra("insightId", seedId)
+        startActivity(intent)
     }
 }
