@@ -48,6 +48,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintVertical_bias="0"
         tools:itemCount="6"
-        tools:listitem="@layout/item_proceeding_actionplan" />
+        tools:listitem="@layout/item_completed_actionplan" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
