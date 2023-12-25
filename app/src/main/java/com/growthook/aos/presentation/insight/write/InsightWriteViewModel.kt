@@ -10,6 +10,15 @@ import javax.inject.Inject
 @HiltViewModel
 class InsightWriteViewModel @Inject constructor() : ViewModel() {
 
+    private val _selectedCaveName: MutableLiveData<String> = MutableLiveData()
+    val selectedCaveName : LiveData<String>
+        get() = _selectedCaveName
+
+    fun setSelectedCaveName(caveName: String) {
+        _selectedCaveName.value = caveName
+    }
+
+
     private val _mockCaveList: MutableLiveData<List<Cave>> = MutableLiveData(
         mutableListOf(
             Cave(

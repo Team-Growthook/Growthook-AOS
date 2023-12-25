@@ -1,6 +1,7 @@
 package com.growthook.aos.presentation.insight.write
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,6 +45,10 @@ class InsightWriteCaveSelectBottomSheetFragment :
     }
 
     private fun selectedCave(caveItem: String) {
-        //
+        binding.btnHomeSelectCave.setOnClickListener {
+            Log.d("InsightWriteCave:", caveItem)
+            viewModel.setSelectedCaveName(caveItem)
+            dismiss()
+        }
     }
 }
