@@ -21,10 +21,10 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".presentation.insight.noactionplan.see.SeedModifyActivity"
+            android:name=".presentation.insight.noactionplan.SeedModifyActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.insight.noactionplan.see.NoActionplanInsightActivity"
+            android:name=".presentation.insight.noactionplan.NoActionplanInsightActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.MainActivity"

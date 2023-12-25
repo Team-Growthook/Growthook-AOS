@@ -12,8 +12,8 @@ import com.growthook.aos.databinding.ActivityCaveDetailBinding
 import com.growthook.aos.domain.entity.Insight
 import com.growthook.aos.presentation.MainActivity
 import com.growthook.aos.presentation.home.HomeInsightAdapter
-import com.growthook.aos.presentation.insight.noactionplan.see.InsightMenuBottomsheet
-import com.growthook.aos.presentation.insight.noactionplan.see.NoActionplanInsightActivity
+import com.growthook.aos.presentation.insight.noactionplan.InsightMenuBottomsheet
+import com.growthook.aos.presentation.insight.noactionplan.NoActionplanInsightActivity
 import com.growthook.aos.util.EmptyDataObserver
 import com.growthook.aos.util.base.BaseActivity
 import com.growthook.aos.util.base.BaseAlertDialog

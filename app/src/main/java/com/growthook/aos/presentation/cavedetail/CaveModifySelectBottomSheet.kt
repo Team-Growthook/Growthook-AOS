@@ -10,7 +10,7 @@ import com.growthook.aos.R
 import com.growthook.aos.databinding.FragmentCaveModifySelectBottomsheetBinding
 import com.growthook.aos.presentation.MainActivity
 import com.growthook.aos.presentation.cavedetail.cavemodify.CaveDetailModifyActivity
-import com.growthook.aos.presentation.insight.noactionplan.see.InsightMenuBottomsheet
+import com.growthook.aos.presentation.insight.noactionplan.InsightMenuBottomsheet
 import com.growthook.aos.util.base.BaseAlertDialog
 import com.growthook.aos.util.base.BaseBottomSheetFragment
 
