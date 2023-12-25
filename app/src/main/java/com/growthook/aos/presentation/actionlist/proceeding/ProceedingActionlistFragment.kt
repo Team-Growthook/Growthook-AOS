@@ -4,11 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.growthook.aos.databinding.FragmentProceedingActionlistBinding
-import com.growthook.aos.presentation.actionlist.ActionlistViewModel
 import com.growthook.aos.util.base.BaseFragment
 
 class ProceedingActionlistFragment : BaseFragment<FragmentProceedingActionlistBinding>() {
@@ -16,7 +14,7 @@ class ProceedingActionlistFragment : BaseFragment<FragmentProceedingActionlistBi
     private val proceedingActionlistAdapter
         get() = requireNotNull(_proceedingActionlistAdapter) { "proceedingActionlistAdapter is null" }
 
-    private val viewModel by viewModels<ActionlistViewModel>()
+    private val viewModel by viewModels<ProceedingActionlistViewModel>()
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,

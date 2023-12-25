@@ -1,14 +1,11 @@
-package com.growthook.aos.presentation.actionlist
+package com.growthook.aos.presentation.actionlist.proceeding
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.growthook.aos.domain.entity.Actionplan
 
-class ActionlistViewModel : ViewModel() {
+class ProceedingActionlistViewModel : ViewModel() {
     var proceedingActionplanList: MutableLiveData<List<Actionplan>> =
-        MutableLiveData<List<Actionplan>>()
-
-    var completedActionplanList: MutableLiveData<List<Actionplan>> =
         MutableLiveData<List<Actionplan>>()
 
     init {
@@ -21,11 +18,6 @@ class ActionlistViewModel : ViewModel() {
             Actionplan(6, "6쑥쑥이들이랑 같이 새벽 1시에 불닭을 끓여 갈비 만두와 함께 먹기"),
             Actionplan(7, "7목적과 이루어내고 싶은 것 확실하게 하기 (PMF)"),
 
-        )
-
-        completedActionplanList.value = listOf(
-            Actionplan(1, "1완"),
-            Actionplan(2, "2롼"),
         )
     }
 }
