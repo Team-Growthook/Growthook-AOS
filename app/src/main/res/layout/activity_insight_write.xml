@@ -187,7 +187,6 @@
                     android:gravity="center_vertical"
                     android:hint="@string/edt_insight_write_cave"
                     android:includeFontPadding="false"
-                    android:inputType="text"
                     android:textAppearance="@style/body3_reg"
                     android:textColor="@color/White000"
                     android:textColorHint="@color/Gray300" />
