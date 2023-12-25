@@ -1,4 +1,4 @@
-package com.growthook.aos.presentation.insight.actionplan
+package com.growthook.aos.presentation.insight.noactionplan.add
 
 import android.text.TextWatcher
 import android.view.LayoutInflater
