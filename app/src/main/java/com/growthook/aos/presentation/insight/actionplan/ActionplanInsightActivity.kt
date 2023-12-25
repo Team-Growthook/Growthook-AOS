@@ -22,6 +22,7 @@ class ActionplanInsightActivity :
         foldInsightContent()
         observeActionplanData()
         initActionplanAdapter()
+        clickeListeners()
     }
 
     private fun initActionplanAdapter() {
@@ -71,6 +72,23 @@ class ActionplanInsightActivity :
         binding.clActionplanInsightExpanded.setOnClickListener {
             binding.clActionplanInsightExpanded.visibility = View.GONE
             binding.clActionplanInsightCollapse.visibility = View.VISIBLE
+        }
+    }
+
+    private fun clickeListeners() {
+        clickBackBtn()
+        clickAddActionplan()
+    }
+
+    private fun clickBackBtn() {
+        binding.ivActionplanInsightBack.setOnClickListener {
+            finish()
+        }
+    }
+
+    private fun clickAddActionplan() {
+        binding.btnActionplanInsightAdd.setOnClickListener {
+            // 액션플랜 더하기 바텀시트
         }
     }
 

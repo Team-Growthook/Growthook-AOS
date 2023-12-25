@@ -48,4 +48,9 @@ class CompletedActionlistFragment : BaseFragment<FragmentCompletedActionlistBind
         intent.putExtra("insightId", seedId)
         startActivity(intent)
     }
+
+    override fun onDestroyView() {
+        _completedActionlistAdapter = null
+        super.onDestroyView()
+    }
 }

@@ -53,4 +53,9 @@ class ProceedingActionlistFragment : BaseFragment<FragmentProceedingActionlistBi
         intent.putExtra("insightId", seedId)
         startActivity(intent)
     }
+
+    override fun onDestroyView() {
+        _proceedingActionlistAdapter = null
+        super.onDestroyView()
+    }
 }
