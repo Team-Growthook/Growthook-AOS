@@ -1,4 +1,4 @@
-package com.growthook.aos.presentation.insight.noactionplan.see
+package com.growthook.aos.presentation.insight.noactionplan
 
 import android.util.Log
 import android.view.LayoutInflater

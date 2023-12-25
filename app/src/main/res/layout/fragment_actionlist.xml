@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.actionlist.ActionlistFragment">
+
+    <TextView
+        android:id="@+id/tv_actionlist_title"
+        style="@style/head1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="37dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="EON님의 액션" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_actionplan_thook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/rect_green600_fill_6"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="5dp"
+        app:layout_constraintStart_toStartOf="@id/tv_actionlist_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_actionlist_title">
+
+        <ImageView
+            android:id="@+id/iv_actionplan_thook"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_thook"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/Green100" />
+
+        <TextView
+            style="@style/detail1_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:text="00% 달성!"
+            android:textColor="@color/Green100"
+            app:layout_constraintBottom_toBottomOf="@id/iv_actionplan_thook"
+            app:layout_constraintStart_toEndOf="@id/iv_actionplan_thook"
+            app:layout_constraintTop_toTopOf="@id/iv_actionplan_thook" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tl_actionlist_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        app:tabIndicatorFullWidth="true"
+        android:background="@drawable/shape_actionlist_tab"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cl_actionplan_thook"
+        app:tabIndicatorColor="@color/MainGreen400"
+        app:tabRippleColor="@android:color/transparent"
+        app:tabSelectedTextColor="@color/MainGreen400"
+        app:tabTextAppearance="@style/body1_bold"
+        app:tabTextColor="@color/Gray300">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="진행중" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="완료" />
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fcv_actionlist_main"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tl_actionlist_main"
+        tools:layout="@layout/fragment_proceeding_actionlist" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

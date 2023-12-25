@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:background="@color/Gray400"
     android:paddingBottom="18dp"
-    tools:context=".presentation.insight.noactionplan.see.InsightCaveBottomsheet">
+    tools:context=".presentation.insight.noactionplan.InsightCaveBottomsheet">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_home_cave_select_main"
