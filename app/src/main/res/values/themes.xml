@@ -59,7 +59,11 @@
     </style>
 
 
-    <style name="InsightGoalMonthPicker" parent="AppTheme.NumberPicker">
+    <style name="InsightGoalMonthPicker" parent="Widget.Material3.MaterialTimePicker">
         <item name="colorControlNormal">@color/MainGreen400</item>
+        <item name="android:textAppearance">@style/body1_reg</item>
+        <item name="android:textColor">@color/White000</item>
+        <item name="textFillColor">@color/White000</item>
+        <item name="textColorAlertDialogListItem">@color/White000</item>
     </style>
 </resources>

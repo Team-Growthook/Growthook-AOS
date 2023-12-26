@@ -17,6 +17,7 @@ class InsightWriteActivity: BaseActivity<ActivityInsightWriteBinding>({
 
     private val viewModel by viewModels<InsightWriteViewModel>()
     private lateinit var caveSelectBottomSheet : InsightWriteCaveSelectBottomSheetFragment
+    private lateinit var goalSelectBottomSheet: InsightWriteGoalSelectBottomSheetFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +25,7 @@ class InsightWriteActivity: BaseActivity<ActivityInsightWriteBinding>({
         setContentView(binding.root)
 
         initSetSelectCaveBottomSheet()
+        initSetSelectGoalBottomSheet()
 
     }
 
@@ -34,7 +36,7 @@ class InsightWriteActivity: BaseActivity<ActivityInsightWriteBinding>({
             edtInsightWriteMemo.clearFocus()
             edtInsightWriteUrl.clearFocus()
             edtInsightWriteUrlChoice.clearFocus()
-            edtInsightWriteGoal.clearFocus()
+            //edtInsightWriteGoal.clearFocus()
         }
 
         return super.dispatchTouchEvent(ev)
@@ -53,7 +55,7 @@ class InsightWriteActivity: BaseActivity<ActivityInsightWriteBinding>({
                 }
             }
             )
-            caveSelectBottomSheet.show(supportFragmentManager, TAG_CAVE_SELECT_BOTTOMSHEET)
+            caveSelectBottomSheet.show(supportFragmentManager, TAG_BOTTOM_SHEET)
         }
     }
 
@@ -65,7 +67,15 @@ class InsightWriteActivity: BaseActivity<ActivityInsightWriteBinding>({
         }
     }
 
+    private fun initSetSelectGoalBottomSheet() {
+        goalSelectBottomSheet = InsightWriteGoalSelectBottomSheetFragment()
+
+        binding.layoutInsightWriteGoal.setOnClickListener {
+            goalSelectBottomSheet.show(supportFragmentManager, TAG_BOTTOM_SHEET)
+        }
+    }
+
     companion object {
-        const val TAG_CAVE_SELECT_BOTTOMSHEET = "SHOW"
+        const val TAG_BOTTOM_SHEET = "SHOW"
     }
 }
