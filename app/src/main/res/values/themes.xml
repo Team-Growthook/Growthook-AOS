@@ -59,4 +59,7 @@
     </style>
 
 
+    <style name="InsightGoalMonthPicker" parent="AppTheme.NumberPicker">
+        <item name="colorControlNormal">@color/MainGreen400</item>
+    </style>
 </resources>
