@@ -20,6 +20,7 @@ import com.growthook.aos.presentation.MainActivity
 import com.growthook.aos.presentation.cavedetail.CaveDetailActivity
 import com.growthook.aos.presentation.insight.noactionplan.InsightMenuBottomsheet
 import com.growthook.aos.presentation.insight.noactionplan.NoActionplanInsightActivity
+import com.growthook.aos.presentation.storage.CreateStorageActivity
 import com.growthook.aos.util.EmptyDataObserver
 import com.growthook.aos.util.base.BaseAlertDialog
 import com.growthook.aos.util.base.BaseFragment
@@ -60,6 +61,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
         selectMenuBottomSheet = SelectMenuBottomSheet()
         activity = requireActivity() as MainActivity
+
+        clickAddCave()
+    }
+
+    private fun clickAddCave() {
+        binding.ivHomeAddCave.setOnClickListener {
+            val intent = Intent(requireActivity(), CreateStorageActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun setTitleText() {

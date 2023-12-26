@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/WritingBottomSheetDialog"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/Gray600">
+
+    <TextView
+        android:id="@+id/tv_small_writing_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/body1_reg"
+        app:layout_constraintBottom_toBottomOf="@id/ib_small_writing_close"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/ib_small_writing_close"
+        tools:text="리뷰 작성" />
+
+    <ImageButton
+        android:id="@+id/ib_small_writing_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_close"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tl_small_writing"
+        style="@style/TextInputLayoutStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="18dp"
+        android:layout_marginTop="32dp"
+        android:gravity="top"
+        app:layout_constraintBottom_toTopOf="@id/btn_small_writing_save"
+        android:layout_marginBottom="239dp"
+        app:boxBackgroundColor="@color/Gray900"
+        app:boxBackgroundMode="outline"
+        app:counterEnabled="true"
+        app:counterMaxLength="30"
+        app:counterTextAppearance="@style/CounterTextAppearance"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_small_writing_title">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_small_writing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="0dp"
+            android:cursorVisible="true"
+            android:gravity="top"
+            android:inputType="textMultiLine"
+            android:maxLength="20"
+            android:maxLines="2"
+            android:minLines="2"
+            android:textColor="@color/White000" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_small_writing_save"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="18dp"
+        android:background="@drawable/rect_radius_5"
+        android:enabled="false"
+        android:includeFontPadding="false"
+        android:text="완료"
+        android:textAppearance="@style/body1_bold"
+        android:textColor="@color/sel_writing_text"
+        app:backgroundTint="@color/sel_writing_save_btn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

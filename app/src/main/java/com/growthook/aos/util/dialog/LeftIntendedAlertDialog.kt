@@ -8,7 +8,8 @@ import com.growthook.aos.databinding.DialogLeftIntendedBinding
 import com.growthook.aos.util.base.BaseAlertDialog
 
 class LeftIntendedAlertDialog : BaseAlertDialog() {
-    private val binding: DialogLeftIntendedBinding get() = _binding!! as DialogLeftIntendedBinding
+    private val binding: DialogLeftIntendedBinding
+        get() = requireNotNull(_binding as DialogLeftIntendedBinding) { "${this::class.java.simpleName}에서 에러가 발생했습니다." }
 
     override fun onCreateView(
         inflater: LayoutInflater,

@@ -1,20 +1,270 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/Gray700"
     tools:context=".presentation.mypage.MyPageFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <Button
-        android:id="@+id/btn_mypage_logout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="로그아웃"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="79dp"
+            android:layout_height="82dp"
+            android:layout_marginTop="66dp"
+            android:background="@drawable/circle_fill_gray900"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/iv_my_page_user"
+            android:layout_width="52dp"
+            android:layout_height="81dp"
+            android:layout_marginTop="67dp"
+            android:src="@drawable/img_bear"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_my_page_nickname"
+            style="@style/head1"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:text="eongnoej"
+            android:layout_marginTop="12dp"
+            android:gravity="bottom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_my_page_user"
+            tools:text="eongnoej" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_my_page_my_info"
+            android:layout_width="98dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/rect_radius_2"
+            android:text="내 정보 보기"
+            android:textAppearance="@style/detail2_reg"
+            android:textColor="@color/Gray200"
+            app:backgroundTint="@color/Gray600"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_my_page_nickname" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_my_page_harvest_thook"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="4dp"
+            android:background="@drawable/rect_radius_4"
+            android:backgroundTint="@color/MainGreen400"
+            android:orientation="horizontal"
+            app:layout_constraintDimensionRatio="158:100"
+            app:layout_constraintEnd_toStartOf="@id/cl_my_page_used_thook"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_my_page_my_info">
+
+            <TextView
+                android:id="@+id/tv_my_page_harvest_thook"
+                style="@style/body1_bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="수확한 쑥"
+                app:layout_constraintBottom_toTopOf="@id/iv_my_page_harvest_thook"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <ImageView
+                android:id="@+id/iv_my_page_harvest_thook"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="2dp"
+                android:src="@drawable/ic_thook"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tv_my_page_harvest_thook_count"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_my_page_harvest_thook" />
+
+
+            <TextView
+                android:id="@+id/tv_my_page_harvest_thook_count"
+                style="@style/body1_reg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:text="00"
+                app:layout_constraintBottom_toBottomOf="@id/iv_my_page_harvest_thook"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/iv_my_page_harvest_thook"
+                app:layout_constraintTop_toTopOf="@id/iv_my_page_harvest_thook"
+                tools:text="00" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_my_page_used_thook"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="18dp"
+            android:background="@drawable/rect_radius_4"
+            android:backgroundTint="@color/Gray400"
+            android:orientation="horizontal"
+            app:layout_constraintDimensionRatio="158:100"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cl_my_page_harvest_thook"
+            app:layout_constraintTop_toBottomOf="@id/btn_my_page_my_info">
+
+            <TextView
+                android:id="@+id/tv_my_page_used_thook"
+                style="@style/body1_bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="사용한 쑥"
+                android:textColor="@color/Gray100"
+                app:layout_constraintBottom_toTopOf="@id/iv_my_page_used_thook"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <ImageView
+                android:id="@+id/iv_my_page_used_thook"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="2dp"
+                android:src="@drawable/ic_thook"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tv_my_page_used_thook_count"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_my_page_used_thook"
+                app:tint="@color/Gray100" />
+
+
+            <TextView
+                android:id="@+id/tv_my_page_used_thook_count"
+                style="@style/body1_reg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:text="00"
+                android:textColor="@color/Gray100"
+                app:layout_constraintBottom_toBottomOf="@id/iv_my_page_used_thook"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/iv_my_page_used_thook"
+                app:layout_constraintTop_toTopOf="@id/iv_my_page_used_thook"
+                tools:text="00" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_my_page_instructions"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="24dp"
+            android:text="growthook 사용법"
+            android:textAppearance="@style/body2_bold"
+            android:gravity="start|center"
+            android:paddingStart="18dp"
+            android:background="@drawable/rect_gray600_botline_bot1"
+            app:backgroundTint="@null"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintDimensionRatio="360:60"
+            app:layout_constraintTop_toBottomOf="@id/cl_my_page_harvest_thook" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_my_page_notice"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="360:60"
+            android:background="@drawable/rect_gray600_botline_bot1"
+            app:backgroundTint="@null"
+            android:text="공지사항"
+            android:gravity="start|center"
+            android:textAppearance="@style/body2_bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_my_page_instructions" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_my_page_faq"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="360:60"
+            android:background="@drawable/rect_gray600_botline_bot1"
+            app:backgroundTint="@null"
+            android:text="자주 묻는 질문"
+            android:gravity="start|center"
+            android:textAppearance="@style/body2_bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_my_page_notice" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_my_page_policy"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="360:60"
+            android:background="@drawable/rect_gray600_botline_bot1"
+            app:backgroundTint="@null"
+            android:text="약관 및 정책"
+            android:gravity="start|center"
+            android:textAppearance="@style/body2_bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_my_page_faq" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_my_page_version"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="360:60"
+            android:background="@drawable/rect_gray600_botline_bot1"
+            app:backgroundTint="@null"
+            android:text="버전 정보 1.0.0"
+            android:gravity="start|center"
+            android:textAppearance="@style/body2_bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_my_page_policy" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_my_page_logout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="360:60"
+            android:background="@color/Gray600"
+            app:backgroundTint="@null"
+            android:text="로그아웃"
+            android:textColor="@color/Red400"
+            android:gravity="start|center"
+            android:textAppearance="@style/body2_bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_my_page_version" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.core.widget.NestedScrollView>

@@ -1,4 +1,4 @@
-package com.growthook.aos.presentation.home
+package com.growthook.aos.util.selectcave
 
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -85,7 +85,7 @@ class CaveSelectAdapter() :
 
             if (view != null) {
                 return when (val viewHolder = recyclerView.getChildViewHolder(view)) {
-                    is CaveSelectAdapter.CaveSelectViewHolder -> viewHolder.getItemDetails(
+                    is CaveSelectViewHolder -> viewHolder.getItemDetails(
                         viewHolder,
                     )
 
