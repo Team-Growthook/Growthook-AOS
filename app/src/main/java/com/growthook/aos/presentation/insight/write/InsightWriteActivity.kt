@@ -23,6 +23,7 @@ class InsightWriteActivity: BaseActivity<ActivityInsightWriteBinding>({
         setContentView(binding.root)
 
         initSetSelectCaveBottomSheet()
+
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
@@ -44,7 +45,15 @@ class InsightWriteActivity: BaseActivity<ActivityInsightWriteBinding>({
 
         binding.edtInsightWriteCave.setOnFocusChangeListener { _, _ ->
             caveSelectBottomSheet.show(supportFragmentManager, TAG_CAVE_SELECT_BOTTOMSHEET)
+            setEdt()
         }
+
+    }
+
+    private fun setEdt() {
+        Log.d("InsightWriteCave:Activity:", viewModel.selectedCaveName.value.toString())
+        binding.edtInsightWriteCave.setText(viewModel.selectedCaveName.value)
+        //binding.edtInsightWriteCave.clearFocus()
     }
 
     companion object {
