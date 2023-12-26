@@ -1,30 +1,24 @@
-package com.growthook.aos.presentation.cavedetail
+package com.growthook.aos.util.selectcave
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.selection.SelectionPredicates
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StableIdKeyProvider
 import androidx.recyclerview.selection.StorageStrategy
-import com.growthook.aos.R
 import com.growthook.aos.databinding.FragmentCaveSelectBottomsheetBinding
-import com.growthook.aos.presentation.home.CaveSelectAdapter
-import com.growthook.aos.util.base.BaseBottomSheetFragment
+import com.growthook.aos.domain.entity.Cave
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AndroidEntryPoint
-class CaveDetailCaveSelectBottomSheet :
-    BaseBottomSheetFragment<FragmentCaveSelectBottomsheetBinding>(R.layout.fragment_cave_select_bottomsheet) {
-    private val viewModel by viewModels<CaveDetailCaveSelectViewModel>()
-    private val caveDetailViewModel by activityViewModels<CaveDetailViewModel>()
+class CaveSelectBottomSheet : CaveSelect() {
+    private val viewModel by viewModels<CaveSelectBottomSheetViewModel>()
 
     private var _adapter: CaveSelectAdapter? = null
     private val adapter
@@ -38,10 +32,20 @@ class CaveDetailCaveSelectBottomSheet :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setAdapter()
+    }
 
-        clickSelectBtn()
+    override fun setClickAction(action: (Cave?) -> Unit) {
+        lifecycleScope.launch {
+            viewModel.selectedCave.collect { cave ->
+                binding.btnHomeSelectCave.setOnClickListener {
+                    cave?.let {
+                        clickBtnAction(it)
+                        dismiss()
+                    }
+                }
+            }
+        }
     }
 
     private fun setAdapter() {
@@ -72,21 +76,6 @@ class CaveDetailCaveSelectBottomSheet :
                 Timber.d("동굴 ${adapter.getSelectedCave()}")
             }
         })
-    }
-
-    private fun clickSelectBtn() {
-        binding.btnHomeSelectCave.setOnClickListener {
-            lifecycleScope.launch {
-                viewModel.selectedCave.collect {
-                    dismiss()
-                    Toast.makeText(
-                        requireContext(),
-                        "${it?.name}에 ${caveDetailViewModel.longClickInsight.value?.insightId}를 옮깁니다",
-                        Toast.LENGTH_SHORT,
-                    ).show()
-                }
-            }
-        }
     }
 
     override fun onDestroyView() {

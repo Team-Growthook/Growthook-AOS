@@ -13,12 +13,13 @@ import com.growthook.aos.databinding.FragmentSelectMenuBottomsheetBinding
 import com.growthook.aos.presentation.insight.noactionplan.InsightMenuBottomsheet
 import com.growthook.aos.util.base.BaseAlertDialog
 import com.growthook.aos.util.base.BaseBottomSheetFragment
+import com.growthook.aos.util.selectcave.CaveSelect
+import timber.log.Timber
 
 class SelectMenuBottomSheet() :
     BaseBottomSheetFragment<FragmentSelectMenuBottomsheetBinding>(R.layout.fragment_select_menu_bottomsheet) {
 
     private val viewModel: HomeViewModel by activityViewModels()
-    private lateinit var caveSelectBottomSheet: CaveSelectBottomSheet
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -35,10 +36,14 @@ class SelectMenuBottomSheet() :
     }
 
     private fun clickMoveBtn() {
-        caveSelectBottomSheet = CaveSelectBottomSheet()
-
         binding.btnHomeSelectMove.setOnClickListener {
-            caveSelectBottomSheet.show(parentFragmentManager, "show")
+            CaveSelect.Builder().build {
+                Toast.makeText(
+                    requireContext(),
+                    "${it?.name}에 ${viewModel.longClickInsight.value}를 옮깁니다",
+                    Toast.LENGTH_SHORT,
+                ).show()
+            }.show(parentFragmentManager, "select")
         }
     }
 
