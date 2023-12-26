@@ -1,8 +1,8 @@
 package com.growthook.aos.presentation.insight.write
 
 import android.os.Bundle
-import android.util.Log
 import android.view.MotionEvent
+import android.view.View
 import androidx.activity.viewModels
 import com.growthook.aos.databinding.ActivityInsightWriteBinding
 import com.growthook.aos.util.base.BaseActivity
@@ -31,7 +31,6 @@ class InsightWriteActivity: BaseActivity<ActivityInsightWriteBinding>({
         with(binding) {
             edtInsightWriteInsight.clearFocus()
             edtInsightWriteMemo.clearFocus()
-            edtInsightWriteCave.clearFocus()
             edtInsightWriteUrl.clearFocus()
             edtInsightWriteUrlChoice.clearFocus()
             edtInsightWriteGoal.clearFocus()
@@ -43,17 +42,27 @@ class InsightWriteActivity: BaseActivity<ActivityInsightWriteBinding>({
     private fun initSetSelectCaveBottomSheet() {
         caveSelectBottomSheet = InsightWriteCaveSelectBottomSheetFragment()
 
-        binding.edtInsightWriteCave.setOnFocusChangeListener { _, _ ->
+        binding.layoutInsightWriteCave.setOnClickListener {
+            caveSelectBottomSheet.setOnCaveSelectedListener(object :
+            InsightWriteCaveSelectBottomSheetFragment.OnCaveSelectedListener {
+                override fun onCaveSelected(caveName: String) {
+                    setCaveSelectedEditText(caveName)
+                    viewModel.setSelectedCaveName(caveName)
+                }
+            }
+            )
             caveSelectBottomSheet.show(supportFragmentManager, TAG_CAVE_SELECT_BOTTOMSHEET)
-            setEdt()
         }
+
 
     }
 
-    private fun setEdt() {
-        Log.d("InsightWriteCave:Activity:", viewModel.selectedCaveName.value.toString())
-        binding.edtInsightWriteCave.setText(viewModel.selectedCaveName.value)
-        //binding.edtInsightWriteCave.clearFocus()
+    private fun setCaveSelectedEditText(caveName: String) {
+        with (binding) {
+            tvInsightWriteCaveHint.visibility = View.GONE
+            tvInsightWriteCaveSelected.visibility = View.VISIBLE
+            tvInsightWriteCaveSelected.text = caveName
+        }
     }
 
     companion object {

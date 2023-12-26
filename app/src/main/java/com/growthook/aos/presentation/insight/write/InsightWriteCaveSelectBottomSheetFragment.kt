@@ -1,7 +1,6 @@
 package com.growthook.aos.presentation.insight.write
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +17,16 @@ class InsightWriteCaveSelectBottomSheetFragment :
     private var _caveAdapter: InsightWriteCaveSelectAdapter? = null
     private val caveAdapter
         get() = requireNotNull(_caveAdapter)
+
+    private lateinit var onCaveSelectedListener: OnCaveSelectedListener
+
+    interface OnCaveSelectedListener {
+        fun onCaveSelected(caveName: String)
+    }
+
+    fun setOnCaveSelectedListener(listener: OnCaveSelectedListener) {
+        onCaveSelectedListener = listener
+    }
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -46,8 +55,7 @@ class InsightWriteCaveSelectBottomSheetFragment :
 
     private fun selectedCave(caveItem: String) {
         binding.btnHomeSelectCave.setOnClickListener {
-            Log.d("InsightWriteCave:", caveItem)
-            viewModel.setSelectedCaveName(caveItem)
+            onCaveSelectedListener.onCaveSelected(caveItem)
             dismiss()
         }
     }
