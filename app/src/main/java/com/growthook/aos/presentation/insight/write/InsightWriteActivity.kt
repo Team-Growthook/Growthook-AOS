@@ -1,6 +1,7 @@
 package com.growthook.aos.presentation.insight.write
 
 import android.os.Bundle
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import androidx.activity.viewModels
@@ -43,6 +44,7 @@ class InsightWriteActivity: BaseActivity<ActivityInsightWriteBinding>({
         caveSelectBottomSheet = InsightWriteCaveSelectBottomSheetFragment()
 
         binding.layoutInsightWriteCave.setOnClickListener {
+            binding.layoutInsightWriteCave.requestFocusFromTouch()
             caveSelectBottomSheet.setOnCaveSelectedListener(object :
             InsightWriteCaveSelectBottomSheetFragment.OnCaveSelectedListener {
                 override fun onCaveSelected(caveName: String) {
@@ -53,8 +55,6 @@ class InsightWriteActivity: BaseActivity<ActivityInsightWriteBinding>({
             )
             caveSelectBottomSheet.show(supportFragmentManager, TAG_CAVE_SELECT_BOTTOMSHEET)
         }
-
-
     }
 
     private fun setCaveSelectedEditText(caveName: String) {
