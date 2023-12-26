@@ -18,6 +18,14 @@ class InsightWriteViewModel @Inject constructor() : ViewModel() {
         _selectedCaveName.value = caveName
     }
 
+    private val _selectedGoalMonth: MutableLiveData<Int> = MutableLiveData()
+    val selectedGoalMonth: LiveData<Int>
+        get() = _selectedGoalMonth
+
+    fun setSelectedGoalMonth(goalMonth: Int) {
+        _selectedGoalMonth.value = goalMonth
+    }
+
 
     private val _mockCaveList: MutableLiveData<List<Cave>> = MutableLiveData(
         mutableListOf(

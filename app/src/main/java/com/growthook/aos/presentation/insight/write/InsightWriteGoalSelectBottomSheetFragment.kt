@@ -12,6 +12,16 @@ import com.growthook.aos.util.base.BaseBottomSheetFragment
 class InsightWriteGoalSelectBottomSheetFragment :
     BaseBottomSheetFragment<FragmentInsightWriteGoalSelectBottomsheetBinding>(R.layout.fragment_insight_write_goal_select_bottomsheet) {
 
+    private lateinit var onGoalSelectedListener: OnGoalSelectedListener
+
+    interface OnGoalSelectedListener {
+        fun onGoalSelected(goalMonth: Int)
+    }
+
+    fun setOnGoalSelectedListener(listener: OnGoalSelectedListener) {
+        onGoalSelectedListener = listener
+    }
+
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -27,24 +37,21 @@ class InsightWriteGoalSelectBottomSheetFragment :
     private fun initSetGoalMonthPicker() {
         val goalPicker = binding.pickerInsightGoalMonth
 
-        goalPicker.wrapSelectorWheel = false
-        goalPicker.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
-        goalPicker.minValue = 1
-        goalPicker.maxValue = 12
-        goalPicker.displayedValues = (goalPicker.minValue..goalPicker.maxValue).map { it.toString() + "개월" }.toTypedArray()
-
-        binding.btnInsightGoal.setOnClickListener {
-            sendGoalMonthData()
-            dismiss()
+        with (goalPicker) {
+            wrapSelectorWheel = false
+            descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
+            minValue = 1
+            maxValue = 12
+            displayedValues = (goalPicker.minValue..goalPicker.maxValue).map { it.toString() + "개월" }.toTypedArray()
         }
+        clickGoalMonthBtn()
     }
 
-    private fun sendGoalMonthData() {
-//        val goalPicker = binding.pickerInsightGoalMonth
-//
-//        goalPicker.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
-//        goalPicker.displayedValues = arrayOf(goalPicker.value.toString() + "개월")
-
-
+    private fun clickGoalMonthBtn() {
+        binding.btnInsightGoal.setOnClickListener {
+            val goalMonth = binding.pickerInsightGoalMonth.value
+            onGoalSelectedListener.onGoalSelected(goalMonth)
+            dismiss()
+        }
     }
 }
