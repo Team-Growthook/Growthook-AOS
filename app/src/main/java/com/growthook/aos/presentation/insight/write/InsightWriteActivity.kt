@@ -1,11 +1,13 @@
 package com.growthook.aos.presentation.insight.write
 
 import android.os.Bundle
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import androidx.activity.viewModels
 import com.growthook.aos.databinding.ActivityInsightWriteBinding
 import com.growthook.aos.util.base.BaseActivity
+import com.growthook.aos.util.extension.CommonTextWatcher
 import com.growthook.aos.util.extension.hideKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,8 +25,10 @@ class InsightWriteActivity : BaseActivity<ActivityInsightWriteBinding>({
         binding = ActivityInsightWriteBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        initGetInsightWriteEdt()
         initSetSelectCaveBottomSheet()
         initSetSelectGoalBottomSheet()
+        initSetBtnEnabled()
 
     }
 
@@ -38,6 +42,28 @@ class InsightWriteActivity : BaseActivity<ActivityInsightWriteBinding>({
         }
 
         return super.dispatchTouchEvent(ev)
+    }
+
+    private fun initGetInsightWriteEdt() {
+        val insightTextWatcher = CommonTextWatcher(afterChanged = { edtInsight ->
+            viewModel.getInsight(edtInsight.toString())
+        })
+        val memoTextWatcher = CommonTextWatcher(afterChanged = { edtMemo ->
+            viewModel.getMemo(edtMemo.toString())
+        })
+        val urlTextWatcher = CommonTextWatcher(afterChanged = { edtUrl ->
+            viewModel.getUrl(edtUrl.toString())
+        })
+        val urlChoiceTextWatcher = CommonTextWatcher(afterChanged = { edtUrlChoice ->
+            viewModel.getUrlChoice(edtUrlChoice.toString())
+        })
+
+        with (binding) {
+            edtInsightWriteInsight.addTextChangedListener(insightTextWatcher)
+            edtInsightWriteMemo.addTextChangedListener(memoTextWatcher)
+            edtInsightWriteUrl.addTextChangedListener(urlTextWatcher)
+            edtInsightWriteUrlChoice.addTextChangedListener(urlChoiceTextWatcher)
+        }
     }
 
     private fun initSetSelectCaveBottomSheet() {
@@ -85,6 +111,24 @@ class InsightWriteActivity : BaseActivity<ActivityInsightWriteBinding>({
             tvInsightWriteGoalSelected.visibility = View.VISIBLE
             tvInsightWriteGoalSelected.text = goalMonth.toString() + DISPLAY_GOAL_MONTH
         }
+    }
+
+    private fun initSetBtnEnabled() {
+        viewModel.checkInsightWriteBtnEnabled.observe(this) {
+            with (binding.btnInsightWrite) {
+                if (it) {
+                    isEnabled = true
+                    Log.d("InsightWrite:", "버튼 클릭")
+                    clickInsightWriteBtn()
+                } else {
+                    isEnabled = false
+                }
+            }
+        }
+    }
+
+    private fun clickInsightWriteBtn() {
+        // TODO 인사이트 등록 버튼 클릭시 로직
     }
 
     companion object {
