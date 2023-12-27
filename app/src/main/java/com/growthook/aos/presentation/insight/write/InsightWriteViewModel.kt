@@ -70,7 +70,7 @@ class InsightWriteViewModel @Inject constructor() : ViewModel() {
         !insight.value.isNullOrBlank()
                 && !selectedCaveName.value.isNullOrBlank()
                 && !url.value.isNullOrBlank()
-                && selectedGoalMonth.value.toString().isNotBlank()
+                && !(selectedGoalMonth.value == null)
 
     private val _mockCaveList: MutableLiveData<List<Cave>> = MutableLiveData(
         mutableListOf(

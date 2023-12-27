@@ -118,7 +118,6 @@ class InsightWriteActivity : BaseActivity<ActivityInsightWriteBinding>({
             with (binding.btnInsightWrite) {
                 if (it) {
                     isEnabled = true
-                    Log.d("InsightWrite:", "버튼 클릭")
                     clickInsightWriteBtn()
                 } else {
                     isEnabled = false
