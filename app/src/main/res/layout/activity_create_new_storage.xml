@@ -8,7 +8,7 @@
         android:id="@+id/btn_storage_close"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_create_storage_close"
+        android:src="@drawable/ic_close"
         android:background="@android:color/transparent"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="8dp"

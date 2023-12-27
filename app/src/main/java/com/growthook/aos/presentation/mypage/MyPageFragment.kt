@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.growthook.aos.data.service.KakaoAuthService
 import com.growthook.aos.databinding.FragmentMypageBinding
+import com.growthook.aos.presentation.mypage.detailinfo.DetailMyPageActivity
 import com.growthook.aos.presentation.onboarding.LoginActivity
 import com.growthook.aos.util.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,11 +29,26 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setNickName()
+        clickDetailMyInfo()
         clickLogout()
     }
 
+    private fun setNickName() {
+        viewModel.nickName.observe(viewLifecycleOwner) {
+            binding.tvMyPageNickname.text = it
+        }
+    }
+
+    private fun clickDetailMyInfo() {
+        binding.btnMyPageMyInfo.setOnClickListener {
+            val intent = Intent(requireActivity(), DetailMyPageActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
     private fun clickLogout() {
-        binding.btnMypageLogout.setOnClickListener {
+        binding.btnMyPageLogout.setOnClickListener {
             kakaoAuthService.kakaoLogout(viewModel.kakaoLogoutCallback)
             viewModel.isLogoutSuccess.observe(viewLifecycleOwner) {
                 if (it) {

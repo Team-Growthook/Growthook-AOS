@@ -1,4 +1,4 @@
-package com.growthook.aos.presentation.insight.actionplan
+package com.growthook.aos.presentation.insight.noactionplan.add
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

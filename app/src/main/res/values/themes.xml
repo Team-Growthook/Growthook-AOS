@@ -30,7 +30,6 @@
         <item name="boxStrokeWidthFocused">0.5dp</item>
         <item name="strokeWidth">0.5dp</item>
         <item name="endIconMode">clear_text</item>
-        <item name="counterMaxLength">7</item>
         <item name="boxStrokeColor">@color/sel_textinput</item>
         <item name="endIconTint">@color/Gray100</item>
         <item name="iconGravity">top</item>
@@ -49,6 +48,15 @@
         <item name="android:layout_marginEnd">0dp</item>
     </style>
 
+    <style name="WritingBottomSheetDialog" parent="Theme.Design.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/WritingBottomSheetStyle</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
+
+    <style name="WritingBottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@color/Gray600</item>
+    </style>
 
 
 </resources>

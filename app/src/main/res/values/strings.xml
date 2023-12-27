@@ -16,4 +16,5 @@
     <string name="see_storage_scrap">스크랩만 보기</string>
     <string name="see_storage_content">아직 심겨진 씨앗이 없어요</string>
     <string name="see_storage_btn_content">씨앗심기</string>
+    <string name="detail_my_page_delete_account"><u>회원 탈퇴</u></string>
 </resources>
