@@ -59,4 +59,9 @@ class InsightWriteCaveSelectBottomSheetFragment :
             dismiss()
         }
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _caveAdapter = null
+    }
 }
