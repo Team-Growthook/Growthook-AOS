@@ -1,29 +1,28 @@
-package com.growthook.aos.presentation.storage
+package com.growthook.aos.presentation.cavecreate
 
+import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.MotionEvent
-import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
+import android.widget.Toast
 import androidx.activity.viewModels
-import com.growthook.aos.R
-import com.growthook.aos.databinding.ActivityCreateStorageBinding
+import com.growthook.aos.presentation.cavecreate.model.NewCaveIntent
+import com.growthook.aos.databinding.ActivityCreateNewCaveBinding
 import com.growthook.aos.util.base.BaseActivity
 import com.growthook.aos.util.base.BaseAlertDialog
+import com.growthook.aos.util.extension.CommonTextWatcher
 import com.growthook.aos.util.extension.hideKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CreateStorageActivity : BaseActivity<ActivityCreateStorageBinding>({
-    ActivityCreateStorageBinding.inflate(it)
+class CreateNewCaveActivity : BaseActivity<ActivityCreateNewCaveBinding>({
+    ActivityCreateNewCaveBinding.inflate(it)
 }) {
 
-    private val viewModel by viewModels<CreateStorageViewModel>()
+    private val viewModel by viewModels<CreateNewCaveViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityCreateStorageBinding.inflate(layoutInflater)
+        binding = ActivityCreateNewCaveBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         initMakeStorageView()
@@ -70,30 +69,15 @@ class CreateStorageActivity : BaseActivity<ActivityCreateStorageBinding>({
     }
 
     private fun initGetStorageContent() {
+        val nameTextWatcher = CommonTextWatcher(afterChanged = { edtName ->
+            viewModel.getStorageName(edtName.toString())
+        })
+        val introductionTextWatcher = CommonTextWatcher(afterChanged = { edtIntroduction ->
+            viewModel.getStorageIntroduction(edtIntroduction.toString())
+        })
         with(binding) {
-            edtStorageName.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                }
-
-                override fun onTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                }
-
-                override fun afterTextChanged(s: Editable?) {
-                    viewModel.getStorageName(s.toString())
-                }
-            })
-
-            edtStorageIntroduction.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                }
-
-                override fun onTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                }
-
-                override fun afterTextChanged(s: Editable?) {
-                    viewModel.getStorageIntroduction(s.toString())
-                }
-            })
+            edtStorageName.addTextChangedListener(nameTextWatcher)
+            edtStorageIntroduction.addTextChangedListener(introductionTextWatcher)
         }
     }
 
@@ -102,12 +86,37 @@ class CreateStorageActivity : BaseActivity<ActivityCreateStorageBinding>({
             with(binding.btnStorageCreate) {
                 if (it) {
                     isEnabled = true
-                    setBackgroundResource(R.drawable.rect_green400_fill_5)
+                    clickStorageBtn()
                 } else {
                     isEnabled = false
-                    setBackgroundResource(R.drawable.rect_gray500_fill_5)
                 }
             }
         }
+    }
+
+    private fun clickStorageBtn() {
+        binding.btnStorageCreate.setOnClickListener {
+            sendNewStorageData()
+            Toast.makeText(this, "새 동굴을 만들었어요!", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun sendNewStorageData() {
+        val intent = Intent(this, SeeNewCaveActivity::class.java)
+        with (binding) {
+            intent.putExtra(
+                NEW_STORAGE,
+                NewCaveIntent(
+                    edtStorageName.text.toString(),
+                    edtStorageIntroduction.text.toString()
+                )
+            )
+        }
+        startActivity(intent)
+        finish()
+    }
+
+    companion object {
+        const val NEW_STORAGE = "NEW_STORAGE"
     }
 }

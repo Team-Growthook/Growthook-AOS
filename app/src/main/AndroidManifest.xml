@@ -61,9 +61,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".presentation.storage.CreateStorageActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
+            android:name=".presentation.cavecreate.CreateNewCaveActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.cavecreate.SeeNewCaveActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:exported="false"/>
         <activity
             android:name=".presentation.insight.write.InsightWriteActivity"
             android:exported="false"
