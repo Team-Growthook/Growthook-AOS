@@ -1,10 +1,10 @@
-package com.growthook.aos.data.entity
+package com.growthook.aos.presentation.cavecreate.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class NewStorage(
+data class NewCaveIntent(
     val name: String = "",
     val introduction: String = ""
 ) : Parcelable
