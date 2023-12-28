@@ -1,4 +1,4 @@
-package com.growthook.aos.presentation.storage
+package com.growthook.aos.presentation.cavecreate
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel

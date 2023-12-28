@@ -20,7 +20,7 @@ import com.growthook.aos.presentation.MainActivity
 import com.growthook.aos.presentation.cavedetail.CaveDetailActivity
 import com.growthook.aos.presentation.insight.noactionplan.InsightMenuBottomsheet
 import com.growthook.aos.presentation.insight.noactionplan.NoActionplanInsightActivity
-import com.growthook.aos.presentation.storage.CreateNewCaveActivity
+import com.growthook.aos.presentation.cavecreate.CreateNewCaveActivity
 import com.growthook.aos.util.EmptyDataObserver
 import com.growthook.aos.util.base.BaseAlertDialog
 import com.growthook.aos.util.base.BaseFragment

@@ -1,11 +1,11 @@
-package com.growthook.aos.presentation.storage
+package com.growthook.aos.presentation.cavecreate
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.MotionEvent
 import android.widget.Toast
 import androidx.activity.viewModels
-import com.growthook.aos.data.entity.NewStorage
+import com.growthook.aos.presentation.cavecreate.model.NewCaveIntent
 import com.growthook.aos.databinding.ActivityCreateNewCaveBinding
 import com.growthook.aos.util.base.BaseActivity
 import com.growthook.aos.util.base.BaseAlertDialog
@@ -106,7 +106,7 @@ class CreateNewCaveActivity : BaseActivity<ActivityCreateNewCaveBinding>({
         with (binding) {
             intent.putExtra(
                 NEW_STORAGE,
-                NewStorage(
+                NewCaveIntent(
                     edtStorageName.text.toString(),
                     edtStorageIntroduction.text.toString()
                 )
