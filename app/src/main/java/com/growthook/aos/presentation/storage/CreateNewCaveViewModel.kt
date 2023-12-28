@@ -8,7 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class CreateStorageViewModel @Inject constructor() : ViewModel() {
+class CreateNewCaveViewModel @Inject constructor() : ViewModel() {
 
     private val _storageName = MutableLiveData<String>()
     val storageName: LiveData<String>

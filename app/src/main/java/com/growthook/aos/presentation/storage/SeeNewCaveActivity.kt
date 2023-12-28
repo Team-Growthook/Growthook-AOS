@@ -1,26 +1,24 @@
 package com.growthook.aos.presentation.storage
 
-import android.os.Build
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.annotation.RequiresApi
 import com.growthook.aos.data.entity.NewStorage
-import com.growthook.aos.databinding.ActivitySeeNewStorageBinding
-import com.growthook.aos.presentation.storage.CreateNewStorageActivity.Companion.NEW_STORAGE
+import com.growthook.aos.databinding.ActivitySeeNewCaveBinding
+import com.growthook.aos.presentation.storage.CreateNewCaveActivity.Companion.NEW_STORAGE
 import com.growthook.aos.util.base.BaseActivity
 import com.growthook.aos.util.extension.getParcelable
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SeeNewStorageActivity: BaseActivity<ActivitySeeNewStorageBinding>({
-    ActivitySeeNewStorageBinding.inflate(it)
+class SeeNewCaveActivity: BaseActivity<ActivitySeeNewCaveBinding>({
+    ActivitySeeNewCaveBinding.inflate(it)
 }) {
 
-    private val viewModel by viewModels<SeeNewStorageViewModel>()
+    private val viewModel by viewModels<SeeNewCaveViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivitySeeNewStorageBinding.inflate(layoutInflater)
+        binding = ActivitySeeNewCaveBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         getStorageData()

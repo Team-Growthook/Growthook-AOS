@@ -5,5 +5,5 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class SeeNewStorageViewModel @Inject constructor() : ViewModel() {
+class SeeNewCaveViewModel @Inject constructor() : ViewModel() {
 }

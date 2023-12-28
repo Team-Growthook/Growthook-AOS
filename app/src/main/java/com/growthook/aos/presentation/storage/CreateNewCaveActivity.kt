@@ -2,14 +2,11 @@ package com.growthook.aos.presentation.storage
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.MotionEvent
 import android.widget.Toast
 import androidx.activity.viewModels
-import com.growthook.aos.R
 import com.growthook.aos.data.entity.NewStorage
-import com.growthook.aos.databinding.ActivityCreateNewStorageBinding
+import com.growthook.aos.databinding.ActivityCreateNewCaveBinding
 import com.growthook.aos.util.base.BaseActivity
 import com.growthook.aos.util.base.BaseAlertDialog
 import com.growthook.aos.util.extension.CommonTextWatcher
@@ -17,15 +14,15 @@ import com.growthook.aos.util.extension.hideKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CreateNewStorageActivity : BaseActivity<ActivityCreateNewStorageBinding>({
-    ActivityCreateNewStorageBinding.inflate(it)
+class CreateNewCaveActivity : BaseActivity<ActivityCreateNewCaveBinding>({
+    ActivityCreateNewCaveBinding.inflate(it)
 }) {
 
-    private val viewModel by viewModels<CreateStorageViewModel>()
+    private val viewModel by viewModels<CreateNewCaveViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityCreateNewStorageBinding.inflate(layoutInflater)
+        binding = ActivityCreateNewCaveBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         initMakeStorageView()
@@ -105,7 +102,7 @@ class CreateNewStorageActivity : BaseActivity<ActivityCreateNewStorageBinding>({
     }
 
     private fun sendNewStorageData() {
-        val intent = Intent(this, SeeNewStorageActivity::class.java)
+        val intent = Intent(this, SeeNewCaveActivity::class.java)
         with (binding) {
             intent.putExtra(
                 NEW_STORAGE,
