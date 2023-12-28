@@ -5,6 +5,7 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.growthook.aos.domain.entity.Cave
+import com.growthook.aos.util.extension.addSourceList
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -60,10 +61,7 @@ class InsightWriteViewModel @Inject constructor() : ViewModel() {
     }
 
     val checkInsightWriteBtnEnabled = MediatorLiveData<Boolean>().apply {
-        addSource(insight) { value = checkInsightWriteEnabled() }
-        addSource(selectedCaveName) { value = checkInsightWriteEnabled() }
-        addSource(url) { value = checkInsightWriteEnabled() }
-        addSource(selectedGoalMonth) { value = checkInsightWriteEnabled() }
+        addSourceList(insight, selectedCaveName, url, selectedGoalMonth) { checkInsightWriteEnabled() }
     }
 
     private fun checkInsightWriteEnabled(): Boolean =
