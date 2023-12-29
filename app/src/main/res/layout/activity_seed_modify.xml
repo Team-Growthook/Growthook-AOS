@@ -5,68 +5,43 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <Toolbar
-        android:id="@+id/toolbar_insight_write"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_seed_modify"
         android:layout_width="0dp"
         android:layout_height="68dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:navigationIcon="@drawable/ic_back">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <TextView
+            style="@style/body1_reg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/seed_modify_title"
+            android:textAppearance="@style/body1_reg"/>
 
-            <ImageButton
-                android:id="@+id/insight_write_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_back"
-                android:background="@android:color/transparent"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="8dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_seed_modify"
+            style="@style/body1_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="8dp"
+            android:background="@android:color/transparent"
+            android:minWidth="0dp"
+            android:padding="8dp"
+            android:enabled="false"
+            android:text="@string/seed_modify_btn"
+            android:textColor="@drawable/sel_insight_write_btn_color" />
 
-            <TextView
-                android:id="@+id/tv_insight_write_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/seed_modify_title"
-                android:textAppearance="@style/body1_reg"
-                android:layout_marginTop="32dp"
-                android:includeFontPadding="false"
-                android:layout_marginStart="69dp"
-                android:layout_marginEnd="69dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toEndOf="@id/insight_write_back"
-                app:layout_constraintEnd_toStartOf="@id/btn_insight_write"/>
-
-            <TextView
-                android:id="@+id/btn_insight_write"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/seed_modify_btn"
-                android:textAppearance="@style/body1_bold"
-                android:textColor="@drawable/sel_insight_write_btn_color"
-                android:clickable="true"
-                android:enabled="false"
-                android:includeFontPadding="false"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="7dp"
-                android:paddingHorizontal="8dp"
-                android:paddingVertical="12dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </Toolbar>
+    </androidx.appcompat.widget.Toolbar>
 
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_insight_write"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_seed_modify"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -76,7 +51,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/tv_insight_write_insight"
+                android:id="@+id/tv_seed_modify_insight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/insight_write_insight"
@@ -88,13 +63,13 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_insight_write_insight"
+                android:id="@+id/layout_seed_modify_insight"
                 style="@style/TextInputLayoutStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginHorizontal="18dp"
-                app:layout_constraintTop_toBottomOf="@id/tv_insight_write_insight"
+                app:layout_constraintTop_toBottomOf="@id/tv_seed_modify_insight"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:boxBackgroundColor="@color/Gray900"
@@ -104,7 +79,7 @@
                 app:hintEnabled="false">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_insight_write_insight"
+                    android:id="@+id/edt_seed_modify_insight"
                     android:layout_width="match_parent"
                     android:layout_height="68dp"
                     android:hint="@string/insight_write_insight_hint"
@@ -117,18 +92,18 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
-                android:id="@+id/tv_insight_write_memo"
+                android:id="@+id/tv_seed_modify_memo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/tv_insight_write_memo"
                 android:textAppearance="@style/body2_bold"
                 android:includeFontPadding="false"
                 android:layout_marginTop="24dp"
-                app:layout_constraintTop_toBottomOf="@id/layout_insight_write_insight"
-                app:layout_constraintStart_toStartOf="@id/tv_insight_write_insight"/>
+                app:layout_constraintTop_toBottomOf="@id/layout_seed_modify_insight"
+                app:layout_constraintStart_toStartOf="@id/tv_seed_modify_insight"/>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_insight_write_memo"
+                android:id="@+id/layout_seed_modify_memo"
                 style="@style/TextInputLayoutStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -142,10 +117,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_insight_write_memo">
+                app:layout_constraintTop_toBottomOf="@id/tv_seed_modify_memo">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_insight_write_memo"
+                    android:id="@+id/edt_seed_modify_memo"
                     android:layout_width="match_parent"
                     android:layout_height="96dp"
                     android:gravity="start"
@@ -159,19 +134,19 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
-                android:id="@+id/tv_insight_write_cave"
+                android:id="@+id/tv_seed_modify_cave"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/tv_insight_write_cave"
                 android:textAppearance="@style/body2_bold"
                 android:includeFontPadding="false"
                 android:layout_marginTop="24dp"
-                app:layout_constraintTop_toBottomOf="@id/layout_insight_write_memo"
-                app:layout_constraintStart_toStartOf="@id/layout_insight_write_memo"/>
+                app:layout_constraintTop_toBottomOf="@id/layout_seed_modify_memo"
+                app:layout_constraintStart_toStartOf="@id/layout_seed_modify_memo"/>
 
 
             <LinearLayout
-                android:id="@+id/layout_insight_write_cave"
+                android:id="@+id/layout_seed_modify_cave"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_marginTop="8dp"
@@ -180,7 +155,7 @@
                 android:focusable="true"
                 android:orientation="horizontal"
                 android:background="@drawable/sel_insight_write_edt"
-                app:layout_constraintTop_toBottomOf="@id/tv_insight_write_cave"
+                app:layout_constraintTop_toBottomOf="@id/tv_seed_modify_cave"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
 
@@ -197,7 +172,7 @@
                         app:layout_constraintEnd_toEndOf="parent" />
 
                     <TextView
-                        android:id="@+id/tv_insight_write_cave_hint"
+                        android:id="@+id/tv_seed_modify_cave_hint"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="@style/body3_reg"
@@ -210,7 +185,7 @@
                         tools:text="선택완"/>
 
                     <TextView
-                        android:id="@+id/tv_insight_write_cave_selected"
+                        android:id="@+id/tv_seed_modify_cave_selected"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="@style/body3_bold"
@@ -228,19 +203,19 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/tv_insight_write_url"
+                android:id="@+id/tv_seed_modify_url"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/tv_insight_write_url"
                 android:textAppearance="@style/body2_bold"
                 android:includeFontPadding="false"
                 android:layout_marginTop="48dp"
-                app:layout_constraintTop_toBottomOf="@id/layout_insight_write_cave"
-                app:layout_constraintStart_toStartOf="@id/tv_insight_write_cave"/>
+                app:layout_constraintTop_toBottomOf="@id/layout_seed_modify_cave"
+                app:layout_constraintStart_toStartOf="@id/tv_seed_modify_cave"/>
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_insight_write_url"
+                android:id="@+id/layout_seed_modify_url"
                 style="@style/TextInputLayoutStyle"
                 app:boxBackgroundMode="outline"
                 android:layout_width="0dp"
@@ -249,7 +224,7 @@
                 android:layout_marginTop="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_insight_write_url"
+                app:layout_constraintTop_toBottomOf="@id/tv_seed_modify_url"
                 app:boxBackgroundColor="@color/Gray900"
                 app:counterEnabled="true"
                 app:counterMaxLength="20"
@@ -257,7 +232,7 @@
                 app:hintEnabled="false">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_insight_write_url"
+                    android:id="@+id/edt_seed_modify_url"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:hint="@string/insight_write_url"
@@ -271,7 +246,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_insight_write_url_choice"
+                android:id="@+id/layout_seed_modify_url_choice"
                 style="@style/TextInputLayoutStyle"
                 app:boxBackgroundMode="outline"
                 android:layout_width="0dp"
@@ -280,12 +255,12 @@
                 android:layout_marginTop="11dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/layout_insight_write_url"
+                app:layout_constraintTop_toBottomOf="@id/layout_seed_modify_url"
                 app:boxBackgroundColor="@color/Gray900"
                 app:hintEnabled="false">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_insight_write_url_choice"
+                    android:id="@+id/edt_seed_modify_url_choice"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/seed_modify_url_choice"
@@ -299,39 +274,39 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.divider.MaterialDivider
-                android:id="@+id/divider_insight_write"
+                android:id="@+id/divider_seed_modify"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginHorizontal="18dp"
                 android:layout_marginTop="24dp"
                 app:dividerColor="@color/Gray400"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/layout_insight_write_url_choice" />
+                app:layout_constraintTop_toBottomOf="@id/layout_seed_modify_url_choice" />
 
             <TextView
-                android:id="@+id/tv_insight_write_goal"
+                android:id="@+id/tv_seed_modify_goal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/tv_insight_write_goal"
                 android:textAppearance="@style/body2_bold"
                 android:includeFontPadding="false"
                 android:layout_marginTop="24dp"
-                app:layout_constraintTop_toBottomOf="@id/divider_insight_write"
-                app:layout_constraintStart_toStartOf="@id/tv_insight_write_cave"/>
+                app:layout_constraintTop_toBottomOf="@id/divider_seed_modify"
+                app:layout_constraintStart_toStartOf="@id/tv_seed_modify_cave"/>
 
             <TextView
-                android:id="@+id/tv_insight_write_goal_content"
+                android:id="@+id/tv_seed_modify_goal_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/tv_insight_write_goal_content"
                 android:textAppearance="@style/detail1_reg"
                 android:includeFontPadding="false"
                 android:layout_marginTop="4dp"
-                app:layout_constraintTop_toBottomOf="@id/tv_insight_write_goal"
-                app:layout_constraintStart_toStartOf="@id/tv_insight_write_goal" />
+                app:layout_constraintTop_toBottomOf="@id/tv_seed_modify_goal"
+                app:layout_constraintStart_toStartOf="@id/tv_seed_modify_goal" />
 
             <LinearLayout
-                android:id="@+id/layout_insight_write_goal"
+                android:id="@+id/layout_seed_modify_goal"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_marginTop="10dp"
@@ -340,12 +315,12 @@
                 android:focusable="true"
                 android:orientation="horizontal"
                 android:background="@drawable/sel_insight_write_edt"
-                app:layout_constraintTop_toBottomOf="@id/tv_insight_write_goal_content"
+                app:layout_constraintTop_toBottomOf="@id/tv_seed_modify_goal_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
 
                 <TextView
-                    android:id="@+id/tv_insight_write_goal_selected"
+                    android:id="@+id/tv_seed_modify_goal_selected"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="1개월"
@@ -361,13 +336,13 @@
             </LinearLayout>
 
             <ImageView
-                android:id="@+id/iv_insight_write_warning"
+                android:id="@+id/iv_seed_modify_warning"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_warning"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="24dp"
-                app:layout_constraintTop_toBottomOf="@id/layout_insight_write_goal"
+                app:layout_constraintTop_toBottomOf="@id/layout_seed_modify_goal"
                 app:layout_constraintStart_toStartOf="parent"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -375,13 +350,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="23dp"
                 android:layout_marginBottom="19dp"
-                app:layout_constraintTop_toBottomOf="@id/layout_insight_write_goal"
-                app:layout_constraintStart_toEndOf="@id/iv_insight_write_warning"
+                app:layout_constraintTop_toBottomOf="@id/layout_seed_modify_goal"
+                app:layout_constraintStart_toEndOf="@id/iv_seed_modify_warning"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent">
 
                 <TextView
-                    android:id="@+id/tv_insight_write_warning"
+                    android:id="@+id/tv_seed_modify_warning"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/insight_write_warning"
@@ -393,7 +368,7 @@
                     app:layout_constraintStart_toStartOf="parent"/>
 
                 <TextView
-                    android:id="@+id/tv_insight_write_warning_content"
+                    android:id="@+id/tv_seed_modify_warning_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/insight_write_warning_content"
@@ -401,7 +376,7 @@
                     android:textColor="@color/Gray100"
                     android:textFontWeight="400"
                     android:includeFontPadding="false"
-                    app:layout_constraintTop_toBottomOf="@id/tv_insight_write_warning"
+                    app:layout_constraintTop_toBottomOf="@id/tv_seed_modify_warning"
                     app:layout_constraintStart_toStartOf="parent"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
