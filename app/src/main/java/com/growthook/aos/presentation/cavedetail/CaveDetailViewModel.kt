@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.growthook.aos.domain.entity.Insight
+import com.growthook.aos.domain.usecase.cavedetail.DeleteCaveUseCase
 import com.growthook.aos.domain.usecase.local.GetUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -13,6 +14,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CaveDetailViewModel @Inject constructor(
     private val getUserUseCase: GetUserUseCase,
+    private val deleteCaveUseCase: DeleteCaveUseCase,
 ) : ViewModel() {
     private val _insights = MutableLiveData<List<Insight>>()
     val insights: LiveData<List<Insight>> = _insights
@@ -21,6 +23,9 @@ class CaveDetailViewModel @Inject constructor(
 
     private val _nickName = MutableLiveData<String>()
     val nickname: LiveData<String> = _nickName
+
+    private val _isDelete = MutableLiveData<Boolean>()
+    val isDelete: LiveData<Boolean> = _isDelete
 
     val isMenuDismissed = MutableLiveData<Boolean>()
 
@@ -129,5 +134,15 @@ class CaveDetailViewModel @Inject constructor(
 
     fun getScrapedInsight() {
         _insights.value = scrapedInsight.value
+    }
+
+    fun deleteCave(caveId: Int) {
+        viewModelScope.launch {
+            deleteCaveUseCase.invoke(caveId).onSuccess {
+                _isDelete.value = true
+            }.onFailure {
+                _isDelete.value = false
+            }
+        }
     }
 }
