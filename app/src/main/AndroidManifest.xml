@@ -63,12 +63,15 @@
         <activity
             android:name=".presentation.cavecreate.CreateNewCaveActivity"
             android:windowSoftInputMode="adjustResize"
-            android:exported="false">
-        </activity>
+            android:exported="false" />
         <activity
             android:name=".presentation.cavecreate.SeeNewCaveActivity"
             android:windowSoftInputMode="adjustResize"
             android:exported="false"/>
+        <activity
+            android:name=".presentation.insight.write.InsightWriteActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>

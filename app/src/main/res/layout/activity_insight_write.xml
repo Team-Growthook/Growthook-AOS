@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <Toolbar
+        android:id="@+id/toolbar_insight_write"
+        android:layout_width="0dp"
+        android:layout_height="68dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/insight_write_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_back"
+                android:background="@android:color/transparent"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="8dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <TextView
+                android:id="@+id/tv_insight_write_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/insight_write_title"
+                android:textAppearance="@style/body1_reg"
+                android:layout_marginTop="32dp"
+                android:includeFontPadding="false"
+                android:layout_marginStart="69dp"
+                android:layout_marginEnd="69dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/insight_write_back"
+                app:layout_constraintEnd_toStartOf="@id/btn_insight_write"/>
+
+            <TextView
+                android:id="@+id/btn_insight_write"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="등록"
+                android:textAppearance="@style/body1_bold"
+                android:textColor="@drawable/sel_insight_write_btn_color"
+                android:clickable="true"
+                android:enabled="false"
+                android:includeFontPadding="false"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="7dp"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="12dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </Toolbar>
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_insight_write"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_insight_write_insight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/insight_write_insight"
+                android:textAppearance="@style/body2_bold"
+                android:includeFontPadding="false"
+                android:layout_marginTop="29dp"
+                android:layout_marginStart="22dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_insight_write_insight"
+                style="@style/TextInputLayoutStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginHorizontal="18dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_insight_write_insight"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:boxBackgroundColor="@color/Gray900"
+                app:counterMaxLength="30"
+                app:counterEnabled="true"
+                app:counterTextAppearance="@style/CounterTextAppearance"
+                app:hintEnabled="false">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_insight_write_insight"
+                    android:layout_width="match_parent"
+                    android:layout_height="68dp"
+                    android:hint="@string/insight_write_insight_hint"
+                    android:textAppearance="@style/body3_reg"
+                    android:textColor="@color/White000"
+                    android:textColorHint="@color/Gray300"
+                    android:includeFontPadding="false"
+                    android:inputType="text"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/tv_insight_write_memo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tv_insight_write_memo"
+                android:textAppearance="@style/body2_bold"
+                android:includeFontPadding="false"
+                android:layout_marginTop="24dp"
+                app:layout_constraintTop_toBottomOf="@id/layout_insight_write_insight"
+                app:layout_constraintStart_toStartOf="@id/tv_insight_write_insight"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_insight_write_memo"
+                style="@style/TextInputLayoutStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="18dp"
+                android:layout_marginTop="20dp"
+                app:boxBackgroundColor="@color/Gray900"
+                app:counterEnabled="true"
+                app:counterMaxLength="300"
+                app:counterTextAppearance="@style/CounterTextAppearance"
+                app:hintEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_insight_write_memo">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_insight_write_memo"
+                    android:layout_width="match_parent"
+                    android:layout_height="96dp"
+                    android:gravity="start"
+                    android:hint="@string/insight_write_memo"
+                    android:includeFontPadding="false"
+                    android:inputType="text"
+                    android:textAppearance="@style/body3_reg"
+                    android:textColor="@color/White000"
+                    android:textColorHint="@color/Gray300" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/tv_insight_write_cave"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tv_insight_write_cave"
+                android:textAppearance="@style/body2_bold"
+                android:includeFontPadding="false"
+                android:layout_marginTop="24dp"
+                app:layout_constraintTop_toBottomOf="@id/layout_insight_write_memo"
+                app:layout_constraintStart_toStartOf="@id/layout_insight_write_memo"/>
+
+            
+            <LinearLayout
+                android:id="@+id/layout_insight_write_cave"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginHorizontal="18dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="horizontal"
+                android:background="@drawable/sel_insight_write_edt"
+                app:layout_constraintTop_toBottomOf="@id/tv_insight_write_cave"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:src="@drawable/ic_drop_down"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_insight_write_cave_hint"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/edt_insight_write_cave"
+                        android:textAppearance="@style/body3_reg"
+                        android:textColor="@color/Gray300"
+                        android:includeFontPadding="false"
+                        android:layout_marginStart="16dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/tv_insight_write_cave_selected"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/body3_bold"
+                        android:textColor="@color/White000"
+                        android:includeFontPadding="false"
+                        android:layout_marginStart="16dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:visibility="gone"
+                        tools:text="선택완"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_insight_write_url"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tv_insight_write_url"
+                android:textAppearance="@style/body2_bold"
+                android:includeFontPadding="false"
+                android:layout_marginTop="48dp"
+                app:layout_constraintTop_toBottomOf="@id/layout_insight_write_cave"
+                app:layout_constraintStart_toStartOf="@id/tv_insight_write_cave"/>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_insight_write_url"
+                style="@style/TextInputLayoutStyle"
+                app:boxBackgroundMode="outline"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="18dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_insight_write_url"
+                app:boxBackgroundColor="@color/Gray900"
+                app:counterEnabled="true"
+                app:counterMaxLength="20"
+                app:counterTextAppearance="@style/CounterTextAppearance"
+                app:hintEnabled="false">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_insight_write_url"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:hint="@string/insight_write_url"
+                    android:textColor="@color/White000"
+                    android:textColorHint="@color/Gray300"
+                    android:textAppearance="@style/body3_reg"
+                    android:includeFontPadding="false"
+                    android:inputType="text"
+                    android:gravity="center_vertical"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_insight_write_url_choice"
+                style="@style/TextInputLayoutStyle"
+                app:boxBackgroundMode="outline"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="18dp"
+                android:layout_marginTop="11dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layout_insight_write_url"
+                app:boxBackgroundColor="@color/Gray900"
+                app:hintEnabled="false">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_insight_write_url_choice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/insight_write_url_choice"
+                    android:textColor="@color/White000"
+                    android:textColorHint="@color/Gray300"
+                    android:textAppearance="@style/body3_reg"
+                    android:includeFontPadding="false"
+                    android:inputType="text"
+                    android:paddingVertical="8dp"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/divider_insight_write"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="18dp"
+                android:layout_marginTop="24dp"
+                app:dividerColor="@color/Gray400"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layout_insight_write_url_choice" />
+
+            <TextView
+                android:id="@+id/tv_insight_write_goal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tv_insight_write_goal"
+                android:textAppearance="@style/body2_bold"
+                android:includeFontPadding="false"
+                android:layout_marginTop="24dp"
+                app:layout_constraintTop_toBottomOf="@id/divider_insight_write"
+                app:layout_constraintStart_toStartOf="@id/tv_insight_write_cave"/>
+
+            <TextView
+                android:id="@+id/tv_insight_write_goal_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tv_insight_write_goal_content"
+                android:textAppearance="@style/detail1_reg"
+                android:includeFontPadding="false"
+                android:layout_marginTop="4dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_insight_write_goal"
+                app:layout_constraintStart_toStartOf="@id/tv_insight_write_goal" />
+
+            <LinearLayout
+                android:id="@+id/layout_insight_write_goal"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="18dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="horizontal"
+                android:background="@drawable/sel_insight_write_edt"
+                app:layout_constraintTop_toBottomOf="@id/tv_insight_write_goal_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:src="@drawable/ic_drop_down"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_insight_write_goal_hint"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/insight_write_goal"
+                        android:textAppearance="@style/body3_reg"
+                        android:textColor="@color/Gray300"
+                        android:includeFontPadding="false"
+                        android:layout_marginStart="16dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/tv_insight_write_goal_selected"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/body3_bold"
+                        android:textColor="@color/White000"
+                        android:includeFontPadding="false"
+                        android:layout_marginStart="16dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:visibility="gone"
+                        tools:text="1개월"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/iv_insight_write_warning"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_warning"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="24dp"
+                app:layout_constraintTop_toBottomOf="@id/layout_insight_write_goal"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="23dp"
+                android:layout_marginBottom="19dp"
+                app:layout_constraintTop_toBottomOf="@id/layout_insight_write_goal"
+                app:layout_constraintStart_toEndOf="@id/iv_insight_write_warning"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <TextView
+                    android:id="@+id/tv_insight_write_warning"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/insight_write_warning"
+                    android:textAppearance="@style/detail2_bold"
+                    android:textColor="@color/Red200"
+                    android:includeFontPadding="false"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <TextView
+                    android:id="@+id/tv_insight_write_warning_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/insight_write_warning_content"
+                    android:textAppearance="@style/detail3_reg"
+                    android:textColor="@color/Gray100"
+                    android:textFontWeight="400"
+                    android:includeFontPadding="false"
+                    app:layout_constraintTop_toBottomOf="@id/tv_insight_write_warning"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
