@@ -23,8 +23,8 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object RetrofitModule {
-    // TODO base url 나오면 로컬 프로퍼티에 저장해서 BuildConfig 호출
-    private const val GROWTHOOK_BASE_URL = ""
+
+    private const val GROWTHOOK_BASE_URL = com.growthook.aos.BuildConfig.GROWTHOOK_BASE_URL
 
     @Provides
     @Singleton
