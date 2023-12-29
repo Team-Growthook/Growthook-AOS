@@ -36,19 +36,19 @@ class InsightWriteViewModel @Inject constructor() : ViewModel() {
     val selectedGoalMonth: LiveData<Int>
         get() = _selectedGoalMonth
 
-    fun getInsight(insight: String) {
+    fun setInsight(insight: String) {
         _insight.value = insight
     }
 
-    fun getMemo(memo: String) {
+    fun setMemo(memo: String) {
         _memo.value = memo
     }
 
-    fun getUrl(url: String) {
+    fun setUrl(url: String) {
         _url.value = url
     }
 
-    fun getUrlChoice(urlChoice: String) {
+    fun setUrlChoice(urlChoice: String) {
         _urlChoice.value = urlChoice
     }
 

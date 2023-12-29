@@ -46,16 +46,16 @@ class InsightWriteActivity : BaseActivity<ActivityInsightWriteBinding>({
 
     private fun initGetInsightWriteEdt() {
         val insightTextWatcher = CommonTextWatcher(afterChanged = { edtInsight ->
-            viewModel.getInsight(edtInsight.toString())
+            viewModel.setInsight(edtInsight.toString())
         })
         val memoTextWatcher = CommonTextWatcher(afterChanged = { edtMemo ->
-            viewModel.getMemo(edtMemo.toString())
+            viewModel.setMemo(edtMemo.toString())
         })
         val urlTextWatcher = CommonTextWatcher(afterChanged = { edtUrl ->
-            viewModel.getUrl(edtUrl.toString())
+            viewModel.setUrl(edtUrl.toString())
         })
         val urlChoiceTextWatcher = CommonTextWatcher(afterChanged = { edtUrlChoice ->
-            viewModel.getUrlChoice(edtUrlChoice.toString())
+            viewModel.setUrlChoice(edtUrlChoice.toString())
         })
 
         with (binding) {
