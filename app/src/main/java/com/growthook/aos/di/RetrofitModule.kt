@@ -1,7 +1,6 @@
 package com.growthook.aos.di
 
 import android.util.Log
-import com.facebook.flipper.plugins.network.BuildConfig
 import com.facebook.flipper.plugins.network.FlipperOkhttpInterceptor
 import com.facebook.flipper.plugins.network.NetworkFlipperPlugin
 import com.growthook.aos.util.extension.isJsonArray
@@ -34,9 +33,7 @@ object RetrofitModule {
     ): OkHttpClient =
         OkHttpClient.Builder().apply {
             addInterceptor(loggingInterceptor)
-            if (BuildConfig.DEBUG) {
-                addNetworkInterceptor(FlipperOkhttpInterceptor(networkFlipperPlugin))
-            }
+            addNetworkInterceptor(FlipperOkhttpInterceptor(networkFlipperPlugin))
         }.build()
 
     @Singleton
