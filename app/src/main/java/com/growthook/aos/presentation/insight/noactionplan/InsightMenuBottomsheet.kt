@@ -1,5 +1,6 @@
 package com.growthook.aos.presentation.insight.noactionplan
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -48,7 +49,9 @@ class InsightMenuBottomsheet :
 
     private fun clickModifyMenu() {
         binding.clInsightMenuModify.setOnClickListener {
-            // 수정하기 액티비티로 이동
+            val intent = Intent(requireActivity(), SeedModifyActivity::class.java)
+            startActivity(intent)
+            dismiss()
         }
     }
 
