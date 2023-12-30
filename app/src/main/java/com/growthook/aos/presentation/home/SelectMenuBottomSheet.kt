@@ -62,10 +62,7 @@ class SelectMenuBottomSheet() :
                     isRemainThookVisility = false,
                     isTipVisility = false,
                     negativeAction = {
-                        viewModel.deleteCave(5)
-                        viewModel.isDelete.observe(viewLifecycleOwner) {
-                            Toast.makeText(context, "씨앗이 삭제되었어요", Toast.LENGTH_SHORT).show()
-                        }
+                        Toast.makeText(context, "씨앗이 삭제되었어요", Toast.LENGTH_SHORT).show()
                     },
                     positiveAction = {},
                 ).show(parentFragmentManager, InsightMenuBottomsheet.DELETE_DIALOG)
