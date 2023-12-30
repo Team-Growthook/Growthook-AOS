@@ -4,11 +4,11 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class SeedModifyIntent (
+data class SeedModifyIntent(
     val insight: String = "",
-    val memo: String = "",
+    val memo: String?,
     val cave: String = "",
     val source: String = "",
-    val url: String = "",
+    val url: String?,
     val goalMonth: Int = 0
 ): Parcelable
