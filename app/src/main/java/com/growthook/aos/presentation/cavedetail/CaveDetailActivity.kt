@@ -29,6 +29,8 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
 
     private var _insightAdapter: HomeInsightAdapter? = null
     private lateinit var selectMenuBottomSheet: CaveDetailSelectMenuBottomSheet
+    private lateinit var modifySelectBottomSheet: CaveModifySelectBottomSheet
+
     private val insightAdapter
         get() = requireNotNull(_insightAdapter) { "adapter is null" }
 
@@ -39,8 +41,10 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
 
         clickLock()
         selectMenuBottomSheet = CaveDetailSelectMenuBottomSheet()
+        modifySelectBottomSheet = CaveModifySelectBottomSheet()
 
         val caveId = intent.getIntExtra("caveId", 0)
+        viewModel.caveId.value = caveId
         viewModel.getInsights(caveId)
         setInsightAdapter()
         setNickName()
@@ -49,7 +53,6 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
         clickBackNavi()
         clickMainMenu()
     }
-
 
     private fun setInsightAdapter() {
         _insightAdapter = HomeInsightAdapter(::selectedItem, ::clickedScrap)
@@ -188,8 +191,7 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
 
     private fun clickMainMenu() {
         binding.ibCaveDetailMainmenu.setOnClickListener {
-            val bottomSheet = CaveModifySelectBottomSheet()
-            bottomSheet.show(supportFragmentManager, "show")
+            modifySelectBottomSheet.show(supportFragmentManager, "show2")
         }
     }
 

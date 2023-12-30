@@ -8,6 +8,7 @@ import com.growthook.aos.domain.entity.Insight
 import com.growthook.aos.domain.usecase.cavedetail.DeleteCaveUseCase
 import com.growthook.aos.domain.usecase.local.GetUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -26,6 +27,8 @@ class CaveDetailViewModel @Inject constructor(
 
     private val _isDelete = MutableLiveData<Boolean>()
     val isDelete: LiveData<Boolean> = _isDelete
+
+    val caveId = MutableStateFlow<Int>(0)
 
     val isMenuDismissed = MutableLiveData<Boolean>()
 
