@@ -17,7 +17,12 @@ class SeedModifyActivity : BaseActivity<ActivitySeedModifyBinding>({
         binding = ActivitySeedModifyBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        initSetBeforeModifyInfo()
         initSetClickGoalMonth()
+    }
+
+    private fun initSetBeforeModifyInfo() {
+        // TODO 인사이트 조회 뷰에서 넘어온 cave 정보 받기
     }
 
     private fun initSetClickGoalMonth() {
