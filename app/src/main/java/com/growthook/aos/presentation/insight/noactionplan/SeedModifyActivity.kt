@@ -1,5 +1,6 @@
 package com.growthook.aos.presentation.insight.noactionplan
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MotionEvent
 import android.widget.Toast
@@ -106,6 +107,18 @@ class SeedModifyActivity : BaseActivity<ActivitySeedModifyBinding>({
     }
 
     private fun clickSeedModifyBtn() {
-        // TODO 씨앗 수정 완료 버튼 클릭 시 로직
+        val intent = Intent(this, NoActionplanInsightActivity::class.java)
+
+        binding.btnSeedModify.setOnClickListener {
+            // sendSeedModifyInfo()
+
+            Toast.makeText(this, "씨앗이 수정되었어요", Toast.LENGTH_SHORT).show()
+            startActivity(intent)
+            finish()
+        }
+    }
+
+    private fun sendSeedModifyInfo() {
+        // TODO 버튼 클릭 시 수정된 정보 서버통신
     }
 }
