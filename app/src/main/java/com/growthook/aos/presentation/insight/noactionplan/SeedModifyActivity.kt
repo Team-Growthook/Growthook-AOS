@@ -51,11 +51,17 @@ class SeedModifyActivity : BaseActivity<ActivitySeedModifyBinding>({
                 tvSeedModifyGoalSelected.text = "${seedInfo.goalMonth}개월"
                 tvSeedModifyCaveSelected.text = seedInfo.cave
             }
+            with (viewModel) {
+                setInsightModify(seedInfo.insight)
+                setMemoModify(seedInfo.memo ?: "")
+                setSourceModify(seedInfo.source)
+                setUrlModify(seedInfo.url ?: "")
+            }
         }
     }
 
     private fun getSeedIntentInfo() {
-        // TODO 인사이트 조회 뷰에서 넘어온 cave 정보 받기
+        // TODO 인사이트 조회 뷰에서 넘어온 cave 정보 받아서 SeedInfo에 저장
     }
 
     private fun initGetSeedModifyEdt() {
@@ -63,7 +69,7 @@ class SeedModifyActivity : BaseActivity<ActivitySeedModifyBinding>({
             viewModel.setInsightModify(edtInsightModify.toString())
         })
         val memoModifyTextWatcher = CommonTextWatcher( afterChanged = { edtMemoModify ->
-            viewModel.setInsightModify(edtMemoModify.toString())
+            viewModel.setMemoModify(edtMemoModify.toString())
         })
         val sourceModifyTextWatcher = CommonTextWatcher( afterChanged = { edtSourceModify ->
             viewModel.setSourceModify(edtSourceModify.toString())

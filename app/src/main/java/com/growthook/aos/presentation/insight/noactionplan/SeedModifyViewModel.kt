@@ -57,10 +57,10 @@ class SeedModifyViewModel @Inject constructor(): ViewModel() {
     private val _seedInfo: MutableLiveData<SeedInfo> = MutableLiveData(
        SeedInfo(
            "작성완",
-           null,
+           "",
            "선택완",
            "출처만 입력한 경우",
-           null,
+           "",
            1
        )
     )
