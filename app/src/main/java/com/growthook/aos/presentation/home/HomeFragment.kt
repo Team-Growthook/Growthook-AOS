@@ -73,6 +73,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun setTitleText() {
+        viewModel.setNickName()
         viewModel.nickname.observe(viewLifecycleOwner) { nickName ->
             binding.tvHomeAppbarTitle.text = "${nickName}님의 동굴 속"
         }

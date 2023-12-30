@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.growthook.aos.domain.entity.Cave
 import com.growthook.aos.domain.entity.Insight
 import com.growthook.aos.domain.usecase.cavedetail.DeleteCaveUseCase
+import com.growthook.aos.domain.usecase.home.GetCavesUseCase
 import com.growthook.aos.domain.usecase.local.GetUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -16,7 +17,8 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val getUserUseCase: GetUserUseCase,
-    private val deleteCaveUseCase: DeleteCaveUseCase
+    private val deleteCaveUseCase: DeleteCaveUseCase,
+    private val getCavesUseCase: GetCavesUseCase,
 ) : ViewModel() {
 
     private val _nickName = MutableLiveData<String>()
@@ -40,11 +42,8 @@ class HomeViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            getUserUseCase.invoke().name.let { nickName ->
-                _nickName.value = nickName
-            }
+
             getAlertCount()
-            getCaves()
             getInsights()
         }
     }
@@ -146,19 +145,20 @@ class HomeViewModel @Inject constructor(
         Timber.d("getScrapedInsight ${_insights.value?.size}")
     }
 
-    fun getCaves() {
-        val dummyCave = listOf(
-            Cave(1, "연습용"),
-            Cave(2, "연습연습연습연습"),
-            Cave(3, "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"),
-            Cave(4, "동굴"),
-            Cave(5, "연습용"),
-            Cave(6, "연습연습연습연습"),
-            Cave(7, "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"),
-            Cave(8, "동굴"),
-        )
+    fun getCaves(memberId: Int) {
+        viewModelScope.launch {
+            getCavesUseCase(memberId).onSuccess { caves ->
+                _caves.value = caves
+            }
+        }
+    }
 
-        _caves.value = dummyCave
+    fun setNickName() {
+        viewModelScope.launch {
+            _nickName.value = getUserUseCase.invoke().name ?: ""
+            getCaves(getUserUseCase.invoke().memberId ?: 0)
+            Timber.d("home viewmodel 유저 닉네임: ${nickname.value}")
+        }
     }
 
     fun changeScrap(isScrap: Boolean) {

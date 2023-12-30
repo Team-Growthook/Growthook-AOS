@@ -29,7 +29,7 @@ class MyPageViewModel @Inject constructor(
             Timber.d("로그아웃 성공 여부 $it")
             _isLogoutSuccess.value = it
             viewModelScope.launch {
-                postUserUseCase.invoke("")
+                postUserUseCase.invoke("", 0)
             }
         }.handleResult(error)
     }
