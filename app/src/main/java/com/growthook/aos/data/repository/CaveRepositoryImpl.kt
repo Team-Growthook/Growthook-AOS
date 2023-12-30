@@ -12,6 +12,6 @@ class CaveRepositoryImpl @Inject constructor(private val caveDataSource: CaveDat
     }
 
     override suspend fun getCaves(memberId: Int): Result<List<Cave>> = runCatching {
-        caveDataSource.getCaves(memberId).data.map { cave -> cave.toCave() }
+        caveDataSource.getCaves(memberId).toCaves()
     }
 }
