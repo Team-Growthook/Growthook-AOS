@@ -22,6 +22,21 @@ class SeedModifyActivity : BaseActivity<ActivitySeedModifyBinding>({
     }
 
     private fun initSetBeforeModifyInfo() {
+        // getSeedIntentInfo()
+
+        viewModel.seedInfo.observe(this) { seedInfo ->
+            with (binding) {
+                edtSeedModifyInsight.setText(seedInfo.insight)
+                edtSeedModifyMemo.setText(seedInfo.memo)
+                edtSeedModifyUrl.setText(seedInfo.source)
+                edtSeedModifyUrlChoice.setText(seedInfo.url)
+                tvSeedModifyGoalSelected.text = "${seedInfo.goalMonth}개월"
+                tvSeedModifyCaveSelected.text = seedInfo.cave
+            }
+        }
+    }
+
+    private fun getSeedIntentInfo() {
         // TODO 인사이트 조회 뷰에서 넘어온 cave 정보 받기
     }
 
