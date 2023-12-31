@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.growthook.aos.domain.entity.Cave
 import com.growthook.aos.domain.entity.Insight
 import com.growthook.aos.domain.usecase.DeleteSeedUseCase
-import com.growthook.aos.domain.usecase.cavedetail.DeleteCaveUseCase
 import com.growthook.aos.domain.usecase.GetCavesUseCase
 import com.growthook.aos.domain.usecase.local.GetUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -146,9 +145,9 @@ class HomeViewModel @Inject constructor(
         Timber.d("getScrapedInsight ${_insights.value?.size}")
     }
 
-    fun getCaves(memberId: Int) {
+    fun getCaves() {
         viewModelScope.launch {
-            getCavesUseCase(memberId).onSuccess { caves ->
+            getCavesUseCase(getUserUseCase.invoke().memberId ?: 0).onSuccess { caves ->
                 _caves.value = caves
             }
         }
@@ -157,8 +156,6 @@ class HomeViewModel @Inject constructor(
     fun setNickName() {
         viewModelScope.launch {
             _nickName.value = getUserUseCase.invoke().name ?: ""
-            getCaves(getUserUseCase.invoke().memberId ?: 0)
-            Timber.d("home viewmodel 유저 닉네임: ${nickname.value}")
         }
     }
 
