@@ -45,6 +45,8 @@ class HomeViewModel @Inject constructor(
 
             getAlertCount()
             getInsights()
+            setNickName()
+            getCaves()
         }
     }
 
