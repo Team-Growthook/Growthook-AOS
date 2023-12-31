@@ -39,7 +39,8 @@ class CaveDetailSelectMenuBottomSheet() :
     private fun clickMoveBtn() {
         binding.btnHomeSelectMove.setOnClickListener {
             CaveSelect.Builder().build(
-                viewModel.longClickInsight.value?.insightId ?: 0,
+                CaveSelect.CaveSelectType.YES_API,
+                viewModel.longClickInsight.value?.insightId ?: 1,
             ).show(parentFragmentManager, "select")
         }
     }
