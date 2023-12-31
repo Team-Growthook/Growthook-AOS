@@ -1,4 +1,4 @@
-package com.growthook.aos.presentation.cavecreate.model
+package com.growthook.aos.presentation.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
