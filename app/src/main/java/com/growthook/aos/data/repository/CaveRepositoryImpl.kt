@@ -1,6 +1,7 @@
 package com.growthook.aos.data.repository
 
 import com.growthook.aos.data.datasource.remote.CaveDataSource
+import com.growthook.aos.data.model.request.RequestCaveModifyDto
 import com.growthook.aos.domain.entity.Cave
 import com.growthook.aos.domain.entity.CaveDetail
 import com.growthook.aos.domain.repository.CaveRepository
@@ -20,4 +21,13 @@ class CaveRepositoryImpl @Inject constructor(private val caveDataSource: CaveDat
         runCatching {
             caveDataSource.getCaveDetail(memberId, caveId).toCaveDetail()
         }
+
+    override suspend fun modifyCave(caveId: Int, name: String, introduction: String): Result<Unit> =
+        runCatching {
+            caveDataSource.modifyCave(caveId, RequestCaveModifyDto(name, introduction, FIXED_VALUE))
+        }
+
+    companion object {
+        private const val FIXED_VALUE = true
+    }
 }

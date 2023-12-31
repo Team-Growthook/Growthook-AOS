@@ -10,4 +10,6 @@ interface CaveRepository {
     suspend fun getCaves(memberId: Int): Result<List<Cave>>
 
     suspend fun getCaveDetail(memberId: Int, caveId: Int): Result<CaveDetail>
+
+    suspend fun modifyCave(caveId: Int, name: String, introduction: String): Result<Unit>
 }

@@ -1,10 +1,13 @@
 package com.growthook.aos.data.service
 
+import com.growthook.aos.data.model.request.RequestCaveModifyDto
 import com.growthook.aos.data.model.response.ResponseDto
 import com.growthook.aos.data.model.response.ResponseGetCavesDto
 import com.growthook.aos.data.model.response.ResponseGetDetailCaveDto
+import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.PATCH
 import retrofit2.http.Path
 
 interface CaveService {
@@ -24,4 +27,10 @@ interface CaveService {
         @Path("memberId") memberId: Int,
         @Path("caveId") caveId: Int,
     ): ResponseGetDetailCaveDto
+
+    @PATCH("api/v1/cave/{caveId}")
+    suspend fun modifyCave(
+        @Path("caveId") caveId: Int,
+        @Body request: RequestCaveModifyDto,
+    ): ResponseDto
 }
