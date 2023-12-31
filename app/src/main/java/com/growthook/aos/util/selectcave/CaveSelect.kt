@@ -6,13 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import com.growthook.aos.R
 import com.growthook.aos.databinding.FragmentCaveSelectBottomsheetBinding
-import com.growthook.aos.domain.entity.Cave
 import com.growthook.aos.util.base.BaseBottomSheetFragment
 
 abstract class CaveSelect :
     BaseBottomSheetFragment<FragmentCaveSelectBottomsheetBinding>(R.layout.fragment_cave_select_bottomsheet) {
 
-    protected lateinit var clickBtnAction: (Cave?) -> Unit
+    protected var toMoveSeedId: Int = 0
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -20,17 +19,17 @@ abstract class CaveSelect :
     ): FragmentCaveSelectBottomsheetBinding =
         FragmentCaveSelectBottomsheetBinding.inflate(inflater, container, false)
 
-    abstract fun setClickAction(action: (Cave?) -> Unit)
+    abstract fun moveSeed()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setClickAction { clickBtnAction }
+        moveSeed()
     }
 
     class Builder {
-        fun build(clickAction: (Cave?) -> Unit): CaveSelect {
+        fun build(toMoveSeedId: Int): CaveSelect {
             return CaveSelectBottomSheet().apply {
-                this.clickBtnAction = clickAction
+                this.toMoveSeedId = toMoveSeedId
             }
         }
     }
