@@ -20,15 +20,17 @@ class CaveDetailModifyActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setText()
+
+        val caveModifyIntent = intent.getParcelable("caveModify", CaveModifyIntent::class.java)
+
+        setText(caveModifyIntent)
         observeIsModified()
         canClickFinishBtn()
         clickBackNavi()
-        clickFinishBtn()
+        clickFinishBtn(caveModifyIntent)
     }
 
-    private fun setText() {
-        val caveModifyIntent = intent.getParcelable("caveModify", CaveModifyIntent::class.java)
+    private fun setText(caveModifyIntent: CaveModifyIntent?) {
         binding.edtCaveModifyName.setText(caveModifyIntent?.name)
         binding.edtCaveModifyDesc.setText(caveModifyIntent?.introduction)
     }
@@ -56,11 +58,16 @@ class CaveDetailModifyActivity :
         }
     }
 
-    private fun clickFinishBtn() {
+    private fun clickFinishBtn(caveModifyIntent: CaveModifyIntent?) {
         binding.btnCaveModify.setOnClickListener {
-            val intent = Intent(this, CaveDetailActivity::class.java)
-            startActivity(intent)
-            finish()
+            caveModifyIntent?.let {
+                viewModel.modifyCave(it.caveId, it.name, it.introduction)
+                viewModel.isModifySuccess.observe(this) {
+                    val intent = Intent(this, CaveDetailActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+            }
         }
     }
 
