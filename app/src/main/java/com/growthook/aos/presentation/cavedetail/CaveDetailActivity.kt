@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.selection.SelectionPredicates
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StableIdKeyProvider
@@ -18,6 +19,7 @@ import com.growthook.aos.util.EmptyDataObserver
 import com.growthook.aos.util.base.BaseActivity
 import com.growthook.aos.util.base.BaseAlertDialog
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -46,12 +48,26 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
         val caveId = intent.getIntExtra("caveId", 0)
         viewModel.caveId.value = caveId
         viewModel.getInsights(caveId)
+        setCaveDetail()
         setInsightAdapter()
         setNickName()
         clickScrap(caveId)
 
         clickBackNavi()
         clickMainMenu()
+    }
+
+    private fun setCaveDetail() {
+        lifecycleScope.launch {
+            viewModel.caveId.collect {
+                viewModel.getCaveDetail(it)
+            }
+        }
+
+        viewModel.caveDetail.observe(this) { caveDetail ->
+            binding.tvCaveDetailCaveName.text = caveDetail.caveName
+            binding.tvCaveDetailCaveDesc.text = caveDetail.introduction
+        }
     }
 
     private fun setInsightAdapter() {

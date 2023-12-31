@@ -4,18 +4,22 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.growthook.aos.domain.entity.CaveDetail
 import com.growthook.aos.domain.entity.Insight
 import com.growthook.aos.domain.usecase.cavedetail.DeleteCaveUseCase
+import com.growthook.aos.domain.usecase.cavedetail.GetCaveDetailUseCase
 import com.growthook.aos.domain.usecase.local.GetUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class CaveDetailViewModel @Inject constructor(
     private val getUserUseCase: GetUserUseCase,
     private val deleteCaveUseCase: DeleteCaveUseCase,
+    private val getCaveDetailUseCase: GetCaveDetailUseCase,
 ) : ViewModel() {
     private val _insights = MutableLiveData<List<Insight>>()
     val insights: LiveData<List<Insight>> = _insights
@@ -27,6 +31,9 @@ class CaveDetailViewModel @Inject constructor(
 
     private val _isDelete = MutableLiveData<Boolean>()
     val isDelete: LiveData<Boolean> = _isDelete
+
+    private val _caveDetail = MutableLiveData<CaveDetail>()
+    val caveDetail: LiveData<CaveDetail> = _caveDetail
 
     val caveId = MutableStateFlow<Int>(0)
 
@@ -145,6 +152,16 @@ class CaveDetailViewModel @Inject constructor(
                 _isDelete.value = true
             }.onFailure {
                 _isDelete.value = false
+            }
+        }
+    }
+
+    fun getCaveDetail(caveId: Int) {
+        viewModelScope.launch {
+            getCaveDetailUseCase(getUserUseCase.invoke()?.memberId ?: 0, caveId).onSuccess {
+                _caveDetail.value = it
+            }.onFailure {
+                Timber.e(it.message)
             }
         }
     }
