@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AndroidEntryPoint
-class CaveSelectBottomSheet : CaveSelect() {
+class YesApiCaveSelectBottomSheet : CaveSelect() {
     private val viewModel by viewModels<CaveSelectBottomSheetViewModel>()
 
     private var _adapter: CaveSelectAdapter? = null
@@ -33,9 +33,10 @@ class CaveSelectBottomSheet : CaveSelect() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setAdapter()
+        moveSeed()
     }
 
-    override fun moveSeed() {
+    private fun moveSeed() {
         lifecycleScope.launch {
             viewModel.selectedCave.collect { cave ->
                 binding.btnHomeSelectCave.setOnClickListener {
