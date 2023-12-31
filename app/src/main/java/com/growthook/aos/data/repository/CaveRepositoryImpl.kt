@@ -2,6 +2,7 @@ package com.growthook.aos.data.repository
 
 import com.growthook.aos.data.datasource.remote.CaveDataSource
 import com.growthook.aos.domain.entity.Cave
+import com.growthook.aos.domain.entity.CaveDetail
 import com.growthook.aos.domain.repository.CaveRepository
 import javax.inject.Inject
 
@@ -14,4 +15,9 @@ class CaveRepositoryImpl @Inject constructor(private val caveDataSource: CaveDat
     override suspend fun getCaves(memberId: Int): Result<List<Cave>> = runCatching {
         caveDataSource.getCaves(memberId).toCaves()
     }
+
+    override suspend fun getCaveDetail(memberId: Int, caveId: Int): Result<CaveDetail> =
+        runCatching {
+            caveDataSource.getCaveDetail(memberId, caveId).toCaveDetail()
+        }
 }
