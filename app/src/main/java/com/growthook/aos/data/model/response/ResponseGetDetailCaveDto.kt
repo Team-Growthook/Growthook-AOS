@@ -27,5 +27,5 @@ data class ResponseGetDetailCaveDto(
         val isShared: Boolean,
     )
 
-    fun toCaveDetail() = CaveDetail(data.caveName, data.introduction, data.nickname, data.isShared)
+    fun toCaveDetail() = CaveDetail(data.caveName, data.introduction, data.isShared)
 }
