@@ -1,9 +1,11 @@
 package com.growthook.aos.di
 
 import com.growthook.aos.data.repository.CaveRepositoryImpl
+import com.growthook.aos.data.repository.SeedRepositoryImpl
 import com.growthook.aos.data.repository.TokenRepositoryImpl
 import com.growthook.aos.data.repository.UserRepositoryImpl
 import com.growthook.aos.domain.repository.CaveRepository
+import com.growthook.aos.domain.repository.SeedRepository
 import com.growthook.aos.domain.repository.TokenRepository
 import com.growthook.aos.domain.repository.UserRepository
 import dagger.Binds
@@ -27,4 +29,8 @@ abstract class RepositoryModule {
     @Singleton
     @Binds
     abstract fun providesCaveRepository(repoImpl: CaveRepositoryImpl): CaveRepository
+
+    @Singleton
+    @Binds
+    abstract fun providesSeedRepository(repoImpl: SeedRepositoryImpl): SeedRepository
 }
