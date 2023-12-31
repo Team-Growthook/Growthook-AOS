@@ -38,13 +38,9 @@ class CaveDetailSelectMenuBottomSheet() :
 
     private fun clickMoveBtn() {
         binding.btnHomeSelectMove.setOnClickListener {
-            CaveSelect.Builder().build {
-                Toast.makeText(
-                    requireContext(),
-                    "${it?.name}에 ${viewModel.longClickInsight.value}를 옮깁니다",
-                    Toast.LENGTH_SHORT,
-                ).show()
-            }.show(parentFragmentManager, "select")
+            CaveSelect.Builder().build(
+                viewModel.longClickInsight.value?.insightId ?: 0,
+            ).show(parentFragmentManager, "select")
         }
     }
 
