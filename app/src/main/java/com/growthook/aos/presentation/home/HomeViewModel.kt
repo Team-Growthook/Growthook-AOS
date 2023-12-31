@@ -6,8 +6,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.growthook.aos.domain.entity.Cave
 import com.growthook.aos.domain.entity.Insight
+import com.growthook.aos.domain.usecase.DeleteSeedUseCase
 import com.growthook.aos.domain.usecase.cavedetail.DeleteCaveUseCase
-import com.growthook.aos.domain.usecase.home.GetCavesUseCase
+import com.growthook.aos.domain.usecase.GetCavesUseCase
 import com.growthook.aos.domain.usecase.local.GetUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -17,7 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val getUserUseCase: GetUserUseCase,
-    private val deleteCaveUseCase: DeleteCaveUseCase,
+    private val deleteSeedUseCase: DeleteSeedUseCase,
     private val getCavesUseCase: GetCavesUseCase,
 ) : ViewModel() {
 
@@ -167,7 +168,7 @@ class HomeViewModel @Inject constructor(
 
     fun deleteCave(caveId: Int) {
         viewModelScope.launch {
-            deleteCaveUseCase.invoke(caveId).onSuccess {
+            deleteSeedUseCase.invoke(caveId).onSuccess {
                 _isDelete.value = true
             }.onFailure {
                 _isDelete.value = false
