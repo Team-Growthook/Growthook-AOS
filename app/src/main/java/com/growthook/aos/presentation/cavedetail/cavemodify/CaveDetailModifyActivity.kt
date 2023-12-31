@@ -6,8 +6,10 @@ import android.view.MotionEvent
 import androidx.activity.viewModels
 import com.growthook.aos.databinding.ActivityCaveDetailModifyBinding
 import com.growthook.aos.presentation.cavedetail.CaveDetailActivity
+import com.growthook.aos.presentation.model.CaveModifyIntent
 import com.growthook.aos.util.base.BaseActivity
 import com.growthook.aos.util.extension.CommonTextWatcher
+import com.growthook.aos.util.extension.getParcelable
 import com.growthook.aos.util.extension.hideKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -18,11 +20,17 @@ class CaveDetailModifyActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.edtCaveModifyName.setText(intent.getStringExtra("caveName"))
+        setText()
         observeIsModified()
         canClickFinishBtn()
         clickBackNavi()
         clickFinishBtn()
+    }
+
+    private fun setText() {
+        val caveModifyIntent = intent.getParcelable("caveModify", CaveModifyIntent::class.java)
+        binding.edtCaveModifyName.setText(caveModifyIntent?.name)
+        binding.edtCaveModifyDesc.setText(caveModifyIntent?.introduction)
     }
 
     private fun observeIsModified() {
