@@ -58,7 +58,7 @@ class SelectMenuBottomSheet() :
                     isRemainThookVisility = false,
                     isTipVisility = false,
                     negativeAction = {
-                        viewModel.deleteCave(viewModel.longClickInsight.value?.insightId ?: 0)
+                        viewModel.deleteSeed(viewModel.longClickInsight.value?.insightId ?: 0)
                         viewModel.isDelete.observe(viewLifecycleOwner) { isDelete ->
                             if (isDelete) {
                                 Toast.makeText(context, "씨앗이 삭제되었어요", Toast.LENGTH_SHORT).show()

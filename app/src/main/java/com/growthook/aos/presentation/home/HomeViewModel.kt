@@ -165,7 +165,7 @@ class HomeViewModel @Inject constructor(
         // TODO 스크랩 api 구현
     }
 
-    fun deleteCave(caveId: Int) {
+    fun deleteSeed(caveId: Int) {
         viewModelScope.launch {
             deleteSeedUseCase.invoke(caveId).onSuccess {
                 _isDelete.value = true
