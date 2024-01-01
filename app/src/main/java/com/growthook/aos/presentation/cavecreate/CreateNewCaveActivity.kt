@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.view.MotionEvent
 import android.widget.Toast
 import androidx.activity.viewModels
-import com.growthook.aos.presentation.model.NewCaveIntent
 import com.growthook.aos.databinding.ActivityCreateNewCaveBinding
+import com.growthook.aos.presentation.model.NewCaveIntent
 import com.growthook.aos.util.base.BaseActivity
 import com.growthook.aos.util.base.BaseAlertDialog
 import com.growthook.aos.util.extension.CommonTextWatcher
@@ -27,6 +27,7 @@ class CreateNewCaveActivity : BaseActivity<ActivityCreateNewCaveBinding>({
 
         initMakeStorageView()
         initGetStorageContent()
+        initClickCloseBtn()
     }
 
     private fun initMakeStorageView() {
@@ -41,6 +42,12 @@ class CreateNewCaveActivity : BaseActivity<ActivityCreateNewCaveBinding>({
             edtStorageIntroduction.clearFocus()
         }
         return super.dispatchTouchEvent(ev)
+    }
+
+    private fun initClickCloseBtn() {
+        binding.btnStorageClose.setOnClickListener {
+            finish()
+        }
     }
 
     private fun clickOpenSwitchBtn() {
