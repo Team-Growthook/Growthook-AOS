@@ -1,0 +1,17 @@
+package com.growthook.aos.data.repository
+
+import com.growthook.aos.data.datasource.remote.SeedDataSource
+import com.growthook.aos.data.model.request.RequestSeedMoveDto
+import com.growthook.aos.domain.repository.SeedRepository
+import javax.inject.Inject
+
+class SeedRepositoryImpl @Inject constructor(private val seedDataSource: SeedDataSource) :
+    SeedRepository {
+    override suspend fun deleteSeed(seedId: Int): Result<Unit> = runCatching {
+        seedDataSource.deleteSeed(seedId)
+    }
+
+    override suspend fun moveSeed(seedId: Int, toMoveCaveId: Int): Result<Unit> = runCatching {
+        seedDataSource.moveSeed(seedId, RequestSeedMoveDto(toMoveCaveId))
+    }
+}

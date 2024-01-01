@@ -6,8 +6,10 @@ import android.view.MotionEvent
 import androidx.activity.viewModels
 import com.growthook.aos.databinding.ActivityCaveDetailModifyBinding
 import com.growthook.aos.presentation.cavedetail.CaveDetailActivity
+import com.growthook.aos.presentation.model.CaveModifyIntent
 import com.growthook.aos.util.base.BaseActivity
 import com.growthook.aos.util.extension.CommonTextWatcher
+import com.growthook.aos.util.extension.getParcelable
 import com.growthook.aos.util.extension.hideKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -18,11 +20,19 @@ class CaveDetailModifyActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.edtCaveModifyName.setText(intent.getStringExtra("caveName"))
+
+        val caveModifyIntent = intent.getParcelable("caveModify", CaveModifyIntent::class.java)
+
+        setText(caveModifyIntent)
         observeIsModified()
         canClickFinishBtn()
         clickBackNavi()
-        clickFinishBtn()
+        clickFinishBtn(caveModifyIntent)
+    }
+
+    private fun setText(caveModifyIntent: CaveModifyIntent?) {
+        binding.edtCaveModifyName.setText(caveModifyIntent?.name)
+        binding.edtCaveModifyDesc.setText(caveModifyIntent?.introduction)
     }
 
     private fun observeIsModified() {
@@ -48,11 +58,16 @@ class CaveDetailModifyActivity :
         }
     }
 
-    private fun clickFinishBtn() {
+    private fun clickFinishBtn(caveModifyIntent: CaveModifyIntent?) {
         binding.btnCaveModify.setOnClickListener {
-            val intent = Intent(this, CaveDetailActivity::class.java)
-            startActivity(intent)
-            finish()
+            caveModifyIntent?.let {
+                viewModel.modifyCave(it.caveId, it.name, it.introduction)
+                viewModel.isModifySuccess.observe(this) {
+                    val intent = Intent(this, CaveDetailActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+            }
         }
     }
 

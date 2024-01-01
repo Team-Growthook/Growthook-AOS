@@ -28,7 +28,7 @@ class DetailMyPageViewModel @Inject constructor(
         KakaoLogoutCallback {
             _isKakaoDeleteAccount.value = true
             viewModelScope.launch {
-                postUserUseCase.invoke("")
+                postUserUseCase.invoke("", 0)
             }
         }.handleResult(error)
     }

@@ -63,6 +63,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         activity = requireActivity() as MainActivity
 
         clickAddCave()
+        getCaves()
     }
 
     private fun clickAddCave() {
@@ -73,9 +74,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun setTitleText() {
+        viewModel.setNickName()
         viewModel.nickname.observe(viewLifecycleOwner) { nickName ->
             binding.tvHomeAppbarTitle.text = "${nickName}님의 동굴 속"
         }
+    }
+
+    private fun getCaves(){
+        viewModel.getCaves()
     }
 
     private fun setInsightAdapter() {

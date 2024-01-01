@@ -37,13 +37,10 @@ class SelectMenuBottomSheet() :
 
     private fun clickMoveBtn() {
         binding.btnHomeSelectMove.setOnClickListener {
-            CaveSelect.Builder().build {
-                Toast.makeText(
-                    requireContext(),
-                    "${it?.name}에 ${viewModel.longClickInsight.value}를 옮깁니다",
-                    Toast.LENGTH_SHORT,
-                ).show()
-            }.show(parentFragmentManager, "select")
+            CaveSelect.Builder().build(
+                CaveSelect.CaveSelectType.YES_API,
+                viewModel.longClickInsight.value?.insightId ?: 1,
+            ).show(parentFragmentManager, "select")
         }
     }
 
@@ -63,7 +60,12 @@ class SelectMenuBottomSheet() :
                     isRemainThookVisility = false,
                     isTipVisility = false,
                     negativeAction = {
-                        Toast.makeText(context, "씨앗이 삭제되었어요", Toast.LENGTH_SHORT).show()
+                        viewModel.deleteSeed(viewModel.longClickInsight.value?.insightId ?: 0)
+                        viewModel.isDelete.observe(viewLifecycleOwner) { isDelete ->
+                            if (isDelete) {
+                                Toast.makeText(context, "씨앗이 삭제되었어요", Toast.LENGTH_SHORT).show()
+                            }
+                        }
                     },
                     positiveAction = {},
                 ).show(parentFragmentManager, InsightMenuBottomsheet.DELETE_DIALOG)

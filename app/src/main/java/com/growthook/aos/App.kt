@@ -31,7 +31,7 @@ class App : Application() {
     private fun initFlipper() {
         SoLoader.init(this, false)
 
-        if (BuildConfig.DEBUG && FlipperUtils.shouldEnableFlipper(this)) {
+        if (FlipperUtils.shouldEnableFlipper(this)) {
             AndroidFlipperClient.getInstance(this).apply {
                 addPlugin(InspectorFlipperPlugin(this@App, DescriptorMapping.withDefaults()))
                 addPlugin(flipperNetworkPlugin)

@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.growthook.aos.domain.entity.Cave
 import com.growthook.aos.domain.entity.Insight
+import com.growthook.aos.domain.usecase.DeleteSeedUseCase
+import com.growthook.aos.domain.usecase.GetCavesUseCase
 import com.growthook.aos.domain.usecase.local.GetUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -15,6 +17,8 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val getUserUseCase: GetUserUseCase,
+    private val deleteSeedUseCase: DeleteSeedUseCase,
+    private val getCavesUseCase: GetCavesUseCase,
 ) : ViewModel() {
 
     private val _nickName = MutableLiveData<String>()
@@ -29,18 +33,20 @@ class HomeViewModel @Inject constructor(
     private val _caves = MutableLiveData<List<Cave>>()
     val caves: LiveData<List<Cave>> = _caves
 
+    private val _isDelete = MutableLiveData<Boolean>()
+    val isDelete: LiveData<Boolean> = _isDelete
+
     val isMenuDismissed = MutableLiveData<Boolean>()
 
     val longClickInsight = MutableLiveData<Insight>()
 
     init {
         viewModelScope.launch {
-            getUserUseCase.invoke().name.let { nickName ->
-                _nickName.value = nickName
-            }
+
             getAlertCount()
-            getCaves()
             getInsights()
+            setNickName()
+            getCaves()
         }
     }
 
@@ -142,21 +148,30 @@ class HomeViewModel @Inject constructor(
     }
 
     fun getCaves() {
-        val dummyCave = listOf(
-            Cave(1, "연습용"),
-            Cave(2, "연습연습연습연습"),
-            Cave(3, "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"),
-            Cave(4, "동굴"),
-            Cave(5, "연습용"),
-            Cave(6, "연습연습연습연습"),
-            Cave(7, "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"),
-            Cave(8, "동굴"),
-        )
+        viewModelScope.launch {
+            getCavesUseCase(getUserUseCase.invoke().memberId ?: 0).onSuccess { caves ->
+                _caves.value = caves
+            }
+        }
+    }
 
-        _caves.value = dummyCave
+    fun setNickName() {
+        viewModelScope.launch {
+            _nickName.value = getUserUseCase.invoke().name ?: ""
+        }
     }
 
     fun changeScrap(isScrap: Boolean) {
         // TODO 스크랩 api 구현
+    }
+
+    fun deleteSeed(caveId: Int) {
+        viewModelScope.launch {
+            deleteSeedUseCase.invoke(caveId).onSuccess {
+                _isDelete.value = true
+            }.onFailure {
+                _isDelete.value = false
+            }
+        }
     }
 }

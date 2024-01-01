@@ -2,7 +2,7 @@ package com.growthook.aos.presentation.cavecreate
 
 import android.os.Bundle
 import androidx.activity.viewModels
-import com.growthook.aos.presentation.cavecreate.model.NewCaveIntent
+import com.growthook.aos.presentation.model.NewCaveIntent
 import com.growthook.aos.databinding.ActivitySeeNewCaveBinding
 import com.growthook.aos.presentation.cavecreate.CreateNewCaveActivity.Companion.NEW_STORAGE
 import com.growthook.aos.util.base.BaseActivity

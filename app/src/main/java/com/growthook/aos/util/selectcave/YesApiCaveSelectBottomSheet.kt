@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.selection.SelectionPredicates
@@ -11,13 +12,12 @@ import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StableIdKeyProvider
 import androidx.recyclerview.selection.StorageStrategy
 import com.growthook.aos.databinding.FragmentCaveSelectBottomsheetBinding
-import com.growthook.aos.domain.entity.Cave
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AndroidEntryPoint
-class CaveSelectBottomSheet : CaveSelect() {
+class YesApiCaveSelectBottomSheet : CaveSelect() {
     private val viewModel by viewModels<CaveSelectBottomSheetViewModel>()
 
     private var _adapter: CaveSelectAdapter? = null
@@ -33,15 +33,22 @@ class CaveSelectBottomSheet : CaveSelect() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setAdapter()
+        moveSeed()
     }
 
-    override fun setClickAction(action: (Cave?) -> Unit) {
+    private fun moveSeed() {
         lifecycleScope.launch {
             viewModel.selectedCave.collect { cave ->
                 binding.btnHomeSelectCave.setOnClickListener {
                     cave?.let {
-                        clickBtnAction(it)
-                        dismiss()
+                        viewModel.moveSeed(toMoveSeedId, it.id)
+                        viewModel.isMove.observe(viewLifecycleOwner) { isMove ->
+                            if (isMove) {
+                                dismiss()
+                                Toast.makeText(requireContext(), "씨앗을 옮겨 심었어요", Toast.LENGTH_SHORT)
+                                    .show()
+                            }
+                        }
                     }
                 }
             }
