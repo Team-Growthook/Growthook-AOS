@@ -9,6 +9,7 @@ import com.growthook.aos.domain.usecase.PostCaveUseCase
 import com.growthook.aos.domain.usecase.local.GetUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -28,6 +29,10 @@ class CreateNewCaveViewModel @Inject constructor(
     private val _nickName = MutableLiveData<String>()
     val nickName: LiveData<String>
         get() = _nickName
+
+    private val _postCaveSuccess = MutableLiveData<Boolean>()
+    val postCaveSuccess: LiveData<Boolean>
+        get() = _postCaveSuccess
 
     fun getNickName() {
         viewModelScope.launch {
@@ -52,4 +57,15 @@ class CreateNewCaveViewModel @Inject constructor(
 
     private fun checkCreateStorageEnabled(): Boolean =
         !storageName.value.isNullOrBlank() && !storageIntroduction.value.isNullOrBlank()
+
+    fun postNewCave(name: String, introduction: String) {
+        viewModelScope.launch {
+            postCaveUseCase(getUserUseCase.invoke().memberId ?: 1, name, introduction).onSuccess {
+                _postCaveSuccess.value = true
+            }.onFailure {
+                _postCaveSuccess.value = false
+                Timber.d("CreateNewCave: ${it.message}")
+            }
+        }
+    }
 }

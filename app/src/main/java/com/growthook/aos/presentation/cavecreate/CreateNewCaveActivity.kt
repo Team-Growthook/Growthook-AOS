@@ -2,6 +2,7 @@ package com.growthook.aos.presentation.cavecreate
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MotionEvent
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -103,8 +104,17 @@ class CreateNewCaveActivity : BaseActivity<ActivityCreateNewCaveBinding>({
 
     private fun clickStorageBtn() {
         binding.btnStorageCreate.setOnClickListener {
-            sendNewStorageData()
-            Toast.makeText(this, "새 동굴을 만들었어요!", Toast.LENGTH_SHORT).show()
+            postNewCave()
+        }
+    }
+
+    private fun postNewCave() {
+        viewModel.postNewCave(viewModel.storageName.value.toString(), viewModel.storageIntroduction.value.toString())
+        viewModel.postCaveSuccess.observe(this) { isSuccess ->
+            if (isSuccess) {
+                sendNewStorageData()
+                Toast.makeText(this, "새 동굴을 만들었어요!", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
