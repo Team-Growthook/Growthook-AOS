@@ -14,7 +14,6 @@ class SeeNewCaveActivity: BaseActivity<ActivitySeeNewCaveBinding>({
     ActivitySeeNewCaveBinding.inflate(it)
 }) {
 
-    // private val viewModel by viewModels<SeeNewCaveViewModel>()
     private val viewModel by viewModels<CreateNewCaveViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
