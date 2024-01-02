@@ -3,19 +3,25 @@ package com.growthook.aos.util
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
-class EmptyDataObserver(private val recyclerView: RecyclerView, vararg views: View) :
+class EmptyDataObserver(
+    private val recyclerView: RecyclerView,
+    private val view: View? = null,
+    vararg emptyViews: View,
+) :
     RecyclerView.AdapterDataObserver() {
 
-    private val emptyViews = views
+    private val emptyViews = emptyViews
 
     private fun checkIfEmpty() {
         val itemCount = recyclerView.adapter?.itemCount
         if (itemCount != null) {
             if (itemCount == 0) {
                 recyclerView.visibility = View.INVISIBLE
+                view?.let { it.visibility = View.INVISIBLE }
                 emptyViews.forEach { it.visibility = View.VISIBLE }
             } else {
                 recyclerView.visibility = View.VISIBLE
+                view?.let { it.visibility = View.VISIBLE }
                 emptyViews.forEach { it.visibility = View.INVISIBLE }
             }
         }
