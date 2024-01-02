@@ -32,20 +32,41 @@
         <activity
             android:name=".presentation.cavedetail.CaveDetailActivity"
             android:exported="false" />
-        <activity android:name=".presentation.mypage.detailinfo.DetailMyPageActivity"
-            android:exported="false"/>
+        <activity
+            android:name=".presentation.mypage.detailinfo.DetailMyPageActivity"
+            android:exported="false" />
         <activity
             android:name=".presentation.onboarding.LoginActivity"
+            android:exported="false"
+            android:theme="@style/Theme.App.Starting"></activity>
+        <activity
+            android:name=".presentation.cavedetail.cavemodify.CaveDetailModifyActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.cavecreate.CreateNewCaveActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".presentation.cavecreate.SeeNewCaveActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".presentation.insight.write.InsightWriteActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".presentation.onboarding.WhatDifficultActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity
-            android:name=".presentation.cavedetail.cavemodify.CaveDetailModifyActivity"
-            android:exported="false" />
+            android:name=".presentation.onboarding.SplashActivity"
+            android:exported="true"></activity>
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true">
@@ -60,18 +81,6 @@
                     android:scheme="kakao${NATIVE_APP_KEY}" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".presentation.cavecreate.CreateNewCaveActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:exported="false" />
-        <activity
-            android:name=".presentation.cavecreate.SeeNewCaveActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:exported="false"/>
-        <activity
-            android:name=".presentation.insight.write.InsightWriteActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>

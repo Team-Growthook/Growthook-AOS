@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Gray600">
+
+    <TextView
+        style="@style/head4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="성장이 필요한 당신은\n어떤 어려움을 겪고 있나요?"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tv_what_difficult_desc"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_what_difficult_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="여러 개 선택할 수 있어요."
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/Gray100"
+        android:textAppearance="@style/detail1_reg"
+        app:layout_constraintBottom_toTopOf="@id/cl_what_difficult_not_find"
+        android:layout_marginBottom="36dp"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_what_difficult_forget"
+        android:layout_width="150dp"
+        android:layout_height="160dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/rect_gray400_fill_10"
+        app:layout_constraintBottom_toTopOf="@id/cl_what_difficult_not_practice"
+        app:layout_constraintEnd_toStartOf="@id/cl_what_difficult_not_find"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/tv_what_difficult_forget"
+            style="@style/body2_reg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:gravity="start"
+            android:text="인사이트를\n까먹어요"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="18dp"
+            android:src="@drawable/ic_forget"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_what_difficult_not_find"
+        android:layout_width="150dp"
+        android:layout_height="160dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/rect_gray400_fill_10"
+        app:layout_constraintBottom_toTopOf="@id/cl_what_difficult_not_practice"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toEndOf="@id/cl_what_difficult_forget">
+
+        <TextView
+            android:id="@+id/tv_what_difficult_not_find"
+            style="@style/body2_reg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:gravity="start"
+            android:text="기록해둔 곳을\n못찾겠어요"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="18dp"
+            android:src="@drawable/ic_notfound"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_what_difficult_not_practice"
+        android:layout_width="150dp"
+        android:layout_height="160dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="68dp"
+        android:background="@drawable/rect_gray400_fill_10"
+        app:layout_constraintBottom_toTopOf="@id/btn_what_difficult_forget_insight"
+        app:layout_constraintEnd_toStartOf="@id/cl_what_difficult_not_grow"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/tv_what_difficult_not_practice"
+            style="@style/body2_reg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:gravity="start"
+            android:text="기록한 인사이트를\n실천하지 못해요"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="18dp"
+            android:src="@drawable/ic_dont"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_what_difficult_not_grow"
+        android:layout_width="150dp"
+        android:layout_height="160dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginBottom="68dp"
+        android:background="@drawable/rect_gray400_fill_10"
+        app:layout_constraintBottom_toTopOf="@id/btn_what_difficult_forget_insight"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/cl_what_difficult_not_practice">
+
+        <TextView
+            android:id="@+id/tv_what_difficult_not_grow"
+            style="@style/body2_reg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:gravity="start"
+            android:text="성장을 체감하지\n못해요"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="18dp"
+            android:src="@drawable/ic_sad"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_what_difficult_forget_insight"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="18dp"
+        android:background="@drawable/rect_radius_5"
+        android:enabled="false"
+        android:text="어떻게 해결하나요?"
+        android:textAppearance="@style/body1_bold"
+        android:textColor="@color/sel_text"
+        app:backgroundTint="@color/sel_btn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
