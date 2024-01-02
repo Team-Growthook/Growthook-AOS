@@ -106,6 +106,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         insightAdapter.registerAdapterDataObserver(
             EmptyDataObserver(
                 binding.rcvHomeInsight,
+                binding.tvHomeInsightTitle,
                 binding.tvHomeEmptyInsight,
                 binding.ivHomeEmptyInsight,
             ),
@@ -175,8 +176,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         binding.rcvHomeCave.adapter = caveAdapter
         caveAdapter.registerAdapterDataObserver(
             EmptyDataObserver(
-                binding.rcvHomeCave,
-                binding.tvHomeEmptyCave,
+                recyclerView = binding.rcvHomeCave,
+                emptyViews = arrayOf(binding.tvHomeEmptyCave),
             ),
         )
     }
