@@ -3,7 +3,7 @@ package com.growthook.aos.presentation.cavecreate
 import android.os.Bundle
 import androidx.activity.viewModels
 import com.growthook.aos.databinding.ActivitySeeNewCaveBinding
-import com.growthook.aos.presentation.cavecreate.CreateNewCaveActivity.Companion.NEW_STORAGE
+import com.growthook.aos.presentation.cavecreate.CreateNewCaveActivity.Companion.NEW_CAVE_INFO
 import com.growthook.aos.presentation.model.NewCaveIntent
 import com.growthook.aos.util.base.BaseActivity
 import com.growthook.aos.util.extension.getParcelable
@@ -31,10 +31,10 @@ class SeeNewCaveActivity: BaseActivity<ActivitySeeNewCaveBinding>({
     }
 
     private fun getStorageData() {
-        val newCaveIntentData = intent.getParcelable(NEW_STORAGE, NewCaveIntent::class.java)
+        val newCaveIntentData = intent.getParcelable(NEW_CAVE_INFO, NewCaveIntent::class.java)
         with (binding) {
-            tvSeeStorageTitle.text = newCaveIntentData?.name ?: ""
-            tvSeeStorageSubTitle.text = newCaveIntentData?.introduction ?: ""
+            tvSeeCaveTitle.text = newCaveIntentData?.name ?: ""
+            tvSeeCaveSubTitle.text = newCaveIntentData?.introduction ?: ""
         }
     }
 
@@ -42,12 +42,12 @@ class SeeNewCaveActivity: BaseActivity<ActivitySeeNewCaveBinding>({
         viewModel.getNickName()
 
         viewModel.nickName.observe(this) { nickName ->
-            binding.tvSeeStorageUserNickname.text = nickName
+            binding.tvSeeCaveUserNickname.text = nickName
         }
     }
 
     private fun initClickCloseBtn() {
-        binding.btnStorageClose.setOnClickListener {
+        binding.btnCaveClose.setOnClickListener {
             finish()
         }
     }
