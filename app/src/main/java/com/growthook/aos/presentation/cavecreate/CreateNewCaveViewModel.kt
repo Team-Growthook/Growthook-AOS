@@ -5,6 +5,7 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.growthook.aos.domain.usecase.PostCaveUseCase
 import com.growthook.aos.domain.usecase.local.GetUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -13,6 +14,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CreateNewCaveViewModel @Inject constructor(
     private val getUserUseCase: GetUserUseCase,
+    private val postCaveUseCase: PostCaveUseCase
 ) : ViewModel() {
 
     private val _storageName = MutableLiveData<String>()
