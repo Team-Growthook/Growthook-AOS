@@ -109,7 +109,7 @@ class CreateNewCaveActivity : BaseActivity<ActivityCreateNewCaveBinding>({
     }
 
     private fun postNewCave() {
-        viewModel.postNewCave(viewModel.storageName.value.toString(), viewModel.storageIntroduction.value.toString())
+        viewModel.postNewCave()
         viewModel.postCaveSuccess.observe(this) { isSuccess ->
             if (isSuccess) {
                 sendNewStorageData()

@@ -36,7 +36,7 @@ class CreateNewCaveViewModel @Inject constructor(
 
     fun getNickName() {
         viewModelScope.launch {
-            getUserUseCase.invoke().name.let {  nickName ->
+            getUserUseCase.invoke().name.let { nickName ->
                 _nickName.value = nickName
             }
         }
@@ -58,9 +58,13 @@ class CreateNewCaveViewModel @Inject constructor(
     private fun checkCreateStorageEnabled(): Boolean =
         !storageName.value.isNullOrBlank() && !storageIntroduction.value.isNullOrBlank()
 
-    fun postNewCave(name: String, introduction: String) {
+    fun postNewCave() {
         viewModelScope.launch {
-            postCaveUseCase(getUserUseCase.invoke().memberId ?: 1, name, introduction).onSuccess {
+            postCaveUseCase(
+                getUserUseCase.invoke().memberId ?: 1,
+                storageName.value.toString(),
+                storageIntroduction.value.toString()
+            ).onSuccess {
                 _postCaveSuccess.value = true
             }.onFailure {
                 _postCaveSuccess.value = false
