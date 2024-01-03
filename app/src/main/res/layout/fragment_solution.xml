@@ -10,7 +10,6 @@
         android:id="@+id/tv_solution_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="140dp"
         android:gravity="center"
         android:text="이제 그로쑥이\n성장의 거름을 만들어 줄게요!"
         android:textAppearance="@style/head4"
@@ -18,7 +17,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.22" />
+        app:layout_constraintVertical_bias="0.2" />
 
 
     <ImageView
