@@ -36,6 +36,7 @@ class SingleIntendedAlertDialog : BaseAlertDialog() {
     }
 
     override fun setTipText() {
+        binding.tvSingleIntendedTip.text = tipText
     }
 
     override fun setTipVisility() {
