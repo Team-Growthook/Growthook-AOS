@@ -30,7 +30,10 @@ class WhatDifficultFragment : BaseFragment<FragmentWhatDifficultBinding>() {
         clickNotGrow()
         checkBtnEnable()
         binding.btnWhatDifficultForgetInsight.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.fcv_onboarding_main, SolutionFragment()).commit()
+            requireActivity().supportFragmentManager.beginTransaction().setCustomAnimations(
+                R.anim.anim_slide_in_from_right_fade_in,
+                R.anim.anim_fade_out,
+            ).replace(R.id.fcv_onboarding_main, SolutionFragment()).commit()
         }
     }
 
