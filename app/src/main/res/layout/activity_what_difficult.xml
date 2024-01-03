@@ -79,7 +79,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:gravity="start"
-            android:text="기록해둔 곳을\n못찾겠어요"
+            android:text="기록해둔 곳을\n못 찾겠어요"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
