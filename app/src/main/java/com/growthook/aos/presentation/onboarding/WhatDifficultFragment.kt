@@ -1,21 +1,28 @@
 package com.growthook.aos.presentation.onboarding
 
-import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.activity.viewModels
+import androidx.fragment.app.viewModels
 import com.growthook.aos.R
-import com.growthook.aos.databinding.ActivityWhatDifficultBinding
-import com.growthook.aos.util.base.BaseActivity
+import com.growthook.aos.databinding.FragmentWhatDifficultBinding
+import com.growthook.aos.util.base.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 
-class WhatDifficultActivity :
-    BaseActivity<ActivityWhatDifficultBinding>({ ActivityWhatDifficultBinding.inflate(it) }) {
+@AndroidEntryPoint
+class WhatDifficultFragment : BaseFragment<FragmentWhatDifficultBinding>() {
 
     private val viewModel by viewModels<WhatDifficultViewModel>()
+    override fun getFragmentBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+    ): FragmentWhatDifficultBinding =
+        FragmentWhatDifficultBinding.inflate(inflater, container, false)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         clickForget()
         clickNotFind()
@@ -23,9 +30,7 @@ class WhatDifficultActivity :
         clickNotGrow()
         checkBtnEnable()
         binding.btnWhatDifficultForgetInsight.setOnClickListener {
-            val intent = Intent(this,SolutionActivity::class.java)
-            startActivity(intent)
-            finish()
+            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.fcv_onboarding_main, SolutionFragment()).commit()
         }
     }
 
@@ -76,10 +81,10 @@ class WhatDifficultActivity :
 
     private fun changeColor(click: Boolean, text: TextView, cl: ViewGroup) {
         if (click) {
-            text.setTextColor(getColor(R.color.Green200))
+            text.setTextColor(requireContext().getColor(R.color.Green200))
             cl.setBackgroundResource(R.drawable.rect_gray500_line_10)
         } else {
-            text.setTextColor(getColor(R.color.White000))
+            text.setTextColor(requireContext().getColor(R.color.White000))
             cl.setBackgroundResource(R.drawable.rect_gray400_fill_10)
         }
     }
