@@ -38,8 +38,8 @@ class InsightWriteActivity : BaseActivity<ActivityInsightWriteBinding>({
         with(binding) {
             edtInsightWriteInsight.clearFocus()
             edtInsightWriteMemo.clearFocus()
+            edtInsightWriteSource.clearFocus()
             edtInsightWriteUrl.clearFocus()
-            edtInsightWriteUrlChoice.clearFocus()
         }
 
         return super.dispatchTouchEvent(ev)
@@ -52,18 +52,18 @@ class InsightWriteActivity : BaseActivity<ActivityInsightWriteBinding>({
         val memoTextWatcher = CommonTextWatcher(afterChanged = { edtMemo ->
             viewModel.setMemo(edtMemo.toString())
         })
+        val sourceTextWatcher = CommonTextWatcher(afterChanged = { edtSource ->
+            viewModel.setSource(edtSource.toString())
+        })
         val urlTextWatcher = CommonTextWatcher(afterChanged = { edtUrl ->
             viewModel.setUrl(edtUrl.toString())
-        })
-        val urlChoiceTextWatcher = CommonTextWatcher(afterChanged = { edtUrlChoice ->
-            viewModel.setUrlChoice(edtUrlChoice.toString())
         })
 
         with (binding) {
             edtInsightWriteInsight.addTextChangedListener(insightTextWatcher)
             edtInsightWriteMemo.addTextChangedListener(memoTextWatcher)
+            edtInsightWriteSource.addTextChangedListener(sourceTextWatcher)
             edtInsightWriteUrl.addTextChangedListener(urlTextWatcher)
-            edtInsightWriteUrlChoice.addTextChangedListener(urlChoiceTextWatcher)
         }
     }
 

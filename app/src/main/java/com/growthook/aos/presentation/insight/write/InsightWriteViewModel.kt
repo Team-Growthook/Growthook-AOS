@@ -25,13 +25,13 @@ class InsightWriteViewModel @Inject constructor(
     val memo: LiveData<String>
         get() = _memo
 
-    private val _url: MutableLiveData<String> = MutableLiveData()
+    private val _source: MutableLiveData<String> = MutableLiveData()
+    val source: LiveData<String>
+        get() = _source
+
+    private val _url: MutableLiveData<String> = MutableLiveData("")
     val url: LiveData<String>
         get() = _url
-
-    private val _urlChoice: MutableLiveData<String> = MutableLiveData("")
-    val urlChoice: LiveData<String>
-        get() = _urlChoice
 
     val selectedCaveId = MutableLiveData<Int>()
 
@@ -51,12 +51,12 @@ class InsightWriteViewModel @Inject constructor(
         _memo.value = memo
     }
 
-    fun setUrl(url: String) {
-        _url.value = url
+    fun setSource(url: String) {
+        _source.value = url
     }
 
-    fun setUrlChoice(urlChoice: String) {
-        _urlChoice.value = urlChoice
+    fun setUrl(urlChoice: String) {
+        _url.value = urlChoice
     }
 
     fun setSelectedGoalMonth(goalMonth: Int) {
@@ -67,7 +67,7 @@ class InsightWriteViewModel @Inject constructor(
         addSourceList(
             insight,
             selectedCaveId,
-            url,
+            source,
             selectedGoalMonth
         ) { checkInsightWriteEnabled() }
     }
@@ -75,7 +75,7 @@ class InsightWriteViewModel @Inject constructor(
     private fun checkInsightWriteEnabled(): Boolean =
         !insight.value.isNullOrBlank()
                 && !(selectedCaveId.value == null)
-                && !url.value.isNullOrBlank()
+                && !source.value.isNullOrBlank()
                 && !(selectedGoalMonth.value == null)
 
     fun postNewSeed() {
@@ -84,8 +84,8 @@ class InsightWriteViewModel @Inject constructor(
                 selectedCaveId.value ?: 44,
                 insight.value.toString(),
                 memo.value.toString(),
+                source.value.toString(),
                 url.value.toString(),
-                urlChoice.value.toString(),
                 selectedGoalMonth.value ?: 1
             ).onSuccess {
                 _postSeedSuccess.value = true

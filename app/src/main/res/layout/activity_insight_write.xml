@@ -228,7 +228,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/tv_insight_write_url"
+                android:id="@+id/tv_insight_write_source"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/tv_insight_write_url"
@@ -240,7 +240,7 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_insight_write_url"
+                android:id="@+id/layout_insight_write_source"
                 style="@style/TextInputLayoutStyle"
                 app:boxBackgroundMode="outline"
                 android:layout_width="0dp"
@@ -249,7 +249,7 @@
                 android:layout_marginTop="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_insight_write_url"
+                app:layout_constraintTop_toBottomOf="@id/tv_insight_write_source"
                 app:boxBackgroundColor="@color/Gray900"
                 app:counterEnabled="true"
                 app:counterMaxLength="20"
@@ -257,7 +257,7 @@
                 app:hintEnabled="false">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_insight_write_url"
+                    android:id="@+id/edt_insight_write_source"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:hint="@string/insight_write_url"
@@ -271,7 +271,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_insight_write_url_choice"
+                android:id="@+id/layout_insight_write_url"
                 style="@style/TextInputLayoutStyle"
                 app:boxBackgroundMode="outline"
                 android:layout_width="0dp"
@@ -280,12 +280,12 @@
                 android:layout_marginTop="11dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/layout_insight_write_url"
+                app:layout_constraintTop_toBottomOf="@id/layout_insight_write_source"
                 app:boxBackgroundColor="@color/Gray900"
                 app:hintEnabled="false">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_insight_write_url_choice"
+                    android:id="@+id/edt_insight_write_url"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/insight_write_url_choice"
@@ -306,7 +306,7 @@
                 android:layout_marginTop="24dp"
                 app:dividerColor="@color/Gray400"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/layout_insight_write_url_choice" />
+                app:layout_constraintTop_toBottomOf="@id/layout_insight_write_url" />
 
             <TextView
                 android:id="@+id/tv_insight_write_goal"
