@@ -20,6 +20,7 @@ class WhatDifficultActivity :
         clickNotFind()
         clickNotPractice()
         clickNotGrow()
+        checkBtnEnable()
     }
 
     private fun clickForget() {
@@ -74,6 +75,12 @@ class WhatDifficultActivity :
         } else {
             text.setTextColor(getColor(R.color.White000))
             cl.setBackgroundResource(R.drawable.rect_gray400_fill_10)
+        }
+    }
+
+    private fun checkBtnEnable() {
+        viewModel.isBtnEnable.observe(this) { isEnable ->
+            binding.btnWhatDifficultForgetInsight.isEnabled = isEnable
         }
     }
 }

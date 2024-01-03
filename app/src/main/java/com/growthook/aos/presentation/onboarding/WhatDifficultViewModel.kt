@@ -1,8 +1,10 @@
 package com.growthook.aos.presentation.onboarding
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.growthook.aos.util.extension.addSourceList
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -20,6 +22,13 @@ class WhatDifficultViewModel @Inject constructor() : ViewModel() {
 
     private val _notGrow = MutableLiveData(false)
     val notGrow: LiveData<Boolean> = _notGrow
+
+    val isBtnEnable = MediatorLiveData<Boolean>().apply {
+        addSourceList(forget, notFind, notPractice, notGrow) { checkEnableBtn() }
+    }
+
+    private fun checkEnableBtn(): Boolean =
+        forget.value == true || notFind.value == true || notPractice.value == true || notGrow.value == true
 
     fun changeForget() {
         _forget.value = !requireNotNull(_forget.value)
