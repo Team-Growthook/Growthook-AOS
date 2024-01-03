@@ -36,4 +36,5 @@
     <string name="seed_modify_title">씨앗 수정</string>
     <string name="seed_modify_btn">완료</string>
     <string name="seed_modify_url_choice">URL을 입력해주세요 (선택)</string>
+    <string name="btn_insight_write_new_text">액션 만들기</string>
 </resources>

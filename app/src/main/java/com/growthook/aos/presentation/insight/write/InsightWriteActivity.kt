@@ -1,5 +1,6 @@
 package com.growthook.aos.presentation.insight.write
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
@@ -126,11 +127,13 @@ class InsightWriteActivity : BaseActivity<ActivityInsightWriteBinding>({
     }
 
     private fun clickInsightWriteBtn() {
+        val intent = Intent(this, InsightWriteNewActivity::class.java)
         binding.btnInsightWrite.setOnClickListener {
             viewModel.postNewSeed()
             viewModel.postSeedSuccess.observe(this) { isSuccess ->
                 if (isSuccess) {
-                    Toast.makeText(this, "서버통신 성공", Toast.LENGTH_SHORT).show()
+                    startActivity(intent)
+                    finish()
                 }
             }
         }
