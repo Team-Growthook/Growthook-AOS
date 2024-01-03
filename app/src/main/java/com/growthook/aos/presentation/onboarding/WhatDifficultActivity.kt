@@ -1,5 +1,6 @@
 package com.growthook.aos.presentation.onboarding
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.ViewGroup
 import android.widget.TextView
@@ -21,6 +22,11 @@ class WhatDifficultActivity :
         clickNotPractice()
         clickNotGrow()
         checkBtnEnable()
+        binding.btnWhatDifficultForgetInsight.setOnClickListener {
+            val intent = Intent(this,SolutionActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     private fun clickForget() {
