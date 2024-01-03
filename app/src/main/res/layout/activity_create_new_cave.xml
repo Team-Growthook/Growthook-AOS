@@ -8,7 +8,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/btn_storage_create"
+        app:layout_constraintBottom_toTopOf="@id/btn_cave_create"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
@@ -17,7 +17,7 @@
             android:layout_height="0dp">
 
             <ImageButton
-                android:id="@+id/btn_storage_close"
+                android:id="@+id/btn_cave_close"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_close"
@@ -28,7 +28,7 @@
                 app:layout_constraintEnd_toEndOf="parent"/>
 
             <TextView
-                android:id="@+id/tv_storage_title"
+                android:id="@+id/tv_cave_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/storage_title"
@@ -41,7 +41,7 @@
                 app:layout_constraintStart_toStartOf="parent"/>
 
             <TextView
-                android:id="@+id/tv_storage_description"
+                android:id="@+id/tv_cave_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/storage_description"
@@ -49,11 +49,11 @@
                 android:textColor="@color/White000"
                 android:textAppearance="@style/body2_reg"
                 android:includeFontPadding="false"
-                app:layout_constraintTop_toBottomOf="@id/tv_storage_title"
-                app:layout_constraintStart_toStartOf="@id/tv_storage_title"/>
+                app:layout_constraintTop_toBottomOf="@id/tv_cave_title"
+                app:layout_constraintStart_toStartOf="@id/tv_cave_title"/>
 
             <TextView
-                android:id="@+id/tv_storage_name"
+                android:id="@+id/tv_cave_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/storage_name"
@@ -61,11 +61,11 @@
                 android:textAppearance="@style/head4"
                 android:includeFontPadding="false"
                 android:layout_marginTop="35dp"
-                app:layout_constraintTop_toBottomOf="@id/tv_storage_description"
-                app:layout_constraintStart_toStartOf="@id/tv_storage_description"/>
+                app:layout_constraintTop_toBottomOf="@id/tv_cave_description"
+                app:layout_constraintStart_toStartOf="@id/tv_cave_description"/>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_storage_name"
+                android:id="@+id/layout_cave_name"
                 style="@style/TextInputLayoutStyle"
                 app:boxBackgroundMode="outline"
                 android:layout_width="0dp"
@@ -74,7 +74,7 @@
                 android:layout_marginTop="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_storage_name"
+                app:layout_constraintTop_toBottomOf="@id/tv_cave_name"
                 app:boxBackgroundColor="@color/Gray900"
                 app:counterEnabled="true"
                 app:counterMaxLength="7"
@@ -82,7 +82,7 @@
                 app:hintEnabled="false">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_storage_name"
+                    android:id="@+id/edt_cave_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/storage_name_hint"
@@ -95,7 +95,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
-                android:id="@+id/tv_storage_introduction"
+                android:id="@+id/tv_cave_introduction"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/MainGreen400"
@@ -103,12 +103,12 @@
                 android:text="@string/storage_introduction"
                 android:layout_marginTop="8dp"
                 android:layout_marginStart="18dp"
-                app:layout_constraintTop_toBottomOf="@id/layout_storage_name"
+                app:layout_constraintTop_toBottomOf="@id/layout_cave_name"
                 app:layout_constraintStart_toStartOf="parent"
                 android:includeFontPadding="false"/>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_storage_introduction"
+                android:id="@+id/layout_cave_introduction"
                 style="@style/TextInputLayoutStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -116,7 +116,7 @@
                 android:layout_marginTop="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_storage_introduction"
+                app:layout_constraintTop_toBottomOf="@id/tv_cave_introduction"
                 app:boxBackgroundColor="@color/Gray900"
                 app:counterMaxLength="20"
                 app:counterEnabled="true"
@@ -124,7 +124,7 @@
                 app:hintEnabled="false">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_storage_introduction"
+                    android:id="@+id/edt_cave_introduction"
                     android:layout_width="match_parent"
                     android:layout_height="68dp"
                     android:hint="@string/storage_introduction_hint"
@@ -137,7 +137,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
-                android:id="@+id/tv_storage_open"
+                android:id="@+id/tv_cave_open"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/storage_open"
@@ -145,15 +145,15 @@
                 android:textAppearance="@style/head4"
                 android:includeFontPadding="false"
                 android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@id/layout_storage_introduction"
-                app:layout_constraintStart_toStartOf="@id/layout_storage_introduction"/>
+                app:layout_constraintTop_toBottomOf="@id/layout_cave_introduction"
+                app:layout_constraintStart_toStartOf="@id/layout_cave_introduction"/>
 
             <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/switch_open"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="18dp"
-                app:layout_constraintTop_toBottomOf="@id/tv_storage_open"
+                app:layout_constraintTop_toBottomOf="@id/tv_cave_open"
                 app:layout_constraintStart_toStartOf="parent"
                 app:trackTint="@color/Gray400"
                 app:thumbTint="@color/White000"/>
@@ -163,7 +163,7 @@
     </androidx.core.widget.NestedScrollView>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_storage_create"
+        android:id="@+id/btn_cave_create"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginHorizontal="18dp"
