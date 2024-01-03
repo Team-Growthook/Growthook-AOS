@@ -7,26 +7,29 @@
 
 
     <TextView
+        android:id="@+id/tv_solution_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="140dp"
         android:gravity="center"
         android:text="이제 그로쑥이\n성장의 거름을 만들어 줄게요!"
         android:textAppearance="@style/head4"
-        app:layout_constraintBottom_toTopOf="@id/iv_solution_thook"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.22" />
 
 
     <ImageView
         android:id="@+id/iv_solution_thook"
         android:layout_width="146dp"
         android:layout_height="116dp"
-        android:layout_marginBottom="204dp"
+        android:layout_marginTop="140dp"
         android:src="@drawable/ic_largethook_color"
-        app:layout_constraintBottom_toTopOf="@id/btn_solution_next"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_solution_title" />
 
     <TextView
         style="@style/head4"

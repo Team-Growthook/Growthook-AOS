@@ -6,38 +6,42 @@
     android:background="@color/Gray600">
 
     <TextView
+        android:id="@+id/tv_what_difficult_title"
         style="@style/head4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="성장이 필요한 당신은\n어떤 어려움을 겪고 있나요?"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/tv_what_difficult_desc"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.22" />
 
     <TextView
         android:id="@+id/tv_what_difficult_desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="36dp"
         android:text="여러 개 선택할 수 있어요."
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textColor="@color/Gray100"
         android:textAppearance="@style/detail1_reg"
-        app:layout_constraintBottom_toTopOf="@id/cl_what_difficult_not_find"
-        android:layout_marginBottom="36dp"/>
+        android:textColor="@color/Gray100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_what_difficult_title" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_what_difficult_forget"
         android:layout_width="150dp"
         android:layout_height="160dp"
+        android:layout_marginTop="36dp"
         android:layout_marginEnd="4dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/rect_gray400_fill_10"
-        app:layout_constraintBottom_toTopOf="@id/cl_what_difficult_not_practice"
         app:layout_constraintEnd_toStartOf="@id/cl_what_difficult_not_find"
         app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_what_difficult_desc">
 
         <TextView
             android:id="@+id/tv_what_difficult_forget"
@@ -65,12 +69,13 @@
         android:layout_width="150dp"
         android:layout_height="160dp"
         android:layout_marginStart="4dp"
+        android:layout_marginTop="36dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/rect_gray400_fill_10"
-        app:layout_constraintBottom_toTopOf="@id/cl_what_difficult_not_practice"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toEndOf="@id/cl_what_difficult_forget">
+        app:layout_constraintStart_toEndOf="@id/cl_what_difficult_forget"
+        app:layout_constraintTop_toBottomOf="@id/tv_what_difficult_desc">
 
         <TextView
             android:id="@+id/tv_what_difficult_not_find"
@@ -101,7 +106,8 @@
         android:layout_marginEnd="4dp"
         android:layout_marginBottom="68dp"
         android:background="@drawable/rect_gray400_fill_10"
-        app:layout_constraintBottom_toTopOf="@id/btn_what_difficult_forget_insight"
+        app:layout_constraintTop_toBottomOf="@id/cl_what_difficult_forget"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toStartOf="@id/cl_what_difficult_not_grow"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent">
@@ -134,7 +140,8 @@
         android:layout_marginStart="4dp"
         android:layout_marginBottom="68dp"
         android:background="@drawable/rect_gray400_fill_10"
-        app:layout_constraintBottom_toTopOf="@id/btn_what_difficult_forget_insight"
+        app:layout_constraintTop_toBottomOf="@id/cl_what_difficult_not_find"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/cl_what_difficult_not_practice">
 
