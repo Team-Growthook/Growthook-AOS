@@ -1,4 +1,4 @@
-package com.growthook.aos.domain.usecase
+package com.growthook.aos.domain.usecase.cavedetail
 
 import com.growthook.aos.domain.repository.CaveRepository
 import javax.inject.Inject
