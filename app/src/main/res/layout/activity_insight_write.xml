@@ -18,7 +18,7 @@
             android:layout_height="match_parent">
 
             <ImageButton
-                android:id="@+id/insight_write_back"
+                android:id="@+id/btn_insight_write_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_back"
@@ -39,7 +39,7 @@
                 android:layout_marginStart="69dp"
                 android:layout_marginEnd="69dp"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toEndOf="@id/insight_write_back"
+                app:layout_constraintStart_toEndOf="@id/btn_insight_write_back"
                 app:layout_constraintEnd_toStartOf="@id/btn_insight_write"/>
 
             <TextView

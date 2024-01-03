@@ -29,6 +29,7 @@ class InsightWriteActivity : BaseActivity<ActivityInsightWriteBinding>({
         initSetSelectCaveBottomSheet()
         initSetSelectGoalBottomSheet()
         initSetBtnEnabled()
+        clickBackBtn()
 
     }
 
@@ -128,6 +129,12 @@ class InsightWriteActivity : BaseActivity<ActivityInsightWriteBinding>({
 
     private fun clickInsightWriteBtn() {
         // TODO 인사이트 등록 버튼 클릭시 로직
+    }
+
+    private fun clickBackBtn() {
+        binding.btnInsightWriteBack.setOnClickListener {
+            finish()
+        }
     }
 
     companion object {
