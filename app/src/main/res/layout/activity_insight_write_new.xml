@@ -194,7 +194,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_insight_write_new"
+        android:id="@+id/btn_insight_write_new_actioinplan"
         style="@style/body1_bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

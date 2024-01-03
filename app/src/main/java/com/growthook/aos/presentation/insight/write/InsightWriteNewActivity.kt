@@ -12,5 +12,17 @@ class InsightWriteNewActivity: BaseActivity<ActivityInsightWriteNewBinding>({
         super.onCreate(savedInstanceState)
         binding = ActivityInsightWriteNewBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        clickBackBtn()
+    }
+
+    private fun initMakeNewInsightWriteView() {
+        // TODO 씨앗 정보 뷰 서버통신 후 뷰 그리는 로직 추가
+    }
+
+    private fun clickBackBtn() {
+        binding.btnInsightWriteClose.setOnClickListener {
+            finish()
+        }
     }
 }
