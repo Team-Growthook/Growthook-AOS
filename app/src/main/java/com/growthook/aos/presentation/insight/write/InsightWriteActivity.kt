@@ -1,7 +1,6 @@
 package com.growthook.aos.presentation.insight.write
 
 import android.os.Bundle
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import androidx.activity.viewModels
@@ -9,6 +8,7 @@ import com.growthook.aos.databinding.ActivityInsightWriteBinding
 import com.growthook.aos.util.base.BaseActivity
 import com.growthook.aos.util.extension.CommonTextWatcher
 import com.growthook.aos.util.extension.hideKeyboard
+import com.growthook.aos.util.selectcave.CaveSelect
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -17,7 +17,6 @@ class InsightWriteActivity : BaseActivity<ActivityInsightWriteBinding>({
 }) {
 
     private val viewModel by viewModels<InsightWriteViewModel>()
-    private lateinit var caveSelectBottomSheet: InsightWriteCaveSelectBottomSheetFragment
     private lateinit var goalSelectBottomSheet: InsightWriteGoalSelectBottomSheetFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,18 +67,15 @@ class InsightWriteActivity : BaseActivity<ActivityInsightWriteBinding>({
     }
 
     private fun initSetSelectCaveBottomSheet() {
-        caveSelectBottomSheet = InsightWriteCaveSelectBottomSheetFragment()
-
         binding.layoutInsightWriteCave.setOnClickListener {
             binding.layoutInsightWriteCave.requestFocusFromTouch()
-            caveSelectBottomSheet.setOnCaveSelectedListener(object :
-                InsightWriteCaveSelectBottomSheetFragment.OnCaveSelectedListener {
-                override fun onCaveSelected(caveName: String) {
-                    setSelectedCaveEditText(caveName)
-                    viewModel.setSelectedCaveName(caveName)
-                }
-            })
-            caveSelectBottomSheet.show(supportFragmentManager, TAG_BOTTOM_SHEET)
+            CaveSelect.Builder().build(
+                CaveSelect.CaveSelectType.NO_API,
+                viewModel.selectedCaveId.value ?: 44,
+                clickBtnAction = {
+                    setSelectedCaveEditText(it.name)
+                },
+            ).show(supportFragmentManager, "caveSelect")
         }
     }
 

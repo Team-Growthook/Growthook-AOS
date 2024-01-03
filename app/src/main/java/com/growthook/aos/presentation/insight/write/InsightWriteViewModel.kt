@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.growthook.aos.domain.entity.Cave
 import com.growthook.aos.util.extension.addSourceList
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -32,6 +31,8 @@ class InsightWriteViewModel @Inject constructor() : ViewModel() {
     val selectedCaveName: LiveData<String>
         get() = _selectedCaveName
 
+    val selectedCaveId = MutableLiveData<Int>()
+
     private val _selectedGoalMonth: MutableLiveData<Int> = MutableLiveData()
     val selectedGoalMonth: LiveData<Int>
         get() = _selectedGoalMonth
@@ -52,10 +53,6 @@ class InsightWriteViewModel @Inject constructor() : ViewModel() {
         _urlChoice.value = urlChoice
     }
 
-    fun setSelectedCaveName(caveName: String) {
-        _selectedCaveName.value = caveName
-    }
-
     fun setSelectedGoalMonth(goalMonth: Int) {
         _selectedGoalMonth.value = goalMonth
     }
@@ -69,40 +66,4 @@ class InsightWriteViewModel @Inject constructor() : ViewModel() {
                 && !selectedCaveName.value.isNullOrBlank()
                 && !url.value.isNullOrBlank()
                 && !(selectedGoalMonth.value == null)
-
-    private val _mockCaveList: MutableLiveData<List<Cave>> = MutableLiveData(
-        mutableListOf(
-            Cave(
-                1,
-                "test1"
-            ),
-            Cave(
-                2,
-                "test2"
-            ),
-            Cave(
-                3,
-                "test3"
-            ),
-            Cave(
-                4,
-                "test4"
-            ),
-            Cave(
-                5,
-                "test5"
-            ),
-            Cave(
-                6,
-                "test6"
-            ),
-            Cave(
-                7,
-                "test7"
-            )
-        )
-    )
-
-    val mockCaveList: LiveData<List<Cave>>
-        get() = _mockCaveList
 }
