@@ -25,7 +25,7 @@ interface SeedService {
 
     @POST("api/v1/cave/{caveId}/seed")
     suspend fun postSeed(
-        @Path("caveID") caveId: Int,
+        @Path("caveId") caveId: Int,
         @Body request: RequestSeedPostDto
     ): ResponsePostSeedDto
 }

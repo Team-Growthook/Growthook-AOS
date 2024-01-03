@@ -3,6 +3,7 @@ package com.growthook.aos.data.model.response
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+@Serializable
 data class ResponsePostSeedDto(
     @SerialName("status")
     val status: Int,

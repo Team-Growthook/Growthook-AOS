@@ -3,6 +3,7 @@ package com.growthook.aos.presentation.insight.write
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import com.growthook.aos.databinding.ActivityInsightWriteBinding
 import com.growthook.aos.util.base.BaseActivity
@@ -73,9 +74,10 @@ class InsightWriteActivity : BaseActivity<ActivityInsightWriteBinding>({
                 CaveSelect.CaveSelectType.NO_API,
                 viewModel.selectedCaveId.value ?: 44,
                 clickBtnAction = {
+                    viewModel.selectedCaveId.value = it.id
                     setSelectedCaveEditText(it.name)
                 },
-            ).show(supportFragmentManager, "caveSelect")
+            ).show(supportFragmentManager, TAG_BOTTOM_SHEET)
         }
     }
 
@@ -124,7 +126,14 @@ class InsightWriteActivity : BaseActivity<ActivityInsightWriteBinding>({
     }
 
     private fun clickInsightWriteBtn() {
-        // TODO 인사이트 등록 버튼 클릭시 로직
+        binding.btnInsightWrite.setOnClickListener {
+            viewModel.postNewSeed()
+            viewModel.postSeedSuccess.observe(this) { isSuccess ->
+                if (isSuccess) {
+                    Toast.makeText(this, "서버통신 성공", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 
     private fun clickBackBtn() {
