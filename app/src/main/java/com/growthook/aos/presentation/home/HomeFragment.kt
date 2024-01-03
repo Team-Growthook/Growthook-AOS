@@ -21,6 +21,7 @@ import com.growthook.aos.presentation.cavedetail.CaveDetailActivity
 import com.growthook.aos.presentation.insight.noactionplan.InsightMenuBottomsheet
 import com.growthook.aos.presentation.insight.noactionplan.NoActionplanInsightActivity
 import com.growthook.aos.presentation.cavecreate.CreateNewCaveActivity
+import com.growthook.aos.presentation.insight.write.InsightWriteActivity
 import com.growthook.aos.util.EmptyDataObserver
 import com.growthook.aos.util.base.BaseAlertDialog
 import com.growthook.aos.util.base.BaseFragment
@@ -64,6 +65,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
         clickAddCave()
         getCaves()
+        clickAddSeedBtn()
     }
 
     private fun clickAddCave() {
@@ -243,6 +245,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             } else {
                 viewModel.getInsights()
             }
+        }
+    }
+
+    private fun clickAddSeedBtn() {
+        val intent = Intent(requireActivity(), InsightWriteActivity::class.java)
+        binding.fabHomeAddInsight.setOnClickListener {
+            startActivity(intent)
         }
     }
 
