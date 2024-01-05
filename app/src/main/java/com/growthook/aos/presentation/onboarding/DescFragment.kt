@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.growthook.aos.databinding.FragmentDescBinding
 import com.growthook.aos.util.base.BaseFragment
@@ -39,14 +40,30 @@ class DescFragment : BaseFragment<FragmentDescBinding>() {
         _adapter = DescAdapter()
         binding.vpDescExplain.adapter = adapter
 
+        setBtnEnable()
+
         TabLayoutMediator(binding.tlDescIndicator, binding.vpDescExplain) { tab, position ->
         }.attach()
+    }
+
+    private fun setBtnEnable() {
+        binding.vpDescExplain.registerOnPageChangeCallback(object :
+            ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+
+                if (position == adapter.itemList.size - 1) {
+                    binding.btnDescStart.isEnabled = true
+                }
+            }
+        })
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _adapter = null
     }
+
     override fun onDetach() {
         super.onDetach()
         callback.remove()

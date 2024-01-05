@@ -9,7 +9,7 @@ import com.growthook.aos.domain.entity.Explain
 
 class DescAdapter : RecyclerView.Adapter<DescAdapter.DescViewHolder>() {
 
-    private val itemList: List<Explain> = listOf(
+    val itemList: List<Explain> = listOf(
         Explain("인사이트 기록", "내가 얻은 인사이트를 한 줄로 표현해요.", R.drawable.ic_onboarding_desc1),
         Explain(
             "보관함 아카이빙",
