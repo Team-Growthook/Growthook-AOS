@@ -23,11 +23,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:gravity="center"
         android:text="내가 얻은 인사이트를 한 줄로 표현해요."
         android:textColor="@color/Gray100"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_explain_title"/>
+        app:layout_constraintTop_toBottomOf="@id/tv_explain_title" />
 
     <ImageView
         android:id="@+id/iv_explain"
