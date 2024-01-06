@@ -1,14 +1,16 @@
 package com.growthook.aos.presentation.insight.write
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import com.growthook.aos.databinding.ActivityInsightWriteBinding
 import com.growthook.aos.util.base.BaseActivity
 import com.growthook.aos.util.extension.CommonTextWatcher
 import com.growthook.aos.util.extension.hideKeyboard
+import com.growthook.aos.util.selectcave.CaveSelect
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -17,7 +19,6 @@ class InsightWriteActivity : BaseActivity<ActivityInsightWriteBinding>({
 }) {
 
     private val viewModel by viewModels<InsightWriteViewModel>()
-    private lateinit var caveSelectBottomSheet: InsightWriteCaveSelectBottomSheetFragment
     private lateinit var goalSelectBottomSheet: InsightWriteGoalSelectBottomSheetFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,6 +30,7 @@ class InsightWriteActivity : BaseActivity<ActivityInsightWriteBinding>({
         initSetSelectCaveBottomSheet()
         initSetSelectGoalBottomSheet()
         initSetBtnEnabled()
+        clickBackBtn()
 
     }
 
@@ -37,8 +39,8 @@ class InsightWriteActivity : BaseActivity<ActivityInsightWriteBinding>({
         with(binding) {
             edtInsightWriteInsight.clearFocus()
             edtInsightWriteMemo.clearFocus()
+            edtInsightWriteSource.clearFocus()
             edtInsightWriteUrl.clearFocus()
-            edtInsightWriteUrlChoice.clearFocus()
         }
 
         return super.dispatchTouchEvent(ev)
@@ -51,34 +53,32 @@ class InsightWriteActivity : BaseActivity<ActivityInsightWriteBinding>({
         val memoTextWatcher = CommonTextWatcher(afterChanged = { edtMemo ->
             viewModel.setMemo(edtMemo.toString())
         })
+        val sourceTextWatcher = CommonTextWatcher(afterChanged = { edtSource ->
+            viewModel.setSource(edtSource.toString())
+        })
         val urlTextWatcher = CommonTextWatcher(afterChanged = { edtUrl ->
             viewModel.setUrl(edtUrl.toString())
-        })
-        val urlChoiceTextWatcher = CommonTextWatcher(afterChanged = { edtUrlChoice ->
-            viewModel.setUrlChoice(edtUrlChoice.toString())
         })
 
         with (binding) {
             edtInsightWriteInsight.addTextChangedListener(insightTextWatcher)
             edtInsightWriteMemo.addTextChangedListener(memoTextWatcher)
+            edtInsightWriteSource.addTextChangedListener(sourceTextWatcher)
             edtInsightWriteUrl.addTextChangedListener(urlTextWatcher)
-            edtInsightWriteUrlChoice.addTextChangedListener(urlChoiceTextWatcher)
         }
     }
 
     private fun initSetSelectCaveBottomSheet() {
-        caveSelectBottomSheet = InsightWriteCaveSelectBottomSheetFragment()
-
         binding.layoutInsightWriteCave.setOnClickListener {
             binding.layoutInsightWriteCave.requestFocusFromTouch()
-            caveSelectBottomSheet.setOnCaveSelectedListener(object :
-                InsightWriteCaveSelectBottomSheetFragment.OnCaveSelectedListener {
-                override fun onCaveSelected(caveName: String) {
-                    setSelectedCaveEditText(caveName)
-                    viewModel.setSelectedCaveName(caveName)
-                }
-            })
-            caveSelectBottomSheet.show(supportFragmentManager, TAG_BOTTOM_SHEET)
+            CaveSelect.Builder().build(
+                CaveSelect.CaveSelectType.NO_API,
+                viewModel.selectedCaveId.value ?: 44,
+                clickBtnAction = {
+                    viewModel.selectedCaveId.value = it.id
+                    setSelectedCaveEditText(it.name)
+                },
+            ).show(supportFragmentManager, TAG_BOTTOM_SHEET)
         }
     }
 
@@ -127,7 +127,22 @@ class InsightWriteActivity : BaseActivity<ActivityInsightWriteBinding>({
     }
 
     private fun clickInsightWriteBtn() {
-        // TODO 인사이트 등록 버튼 클릭시 로직
+        val intent = Intent(this, InsightWriteNewActivity::class.java)
+        binding.btnInsightWrite.setOnClickListener {
+            viewModel.postNewSeed()
+            viewModel.postSeedSuccess.observe(this) { isSuccess ->
+                if (isSuccess) {
+                    startActivity(intent)
+                    finish()
+                }
+            }
+        }
+    }
+
+    private fun clickBackBtn() {
+        binding.btnInsightWriteBack.setOnClickListener {
+            finish()
+        }
     }
 
     companion object {
