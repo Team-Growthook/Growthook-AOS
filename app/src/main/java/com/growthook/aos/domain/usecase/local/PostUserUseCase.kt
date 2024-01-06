@@ -4,6 +4,6 @@ import com.growthook.aos.domain.repository.UserRepository
 import javax.inject.Inject
 
 class PostUserUseCase @Inject constructor(private val repository: UserRepository) {
-    suspend operator fun invoke(userName: String, memberId: Int) =
-        repository.setUserInfo(userName, memberId)
+    suspend operator fun invoke(userName: String, memberId: Int, isOnboarding: Boolean) =
+        repository.setUserInfo(userName, memberId, isOnboarding)
 }
