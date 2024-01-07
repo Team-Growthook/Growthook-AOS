@@ -1,5 +1,7 @@
 package com.growthook.aos.presentation.insight.noactionplan
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.growthook.aos.databinding.ActivityNoActionplanInsightBinding
@@ -35,6 +37,16 @@ class NoActionplanInsightActivity : AppCompatActivity() {
     private fun clickBackBtn() {
         binding.ivNoactionInsightBack.setOnClickListener {
             finish()
+        }
+    }
+
+    companion object {
+        private const val SEED_ID = "seedId"
+
+        fun getIntent(context: Context, seedId: Int): Intent {
+            return Intent(context, NoActionplanInsightActivity::class.java).apply {
+                putExtra(SEED_ID, seedId)
+            }
         }
     }
 }

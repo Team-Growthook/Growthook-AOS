@@ -1,9 +1,12 @@
 package com.growthook.aos.presentation.insight.actionplan
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import com.growthook.aos.R
 import com.growthook.aos.databinding.ActivityActionplanInsightBinding
 import com.growthook.aos.util.base.BaseActivity
 import com.growthook.aos.util.base.BaseAlertDialog
@@ -21,7 +24,7 @@ class ActionplanInsightActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val insightId = intent.getIntExtra("insightId", 0)
+        val insightId = intent.getIntExtra(SEED_ID, 0)
         Timber.d("인사이트 id $insightId")
         observeSeedDetail()
         foldInsightContent()
@@ -85,6 +88,12 @@ class ActionplanInsightActivity :
                     clActionplanInsightMemoEmpty.visibility = View.GONE
                     scvActionplanInsightContent.visibility = View.VISIBLE
                 }
+
+                if (seed.isScraped) {
+                    ivActionplanInsightSeed.setImageResource(R.drawable.ic_scrap_selected)
+                } else {
+                    ivActionplanInsightSeed.setImageResource(R.drawable.ic_scrap_unselected)
+                }
             }
         }
     }
@@ -124,5 +133,12 @@ class ActionplanInsightActivity :
 
     companion object {
         const val DELETE_DIALOG = "delete dialog"
+        private const val SEED_ID = "seedId"
+
+        fun getIntent(context: Context, seedId: Int): Intent {
+            return Intent(context, ActionplanInsightActivity::class.java).apply {
+                putExtra(SEED_ID, seedId)
+            }
+        }
     }
 }
