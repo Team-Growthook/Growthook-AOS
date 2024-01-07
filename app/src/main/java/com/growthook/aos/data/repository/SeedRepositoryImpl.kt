@@ -8,6 +8,10 @@ import javax.inject.Inject
 
 class SeedRepositoryImpl @Inject constructor(private val seedDataSource: SeedDataSource) :
     SeedRepository {
+    override suspend fun getSeed(seedId: Int): Result<Unit> = runCatching {
+        seedDataSource.getSeed(seedId)
+    }
+
     override suspend fun deleteSeed(seedId: Int): Result<Unit> = runCatching {
         seedDataSource.deleteSeed(seedId)
     }
@@ -22,7 +26,7 @@ class SeedRepositoryImpl @Inject constructor(private val seedDataSource: SeedDat
         memo: String,
         source: String,
         url: String,
-        goalMonth: Int
+        goalMonth: Int,
     ): Result<Unit> = runCatching {
         seedDataSource.postSeed(caveId, RequestSeedPostDto(insight, memo, source, url, goalMonth))
     }

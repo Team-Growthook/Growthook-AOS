@@ -1,6 +1,7 @@
 package com.growthook.aos.domain.repository
 
 interface SeedRepository {
+    suspend fun getSeed(seedId: Int): Result<Unit>
 
     suspend fun deleteSeed(seedId: Int): Result<Unit>
 
