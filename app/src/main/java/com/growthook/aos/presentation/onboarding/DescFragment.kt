@@ -1,6 +1,7 @@
 package com.growthook.aos.presentation.onboarding
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.growthook.aos.databinding.FragmentDescBinding
 import com.growthook.aos.util.base.BaseFragment
+import kotlin.io.path.fileVisitor
 
 class DescFragment : BaseFragment<FragmentDescBinding>() {
 
@@ -44,6 +46,8 @@ class DescFragment : BaseFragment<FragmentDescBinding>() {
 
         TabLayoutMediator(binding.tlDescIndicator, binding.vpDescExplain) { tab, position ->
         }.attach()
+
+        clickStartBtn()
     }
 
     private fun setBtnEnable() {
@@ -57,6 +61,13 @@ class DescFragment : BaseFragment<FragmentDescBinding>() {
                 }
             }
         })
+    }
+
+    private fun clickStartBtn() {
+        binding.btnDescStart.setOnClickListener {
+            val intent = Intent(requireActivity(), LoginActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onDestroyView() {
