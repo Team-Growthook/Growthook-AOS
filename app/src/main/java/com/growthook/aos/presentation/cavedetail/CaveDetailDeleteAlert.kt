@@ -1,6 +1,8 @@
 package com.growthook.aos.presentation.cavedetail
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +15,6 @@ import com.growthook.aos.databinding.DialogLeftIntendedBinding
 import com.growthook.aos.presentation.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @AndroidEntryPoint
 class CaveDetailDeleteAlert : DialogFragment() {
@@ -39,6 +40,7 @@ class CaveDetailDeleteAlert : DialogFragment() {
         setText()
         clickLeftBtn()
         clickRightBtn()
+        setBackgroundTransparent()
     }
 
     private fun setText() {
@@ -81,6 +83,10 @@ class CaveDetailDeleteAlert : DialogFragment() {
                 dismiss()
             }
         }
+    }
+
+    private fun setBackgroundTransparent() {
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
     }
 
     override fun onDestroy() {
