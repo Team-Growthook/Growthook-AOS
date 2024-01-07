@@ -1,5 +1,6 @@
 package com.growthook.aos.data.model.response
 
+import com.growthook.aos.domain.entity.Seed
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -21,7 +22,7 @@ data class ResponseGetSeedDto(
         @SerialName("insight")
         val insight: String,
         @SerialName("memo")
-        val memo: String,
+        val memo: String? = null,
         @SerialName("source")
         val source: String,
         @SerialName("url")
@@ -32,5 +33,16 @@ data class ResponseGetSeedDto(
         val lockDate: String,
         @SerialName("remainingDays")
         val remainingDays: Int,
+    )
+
+    fun toSeedDetail() = Seed(
+        caveName = data.caveName,
+        title = data.insight,
+        content = data.memo,
+        source = data.source,
+        date = data.lockDate,
+        url = data.url,
+        isScraped = data.isScraped,
+        remainingDays = data.remainingDays,
     )
 }

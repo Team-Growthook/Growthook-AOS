@@ -7,8 +7,10 @@ import androidx.activity.viewModels
 import com.growthook.aos.databinding.ActivityActionplanInsightBinding
 import com.growthook.aos.util.base.BaseActivity
 import com.growthook.aos.util.base.BaseAlertDialog
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
+@AndroidEntryPoint
 class ActionplanInsightActivity :
     BaseActivity<ActivityActionplanInsightBinding>({ ActivityActionplanInsightBinding.inflate(it) }) {
     private var _actionplanAdapter: ActionplanAdapter? = null
@@ -19,6 +21,9 @@ class ActionplanInsightActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val insightId = intent.getIntExtra("insightId", 0)
+        Timber.d("인사이트 id $insightId")
+        observeSeedDetail()
         foldInsightContent()
         observeActionplanData()
         initActionplanAdapter()
@@ -62,6 +67,26 @@ class ActionplanInsightActivity :
                 positiveAction = {
                 },
             ).show(supportFragmentManager, DELETE_DIALOG)
+    }
+
+    private fun observeSeedDetail() {
+        viewModel.seedData.observe(this) { seed ->
+            with(binding) {
+                tvActionplanInsightTitle.text = seed?.title
+                tvActionplanInsightContent.text = seed?.content
+                tvActionplanInsightDate.text = seed?.date
+                tvActionplanInsightChip.text = seed?.caveName
+                "D-${seed?.remainingDays}".also { tvActionplanInsightDday.text = it }
+
+                if (seed.content == null) {
+                    clActionplanInsightMemoEmpty.visibility = View.VISIBLE
+                    scvActionplanInsightContent.visibility = View.INVISIBLE
+                } else {
+                    clActionplanInsightMemoEmpty.visibility = View.GONE
+                    scvActionplanInsightContent.visibility = View.VISIBLE
+                }
+            }
+        }
     }
 
     private fun foldInsightContent() {
