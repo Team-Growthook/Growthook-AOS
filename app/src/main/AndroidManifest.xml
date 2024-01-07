@@ -43,19 +43,19 @@
             android:exported="false" />
         <activity
             android:name=".presentation.cavecreate.CreateNewCaveActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize"
+            android:exported="false" />
         <activity
             android:name=".presentation.cavecreate.SeeNewCaveActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize"
+            android:exported="false"/>
         <activity
             android:name=".presentation.insight.write.InsightWriteActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".presentation.onboarding.OnboardingActivity"
-            android:exported="true"/>
+            android:name=".presentation.insight.write.InsightWriteNewActivity"
+            android:exported="false"/>
         <activity android:name=".presentation.onboarding.SplashActivity"
             android:exported="true">
             <intent-filter>

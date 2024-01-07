@@ -12,6 +12,7 @@ import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StableIdKeyProvider
 import androidx.recyclerview.selection.StorageStrategy
 import com.growthook.aos.databinding.FragmentCaveSelectBottomsheetBinding
+import com.growthook.aos.util.EmptyDataObserver
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -74,6 +75,15 @@ class YesApiCaveSelectBottomSheet : CaveSelect() {
         ).build()
 
         adapter.setSelectionTracker(tracker)
+        adapter.registerAdapterDataObserver(
+            EmptyDataObserver(
+                binding.rcvHomeSelectCave,
+                emptyViews = arrayOf(
+                    binding.ivCaveSelectEmpty,
+                    binding.tvCaveSelectEmpty,
+                ),
+            ),
+        )
 
         tracker.addObserver(object : SelectionTracker.SelectionObserver<Long>() {
             override fun onSelectionChanged() {

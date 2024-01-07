@@ -92,6 +92,7 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
         insightAdapter.registerAdapterDataObserver(
             EmptyDataObserver(
                 binding.rcvCaveDetailInsight,
+                binding.tvCaveDetailInsightTitle,
                 binding.tvCaveDetailEmptyInsight,
                 binding.ivCaveDetailEmptyInsight,
             ),

@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.view.MotionEvent
 import android.widget.Toast
 import androidx.activity.viewModels
-import com.growthook.aos.presentation.model.NewCaveIntent
 import com.growthook.aos.databinding.ActivityCreateNewCaveBinding
+import com.growthook.aos.presentation.model.NewCaveIntent
 import com.growthook.aos.util.base.BaseActivity
 import com.growthook.aos.util.base.BaseAlertDialog
 import com.growthook.aos.util.extension.CommonTextWatcher
@@ -25,11 +25,12 @@ class CreateNewCaveActivity : BaseActivity<ActivityCreateNewCaveBinding>({
         binding = ActivityCreateNewCaveBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initMakeStorageView()
-        initGetStorageContent()
+        initMakeCaveView()
+        initGetCaveContent()
+        initClickCloseBtn()
     }
 
-    private fun initMakeStorageView() {
+    private fun initMakeCaveView() {
         clickOpenSwitchBtn()
         setBtnEnabled()
     }
@@ -37,10 +38,16 @@ class CreateNewCaveActivity : BaseActivity<ActivityCreateNewCaveBinding>({
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         this.currentFocus?.let { hideKeyboard(it) }
         with(binding) {
-            edtStorageName.clearFocus()
-            edtStorageIntroduction.clearFocus()
+            edtCaveName.clearFocus()
+            edtCaveIntroduction.clearFocus()
         }
         return super.dispatchTouchEvent(ev)
+    }
+
+    private fun initClickCloseBtn() {
+        binding.btnCaveClose.setOnClickListener {
+            finish()
+        }
     }
 
     private fun clickOpenSwitchBtn() {
@@ -68,25 +75,25 @@ class CreateNewCaveActivity : BaseActivity<ActivityCreateNewCaveBinding>({
         }
     }
 
-    private fun initGetStorageContent() {
+    private fun initGetCaveContent() {
         val nameTextWatcher = CommonTextWatcher(afterChanged = { edtName ->
-            viewModel.getStorageName(edtName.toString())
+            viewModel.getCaveName(edtName.toString())
         })
         val introductionTextWatcher = CommonTextWatcher(afterChanged = { edtIntroduction ->
-            viewModel.getStorageIntroduction(edtIntroduction.toString())
+            viewModel.getCaveIntroduction(edtIntroduction.toString())
         })
         with(binding) {
-            edtStorageName.addTextChangedListener(nameTextWatcher)
-            edtStorageIntroduction.addTextChangedListener(introductionTextWatcher)
+            edtCaveName.addTextChangedListener(nameTextWatcher)
+            edtCaveIntroduction.addTextChangedListener(introductionTextWatcher)
         }
     }
 
     private fun setBtnEnabled() {
         viewModel.checkBtnEnabled.observe(this) {
-            with(binding.btnStorageCreate) {
+            with(binding.btnCaveCreate) {
                 if (it) {
                     isEnabled = true
-                    clickStorageBtn()
+                    clickCreateCaveBtn()
                 } else {
                     isEnabled = false
                 }
@@ -94,21 +101,30 @@ class CreateNewCaveActivity : BaseActivity<ActivityCreateNewCaveBinding>({
         }
     }
 
-    private fun clickStorageBtn() {
-        binding.btnStorageCreate.setOnClickListener {
-            sendNewStorageData()
-            Toast.makeText(this, "새 동굴을 만들었어요!", Toast.LENGTH_SHORT).show()
+    private fun clickCreateCaveBtn() {
+        binding.btnCaveCreate.setOnClickListener {
+            postNewCave()
         }
     }
 
-    private fun sendNewStorageData() {
+    private fun postNewCave() {
+        viewModel.postNewCave()
+        viewModel.postCaveSuccess.observe(this) { isSuccess ->
+            if (isSuccess) {
+                sendNewCaveData()
+                Toast.makeText(this, "새 동굴을 만들었어요!", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun sendNewCaveData() {
         val intent = Intent(this, SeeNewCaveActivity::class.java)
         with (binding) {
             intent.putExtra(
-                NEW_STORAGE,
+                NEW_CAVE_INFO,
                 NewCaveIntent(
-                    edtStorageName.text.toString(),
-                    edtStorageIntroduction.text.toString()
+                    edtCaveName.text.toString(),
+                    edtCaveIntroduction.text.toString()
                 )
             )
         }
@@ -117,6 +133,6 @@ class CreateNewCaveActivity : BaseActivity<ActivityCreateNewCaveBinding>({
     }
 
     companion object {
-        const val NEW_STORAGE = "NEW_STORAGE"
+        const val NEW_CAVE_INFO = "NEW_CAVE_INFO"
     }
 }
