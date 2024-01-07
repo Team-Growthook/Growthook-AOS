@@ -38,6 +38,8 @@
         <activity
             android:name=".presentation.onboarding.LoginActivity"
             android:exported="false"/>
+        <activity android:name=".presentation.onboarding.OnboardingActivity"
+            android:exported="false"/>
         <activity
             android:name=".presentation.cavedetail.cavemodify.CaveDetailModifyActivity"
             android:exported="false" />
