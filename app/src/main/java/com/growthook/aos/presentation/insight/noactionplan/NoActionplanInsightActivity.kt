@@ -31,6 +31,8 @@ class NoActionplanInsightActivity :
                 tvNoactionInsightContent.text = seed?.content
                 tvNoactionInsightDate.text = seed?.date
                 tvNoactionInsightChip.text = seed?.caveName
+                tvNoactionInsightContentChipTitle.text = seed?.source
+                tvNoactionInsightUrl.text = seed?.url
                 "D-${seed?.remainingDays}".also { tvNoactionInsightDday.text = it }
 
                 if (seed.isScraped) {

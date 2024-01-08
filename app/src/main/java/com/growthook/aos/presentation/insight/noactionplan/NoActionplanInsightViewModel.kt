@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.growthook.aos.domain.entity.Cave
 import com.growthook.aos.domain.entity.Seed
+import com.growthook.aos.domain.usecase.DeleteSeedUseCase
 import com.growthook.aos.domain.usecase.GetCavesUseCase
 import com.growthook.aos.domain.usecase.local.GetUserUseCase
 import com.growthook.aos.domain.usecase.seeddetail.GetSeedUseCase
@@ -21,6 +22,7 @@ class NoActionplanInsightViewModel @Inject constructor(
     private val getUserUseCase: GetUserUseCase,
     private val getSeedUseCase: GetSeedUseCase,
     private val getCavesUseCase: GetCavesUseCase,
+    private val deleteSeedUseCase: DeleteSeedUseCase,
 ) :
     ViewModel() {
     private val _caves = MutableLiveData<List<Cave>>()
@@ -28,6 +30,9 @@ class NoActionplanInsightViewModel @Inject constructor(
 
     private val _seedData = MutableLiveData<Seed>()
     val seedData: LiveData<Seed> = _seedData
+
+    private val _isDelete = MutableLiveData<Boolean>()
+    val isDelete: LiveData<Boolean> = _isDelete
 
     private val _event = MutableLiveData<ActionplanInsightViewModel.Event>()
     val event: LiveData<ActionplanInsightViewModel.Event> = _event
@@ -61,6 +66,16 @@ class NoActionplanInsightViewModel @Inject constructor(
             Log.d("user", "memberID:: ${getUserUseCase.invoke().memberId}")
             getCavesUseCase(3).onSuccess { caves ->
                 _caves.value = caves
+            }
+        }
+    }
+
+    fun deleteSeed(seedId: Int) {
+        viewModelScope.launch {
+            deleteSeedUseCase.invoke(seedId).onSuccess {
+                _isDelete.value = true
+            }.onFailure {
+                _isDelete.value = false
             }
         }
     }
