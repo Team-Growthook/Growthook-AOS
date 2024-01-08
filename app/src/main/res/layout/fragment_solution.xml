@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Gray600">
+
+
+    <TextView
+        android:id="@+id/tv_solution_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="이제 그로쑥이\n성장의 거름을 만들어 줄게요!"
+        android:textAppearance="@style/head4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.2" />
+
+
+    <ImageView
+        android:id="@+id/iv_solution_thook"
+        android:layout_width="146dp"
+        android:layout_height="116dp"
+        android:layout_marginTop="140dp"
+        android:src="@drawable/ic_largethook_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_solution_title" />
+
+    <TextView
+        style="@style/head4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="그저 성장의 씨앗을 심기만 하면 돼요."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_solution_thook" />
+
+
+    <TextView
+        android:id="@+id/tv_solution_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:text="씨앗부터 심어볼까요?"
+        android:textAppearance="@style/detail1_reg"
+        android:textColor="@color/Gray100"
+        app:layout_constraintBottom_toTopOf="@id/btn_solution_next"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_solution_next"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="18dp"
+        android:background="@drawable/rect_radius_5"
+        android:includeFontPadding="false"
+        android:padding="12dp"
+        android:text="다음"
+        android:textAppearance="@style/body1_bold"
+        android:textColor="@color/sel_text"
+        app:backgroundTint="@color/MainGreen400"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

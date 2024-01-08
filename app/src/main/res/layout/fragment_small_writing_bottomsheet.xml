@@ -73,8 +73,8 @@
         android:includeFontPadding="false"
         android:text="완료"
         android:textAppearance="@style/body1_bold"
-        android:textColor="@color/sel_writing_text"
-        app:backgroundTint="@color/sel_writing_save_btn"
+        android:textColor="@color/sel_text"
+        app:backgroundTint="@color/sel_btn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
