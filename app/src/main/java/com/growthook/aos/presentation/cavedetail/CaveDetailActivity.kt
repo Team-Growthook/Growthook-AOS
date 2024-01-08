@@ -57,6 +57,11 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
         clickMainMenu()
     }
 
+    override fun onResume() {
+        super.onResume()
+        setCaveDetail()
+    }
+
     private fun setCaveDetail() {
         lifecycleScope.launch {
             viewModel.caveId.collect {

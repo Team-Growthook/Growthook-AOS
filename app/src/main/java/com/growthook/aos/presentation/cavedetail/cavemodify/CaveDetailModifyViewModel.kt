@@ -16,20 +16,25 @@ class CaveDetailModifyViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _isCaveModified = MutableLiveData<Boolean>(false)
-    val isCaveModified: LiveData<Boolean>
-        get() = _isCaveModified
+    val isCaveModified: LiveData<Boolean> = _isCaveModified
 
     private val _isModifySuccess = MutableLiveData<Boolean>()
-    val isModifySuccess: LiveData<Boolean>
-        get() = _isModifySuccess
+    val isModifySuccess: LiveData<Boolean> = _isModifySuccess
+
+    private val _caveId = MutableLiveData<Int>()
+    val caveId: LiveData<Int> = _caveId
+
+    fun setCaveId(caveId: Int) {
+        _caveId.value = caveId
+    }
 
     fun setIsModified(modify: Boolean) {
         _isCaveModified.value = modify
     }
 
-    fun modifyCave(caveId: Int, name: String, introduction: String) {
+    fun modifyCave(name: String, introduction: String) {
         viewModelScope.launch {
-            modifyCaveUseCase(caveId, name, introduction).onSuccess {
+            modifyCaveUseCase(_caveId.value ?: 0, name, introduction).onSuccess {
                 _isModifySuccess.value = true
             }.onFailure {
                 _isModifySuccess.value = false
