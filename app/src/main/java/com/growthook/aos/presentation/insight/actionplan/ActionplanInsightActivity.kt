@@ -39,7 +39,7 @@ class ActionplanInsightActivity :
     }
 
     private fun observeActionplanData() {
-        viewModel.actionplanList.observe(this) {
+        viewModel.actionplans.observe(this) {
             _actionplanAdapter?.submitList(it)
         }
     }
@@ -64,7 +64,7 @@ class ActionplanInsightActivity :
                 isTipVisility = false,
                 negativeAction = {
                     // 삭제 로직 구현 필요
-                    viewModel.deleteActionplan(position)
+//                    viewModel.deleteActionplan(position)
                     Toast.makeText(this, "액션이 삭제되었어요", Toast.LENGTH_SHORT).show()
                 },
                 positiveAction = {

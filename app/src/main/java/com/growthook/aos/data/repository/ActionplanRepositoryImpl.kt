@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class ActionplanRepositoryImpl @Inject constructor(private val actionplanDataSource: ActionplanDataSource) :
     ActionplanRepository {
-    override suspend fun getActionplans(seedId: Int): Result<Actionplan> = runCatching {
+    override suspend fun getActionplans(seedId: Int): Result<List<Actionplan>> = runCatching {
         actionplanDataSource.getActionplans(seedId).toActionplan()
     }
 }

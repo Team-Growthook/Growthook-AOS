@@ -13,7 +13,7 @@ data class ResponseGetActionplanDto(
     @SerialName("message")
     val message: String,
     @SerialName("data")
-    val data: ActionplanData,
+    val data: List<ActionplanData>,
 ) {
     @Serializable
     data class ActionplanData(
@@ -27,10 +27,12 @@ data class ResponseGetActionplanDto(
         val isFinished: Boolean,
     )
 
-    fun toActionplan() = Actionplan(
-        actionplanId = data.actionPlanId,
-        content = data.content,
-        isScraped = data.isScraped,
-        isFinished = data.isFinished,
-    )
+    fun toActionplan() = data.map { actionplan ->
+        Actionplan(
+            actionplan.actionPlanId,
+            actionplan.content,
+            actionplan.isScraped,
+            actionplan.isFinished,
+        )
+    }
 }

@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.growthook.aos.domain.entity.Actionplan
 import com.growthook.aos.domain.entity.Seed
+import com.growthook.aos.domain.usecase.GetActionplansUseCase
 import com.growthook.aos.domain.usecase.seeddetail.GetSeedUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -16,8 +17,11 @@ import javax.inject.Inject
 @HiltViewModel
 class ActionplanInsightViewModel @Inject constructor(
     private val getSeedUseCase: GetSeedUseCase,
+    private val getActionplansUseCase: GetActionplansUseCase,
+
 ) : ViewModel() {
-    var actionplanList: MutableLiveData<List<Actionplan>> = MutableLiveData<List<Actionplan>>()
+    private val _actionplans = MutableLiveData<List<Actionplan>>()
+    val actionplans: LiveData<List<Actionplan>> = _actionplans
 
     private val _seedData = MutableLiveData<Seed>()
     val seedData: LiveData<Seed> = _seedData
@@ -26,7 +30,9 @@ class ActionplanInsightViewModel @Inject constructor(
     val event: LiveData<Event> = _event
 
     init {
-        getSeedDetail(45)
+        // TODO intent로 받은 seedId로 변경
+        getSeedDetail(47)
+        getActionplans(47)
     }
 
     private fun getSeedDetail(seedId: Int) {
@@ -44,31 +50,30 @@ class ActionplanInsightViewModel @Inject constructor(
         }
     }
 
-//    init {
-//        actionplanList.value = listOf(
-//            Actionplan(1, 1, "아"),
-//            Actionplan(2, 2, "아아"),
-//            Actionplan(3, 3, "아아아"),
-//            Actionplan(4, 4, "아아아아"),
-//            Actionplan(5, 5, "아아아아아"),
-//            Actionplan(6, 6, "아아아아아아"),
-//            Actionplan(7, 7, "아아아아아아아"),
-//            Actionplan(8, 8, "아아아아아아아아"),
-//            Actionplan(9, 9, "아아아아아아아아아"),
-//
-//        )
-//    }
+    private fun getActionplans(seedId: Int) {
+        viewModelScope.launch {
+            getActionplansUseCase.invoke(seedId)
+                .onSuccess { actionplan ->
+                    _actionplans.value = actionplan
+                    _event.value = Event.Success
+                }
+                .onFailure { throwable ->
+                    Timber.e(throwable.message)
+                    _event.value = Event.Failed
+                }
+        }
+    }
 
     sealed interface Event {
         object Failed : Event
         object Success : Event
     }
 
-    fun deleteActionplan(position: Int) {
-        val currentList = actionplanList.value.orEmpty().toMutableList()
-        if (position in currentList.indices) {
-            currentList.removeAt(position)
-            actionplanList.value = currentList.toList()
-        }
-    }
+//    fun deleteActionplan(position: Int) {
+//        val currentList = actionplanList.value.orEmpty().toMutableList()
+//        if (position in currentList.indices) {
+//            currentList.removeAt(position)
+//            actionplanList.value = currentList.toList()
+//        }
+//    }
 }

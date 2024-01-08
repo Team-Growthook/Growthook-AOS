@@ -26,7 +26,7 @@ class CompletedActionlistAdapter(
         fun onBind(data: Actionplan) {
             binding.tvCompletedActionplanTitle.text = data.content
             binding.tvCompletedActionplanBtnLeft.setOnClickListener {
-                selectedItem(data.seedId)
+                selectedItem(data.actionplanId)
             }
         }
     }
