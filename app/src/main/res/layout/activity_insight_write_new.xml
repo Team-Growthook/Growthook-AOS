@@ -160,7 +160,7 @@
                     style="@style/detail2_bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="쑥쑥이 블로그"
+                    tools:text="쑥쑥이 블로그"
                     android:textColor="@color/Gray200"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

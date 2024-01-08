@@ -77,7 +77,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="8dp"
-            android:src="@drawable/ic_scrap_unselected"
+            tools:src="@drawable/ic_scrap_unselected"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -171,7 +171,7 @@
                     style="@style/detail2_bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="쑥쑥이 블로그"
+                    tools:text="쑥쑥이 블로그"
                     android:textColor="@color/Gray200"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
