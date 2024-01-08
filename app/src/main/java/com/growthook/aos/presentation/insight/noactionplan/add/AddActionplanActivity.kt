@@ -1,5 +1,7 @@
 package com.growthook.aos.presentation.insight.noactionplan.add
 
+import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
@@ -72,5 +74,15 @@ class AddActionplanActivity :
     override fun onDestroy() {
         _addActionplanAdapter = null
         super.onDestroy()
+    }
+
+    companion object {
+        private const val SEED_ID = "seedId"
+
+        fun getIntent(context: Context, seedId: Int): Intent {
+            return Intent(context, AddActionplanActivity::class.java).apply {
+                putExtra(SEED_ID, seedId)
+            }
+        }
     }
 }

@@ -32,8 +32,9 @@
         <activity
             android:name=".presentation.cavedetail.CaveDetailActivity"
             android:exported="false" />
-        <activity android:name=".presentation.mypage.detailinfo.DetailMyPageActivity"
-            android:exported="false"/>
+        <activity
+            android:name=".presentation.mypage.detailinfo.DetailMyPageActivity"
+            android:exported="false" />
         <activity
             android:name=".presentation.onboarding.LoginActivity"
             android:exported="true">
@@ -62,19 +63,23 @@
         </activity>
         <activity
             android:name=".presentation.cavecreate.CreateNewCaveActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".presentation.cavecreate.SeeNewCaveActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:exported="false"/>
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".presentation.insight.write.InsightWriteActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".presentation.insight.write.InsightWriteNewActivity"
-            android:exported="false"/>
+            android:exported="false" />
+
+        <activity
+            android:name=".presentation.insight.noactionplan.add.AddActionplanActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
