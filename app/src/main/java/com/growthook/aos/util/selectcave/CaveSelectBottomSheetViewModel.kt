@@ -31,7 +31,7 @@ class CaveSelectBottomSheetViewModel @Inject constructor(
 
     fun getCaves() {
         viewModelScope.launch {
-            getCavesUseCase(getUserUseCase.invoke()?.memberId ?: 0).onSuccess { caves ->
+            getCavesUseCase(3).onSuccess { caves ->
                 _caves.value = caves
             }
         }

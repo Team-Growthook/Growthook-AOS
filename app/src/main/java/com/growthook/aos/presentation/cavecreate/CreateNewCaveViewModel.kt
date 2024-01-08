@@ -16,7 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CreateNewCaveViewModel @Inject constructor(
     private val getUserUseCase: GetUserUseCase,
-    private val postCaveUseCase: PostCaveUseCase
+    private val postCaveUseCase: PostCaveUseCase,
 ) : ViewModel() {
 
     private val _caveName = MutableLiveData<String>()
@@ -52,7 +52,7 @@ class CreateNewCaveViewModel @Inject constructor(
     }
 
     val checkBtnEnabled = MediatorLiveData<Boolean>().apply {
-        addSourceList(caveName, caveIntroduction) {checkCreateCaveEnabled()}
+        addSourceList(caveName, caveIntroduction) { checkCreateCaveEnabled() }
     }
 
     private fun checkCreateCaveEnabled(): Boolean =
@@ -61,9 +61,9 @@ class CreateNewCaveViewModel @Inject constructor(
     fun postNewCave() {
         viewModelScope.launch {
             postCaveUseCase(
-                getUserUseCase.invoke().memberId ?: 1,
+                3,
                 caveName.value.toString(),
-                caveIntroduction.value.toString()
+                caveIntroduction.value.toString(),
             ).onSuccess {
                 _postCaveSuccess.value = true
             }.onFailure {

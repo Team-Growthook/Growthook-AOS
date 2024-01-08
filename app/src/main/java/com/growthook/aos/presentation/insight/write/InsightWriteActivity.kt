@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import com.growthook.aos.databinding.ActivityInsightWriteBinding
 import com.growthook.aos.util.base.BaseActivity
@@ -31,7 +30,6 @@ class InsightWriteActivity : BaseActivity<ActivityInsightWriteBinding>({
         initSetSelectGoalBottomSheet()
         initSetBtnEnabled()
         clickBackBtn()
-
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
@@ -60,7 +58,7 @@ class InsightWriteActivity : BaseActivity<ActivityInsightWriteBinding>({
             viewModel.setUrl(edtUrl.toString())
         })
 
-        with (binding) {
+        with(binding) {
             edtInsightWriteInsight.addTextChangedListener(insightTextWatcher)
             edtInsightWriteMemo.addTextChangedListener(memoTextWatcher)
             edtInsightWriteSource.addTextChangedListener(sourceTextWatcher)
@@ -73,7 +71,7 @@ class InsightWriteActivity : BaseActivity<ActivityInsightWriteBinding>({
             binding.layoutInsightWriteCave.requestFocusFromTouch()
             CaveSelect.Builder().build(
                 CaveSelect.CaveSelectType.NO_API,
-                viewModel.selectedCaveId.value ?: 44,
+                viewModel.selectedCaveId.value ?: 50,
                 clickBtnAction = {
                     viewModel.selectedCaveId.value = it.id
                     setSelectedCaveEditText(it.name)
@@ -115,7 +113,7 @@ class InsightWriteActivity : BaseActivity<ActivityInsightWriteBinding>({
 
     private fun initSetBtnEnabled() {
         viewModel.checkInsightWriteBtnEnabled.observe(this) {
-            with (binding.btnInsightWrite) {
+            with(binding.btnInsightWrite) {
                 if (it) {
                     isEnabled = true
                     clickInsightWriteBtn()

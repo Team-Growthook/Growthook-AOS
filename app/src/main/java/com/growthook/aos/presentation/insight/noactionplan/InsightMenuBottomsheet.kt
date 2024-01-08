@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import com.growthook.aos.R
 import com.growthook.aos.databinding.FragmentInsightMenuBottomsheetBinding
 import com.growthook.aos.util.base.BaseAlertDialog
@@ -15,6 +16,8 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class InsightMenuBottomsheet :
     BaseBottomSheetFragment<FragmentInsightMenuBottomsheetBinding>(R.layout.fragment_insight_menu_bottomsheet) {
+    private val viewModel by activityViewModels<NoActionplanInsightViewModel>()
+
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -70,7 +73,13 @@ class InsightMenuBottomsheet :
                 isRemainThookVisility = false,
                 isTipVisility = false,
                 negativeAction = {
-                    Toast.makeText(context, "씨앗이 삭제되었어요", Toast.LENGTH_SHORT).show()
+                    // TODO 전달 받은 seedId 변경
+                    viewModel.deleteSeed(47)
+                    viewModel.isDelete.observe(viewLifecycleOwner) { isDelete ->
+                        if (isDelete) {
+                            Toast.makeText(context, "씨앗이 삭제되었어요", Toast.LENGTH_SHORT).show()
+                        }
+                    }
                 },
                 positiveAction = {},
             ).show(parentFragmentManager, DELETE_DIALOG)

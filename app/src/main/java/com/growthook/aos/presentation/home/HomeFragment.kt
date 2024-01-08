@@ -17,10 +17,10 @@ import com.growthook.aos.databinding.FragmentHomeBinding
 import com.growthook.aos.domain.entity.Cave
 import com.growthook.aos.domain.entity.Insight
 import com.growthook.aos.presentation.MainActivity
+import com.growthook.aos.presentation.cavecreate.CreateNewCaveActivity
 import com.growthook.aos.presentation.cavedetail.CaveDetailActivity
 import com.growthook.aos.presentation.insight.noactionplan.InsightMenuBottomsheet
 import com.growthook.aos.presentation.insight.noactionplan.NoActionplanInsightActivity
-import com.growthook.aos.presentation.cavecreate.CreateNewCaveActivity
 import com.growthook.aos.presentation.insight.write.InsightWriteActivity
 import com.growthook.aos.util.EmptyDataObserver
 import com.growthook.aos.util.base.BaseAlertDialog
@@ -82,7 +82,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         }
     }
 
-    private fun getCaves(){
+    private fun getCaves() {
         viewModel.getCaves()
     }
 
@@ -155,17 +155,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     },
                     positiveAction = {
                         Toast.makeText(context, "잠금이 영구적으로 해제되었어요!", Toast.LENGTH_SHORT).show()
-                        val intent =
-                            Intent(requireActivity(), NoActionplanInsightActivity::class.java)
-                        intent.putExtra("insightId", item.insightId)
-                        startActivity(intent)
+                        startActivity(
+                            NoActionplanInsightActivity.getIntent(
+                                requireContext(),
+                                item.insightId,
+                            ),
+                        )
                     },
                 ).show(parentFragmentManager, InsightMenuBottomsheet.DELETE_DIALOG)
         } else if (!item.isAction) {
-            val intent =
-                Intent(requireActivity(), NoActionplanInsightActivity::class.java)
-            intent.putExtra("insightId", item.insightId)
-            startActivity(intent)
+            startActivity(NoActionplanInsightActivity.getIntent(requireContext(), item.insightId))
         }
     }
 
