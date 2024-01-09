@@ -75,7 +75,7 @@ class CaveDetailDeleteAlert : DialogFragment() {
     }
 
     private fun afterDeleteSuccess() {
-        viewModel.isDelete.observe(viewLifecycleOwner) { isDelete ->
+        viewModel.isCaveDelete.observe(viewLifecycleOwner) { isDelete ->
             if (isDelete) {
                 Toast.makeText(requireContext(), "동굴이 삭제되었어요", Toast.LENGTH_SHORT).show()
                 val intent = Intent(requireActivity(), MainActivity::class.java)
