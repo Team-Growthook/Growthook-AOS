@@ -1,0 +1,20 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 아래쪽 레이어: 점선 테두리 -->
+    <item android:width="62dp"
+        android:height="62dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/transparent" />
+            <corners android:radius="10dp" />
+            <stroke
+                android:width="1dp"
+                android:color="@color/White000"
+                android:dashWidth="4dp"
+                android:dashGap="4dp" />
+        </shape>
+    </item>
+    <item android:drawable="@drawable/ic_cave_plus"
+        android:width="14dp"
+        android:gravity="center"
+        android:height="14dp"/>
+
+</layer-list>
