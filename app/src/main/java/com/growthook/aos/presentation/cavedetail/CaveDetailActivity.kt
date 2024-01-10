@@ -169,14 +169,14 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
                         Toast.makeText(this, "잠금이 영구적으로 해제되었어요!", Toast.LENGTH_SHORT).show()
                         val intent =
                             Intent(this, NoActionplanInsightActivity::class.java)
-                        intent.putExtra("insightId", item.insightId)
+                        intent.putExtra("insightId", item.seedId)
                         startActivity(intent)
                     },
                 ).show(supportFragmentManager, InsightMenuBottomsheet.DELETE_DIALOG)
-        } else if (!item.isAction) {
+        } else if (!item.hasActionPlan) {
             val intent =
                 Intent(this, NoActionplanInsightActivity::class.java)
-            intent.putExtra("insightId", item.insightId)
+            intent.putExtra("insightId", item.seedId)
             startActivity(intent)
         }
     }

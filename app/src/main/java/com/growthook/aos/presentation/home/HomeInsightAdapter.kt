@@ -41,7 +41,7 @@ class HomeInsightAdapter(
     override fun getItemViewType(position: Int): Int {
         when {
             currentList[position].isLocked -> return LOCK
-            currentList[position].isAction -> return YES_ACTION
+            currentList[position].hasActionPlan -> return YES_ACTION
         }
 
         return NO_ACTION
@@ -94,8 +94,8 @@ class HomeInsightAdapter(
             if (item.isScraped) {
                 binding.btnHomeScrap.setImageResource(R.drawable.ic_scrap_unselected)
             }
-            binding.tvHomeInsightTitle.text = item.title
-            binding.tvHomeInsightLock.text = "${item.remainedLock}일 후 잠금"
+            binding.tvHomeInsightTitle.text = item.name
+            binding.tvHomeInsightLock.text = "${item.remainingDays}일 후 잠금"
             binding.root.setOnClickListener {
                 selectedItem(item)
                 Timber.d("선택된 아이템 ${selectionLongTracker.selection}")
@@ -124,8 +124,8 @@ class HomeInsightAdapter(
             if (item.isScraped) {
                 binding.btnHomeScrap.setImageResource(R.drawable.ic_scrap_yes_action_selected)
             }
-            binding.tvHomeInsightTitle.text = item.title
-            binding.tvHomeInsightLock.text = "${item.remainedLock}일 후 잠금"
+            binding.tvHomeInsightTitle.text = item.name
+            binding.tvHomeInsightLock.text = "${item.remainingDays}일 후 잠금"
             binding.root.setOnLongClickListener {
                 selectionLongTracker.select(itemPosition.toLong())
                 binding.viewHomeInsightClick.visibility = View.VISIBLE
@@ -166,8 +166,8 @@ class HomeInsightAdapter(
             if (item.isScraped) {
                 binding.btnHomeScrap.setImageResource(R.drawable.ic_scrap_selected)
             }
-            binding.tvHomeInsightTitle.text = item.title
-            binding.tvHomeInsightLock.text = "${item.remainedLock}일 후 잠금"
+            binding.tvHomeInsightTitle.text = item.name
+            binding.tvHomeInsightLock.text = "${item.remainingDays}일 후 잠금"
             binding.root.setOnLongClickListener {
                 binding.viewHomeInsightClick.visibility = View.VISIBLE
                 selectionLongTracker.select(itemPosition.toLong())

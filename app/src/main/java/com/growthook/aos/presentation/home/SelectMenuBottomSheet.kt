@@ -14,7 +14,6 @@ import com.growthook.aos.presentation.insight.noactionplan.InsightMenuBottomshee
 import com.growthook.aos.util.base.BaseAlertDialog
 import com.growthook.aos.util.base.BaseBottomSheetFragment
 import com.growthook.aos.util.selectcave.CaveSelect
-import timber.log.Timber
 
 class SelectMenuBottomSheet() :
     BaseBottomSheetFragment<FragmentSelectMenuBottomsheetBinding>(R.layout.fragment_select_menu_bottomsheet) {
@@ -39,7 +38,7 @@ class SelectMenuBottomSheet() :
         binding.btnHomeSelectMove.setOnClickListener {
             CaveSelect.Builder().build(
                 CaveSelect.CaveSelectType.YES_API,
-                viewModel.longClickInsight.value?.insightId ?: 1,
+                viewModel.longClickInsight.value?.seedId ?: 1,
             ).show(parentFragmentManager, "select")
         }
     }
@@ -60,7 +59,7 @@ class SelectMenuBottomSheet() :
                     isRemainThookVisility = false,
                     isTipVisility = false,
                     negativeAction = {
-                        viewModel.deleteSeed(viewModel.longClickInsight.value?.insightId ?: 0)
+                        viewModel.deleteSeed(viewModel.longClickInsight.value?.seedId ?: 0)
                         viewModel.isDelete.observe(viewLifecycleOwner) { isDelete ->
                             if (isDelete) {
                                 Toast.makeText(context, "씨앗이 삭제되었어요", Toast.LENGTH_SHORT).show()
