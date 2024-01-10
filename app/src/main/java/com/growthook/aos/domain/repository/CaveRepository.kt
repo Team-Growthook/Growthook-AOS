@@ -2,6 +2,7 @@ package com.growthook.aos.domain.repository
 
 import com.growthook.aos.domain.entity.Cave
 import com.growthook.aos.domain.entity.CaveDetail
+import com.growthook.aos.domain.entity.Insight
 
 interface CaveRepository {
 
@@ -14,4 +15,6 @@ interface CaveRepository {
     suspend fun modifyCave(caveId: Int, name: String, introduction: String): Result<Unit>
 
     suspend fun postCave(memberId: Int, name: String, introduction: String): Result<Unit>
+
+    suspend fun getCaveSeeds(caveId: Int): Result<List<Insight>>
 }

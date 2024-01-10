@@ -5,6 +5,7 @@ import com.growthook.aos.data.model.request.RequestCaveModifyDto
 import com.growthook.aos.data.model.request.RequestCavePostDto
 import com.growthook.aos.domain.entity.Cave
 import com.growthook.aos.domain.entity.CaveDetail
+import com.growthook.aos.domain.entity.Insight
 import com.growthook.aos.domain.repository.CaveRepository
 import javax.inject.Inject
 
@@ -32,6 +33,10 @@ class CaveRepositoryImpl @Inject constructor(private val caveDataSource: CaveDat
         runCatching {
             caveDataSource.postCave(memberId, RequestCavePostDto(name, introduction, FIXED_VALUE))
         }
+
+    override suspend fun getCaveSeeds(caveId: Int): Result<List<Insight>> = runCatching {
+        caveDataSource.getCaveSeeds(caveId).toInsight()
+    }
 
     companion object {
         private const val FIXED_VALUE = true

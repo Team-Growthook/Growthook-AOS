@@ -4,6 +4,7 @@ import com.growthook.aos.data.datasource.remote.CaveDataSource
 import com.growthook.aos.data.model.request.RequestCaveModifyDto
 import com.growthook.aos.data.model.request.RequestCavePostDto
 import com.growthook.aos.data.model.response.ResponseDto
+import com.growthook.aos.data.model.response.ResponseGetCaveSeedsDto
 import com.growthook.aos.data.model.response.ResponseGetCavesDto
 import com.growthook.aos.data.model.response.ResponseGetDetailCaveDto
 import com.growthook.aos.data.model.response.ResponsePostCaveDto
@@ -25,4 +26,7 @@ class CaveDataSourceImpl @Inject constructor(private val apiService: CaveService
 
     override suspend fun postCave(memberId: Int, request: RequestCavePostDto): ResponsePostCaveDto =
         apiService.postCave(memberId, request)
+
+    override suspend fun getCaveSeeds(caveId: Int): ResponseGetCaveSeedsDto =
+        apiService.getCaveSeeds(caveId)
 }
