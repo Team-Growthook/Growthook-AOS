@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.growthook.aos.domain.entity.Actionplan
 import com.growthook.aos.domain.entity.Seed
-import com.growthook.aos.domain.usecase.GetActionplansUseCase
+import com.growthook.aos.domain.usecase.actionplan.GetActionplansUseCase
 import com.growthook.aos.domain.usecase.seeddetail.GetSeedUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -18,7 +18,6 @@ import javax.inject.Inject
 class ActionplanInsightViewModel @Inject constructor(
     private val getSeedUseCase: GetSeedUseCase,
     private val getActionplansUseCase: GetActionplansUseCase,
-
 ) : ViewModel() {
     private val _actionplans = MutableLiveData<List<Actionplan>>()
     val actionplans: LiveData<List<Actionplan>> = _actionplans
@@ -31,8 +30,8 @@ class ActionplanInsightViewModel @Inject constructor(
 
     init {
         // TODO intent로 받은 seedId로 변경
-        getSeedDetail(47)
-        getActionplans(47)
+        getSeedDetail(DUMMY_SEED)
+        getActionplans(DUMMY_SEED)
     }
 
     private fun getSeedDetail(seedId: Int) {
@@ -76,4 +75,8 @@ class ActionplanInsightViewModel @Inject constructor(
 //            actionplanList.value = currentList.toList()
 //        }
 //    }
+
+    companion object {
+        const val DUMMY_SEED = 47
+    }
 }

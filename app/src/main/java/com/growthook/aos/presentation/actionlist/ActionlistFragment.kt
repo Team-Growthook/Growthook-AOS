@@ -1,6 +1,7 @@
 package com.growthook.aos.presentation.actionlist
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,17 +47,35 @@ class ActionlistFragment : BaseFragment<FragmentActionlistBinding>() {
         binding.tlActionlistMain.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 val fragment: Fragment = when (tab.position) {
-                    0 -> ProceedingActionlistFragment()
-                    1 -> CompletedActionlistFragment()
+                    0 -> {
+                        val tag = ProceedingActionlistFragment::class.java.simpleName
+                        parentFragmentManager.findFragmentByTag(tag)
+                            ?: ProceedingActionlistFragment()
+                    }
+
+                    1 -> {
+                        val tag = CompletedActionlistFragment::class.java.simpleName
+                        parentFragmentManager.findFragmentByTag(tag)
+                            ?: CompletedActionlistFragment()
+                    }
+
                     else -> ProceedingActionlistFragment()
                 }
+                Log.d("action", "fragment:: $fragment")
                 parentFragmentManager.commit {
                     replace(R.id.fcv_actionlist_main, fragment)
                 }
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
-                // not use
+                tab?.let {
+                    val fragment = when (it.position) {
+                        0 -> parentFragmentManager.findFragmentByTag(ProceedingActionlistFragment::class.java.simpleName)
+                        1 -> parentFragmentManager.findFragmentByTag(CompletedActionlistFragment::class.java.simpleName)
+                        else -> null
+                    }
+                    fragment?.let { parentFragmentManager.beginTransaction().hide(it).commit() }
+                }
             }
 
             override fun onTabReselected(tab: TabLayout.Tab?) {
