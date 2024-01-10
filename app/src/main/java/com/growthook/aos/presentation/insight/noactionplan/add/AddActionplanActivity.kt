@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import com.growthook.aos.databinding.ActivityAddActionplanBinding
+import com.growthook.aos.presentation.insight.actionplan.ActionplanInsightActivity
 import com.growthook.aos.util.base.BaseActivity
 import timber.log.Timber
 
@@ -23,7 +24,13 @@ class AddActionplanActivity :
         initEditTextAdapter()
         observeActionplanList()
         observeButtonEnabled()
+        clickListeners()
+    }
+
+    private fun clickListeners() {
+        clickBackBtn()
         clickPlusBtn()
+        clickCompleteBtn()
     }
 
     private fun foldInsightContent() {
@@ -46,18 +53,12 @@ class AddActionplanActivity :
         binding.rcvAddActionplanEdittext.adapter = _addActionplanAdapter
     }
 
-    private fun clickPlusBtn() {
-        binding.ivAddActionplanPlus.setOnClickListener {
-            _addActionplanAdapter?.addItem("")
-        }
-    }
-
     private fun observeActionplanList() {
         viewModel.actionplanList.observe(this) { actionplans ->
             Timber.e("actionplanList size:: ${actionplans.size}")
             Timber.e("actionplanList content:: $actionplans")
-            val isActionplanEmpty = actionplans.any { it.isBlank() }
-            viewModel.isButtonEnabled.value = !isActionplanEmpty && actionplans.size >= 1
+            val isActionplanEmpty = actionplans.all { it.isBlank() }
+            viewModel.isButtonEnabled.value = !isActionplanEmpty
         }
     }
 
@@ -65,9 +66,29 @@ class AddActionplanActivity :
         viewModel.isButtonEnabled.observe(this) { isEnabled ->
             if (isEnabled) {
                 binding.tvAddActionplanComplete.setTextColor(Color.parseColor("#23B877"))
+                binding.tvAddActionplanComplete.isClickable = true
             } else {
                 binding.tvAddActionplanComplete.setTextColor(Color.parseColor("#6B6E82"))
+                binding.tvAddActionplanComplete.isClickable = false
             }
+        }
+    }
+
+    private fun clickBackBtn() {
+        binding.ivAddActionplanBack.setOnClickListener {
+            finish()
+        }
+    }
+
+    private fun clickPlusBtn() {
+        binding.ivAddActionplanPlus.setOnClickListener {
+            _addActionplanAdapter?.addItem("")
+        }
+    }
+
+    private fun clickCompleteBtn() {
+        binding.tvAddActionplanComplete.setOnClickListener {
+            startActivity(ActionplanInsightActivity.getIntent(this, DUMMY_SEED))
         }
     }
 
@@ -78,6 +99,7 @@ class AddActionplanActivity :
 
     companion object {
         private const val SEED_ID = "seedId"
+        private const val DUMMY_SEED = 47
 
         fun getIntent(context: Context, seedId: Int): Intent {
             return Intent(context, AddActionplanActivity::class.java).apply {
