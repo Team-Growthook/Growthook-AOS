@@ -1,5 +1,6 @@
 package com.growthook.aos.presentation.cavedetail
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -215,5 +216,15 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
     override fun onDestroy() {
         _insightAdapter = null
         super.onDestroy()
+    }
+
+    companion object {
+        private const val CAVE_ID = "caveId"
+
+        fun getIntent(context: Context, caveId: Int): Intent {
+            return Intent(context, NoActionplanInsightActivity::class.java).apply {
+                putExtra(CAVE_ID, caveId)
+            }
+        }
     }
 }

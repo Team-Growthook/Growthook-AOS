@@ -65,12 +65,13 @@ class NoActionplanInsightActivity :
 
     private fun clickAddAction() {
         binding.btnNoactionInsight.setOnClickListener {
-            startActivity(AddActionplanActivity.getIntent(this, 47))
+            startActivity(AddActionplanActivity.getIntent(this, DUMMY_SEED))
         }
     }
 
     companion object {
         private const val SEED_ID = "seedId"
+        private const val DUMMY_SEED = 47
 
         fun getIntent(context: Context, seedId: Int): Intent {
             return Intent(context, NoActionplanInsightActivity::class.java).apply {

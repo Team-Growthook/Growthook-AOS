@@ -31,7 +31,7 @@ class CaveSelectBottomSheetViewModel @Inject constructor(
 
     fun getCaves() {
         viewModelScope.launch {
-            getCavesUseCase(3).onSuccess { caves ->
+            getCavesUseCase(DUMMY_MEMBER_ID).onSuccess { caves ->
                 _caves.value = caves
             }
         }
@@ -46,5 +46,9 @@ class CaveSelectBottomSheetViewModel @Inject constructor(
                 Timber.d("씨앗 옮기기 ${it.message}")
             }
         }
+    }
+
+    companion object {
+        const val DUMMY_MEMBER_ID = 3
     }
 }

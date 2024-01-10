@@ -38,7 +38,7 @@ class NoActionplanInsightViewModel @Inject constructor(
     val event: LiveData<ActionplanInsightViewModel.Event> = _event
 
     init {
-        getSeedDetail(47)
+        getSeedDetail(DUMMY_SEED)
         // TODO seedId 변경하기
     }
 
@@ -64,7 +64,7 @@ class NoActionplanInsightViewModel @Inject constructor(
             임시로 memberId 3으로 넣음 (확인용)
              */
             Log.d("user", "memberID:: ${getUserUseCase.invoke().memberId}")
-            getCavesUseCase(3).onSuccess { caves ->
+            getCavesUseCase(DUMMY_MEMBER_ID).onSuccess { caves ->
                 _caves.value = caves
             }
         }
@@ -78,5 +78,10 @@ class NoActionplanInsightViewModel @Inject constructor(
                 _isDelete.value = false
             }
         }
+    }
+
+    companion object {
+        private const val DUMMY_SEED = 47
+        private const val DUMMY_MEMBER_ID = 3
     }
 }

@@ -74,7 +74,7 @@ class InsightMenuBottomsheet :
                 isTipVisility = false,
                 negativeAction = {
                     // TODO 전달 받은 seedId 변경
-                    viewModel.deleteSeed(47)
+                    viewModel.deleteSeed(DUMMY_SEED)
                     viewModel.isDelete.observe(viewLifecycleOwner) { isDelete ->
                         if (isDelete) {
                             Toast.makeText(context, "씨앗이 삭제되었어요", Toast.LENGTH_SHORT).show()
@@ -87,5 +87,6 @@ class InsightMenuBottomsheet :
 
     companion object {
         const val DELETE_DIALOG = "delete dialog"
+        private const val DUMMY_SEED = 47
     }
 }
