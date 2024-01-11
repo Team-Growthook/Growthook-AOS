@@ -12,6 +12,7 @@ import com.growthook.aos.util.extension.ItemDiffCallback
 class ActionplanAdapter(
     private val clickModify: () -> Unit,
     private val clickDelete: (position: Int) -> Unit,
+    private val clickComplete: () -> Unit,
 ) :
     ListAdapter<Actionplan, ActionplanAdapter.ActionplanViewHolder>(
         ItemDiffCallback<Actionplan>(
@@ -24,6 +25,7 @@ class ActionplanAdapter(
         private val binding: ItemActionplanBinding,
         private val clickModify: () -> Unit,
         private val clickDelete: (position: Int) -> Unit,
+        private val clickComplete: () -> Unit,
     ) :
         RecyclerView.ViewHolder(binding.root) {
         private var isItemSelected = false
@@ -45,6 +47,9 @@ class ActionplanAdapter(
                     clActionplanMenu.visibility = View.INVISIBLE
                     clickDelete(absoluteAdapterPosition)
                 }
+                tvActionplanCompleteBtn.setOnClickListener {
+                    clickComplete()
+                }
             }
         }
     }
@@ -55,7 +60,7 @@ class ActionplanAdapter(
     ): ActionplanViewHolder {
         val binding =
             ItemActionplanBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ActionplanViewHolder(binding, clickModify, clickDelete)
+        return ActionplanViewHolder(binding, clickModify, clickDelete, clickComplete)
     }
 
     override fun onBindViewHolder(holder: ActionplanViewHolder, position: Int) {

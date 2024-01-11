@@ -19,8 +19,8 @@ import com.growthook.aos.domain.entity.Insight
 import com.growthook.aos.presentation.MainActivity
 import com.growthook.aos.presentation.cavecreate.CreateNewCaveActivity
 import com.growthook.aos.presentation.cavedetail.CaveDetailActivity
+import com.growthook.aos.presentation.insight.actionplan.ActionplanInsightActivity
 import com.growthook.aos.presentation.insight.noactionplan.InsightMenuBottomsheet
-import com.growthook.aos.presentation.insight.noactionplan.NoActionplanInsightActivity
 import com.growthook.aos.presentation.insight.write.InsightWriteActivity
 import com.growthook.aos.util.EmptyDataObserver
 import com.growthook.aos.util.base.BaseAlertDialog
@@ -156,15 +156,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     positiveAction = {
                         Toast.makeText(context, "잠금이 영구적으로 해제되었어요!", Toast.LENGTH_SHORT).show()
                         startActivity(
-                            NoActionplanInsightActivity.getIntent(
+                            ActionplanInsightActivity.getIntent(
                                 requireContext(),
-                                item.insightId,
+                                DUMMY_SEED,
                             ),
                         )
                     },
                 ).show(parentFragmentManager, InsightMenuBottomsheet.DELETE_DIALOG)
         } else if (!item.isAction) {
-            startActivity(NoActionplanInsightActivity.getIntent(requireContext(), item.insightId))
+            startActivity(ActionplanInsightActivity.getIntent(requireContext(), DUMMY_SEED))
         }
     }
 
@@ -258,5 +258,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         _caveAdapter = null
         _insightAdapter = null
         super.onDestroyView()
+    }
+
+    companion object {
+        private const val DUMMY_SEED = 47
     }
 }
