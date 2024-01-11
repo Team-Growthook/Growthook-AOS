@@ -3,6 +3,7 @@ package com.growthook.aos.data.datasource.remote.impl
 import com.growthook.aos.data.datasource.remote.SeedDataSource
 import com.growthook.aos.data.model.request.RequestSeedMoveDto
 import com.growthook.aos.data.model.request.RequestSeedPostDto
+import com.growthook.aos.data.model.response.ResponseAlarmDto
 import com.growthook.aos.data.model.response.ResponseDto
 import com.growthook.aos.data.model.response.ResponseGetCaveSeedsDto
 import com.growthook.aos.data.model.response.ResponseMoveSeedDto
@@ -20,4 +21,7 @@ class SeedDataSourceImpl @Inject constructor(private val apiService: SeedService
 
     override suspend fun getCaveSeeds(caveId: Int): ResponseGetCaveSeedsDto =
         apiService.getCaveSeeds(caveId)
+
+    override suspend fun getSeedAlarm(memberId: Int): ResponseAlarmDto =
+        apiService.getSeedAlarm(memberId)
 }

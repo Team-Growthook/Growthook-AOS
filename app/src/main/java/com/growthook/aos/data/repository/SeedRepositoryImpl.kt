@@ -31,4 +31,8 @@ class SeedRepositoryImpl @Inject constructor(private val seedDataSource: SeedDat
     override suspend fun getCaveSeeds(caveId: Int): Result<List<Insight>> = runCatching {
         seedDataSource.getCaveSeeds(caveId).toInsight()
     }
+
+    override suspend fun getSeedAlarm(memberId: Int): Result<Int> = runCatching {
+        seedDataSource.getSeedAlarm(memberId).data.seedCount
+    }
 }

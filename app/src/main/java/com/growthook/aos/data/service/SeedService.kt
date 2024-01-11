@@ -2,6 +2,7 @@ package com.growthook.aos.data.service
 
 import com.growthook.aos.data.model.request.RequestSeedMoveDto
 import com.growthook.aos.data.model.request.RequestSeedPostDto
+import com.growthook.aos.data.model.response.ResponseAlarmDto
 import com.growthook.aos.data.model.response.ResponseDto
 import com.growthook.aos.data.model.response.ResponseGetCaveSeedsDto
 import com.growthook.aos.data.model.response.ResponseMoveSeedDto
@@ -28,11 +29,16 @@ interface SeedService {
     @POST("api/v1/cave/{caveId}/seed")
     suspend fun postSeed(
         @Path("caveId") caveId: Int,
-        @Body request: RequestSeedPostDto
+        @Body request: RequestSeedPostDto,
     ): ResponsePostSeedDto
 
     @GET("api/v1/cave/{caveId}/seed/list")
     suspend fun getCaveSeeds(
         @Path("caveId") caveId: Int,
     ): ResponseGetCaveSeedsDto
+
+    @GET("api/v1/member/{memberId}/alarm")
+    suspend fun getSeedAlarm(
+        @Path("memberId") memberInt: Int,
+    ): ResponseAlarmDto
 }
