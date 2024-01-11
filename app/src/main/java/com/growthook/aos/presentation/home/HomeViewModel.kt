@@ -8,6 +8,7 @@ import com.growthook.aos.domain.entity.Cave
 import com.growthook.aos.domain.entity.Insight
 import com.growthook.aos.domain.usecase.DeleteSeedUseCase
 import com.growthook.aos.domain.usecase.GetCavesUseCase
+import com.growthook.aos.domain.usecase.home.GetSeedAlarmUseCase
 import com.growthook.aos.domain.usecase.local.GetUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -19,6 +20,7 @@ class HomeViewModel @Inject constructor(
     private val getUserUseCase: GetUserUseCase,
     private val deleteSeedUseCase: DeleteSeedUseCase,
     private val getCavesUseCase: GetCavesUseCase,
+    private val getSeedAlarmUseCase: GetSeedAlarmUseCase,
 ) : ViewModel() {
 
     private val _nickName = MutableLiveData<String>()
@@ -36,6 +38,8 @@ class HomeViewModel @Inject constructor(
     private val _isDelete = MutableLiveData<Boolean>()
     val isDelete: LiveData<Boolean> = _isDelete
 
+    private val memberId = MutableLiveData<Int>(0)
+
     val isMenuDismissed = MutableLiveData<Boolean>()
 
     val longClickInsight = MutableLiveData<Insight>()
@@ -47,15 +51,21 @@ class HomeViewModel @Inject constructor(
             getInsights()
             setNickName()
             getCaves()
+            memberId.value = getUserUseCase.invoke().memberId ?: 0
         }
     }
 
     private fun getAlertCount() {
-        _alertAmount.value = 0
+        viewModelScope.launch {
+            getSeedAlarmUseCase.invoke(memberId.value ?: 0).onSuccess { seedCount ->
+                _alertAmount.value = seedCount
+            }.onFailure {
+                Timber.e(it.message)
+            }
+        }
     }
 
     fun getInsights() {
-
         // _insights.value = dummyInsights
     }
 
