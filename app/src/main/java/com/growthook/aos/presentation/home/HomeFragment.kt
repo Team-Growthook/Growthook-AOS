@@ -68,6 +68,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         clickAddSeedBtn()
     }
 
+    override fun onResume() {
+        super.onResume()
+        getCaves()
+    }
+
     private fun clickAddCave() {
         binding.ivHomeAddCave.setOnClickListener {
             val intent = Intent(requireActivity(), CreateNewCaveActivity::class.java)

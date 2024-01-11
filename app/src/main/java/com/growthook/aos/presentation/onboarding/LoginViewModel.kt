@@ -39,7 +39,7 @@ class LoginViewModel @Inject constructor(
     val kakaoUserCallback: (User?, Throwable?) -> Unit = { user, error ->
         KakaoUserCallback { userName ->
             viewModelScope.launch {
-                postUserUseCase.invoke(userName, 1, true)
+                postUserUseCase.invoke(userName, 3, true)
                 Timber.d("유저 닉네임: ${getUserUseCase.invoke().name}")
             }
         }.handleResult(user, error)

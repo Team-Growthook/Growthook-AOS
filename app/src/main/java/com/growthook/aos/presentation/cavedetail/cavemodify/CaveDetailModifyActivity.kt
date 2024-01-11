@@ -22,12 +22,13 @@ class CaveDetailModifyActivity :
         super.onCreate(savedInstanceState)
 
         val caveModifyIntent = intent.getParcelable("caveModify", CaveModifyIntent::class.java)
+        viewModel.setCaveId(caveModifyIntent?.let { it.caveId } ?: 0)
 
         setText(caveModifyIntent)
         observeIsModified()
         canClickFinishBtn()
         clickBackNavi()
-        clickFinishBtn(caveModifyIntent)
+        clickFinishBtn()
     }
 
     private fun setText(caveModifyIntent: CaveModifyIntent?) {
@@ -58,16 +59,17 @@ class CaveDetailModifyActivity :
         }
     }
 
-    private fun clickFinishBtn(caveModifyIntent: CaveModifyIntent?) {
-        binding.btnCaveModify.setOnClickListener {
-            caveModifyIntent?.let {
-                viewModel.modifyCave(it.caveId, it.name, it.introduction)
-                viewModel.isModifySuccess.observe(this) {
-                    val intent = Intent(this, CaveDetailActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                }
+    private fun clickFinishBtn() {
+        with(binding) {
+            btnCaveModify.setOnClickListener {
+                viewModel.modifyCave(
+                    edtCaveModifyName.text.toString(),
+                    edtCaveModifyDesc.text.toString(),
+                )
             }
+        }
+        viewModel.isModifySuccess.observe(this) {
+            finish()
         }
     }
 
