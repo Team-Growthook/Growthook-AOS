@@ -5,18 +5,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.growthook.aos.R
 import com.growthook.aos.databinding.FragmentProceedingActionlistBinding
-import com.growthook.aos.presentation.actionlist.completed.CompletedActionlistFragment
+import com.growthook.aos.presentation.actionlist.ActionlistFragment
 import com.growthook.aos.presentation.insight.actionplan.ActionplanInsightActivity
 import com.growthook.aos.util.base.BaseAlertDialog
 import com.growthook.aos.util.base.BaseFragment
 import com.growthook.aos.util.base.BaseWritingBottomSheet
 
-class ProceedingActionlistFragment : BaseFragment<FragmentProceedingActionlistBinding>() {
+class ProceedingActionlistFragment(private val parentFragment: ActionlistFragment) :
+    BaseFragment<FragmentProceedingActionlistBinding>() {
     private var _proceedingActionlistAdapter: ProceedingActionlistAdapter? = null
     private val proceedingActionlistAdapter
         get() = requireNotNull(_proceedingActionlistAdapter) { "proceedingActionlistAdapter is null" }
@@ -68,13 +67,7 @@ class ProceedingActionlistFragment : BaseFragment<FragmentProceedingActionlistBi
                         tipText = "",
                         negativeAction = {},
                         positiveAction = {
-                            val transaction = parentFragmentManager.beginTransaction()
-                            val completedFragment = CompletedActionlistFragment()
-                            transaction.show(completedFragment)
-                            parentFragmentManager.commit {
-                                val tag = CompletedActionlistFragment::class.java.simpleName
-                                replace(R.id.fcv_actionlist_main, completedFragment, tag)
-                            }
+                            parentFragment.moveToCompletedActionTab()
                         },
                     ).show(parentFragmentManager, "get thook dialog")
             },

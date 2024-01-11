@@ -39,48 +39,32 @@ class ActionlistFragment : BaseFragment<FragmentActionlistBinding>() {
 
     private fun initItem() {
         parentFragmentManager.commit {
-            replace(R.id.fcv_actionlist_main, ProceedingActionlistFragment())
+            replace(R.id.fcv_actionlist_main, ProceedingActionlistFragment(this@ActionlistFragment))
         }
+    }
+
+    fun moveToCompletedActionTab() {
+        val tab: TabLayout.Tab? = binding.tlActionlistMain.getTabAt(1)
+        tab?.select()
     }
 
     private fun clickTabItem() {
         binding.tlActionlistMain.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 val fragment: Fragment = when (tab.position) {
-                    0 -> {
-                        val tag = ProceedingActionlistFragment::class.java.simpleName
-                        parentFragmentManager.findFragmentByTag(tag)
-                            ?: ProceedingActionlistFragment()
-                    }
-
-                    1 -> {
-                        val tag = CompletedActionlistFragment::class.java.simpleName
-                        parentFragmentManager.findFragmentByTag(tag)
-                            ?: CompletedActionlistFragment()
-                    }
-
-                    else -> ProceedingActionlistFragment()
+                    0 -> ProceedingActionlistFragment(this@ActionlistFragment)
+                    1 -> CompletedActionlistFragment()
+                    else -> ProceedingActionlistFragment(this@ActionlistFragment)
                 }
-                Log.d("action", "fragment:: $fragment")
                 parentFragmentManager.commit {
                     replace(R.id.fcv_actionlist_main, fragment)
                 }
+                Log.d("actionlist", "tab.position:: ${tab.position}")
             }
 
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-                tab?.let {
-                    val fragment = when (it.position) {
-                        0 -> parentFragmentManager.findFragmentByTag(ProceedingActionlistFragment::class.java.simpleName)
-                        1 -> parentFragmentManager.findFragmentByTag(CompletedActionlistFragment::class.java.simpleName)
-                        else -> null
-                    }
-                    fragment?.let { parentFragmentManager.beginTransaction().hide(it).commit() }
-                }
-            }
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
 
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-                // not use
-            }
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
     }
 }
