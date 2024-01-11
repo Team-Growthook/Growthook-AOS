@@ -2,17 +2,50 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/White000">
+    android:layout_height="match_parent">
+
+
+    <TextView
+        style="@style/body1_reg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:text="얻은 깨달음이 오래 방치되어 썩지 않도록\n도전할 일을 기록하고 수정해요."
+        app:layout_constraintBottom_toTopOf="@id/tv_login_title"
+        app:layout_constraintStart_toStartOf="@id/tv_login_title" />
+
+
+    <TextView
+        android:id="@+id/tv_login_title"
+        style="@style/head4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="133dp"
+        android:text="인사이트를 영구히 내 것으로 만드는 순간,\n가파르게 성장할 거예요."
+        app:layout_constraintBottom_toTopOf="@id/iv_login_growthoook"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/iv_login_growthoook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_growthook_login"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.635" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_login_kakao"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/img_onboarding_login"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/img_onboarding_kakao_login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

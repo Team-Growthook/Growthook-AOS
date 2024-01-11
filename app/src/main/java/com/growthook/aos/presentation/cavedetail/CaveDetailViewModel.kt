@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.growthook.aos.domain.entity.CaveDetail
 import com.growthook.aos.domain.entity.Insight
+import com.growthook.aos.domain.usecase.DeleteSeedUseCase
 import com.growthook.aos.domain.usecase.cavedetail.DeleteCaveUseCase
 import com.growthook.aos.domain.usecase.cavedetail.GetCaveDetailUseCase
 import com.growthook.aos.domain.usecase.local.GetUserUseCase
@@ -19,6 +20,7 @@ import javax.inject.Inject
 class CaveDetailViewModel @Inject constructor(
     private val getUserUseCase: GetUserUseCase,
     private val deleteCaveUseCase: DeleteCaveUseCase,
+    private val deleteSeedUseCase: DeleteSeedUseCase,
     private val getCaveDetailUseCase: GetCaveDetailUseCase,
 ) : ViewModel() {
     private val _insights = MutableLiveData<List<Insight>>()
@@ -29,8 +31,11 @@ class CaveDetailViewModel @Inject constructor(
     private val _nickName = MutableLiveData<String>()
     val nickname: LiveData<String> = _nickName
 
-    private val _isDelete = MutableLiveData<Boolean>()
-    val isDelete: LiveData<Boolean> = _isDelete
+    private val _isSeedDelete = MutableLiveData<Boolean>()
+    val isSeedDelete: LiveData<Boolean> = _isSeedDelete
+
+    private val _isCaveDelete = MutableLiveData<Boolean>()
+    val isCaveDelete: LiveData<Boolean> = _isCaveDelete
 
     private val _caveDetail = MutableLiveData<CaveDetail>()
     val caveDetail: LiveData<CaveDetail> = _caveDetail
@@ -149,9 +154,9 @@ class CaveDetailViewModel @Inject constructor(
     fun deleteCave(caveId: Int) {
         viewModelScope.launch {
             deleteCaveUseCase.invoke(caveId).onSuccess {
-                _isDelete.value = true
+                _isCaveDelete.value = true
             }.onFailure {
-                _isDelete.value = false
+                _isCaveDelete.value = false
             }
         }
     }
@@ -162,6 +167,16 @@ class CaveDetailViewModel @Inject constructor(
                 _caveDetail.value = it
             }.onFailure {
                 Timber.e(it.message)
+            }
+        }
+    }
+
+    fun deleteSeed(caveId: Int) {
+        viewModelScope.launch {
+            deleteSeedUseCase.invoke(caveId).onSuccess {
+                _isSeedDelete.value = true
+            }.onFailure {
+                _isSeedDelete.value = false
             }
         }
     }

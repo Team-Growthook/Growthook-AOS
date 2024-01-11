@@ -6,6 +6,7 @@
         <item name="colorPrimaryDark">@color/Gray900</item>
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <item name="android:windowBackground">@color/Gray700</item>
+        <item name="android:windowIsTranslucent">true</item>
         <item name="extendedFloatingActionButtonStyle">@style/InsightPlusFloatingActionButtonStyle</item>
     </style>
 

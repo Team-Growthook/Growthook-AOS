@@ -61,8 +61,12 @@ class CaveDetailSelectMenuBottomSheet() :
                     isRemainThookVisility = false,
                     isTipVisility = false,
                     negativeAction = {
-                        Toast.makeText(requireContext(), "씨앗이 삭제되었어요", Toast.LENGTH_SHORT)
-                            .show()
+                        viewModel.deleteSeed(viewModel.longClickInsight.value?.insightId ?: 0)
+                        viewModel.isSeedDelete.observe(viewLifecycleOwner) { isDelete ->
+                            if (isDelete) {
+                                Toast.makeText(context, "씨앗이 삭제되었어요", Toast.LENGTH_SHORT).show()
+                            }
+                        }
                     },
                     positiveAction = {},
                 ).show(parentFragmentManager, InsightMenuBottomsheet.DELETE_DIALOG)

@@ -71,7 +71,6 @@ class InsightWriteActivity : BaseActivity<ActivityInsightWriteBinding>({
             binding.layoutInsightWriteCave.requestFocusFromTouch()
             CaveSelect.Builder().build(
                 CaveSelect.CaveSelectType.NO_API,
-                viewModel.selectedCaveId.value ?: 50,
                 clickBtnAction = {
                     viewModel.selectedCaveId.value = it.id
                     setSelectedCaveEditText(it.name)
