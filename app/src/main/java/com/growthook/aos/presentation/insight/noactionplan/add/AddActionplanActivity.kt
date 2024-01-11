@@ -5,12 +5,16 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import com.growthook.aos.databinding.ActivityAddActionplanBinding
 import com.growthook.aos.presentation.insight.actionplan.ActionplanInsightActivity
+import com.growthook.aos.presentation.insight.noactionplan.add.AddActionplanViewModel.Event
 import com.growthook.aos.util.base.BaseActivity
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
+@AndroidEntryPoint
 class AddActionplanActivity :
     BaseActivity<ActivityAddActionplanBinding>({ ActivityAddActionplanBinding.inflate(it) }) {
     private var _addActionplanAdapter: AddActionplanAdapter? = null
@@ -22,9 +26,14 @@ class AddActionplanActivity :
         super.onCreate(savedInstanceState)
         foldInsightContent()
         initEditTextAdapter()
+        subscribe()
+        clickListeners()
+    }
+
+    private fun subscribe() {
         observeActionplanList()
         observeButtonEnabled()
-        clickListeners()
+        observePostEvent()
     }
 
     private fun clickListeners() {
@@ -88,7 +97,23 @@ class AddActionplanActivity :
 
     private fun clickCompleteBtn() {
         binding.tvAddActionplanComplete.setOnClickListener {
-            startActivity(ActionplanInsightActivity.getIntent(this, DUMMY_SEED))
+            viewModel.actionplanList.value?.let { actionplans ->
+                viewModel.postActionplans(DUMMY_SEED, actionplans)
+            }
+        }
+    }
+
+    private fun observePostEvent() {
+        viewModel.event.observe(this) { event ->
+            when (event) {
+                is Event.PostSuccess -> {
+                    startActivity(ActionplanInsightActivity.getIntent(this, DUMMY_SEED))
+                }
+
+                is Event.PostFailed -> {
+                    Toast.makeText(this, "업로드에 실패했습니다", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 
