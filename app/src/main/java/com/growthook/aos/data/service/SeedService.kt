@@ -5,6 +5,7 @@ import com.growthook.aos.data.model.request.RequestSeedPostDto
 import com.growthook.aos.data.model.response.ResponseAlarmDto
 import com.growthook.aos.data.model.response.ResponseDto
 import com.growthook.aos.data.model.response.ResponseGetCaveSeedsDto
+import com.growthook.aos.data.model.response.ResponseGetSeedDto
 import com.growthook.aos.data.model.response.ResponseMoveSeedDto
 import com.growthook.aos.data.model.response.ResponsePostSeedDto
 import retrofit2.http.Body
@@ -14,6 +15,11 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface SeedService {
+
+    @GET("api/v1/seed/{seedId}/detail")
+    suspend fun getSeed(
+        @Path("seedId") seedId: Int,
+    ): ResponseGetSeedDto
 
     @DELETE("api/v1/seed/{seedId}")
     suspend fun deleteSeed(

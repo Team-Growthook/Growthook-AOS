@@ -6,13 +6,17 @@ import com.growthook.aos.data.model.request.RequestSeedPostDto
 import com.growthook.aos.data.model.response.ResponseAlarmDto
 import com.growthook.aos.data.model.response.ResponseDto
 import com.growthook.aos.data.model.response.ResponseGetCaveSeedsDto
+import com.growthook.aos.data.model.response.ResponseGetSeedDto
 import com.growthook.aos.data.model.response.ResponseMoveSeedDto
 import com.growthook.aos.data.model.response.ResponsePostSeedDto
 import com.growthook.aos.data.service.SeedService
 import javax.inject.Inject
 
 class SeedDataSourceImpl @Inject constructor(private val apiService: SeedService) : SeedDataSource {
+    override suspend fun getSeed(seedId: Int): ResponseGetSeedDto = apiService.getSeed(seedId)
+
     override suspend fun deleteSeed(seedId: Int): ResponseDto = apiService.deleteSeed(seedId)
+
     override suspend fun moveSeed(seedId: Int, request: RequestSeedMoveDto): ResponseMoveSeedDto =
         apiService.moveSeed(seedId, request)
 

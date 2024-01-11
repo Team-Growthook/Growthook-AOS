@@ -85,7 +85,7 @@ class CaveDetailViewModel @Inject constructor(
 
     fun getCaveDetail(caveId: Int) {
         viewModelScope.launch {
-            getCaveDetailUseCase(getUserUseCase.invoke()?.memberId ?: 0, caveId).onSuccess {
+            getCaveDetailUseCase(getUserUseCase.invoke()?.memberId ?: 3, caveId).onSuccess {
                 _caveDetail.value = it
             }.onFailure {
                 Timber.e(it.message)

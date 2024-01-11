@@ -1,13 +1,20 @@
 package com.growthook.aos.presentation.insight.noactionplan.add
 
+import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import com.growthook.aos.databinding.ActivityAddActionplanBinding
+import com.growthook.aos.presentation.insight.actionplan.ActionplanInsightActivity
+import com.growthook.aos.presentation.insight.noactionplan.add.AddActionplanViewModel.Event
 import com.growthook.aos.util.base.BaseActivity
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
+@AndroidEntryPoint
 class AddActionplanActivity :
     BaseActivity<ActivityAddActionplanBinding>({ ActivityAddActionplanBinding.inflate(it) }) {
     private var _addActionplanAdapter: AddActionplanAdapter? = null
@@ -19,9 +26,20 @@ class AddActionplanActivity :
         super.onCreate(savedInstanceState)
         foldInsightContent()
         initEditTextAdapter()
+        subscribe()
+        clickListeners()
+    }
+
+    private fun subscribe() {
         observeActionplanList()
         observeButtonEnabled()
+        observePostEvent()
+    }
+
+    private fun clickListeners() {
+        clickBackBtn()
         clickPlusBtn()
+        clickCompleteBtn()
     }
 
     private fun foldInsightContent() {
@@ -44,18 +62,12 @@ class AddActionplanActivity :
         binding.rcvAddActionplanEdittext.adapter = _addActionplanAdapter
     }
 
-    private fun clickPlusBtn() {
-        binding.ivAddActionplanPlus.setOnClickListener {
-            _addActionplanAdapter?.addItem("")
-        }
-    }
-
     private fun observeActionplanList() {
         viewModel.actionplanList.observe(this) { actionplans ->
             Timber.e("actionplanList size:: ${actionplans.size}")
             Timber.e("actionplanList content:: $actionplans")
-            val isActionplanEmpty = actionplans.any { it.isBlank() }
-            viewModel.isButtonEnabled.value = !isActionplanEmpty && actionplans.size >= 1
+            val isActionplanEmpty = actionplans.all { it.isBlank() }
+            viewModel.isButtonEnabled.value = !isActionplanEmpty
         }
     }
 
@@ -63,8 +75,44 @@ class AddActionplanActivity :
         viewModel.isButtonEnabled.observe(this) { isEnabled ->
             if (isEnabled) {
                 binding.tvAddActionplanComplete.setTextColor(Color.parseColor("#23B877"))
+                binding.tvAddActionplanComplete.isClickable = true
             } else {
                 binding.tvAddActionplanComplete.setTextColor(Color.parseColor("#6B6E82"))
+                binding.tvAddActionplanComplete.isClickable = false
+            }
+        }
+    }
+
+    private fun clickBackBtn() {
+        binding.ivAddActionplanBack.setOnClickListener {
+            finish()
+        }
+    }
+
+    private fun clickPlusBtn() {
+        binding.ivAddActionplanPlus.setOnClickListener {
+            _addActionplanAdapter?.addItem("")
+        }
+    }
+
+    private fun clickCompleteBtn() {
+        binding.tvAddActionplanComplete.setOnClickListener {
+            viewModel.actionplanList.value?.let { actionplans ->
+                viewModel.postActionplans(DUMMY_SEED, actionplans)
+            }
+        }
+    }
+
+    private fun observePostEvent() {
+        viewModel.event.observe(this) { event ->
+            when (event) {
+                is Event.PostSuccess -> {
+                    startActivity(ActionplanInsightActivity.getIntent(this, DUMMY_SEED))
+                }
+
+                is Event.PostFailed -> {
+                    Toast.makeText(this, "업로드에 실패했습니다", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
@@ -72,5 +120,16 @@ class AddActionplanActivity :
     override fun onDestroy() {
         _addActionplanAdapter = null
         super.onDestroy()
+    }
+
+    companion object {
+        private const val SEED_ID = "seedId"
+        private const val DUMMY_SEED = 47
+
+        fun getIntent(context: Context, seedId: Int): Intent {
+            return Intent(context, AddActionplanActivity::class.java).apply {
+                putExtra(SEED_ID, seedId)
+            }
+        }
     }
 }

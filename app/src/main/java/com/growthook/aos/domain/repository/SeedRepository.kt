@@ -1,8 +1,10 @@
 package com.growthook.aos.domain.repository
 
 import com.growthook.aos.domain.entity.Insight
+import com.growthook.aos.domain.entity.Seed
 
 interface SeedRepository {
+    suspend fun getSeed(seedId: Int): Result<Seed>
 
     suspend fun deleteSeed(seedId: Int): Result<Unit>
 
