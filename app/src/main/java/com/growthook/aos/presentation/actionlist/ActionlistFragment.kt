@@ -1,6 +1,7 @@
 package com.growthook.aos.presentation.actionlist
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,30 +39,32 @@ class ActionlistFragment : BaseFragment<FragmentActionlistBinding>() {
 
     private fun initItem() {
         parentFragmentManager.commit {
-            replace(R.id.fcv_actionlist_main, ProceedingActionlistFragment())
+            replace(R.id.fcv_actionlist_main, ProceedingActionlistFragment(this@ActionlistFragment))
         }
+    }
+
+    fun moveToCompletedActionTab() {
+        val tab: TabLayout.Tab? = binding.tlActionlistMain.getTabAt(1)
+        tab?.select()
     }
 
     private fun clickTabItem() {
         binding.tlActionlistMain.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 val fragment: Fragment = when (tab.position) {
-                    0 -> ProceedingActionlistFragment()
+                    0 -> ProceedingActionlistFragment(this@ActionlistFragment)
                     1 -> CompletedActionlistFragment()
-                    else -> ProceedingActionlistFragment()
+                    else -> ProceedingActionlistFragment(this@ActionlistFragment)
                 }
                 parentFragmentManager.commit {
                     replace(R.id.fcv_actionlist_main, fragment)
                 }
+                Log.d("actionlist", "tab.position:: ${tab.position}")
             }
 
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-                // not use
-            }
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
 
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-                // not use
-            }
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
     }
 }

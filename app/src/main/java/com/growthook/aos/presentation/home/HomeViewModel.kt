@@ -1,5 +1,6 @@
 package com.growthook.aos.presentation.home
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -149,7 +150,8 @@ class HomeViewModel @Inject constructor(
 
     fun getCaves() {
         viewModelScope.launch {
-            getCavesUseCase(getUserUseCase.invoke().memberId ?: 0).onSuccess { caves ->
+            Log.d("user", "memberID:: ${getUserUseCase.invoke().memberId}")
+            getCavesUseCase(DUMMY_MEMBER_ID).onSuccess { caves ->
                 _caves.value = caves
             }
         }
@@ -173,5 +175,9 @@ class HomeViewModel @Inject constructor(
                 _isDelete.value = false
             }
         }
+    }
+
+    companion object {
+        const val DUMMY_MEMBER_ID = 3
     }
 }

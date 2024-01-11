@@ -1,5 +1,6 @@
 package com.growthook.aos.di
 
+import com.growthook.aos.data.service.ActionplanService
 import com.growthook.aos.data.service.CaveService
 import com.growthook.aos.data.service.SeedService
 import dagger.Module
@@ -22,4 +23,9 @@ object ApiModule {
     @Singleton
     fun provideSeedService(@GrowthookRetrofit retrofit: Retrofit): SeedService =
         retrofit.create(SeedService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideActionplanService(@GrowthookRetrofit retrofit: Retrofit): ActionplanService =
+        retrofit.create(ActionplanService::class.java)
 }

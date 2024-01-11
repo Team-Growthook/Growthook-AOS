@@ -29,6 +29,7 @@ class InsightCaveBottomsheet :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        getCaves()
         observeCaveData()
         initAdapter()
         clickBottomBtn()
@@ -42,8 +43,12 @@ class InsightCaveBottomsheet :
         }
     }
 
+    private fun getCaves() {
+        viewModel.getCaves()
+    }
+
     private fun observeCaveData() {
-        viewModel.caveList.observe(viewLifecycleOwner) {
+        viewModel.caves.observe(viewLifecycleOwner) {
             _insightCaveAdapter?.submitList(it)
         }
     }
