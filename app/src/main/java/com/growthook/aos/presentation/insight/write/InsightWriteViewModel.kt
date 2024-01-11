@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class InsightWriteViewModel @Inject constructor(
-    private val postSeedUseCase: PostSeedUseCase
+    private val postSeedUseCase: PostSeedUseCase,
 ) : ViewModel() {
 
     private val _insight: MutableLiveData<String> = MutableLiveData()
@@ -68,25 +68,25 @@ class InsightWriteViewModel @Inject constructor(
             insight,
             selectedCaveId,
             source,
-            selectedGoalMonth
+            selectedGoalMonth,
         ) { checkInsightWriteEnabled() }
     }
 
     private fun checkInsightWriteEnabled(): Boolean =
-        !insight.value.isNullOrBlank()
-                && !(selectedCaveId.value == null)
-                && !source.value.isNullOrBlank()
-                && !(selectedGoalMonth.value == null)
+        !insight.value.isNullOrBlank() &&
+            !(selectedCaveId.value == null) &&
+            !source.value.isNullOrBlank() &&
+            !(selectedGoalMonth.value == null)
 
     fun postNewSeed() {
         viewModelScope.launch {
             postSeedUseCase(
-                selectedCaveId.value ?: 44,
+                selectedCaveId.value ?: 50,
                 insight.value.toString(),
                 memo.value.toString(),
                 source.value.toString(),
                 url.value.toString(),
-                selectedGoalMonth.value ?: 1
+                selectedGoalMonth.value ?: 1,
             ).onSuccess {
                 _postSeedSuccess.value = true
             }.onFailure {

@@ -8,10 +8,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.growthook.aos.databinding.FragmentProceedingActionlistBinding
+import com.growthook.aos.presentation.actionlist.ActionlistFragment
 import com.growthook.aos.presentation.insight.actionplan.ActionplanInsightActivity
+import com.growthook.aos.util.base.BaseAlertDialog
 import com.growthook.aos.util.base.BaseFragment
+import com.growthook.aos.util.base.BaseWritingBottomSheet
 
-class ProceedingActionlistFragment : BaseFragment<FragmentProceedingActionlistBinding>() {
+class ProceedingActionlistFragment(private val parentFragment: ActionlistFragment) :
+    BaseFragment<FragmentProceedingActionlistBinding>() {
     private var _proceedingActionlistAdapter: ProceedingActionlistAdapter? = null
     private val proceedingActionlistAdapter
         get() = requireNotNull(_proceedingActionlistAdapter) { "proceedingActionlistAdapter is null" }
@@ -28,11 +32,11 @@ class ProceedingActionlistFragment : BaseFragment<FragmentProceedingActionlistBi
         super.onViewCreated(view, savedInstanceState)
         initActionplanAdapter()
         observeActionplan()
-        clickCompleteBtn()
     }
 
     private fun initActionplanAdapter() {
-        _proceedingActionlistAdapter = ProceedingActionlistAdapter(::selectedActionplanItem)
+        _proceedingActionlistAdapter =
+            ProceedingActionlistAdapter(::selectedActionplanItem, ::clickCompleteBtn)
         binding.rcvProceedingActionlist.adapter = _proceedingActionlistAdapter
         binding.rcvProceedingActionlist.layoutManager = LinearLayoutManager(requireContext())
     }
@@ -44,7 +48,31 @@ class ProceedingActionlistFragment : BaseFragment<FragmentProceedingActionlistBi
     }
 
     private fun clickCompleteBtn() {
-        // 리뷰 작성 바텀시트
+        BaseWritingBottomSheet.Builder().build(
+            type = BaseWritingBottomSheet.WritingType.LARGE,
+            title = "리뷰 작성",
+            clickSaveBtn = {
+                BaseAlertDialog.Builder()
+                    .setCancelable(false)
+                    .build(
+                        type = BaseAlertDialog.DialogType.SINGLE_INTENDED,
+                        title = "성장의 보상으로\n쑥을 얻었어요!",
+                        description = "한 단계 쑥! 성장한 것을 축하해요.\n수확한 쑥을 통해\n씨앗의 잠금을 해제해보세요:)",
+                        isTipVisility = false,
+                        isRemainThookVisility = false,
+                        isBackgroundImageVisility = true,
+                        isDescriptionVisility = true,
+                        positiveText = "확인",
+                        negativeText = "",
+                        tipText = "",
+                        negativeAction = {},
+                        positiveAction = {
+                            parentFragment.moveToCompletedActionTab()
+                        },
+                    ).show(parentFragmentManager, "get thook dialog")
+            },
+            clickNoWritingBtn = {},
+        ).show(parentFragmentManager, "review complete dialog")
     }
 
     private fun selectedActionplanItem(seedId: Int) {
