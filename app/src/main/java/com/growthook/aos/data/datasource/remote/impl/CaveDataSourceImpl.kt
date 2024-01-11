@@ -26,7 +26,4 @@ class CaveDataSourceImpl @Inject constructor(private val apiService: CaveService
 
     override suspend fun postCave(memberId: Int, request: RequestCavePostDto): ResponsePostCaveDto =
         apiService.postCave(memberId, request)
-
-    override suspend fun getCaveSeeds(caveId: Int): ResponseGetCaveSeedsDto =
-        apiService.getCaveSeeds(caveId)
 }

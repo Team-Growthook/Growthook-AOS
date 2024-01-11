@@ -3,6 +3,7 @@ package com.growthook.aos.data.repository
 import com.growthook.aos.data.datasource.remote.SeedDataSource
 import com.growthook.aos.data.model.request.RequestSeedMoveDto
 import com.growthook.aos.data.model.request.RequestSeedPostDto
+import com.growthook.aos.domain.entity.Insight
 import com.growthook.aos.domain.repository.SeedRepository
 import javax.inject.Inject
 
@@ -25,5 +26,9 @@ class SeedRepositoryImpl @Inject constructor(private val seedDataSource: SeedDat
         goalMonth: Int
     ): Result<Unit> = runCatching {
         seedDataSource.postSeed(caveId, RequestSeedPostDto(insight, memo, source, url, goalMonth))
+    }
+
+    override suspend fun getCaveSeeds(caveId: Int): Result<List<Insight>> = runCatching {
+        seedDataSource.getCaveSeeds(caveId).toInsight()
     }
 }

@@ -15,6 +15,4 @@ interface CaveRepository {
     suspend fun modifyCave(caveId: Int, name: String, introduction: String): Result<Unit>
 
     suspend fun postCave(memberId: Int, name: String, introduction: String): Result<Unit>
-
-    suspend fun getCaveSeeds(caveId: Int): Result<List<Insight>>
 }

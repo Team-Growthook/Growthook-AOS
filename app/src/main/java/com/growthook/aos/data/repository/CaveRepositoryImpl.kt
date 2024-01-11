@@ -34,9 +34,6 @@ class CaveRepositoryImpl @Inject constructor(private val caveDataSource: CaveDat
             caveDataSource.postCave(memberId, RequestCavePostDto(name, introduction, FIXED_VALUE))
         }
 
-    override suspend fun getCaveSeeds(caveId: Int): Result<List<Insight>> = runCatching {
-        caveDataSource.getCaveSeeds(caveId).toInsight()
-    }
 
     companion object {
         private const val FIXED_VALUE = true

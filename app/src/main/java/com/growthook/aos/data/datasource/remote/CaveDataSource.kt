@@ -18,6 +18,4 @@ interface CaveDataSource {
     suspend fun modifyCave(caveId: Int, request: RequestCaveModifyDto): ResponseDto
 
     suspend fun postCave(memberId: Int, request: RequestCavePostDto): ResponsePostCaveDto
-
-    suspend fun getCaveSeeds(caveId: Int): ResponseGetCaveSeedsDto
 }
