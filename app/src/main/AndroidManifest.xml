@@ -17,6 +17,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".presentation.actionlist.ReviewDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.insight.actionplan.ActionplanInsightActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
@@ -76,7 +79,6 @@
         <activity
             android:name=".presentation.insight.write.InsightWriteNewActivity"
             android:exported="false" />
-
         <activity
             android:name=".presentation.insight.noactionplan.add.AddActionplanActivity"
             android:exported="false" />
