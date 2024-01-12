@@ -49,7 +49,7 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
         val caveId = intent.getIntExtra("caveId", 0)
         // viewModel.caveId.value = caveId
         viewModel.caveId.value = 54
-        viewModel.getInsights(caveId)
+        viewModel.getInsights()
         setCaveDetail()
         setInsightAdapter()
         setNickName()
@@ -183,10 +183,14 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
         }
     }
 
-    private fun clickedScrap(isScrap: Boolean) {
-        viewModel.changeScrap(isScrap)
-        Timber.d("스크랩 $isScrap")
-        Toast.makeText(this, "스크랩 완료", Toast.LENGTH_SHORT).show()
+    private fun clickedScrap(seedId: Int) {
+        viewModel.changeScrap(seedId)
+        viewModel.isScrapedSuccess.observe(this) { isSuccess ->
+            if (isSuccess) {
+                viewModel.getInsights()
+                Toast.makeText(this, "스크랩 완료", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun setNickName() {
@@ -200,7 +204,7 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
             if (isChecked) {
                 viewModel.getScrapedInsight()
             } else {
-                viewModel.getInsights(caveId)
+                viewModel.getInsights()
             }
         }
     }

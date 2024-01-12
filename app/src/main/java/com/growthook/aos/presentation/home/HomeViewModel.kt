@@ -43,6 +43,9 @@ class HomeViewModel @Inject constructor(
     private val _isDelete = MutableLiveData<Boolean>()
     val isDelete: LiveData<Boolean> = _isDelete
 
+    private val _isScrapedSuccess = MutableLiveData<Boolean>()
+    val isScrapedSuccess: LiveData<Boolean> = _isScrapedSuccess
+
     private val scrapedInsights = MutableLiveData<List<Insight>>()
 
     private val memberId = MutableLiveData<Int>(0)
@@ -104,8 +107,14 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun changeScrap(isScrap: Boolean) {
-        // TODO 스크랩 api 구현
+    fun changeScrap(seedId: Int) {
+        viewModelScope.launch {
+            scrapSeedUseCase.invoke(seedId).onSuccess {
+                _isScrapedSuccess.value = true
+            }.onFailure {
+                _isScrapedSuccess.value = false
+            }
+        }
     }
 
     fun deleteSeed(caveId: Int) {

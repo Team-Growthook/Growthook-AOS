@@ -194,10 +194,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         startActivity(intent)
     }
 
-    private fun clickedScrap(isScrap: Boolean) {
-        viewModel.changeScrap(isScrap)
-        Timber.d("스크랩 $isScrap")
-        Toast.makeText(requireContext(), "스크랩 완료", Toast.LENGTH_SHORT).show()
+    private fun clickedScrap(seedId: Int) {
+        viewModel.changeScrap(seedId)
+        viewModel.isScrapedSuccess.observe(viewLifecycleOwner) { isSuccess ->
+            if (isSuccess) {
+                viewModel.getInsights()
+                Toast.makeText(requireContext(), "스크랩 완료", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun setAlertMessage() {

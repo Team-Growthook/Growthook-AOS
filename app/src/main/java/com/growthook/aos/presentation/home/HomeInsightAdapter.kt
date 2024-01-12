@@ -20,7 +20,7 @@ import javax.annotation.Nullable
 
 class HomeInsightAdapter(
     private val selectedItem: (Insight) -> Unit,
-    private val clickScrap: (Boolean) -> Unit,
+    private val clickScrap: (Int) -> Unit,
 ) :
     ListAdapter<Insight, RecyclerView.ViewHolder>(diffCallback) {
 
@@ -93,6 +93,8 @@ class HomeInsightAdapter(
         fun onBind(item: Insight, itemPosition: Int) {
             if (item.isScraped) {
                 binding.btnHomeScrap.setImageResource(R.drawable.ic_scrap_unselected)
+            } else {
+                binding.btnHomeScrap.setImageResource(R.drawable.ic_scrap_unselected)
             }
             binding.tvHomeInsightTitle.text = item.name
             binding.tvHomeInsightLock.text = "${item.remainingDays}일 후 잠금"
@@ -123,6 +125,8 @@ class HomeInsightAdapter(
         fun onBind(item: Insight, itemPosition: Int) {
             if (item.isScraped) {
                 binding.btnHomeScrap.setImageResource(R.drawable.ic_scrap_yes_action_selected)
+            } else {
+                binding.btnHomeScrap.setImageResource(R.drawable.ic_scrap_unselected)
             }
             binding.tvHomeInsightTitle.text = item.name
             binding.tvHomeInsightLock.text = "${item.remainingDays}일 후 잠금"
@@ -140,7 +144,7 @@ class HomeInsightAdapter(
                 binding.viewHomeInsightClick.visibility = View.VISIBLE
             }
             binding.btnHomeScrap.setOnClickListener {
-                clickScrap(!item.isScraped)
+                clickScrap(item.seedId)
             }
         }
 
@@ -165,6 +169,8 @@ class HomeInsightAdapter(
         fun onBind(item: Insight, itemPosition: Int) {
             if (item.isScraped) {
                 binding.btnHomeScrap.setImageResource(R.drawable.ic_scrap_selected)
+            } else {
+                binding.btnHomeScrap.setImageResource(R.drawable.ic_scrap_unselected)
             }
             binding.tvHomeInsightTitle.text = item.name
             binding.tvHomeInsightLock.text = "${item.remainingDays}일 후 잠금"
@@ -183,7 +189,7 @@ class HomeInsightAdapter(
                 binding.viewHomeInsightClick.visibility = View.VISIBLE
             }
             binding.btnHomeScrap.setOnClickListener {
-                clickScrap(!item.isScraped)
+                clickScrap(item.seedId)
             }
         }
 
