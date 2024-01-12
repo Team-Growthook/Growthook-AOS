@@ -66,15 +66,15 @@ class HomeViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-
-            getAlertCount()
-            getInsights()
-            setNickName()
-            getCaves()
             // memberId.value = getUserUseCase.invoke().memberId ?: 0
             memberId.value = 4
-            getGatherdThook()
         }
+
+        getAlertCount()
+        getInsights()
+        setNickName()
+        getCaves()
+        getGatherdThook()
     }
 
     private fun getAlertCount() {
