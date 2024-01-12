@@ -1,6 +1,7 @@
 package com.growthook.aos.data.service
 
 import com.growthook.aos.data.model.request.RequestActionplanPostDto
+import com.growthook.aos.data.model.response.ResponseActionlistDto
 import com.growthook.aos.data.model.response.ResponseDto
 import com.growthook.aos.data.model.response.ResponseGetActionplanDto
 import retrofit2.http.Body
@@ -19,4 +20,14 @@ interface ActionplanService {
         @Path("seedId") seedId: Int,
         @Body request: RequestActionplanPostDto,
     ): ResponseDto
+
+    @GET("api/v1/member/{memberId}/doing")
+    suspend fun getDoingActionplans(
+        @Path("memberId") memberId: Int,
+    ): ResponseActionlistDto
+
+    @GET("api/v1/member/{memberId}/finished")
+    suspend fun getFinishedActionplans(
+        @Path("memberId") memberId: Int,
+    ): ResponseActionlistDto
 }
