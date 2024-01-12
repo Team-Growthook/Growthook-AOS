@@ -12,6 +12,7 @@ import com.growthook.aos.data.model.response.ResponsePostSeedDto
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.Path
 
@@ -53,4 +54,9 @@ interface SeedService {
     suspend fun getSeeds(
         @Path("memberId") memberInt: Int,
     ): ResponseGetSeedsDto
+
+    @PATCH("api/v1/seed/{seedId}/scrap/status")
+    suspend fun scrapSeed(
+        @Path("seedId") seedId: Int,
+    ): ResponseDto
 }

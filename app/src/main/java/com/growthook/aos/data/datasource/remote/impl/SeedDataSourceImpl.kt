@@ -32,4 +32,6 @@ class SeedDataSourceImpl @Inject constructor(private val apiService: SeedService
 
     override suspend fun getSeeds(memberId: Int): ResponseGetSeedsDto =
         apiService.getSeeds(memberId)
+
+    override suspend fun scrapSeed(seedId: Int): ResponseDto = apiService.scrapSeed(seedId)
 }
