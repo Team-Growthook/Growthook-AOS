@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.growthook.aos.domain.usecase.GetGatherdThookUseCase
 import com.growthook.aos.domain.usecase.local.GetUserUseCase
 import com.growthook.aos.domain.usecase.local.PostUserUseCase
 import com.growthook.aos.util.callback.KakaoLogoutCallback
@@ -16,6 +17,7 @@ import javax.inject.Inject
 class MyPageViewModel @Inject constructor(
     private val postUserUseCase: PostUserUseCase,
     private val getUserUseCase: GetUserUseCase,
+    private val getGatherdThookUseCase: GetGatherdThookUseCase,
 ) : ViewModel() {
 
     private val _isLogoutSuccess = MutableLiveData<Boolean>()
@@ -23,6 +25,11 @@ class MyPageViewModel @Inject constructor(
 
     private val _nickName = MutableLiveData<String>()
     val nickName: LiveData<String> = _nickName
+
+    private val _gatherdThook = MutableLiveData<Int>()
+    val gatherdThook: LiveData<Int> = _gatherdThook
+
+    private val memberId = MutableLiveData<Int>(0)
 
     val kakaoLogoutCallback: (Throwable?) -> Unit = { error ->
         KakaoLogoutCallback {
@@ -36,8 +43,18 @@ class MyPageViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            getUserUseCase.invoke().name.let { nickName ->
-                _nickName.value = nickName
+            _nickName.value = getUserUseCase.invoke().name ?: ""
+            memberId.value = 4
+        }
+        getGatherdThook()
+    }
+
+    fun getGatherdThook() {
+        viewModelScope.launch {
+            getGatherdThookUseCase.invoke(memberId.value ?: 0).onSuccess { thookCount ->
+                _gatherdThook.value = thookCount
+            }.onFailure {
+                Timber.e(it.message)
             }
         }
     }

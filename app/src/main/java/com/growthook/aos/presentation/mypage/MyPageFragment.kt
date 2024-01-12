@@ -32,6 +32,7 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>() {
         setNickName()
         clickDetailMyInfo()
         clickLogout()
+        setGatherdThook()
     }
 
     private fun setNickName() {
@@ -57,6 +58,12 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>() {
                     startActivity(intent)
                 }
             }
+        }
+    }
+
+    private fun setGatherdThook() {
+        viewModel.gatherdThook.observe(viewLifecycleOwner) { thookCount ->
+            binding.tvMyPageHarvestThookCount.text = thookCount.toString()
         }
     }
 }
