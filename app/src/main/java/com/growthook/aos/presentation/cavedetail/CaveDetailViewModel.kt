@@ -60,7 +60,7 @@ class CaveDetailViewModel @Inject constructor(
         viewModelScope.launch {
             getCaveSeedsUseCase.invoke(caveId).onSuccess { insights ->
                 _insights.value = insights
-                scrapedInsight.value = _insights.value?.filter { it.isScraped }
+                scrapedInsight.value = insights.filter { it.isScraped }
             }
         }
     }
