@@ -197,7 +197,7 @@ class ActionplanInsightActivity :
         const val DELETE_DIALOG = "delete dialog"
         private const val TAG = "tag"
         private const val SEED_ID = "seedId"
-        private const val DUMMY_SEED = 47
+        private const val DUMMY_SEED = 113
 
         fun getIntent(context: Context, seedId: Int): Intent {
             return Intent(context, ActionplanInsightActivity::class.java).apply {

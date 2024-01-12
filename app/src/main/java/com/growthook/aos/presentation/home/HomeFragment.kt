@@ -266,6 +266,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     companion object {
-        private const val DUMMY_SEED = 47
+        private const val DUMMY_SEED = 113
     }
 }

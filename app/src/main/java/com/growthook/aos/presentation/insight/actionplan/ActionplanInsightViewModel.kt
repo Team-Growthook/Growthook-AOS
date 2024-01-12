@@ -98,6 +98,6 @@ class ActionplanInsightViewModel @Inject constructor(
 //    }
 
     companion object {
-        const val DUMMY_SEED = 47
+        const val DUMMY_SEED = 113
     }
 }

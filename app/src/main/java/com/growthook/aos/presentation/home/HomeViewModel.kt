@@ -178,6 +178,6 @@ class HomeViewModel @Inject constructor(
     }
 
     companion object {
-        const val DUMMY_MEMBER_ID = 3
+        const val DUMMY_MEMBER_ID = 4
     }
 }

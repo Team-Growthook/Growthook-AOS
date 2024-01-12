@@ -87,6 +87,6 @@ class InsightMenuBottomsheet :
 
     companion object {
         const val DELETE_DIALOG = "delete dialog"
-        private const val DUMMY_SEED = 47
+        private const val DUMMY_SEED = 113
     }
 }
