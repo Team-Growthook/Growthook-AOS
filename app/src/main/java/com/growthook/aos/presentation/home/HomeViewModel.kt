@@ -58,7 +58,8 @@ class HomeViewModel @Inject constructor(
             getInsights()
             setNickName()
             getCaves()
-            memberId.value = getUserUseCase.invoke().memberId ?: 0
+            // memberId.value = getUserUseCase.invoke().memberId ?: 0
+            memberId.value = 4
         }
     }
 
@@ -91,7 +92,7 @@ class HomeViewModel @Inject constructor(
     fun getCaves() {
         viewModelScope.launch {
             Log.d("user", "memberID:: ${getUserUseCase.invoke().memberId}")
-            getCavesUseCase(DUMMY_MEMBER_ID).onSuccess { caves ->
+            getCavesUseCase(memberId.value ?: 0).onSuccess { caves ->
                 _caves.value = caves
             }
         }
@@ -115,9 +116,5 @@ class HomeViewModel @Inject constructor(
                 _isDelete.value = false
             }
         }
-    }
-
-    companion object {
-        const val DUMMY_MEMBER_ID = 3
     }
 }

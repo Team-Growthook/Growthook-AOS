@@ -42,6 +42,8 @@ class CaveDetailViewModel @Inject constructor(
     private val _caveDetail = MutableLiveData<CaveDetail>()
     val caveDetail: LiveData<CaveDetail> = _caveDetail
 
+    private val memberId = MutableLiveData<Int>(0)
+
     val caveId = MutableStateFlow<Int>(0)
 
     val isMenuDismissed = MutableLiveData<Boolean>()
@@ -50,9 +52,8 @@ class CaveDetailViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            getUserUseCase.invoke().name.let { nickName ->
-                _nickName.value = nickName
-            }
+            _nickName.value = getUserUseCase.invoke().name ?: ""
+            memberId.value = 4
         }
     }
 
