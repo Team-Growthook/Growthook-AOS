@@ -9,8 +9,9 @@ import com.growthook.aos.domain.entity.Cave
 import com.growthook.aos.domain.entity.Insight
 import com.growthook.aos.domain.usecase.DeleteSeedUseCase
 import com.growthook.aos.domain.usecase.GetCavesUseCase
-import com.growthook.aos.domain.usecase.home.GetSeedsUseCase
+import com.growthook.aos.domain.usecase.ScrapSeedUseCase
 import com.growthook.aos.domain.usecase.home.GetSeedAlarmUseCase
+import com.growthook.aos.domain.usecase.home.GetSeedsUseCase
 import com.growthook.aos.domain.usecase.local.GetUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -24,6 +25,7 @@ class HomeViewModel @Inject constructor(
     private val getCavesUseCase: GetCavesUseCase,
     private val getSeedAlarmUseCase: GetSeedAlarmUseCase,
     private val getSeedsUseCase: GetSeedsUseCase,
+    private val scrapSeedUseCase: ScrapSeedUseCase,
 ) : ViewModel() {
 
     private val _nickName = MutableLiveData<String>()
@@ -40,6 +42,8 @@ class HomeViewModel @Inject constructor(
 
     private val _isDelete = MutableLiveData<Boolean>()
     val isDelete: LiveData<Boolean> = _isDelete
+
+    private val scrapedInsight = MutableLiveData<List<Insight>>()
 
     private val memberId = MutableLiveData<Int>(0)
 
@@ -72,6 +76,7 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             getSeedsUseCase.invoke(memberId.value ?: 0).onSuccess { insights ->
                 _insights.value = insights
+                scrapedInsight.value = insights.filter { it.isScraped }
             }.onFailure {
                 Timber.e(it.message)
             }
@@ -79,7 +84,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun getScrapedInsight() {
-        _insights.value = _insights.value?.filter { it.isScraped }
+        _insights.value = scrapedInsight.value
         Timber.d("getScrapedInsight ${_insights.value?.size}")
     }
 
