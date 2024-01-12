@@ -6,6 +6,7 @@ import com.growthook.aos.data.model.response.ResponseAlarmDto
 import com.growthook.aos.data.model.response.ResponseDto
 import com.growthook.aos.data.model.response.ResponseGetCaveSeedsDto
 import com.growthook.aos.data.model.response.ResponseGetSeedDto
+import com.growthook.aos.data.model.response.ResponseGetSeedsDto
 import com.growthook.aos.data.model.response.ResponseMoveSeedDto
 import com.growthook.aos.data.model.response.ResponsePostSeedDto
 import retrofit2.http.Body
@@ -47,4 +48,9 @@ interface SeedService {
     suspend fun getSeedAlarm(
         @Path("memberId") memberInt: Int,
     ): ResponseAlarmDto
+
+    @GET("api/v1/member/{memberId}/seed/list")
+    suspend fun getSeeds(
+        @Path("memberId") memberInt: Int,
+    ): ResponseGetSeedsDto
 }

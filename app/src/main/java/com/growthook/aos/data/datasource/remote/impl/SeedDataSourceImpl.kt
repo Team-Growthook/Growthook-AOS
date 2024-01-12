@@ -7,6 +7,7 @@ import com.growthook.aos.data.model.response.ResponseAlarmDto
 import com.growthook.aos.data.model.response.ResponseDto
 import com.growthook.aos.data.model.response.ResponseGetCaveSeedsDto
 import com.growthook.aos.data.model.response.ResponseGetSeedDto
+import com.growthook.aos.data.model.response.ResponseGetSeedsDto
 import com.growthook.aos.data.model.response.ResponseMoveSeedDto
 import com.growthook.aos.data.model.response.ResponsePostSeedDto
 import com.growthook.aos.data.service.SeedService
@@ -28,4 +29,7 @@ class SeedDataSourceImpl @Inject constructor(private val apiService: SeedService
 
     override suspend fun getSeedAlarm(memberId: Int): ResponseAlarmDto =
         apiService.getSeedAlarm(memberId)
+
+    override suspend fun getSeeds(memberId: Int): ResponseGetSeedsDto =
+        apiService.getSeeds(memberId)
 }

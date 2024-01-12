@@ -3,8 +3,8 @@ package com.growthook.aos.data.repository
 import com.growthook.aos.data.datasource.remote.SeedDataSource
 import com.growthook.aos.data.model.request.RequestSeedMoveDto
 import com.growthook.aos.data.model.request.RequestSeedPostDto
-import com.growthook.aos.domain.entity.Seed
 import com.growthook.aos.domain.entity.Insight
+import com.growthook.aos.domain.entity.Seed
 import com.growthook.aos.domain.repository.SeedRepository
 import javax.inject.Inject
 
@@ -39,5 +39,9 @@ class SeedRepositoryImpl @Inject constructor(private val seedDataSource: SeedDat
 
     override suspend fun getSeedAlarm(memberId: Int): Result<Int> = runCatching {
         seedDataSource.getSeedAlarm(memberId).data.seedCount
+    }
+
+    override suspend fun getSeeds(memberId: Int): Result<List<Insight>> = runCatching {
+        seedDataSource.getSeeds(memberId).toInsight()
     }
 }
