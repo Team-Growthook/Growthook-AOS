@@ -45,6 +45,10 @@ class SeedRepositoryImpl @Inject constructor(private val seedDataSource: SeedDat
         seedDataSource.getSeeds(memberId).toInsight()
     }
 
+    override suspend fun unLockSeed(seedId: Int): Result<Unit> = runCatching {
+        seedDataSource.unLockSeed(seedId)
+    }
+
     override suspend fun scrapSeed(seedId: Int): Result<Unit> = runCatching {
         seedDataSource.scrapSeed(seedId)
     }

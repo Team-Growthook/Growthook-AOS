@@ -25,5 +25,7 @@ interface SeedRepository {
 
     suspend fun getSeeds(memberId: Int): Result<List<Insight>>
 
+    suspend fun unLockSeed(seedId: Int): Result<Unit>
+
     suspend fun scrapSeed(seedId: Int): Result<Unit>
 }

@@ -55,6 +55,11 @@ interface SeedService {
         @Path("memberId") memberInt: Int,
     ): ResponseGetSeedsDto
 
+    @PATCH("api/v1/seed/{seedId}/lock/status")
+    suspend fun unLockSeed(
+        @Path("seedId") seedId: Int,
+    ): ResponseDto
+
     @PATCH("api/v1/seed/{seedId}/scrap/status")
     suspend fun scrapSeed(
         @Path("seedId") seedId: Int,

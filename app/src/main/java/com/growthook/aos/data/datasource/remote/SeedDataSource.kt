@@ -25,5 +25,7 @@ interface SeedDataSource {
 
     suspend fun getSeeds(memberId: Int): ResponseGetSeedsDto
 
+    suspend fun unLockSeed(seedId: Int): ResponseDto
+
     suspend fun scrapSeed(seedId: Int): ResponseDto
 }
