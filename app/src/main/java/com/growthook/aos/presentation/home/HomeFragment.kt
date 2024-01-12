@@ -159,13 +159,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     negativeAction = {
                     },
                     positiveAction = {
-                        Toast.makeText(context, "잠금이 영구적으로 해제되었어요!", Toast.LENGTH_SHORT).show()
-                        startActivity(
-                            ActionplanInsightActivity.getIntent(
-                                requireContext(),
-                                item.seedId,
-                            ),
-                        )
+                        viewModel.unLockSeed(item.seedId)
+                        viewModel.isUnlock.observe(viewLifecycleOwner) {
+                            Toast.makeText(context, "잠금이 영구적으로 해제되었어요!", Toast.LENGTH_SHORT).show()
+                            startActivity(
+                                ActionplanInsightActivity.getIntent(
+                                    requireContext(),
+                                    item.seedId,
+                                ),
+                            )
+                        }
                     },
                 ).show(parentFragmentManager, InsightMenuBottomsheet.DELETE_DIALOG)
         } else if (!item.hasActionPlan) {

@@ -8,6 +8,7 @@ import com.growthook.aos.domain.entity.CaveDetail
 import com.growthook.aos.domain.entity.Insight
 import com.growthook.aos.domain.usecase.DeleteSeedUseCase
 import com.growthook.aos.domain.usecase.ScrapSeedUseCase
+import com.growthook.aos.domain.usecase.UnLockSeedUseCase
 import com.growthook.aos.domain.usecase.cavedetail.DeleteCaveUseCase
 import com.growthook.aos.domain.usecase.cavedetail.GetCaveDetailUseCase
 import com.growthook.aos.domain.usecase.cavedetail.GetCaveSeedsUseCase
@@ -26,6 +27,7 @@ class CaveDetailViewModel @Inject constructor(
     private val getCaveDetailUseCase: GetCaveDetailUseCase,
     private val getCaveSeedsUseCase: GetCaveSeedsUseCase,
     private val scrapSeedUseCase: ScrapSeedUseCase,
+    private val unLockSeedUseCase: UnLockSeedUseCase,
 ) : ViewModel() {
     private val _insights = MutableLiveData<List<Insight>>()
     val insights: LiveData<List<Insight>> = _insights
@@ -46,6 +48,9 @@ class CaveDetailViewModel @Inject constructor(
 
     private val _isScrapedSuccess = MutableLiveData<Boolean>()
     val isScrapedSuccess: LiveData<Boolean> = _isScrapedSuccess
+
+    private val _isUnlock = MutableLiveData<Boolean>()
+    val isUnlock: LiveData<Boolean> = _isUnlock
 
     private val memberId = MutableLiveData<Int>(0)
 
@@ -111,6 +116,16 @@ class CaveDetailViewModel @Inject constructor(
                 _isSeedDelete.value = true
             }.onFailure {
                 _isSeedDelete.value = false
+            }
+        }
+    }
+
+    fun unLockSeed(seedId: Int) {
+        viewModelScope.launch {
+            unLockSeedUseCase.invoke(seedId).onSuccess {
+                _isUnlock.value = true
+            }.onFailure {
+                _isUnlock.value = false
             }
         }
     }

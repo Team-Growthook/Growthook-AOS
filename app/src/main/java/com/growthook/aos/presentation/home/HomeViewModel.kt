@@ -10,6 +10,7 @@ import com.growthook.aos.domain.entity.Insight
 import com.growthook.aos.domain.usecase.DeleteSeedUseCase
 import com.growthook.aos.domain.usecase.GetCavesUseCase
 import com.growthook.aos.domain.usecase.ScrapSeedUseCase
+import com.growthook.aos.domain.usecase.UnLockSeedUseCase
 import com.growthook.aos.domain.usecase.home.GetSeedAlarmUseCase
 import com.growthook.aos.domain.usecase.home.GetSeedsUseCase
 import com.growthook.aos.domain.usecase.local.GetUserUseCase
@@ -26,6 +27,7 @@ class HomeViewModel @Inject constructor(
     private val getSeedAlarmUseCase: GetSeedAlarmUseCase,
     private val getSeedsUseCase: GetSeedsUseCase,
     private val scrapSeedUseCase: ScrapSeedUseCase,
+    private val unLockSeedUseCase: UnLockSeedUseCase,
 ) : ViewModel() {
 
     private val _nickName = MutableLiveData<String>()
@@ -45,6 +47,9 @@ class HomeViewModel @Inject constructor(
 
     private val _isScrapedSuccess = MutableLiveData<Boolean>()
     val isScrapedSuccess: LiveData<Boolean> = _isScrapedSuccess
+
+    private val _isUnlock = MutableLiveData<Boolean>()
+    val isUnlock: LiveData<Boolean> = _isUnlock
 
     private val scrapedInsights = MutableLiveData<List<Insight>>()
 
@@ -123,6 +128,16 @@ class HomeViewModel @Inject constructor(
                 _isDelete.value = true
             }.onFailure {
                 _isDelete.value = false
+            }
+        }
+    }
+
+    fun unLockSeed(seedId: Int) {
+        viewModelScope.launch {
+            unLockSeedUseCase.invoke(seedId).onSuccess {
+                _isUnlock.value = true
+            }.onFailure {
+                _isUnlock.value = false
             }
         }
     }
