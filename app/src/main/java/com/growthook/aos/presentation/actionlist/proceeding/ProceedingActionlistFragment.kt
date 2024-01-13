@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.growthook.aos.databinding.FragmentProceedingActionlistBinding
 import com.growthook.aos.presentation.actionlist.ActionlistFragment
@@ -13,7 +15,11 @@ import com.growthook.aos.presentation.insight.actionplan.ActionplanInsightActivi
 import com.growthook.aos.util.base.BaseAlertDialog
 import com.growthook.aos.util.base.BaseFragment
 import com.growthook.aos.util.base.BaseWritingBottomSheet
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
+@AndroidEntryPoint
 class ProceedingActionlistFragment(private val parentFragment: ActionlistFragment) :
     BaseFragment<FragmentProceedingActionlistBinding>() {
     private var _proceedingActionlistAdapter: ProceedingActionlistAdapter? = null
@@ -42,9 +48,13 @@ class ProceedingActionlistFragment(private val parentFragment: ActionlistFragmen
     }
 
     private fun observeActionplan() {
-        viewModel.proceedingActionplanList.observe(viewLifecycleOwner) {
-            _proceedingActionlistAdapter?.submitList(it)
-        }
+//        viewModel.proceedingActionplanList.observe(viewLifecycleOwner) {
+//            _proceedingActionlistAdapter?.submitList(it)
+//        }
+
+        viewModel.doingActionplans.flowWithLifecycle(lifecycle).onEach { doingActionplan ->
+            _proceedingActionlistAdapter?.submitList(doingActionplan)
+        }.launchIn(lifecycleScope)
     }
 
     private fun clickCompleteBtn() {

@@ -1,19 +1,34 @@
 package com.growthook.aos.presentation.actionlist.proceeding
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.growthook.aos.domain.entity.Actionplan
+import androidx.lifecycle.viewModelScope
+import com.growthook.aos.domain.entity.ActionlistDetail
+import com.growthook.aos.domain.usecase.actionplan.GetDoingActionplansUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ProceedingActionlistViewModel : ViewModel() {
-    var proceedingActionplanList: MutableLiveData<List<Actionplan>> =
-        MutableLiveData<List<Actionplan>>()
+@HiltViewModel
+class ProceedingActionlistViewModel @Inject constructor(
+    private val getDoingActionplansUseCase: GetDoingActionplansUseCase,
+) : ViewModel() {
+    var doingActionplans: MutableStateFlow<List<ActionlistDetail>> =
+        MutableStateFlow<List<ActionlistDetail>>(mutableListOf())
 
     init {
-        proceedingActionplanList.value = listOf(
-            Actionplan(1, "1북극성 지표를 적용해야 한다", isScraped = true, isFinished = false),
-            Actionplan(2, "2목적과 이루어내고 싶은 것 확실하게 하기 (PMF)", isScraped = false, isFinished = false),
-            Actionplan(3, "333목적", isScraped = true, isFinished = false),
+        getDoingActionplans()
+    }
 
-        )
+    private fun getDoingActionplans() {
+        viewModelScope.launch {
+            getDoingActionplansUseCase.invoke(MEMBER_ID).onSuccess {
+                doingActionplans.value = it
+            }
+        }
+    }
+
+    companion object {
+        private const val MEMBER_ID = 4
     }
 }
