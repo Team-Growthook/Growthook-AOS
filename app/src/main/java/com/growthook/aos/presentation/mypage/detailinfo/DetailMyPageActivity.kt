@@ -24,6 +24,7 @@ class DetailMyPageActivity :
         super.onCreate(savedInstanceState)
 
         setNickName()
+        setEmail()
         clickBackNavi()
         clickDeleteAccount()
     }
@@ -31,6 +32,12 @@ class DetailMyPageActivity :
     private fun setNickName() {
         viewModel.nickName.observe(this) {
             binding.tvDetailMyPageNickname.text = it
+        }
+    }
+
+    private fun setEmail() {
+        viewModel.email.observe(this) { email ->
+            binding.tvDetailMyPageEmail.text = email
         }
     }
 
