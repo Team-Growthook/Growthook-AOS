@@ -1,6 +1,7 @@
 package com.growthook.aos.data.repository
 
 import com.growthook.aos.data.datasource.remote.ActionplanDataSource
+import com.growthook.aos.data.model.request.RequestActionplanModifyDto
 import com.growthook.aos.data.model.request.RequestActionplanPostDto
 import com.growthook.aos.domain.entity.ActionlistDetail
 import com.growthook.aos.domain.entity.Actionplan
@@ -33,9 +34,9 @@ class ActionplanRepositoryImpl @Inject constructor(private val actionplanDataSou
             actionplanDataSource.completeActionplan(actionplanId)
         }
 
-    override suspend fun modifyActionplan(actionplanId: Int): Result<Unit> =
+    override suspend fun modifyActionplan(actionplanId: Int, content: String): Result<Unit> =
         runCatching {
-            actionplanDataSource.modifyActionplan(actionplanId)
+            actionplanDataSource.modifyActionplan(actionplanId, RequestActionplanModifyDto(content))
         }
 
     override suspend fun deleteActionplan(actionplanId: Int): Result<Unit> =

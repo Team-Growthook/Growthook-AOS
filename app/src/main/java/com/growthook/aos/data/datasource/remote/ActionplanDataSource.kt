@@ -1,5 +1,6 @@
 package com.growthook.aos.data.datasource.remote
 
+import com.growthook.aos.data.model.request.RequestActionplanModifyDto
 import com.growthook.aos.data.model.request.RequestActionplanPostDto
 import com.growthook.aos.data.model.response.ResponseActionlistDto
 import com.growthook.aos.data.model.response.ResponseDataDto
@@ -22,7 +23,10 @@ interface ActionplanDataSource {
 
     suspend fun completeActionplan(actionplanId: Int): ResponseDto
 
-    suspend fun modifyActionplan(actionplanId: Int): ResponseDto
+    suspend fun modifyActionplan(
+        actionplanId: Int,
+        request: RequestActionplanModifyDto,
+    ): ResponseDto
 
     suspend fun deleteActionplan(actionplanId: Int): ResponseDto
 }

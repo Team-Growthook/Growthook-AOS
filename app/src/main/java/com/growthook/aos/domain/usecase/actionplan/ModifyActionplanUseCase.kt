@@ -4,5 +4,6 @@ import com.growthook.aos.domain.repository.ActionplanRepository
 import javax.inject.Inject
 
 class ModifyActionplanUseCase @Inject constructor(private val repository: ActionplanRepository) {
-    suspend operator fun invoke(actionplanId: Int) = repository.modifyActionplan(actionplanId)
+    suspend operator fun invoke(actionplanId: Int, content: String) =
+        repository.modifyActionplan(actionplanId, content)
 }

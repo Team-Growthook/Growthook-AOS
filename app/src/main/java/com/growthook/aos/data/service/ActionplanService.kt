@@ -1,5 +1,6 @@
 package com.growthook.aos.data.service
 
+import com.growthook.aos.data.model.request.RequestActionplanModifyDto
 import com.growthook.aos.data.model.request.RequestActionplanPostDto
 import com.growthook.aos.data.model.response.ResponseActionlistDto
 import com.growthook.aos.data.model.response.ResponseDataDto
@@ -47,6 +48,7 @@ interface ActionplanService {
     @PATCH("api/v1/actionplan/{actionplanId}")
     suspend fun modifyActionplan(
         @Path("actionplanId") actionplanId: Int,
+        @Body request: RequestActionplanModifyDto,
     ): ResponseDto
 
     @DELETE("api/v1/actionplan/{actionplanId}")
