@@ -7,6 +7,7 @@ import com.growthook.aos.data.model.response.ResponseDto
 import com.growthook.aos.data.model.response.ResponseGetActionplanDto
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.Path
 
@@ -36,4 +37,14 @@ interface ActionplanService {
     suspend fun getActionplanPercent(
         @Path("memberId") memberId: Int,
     ): ResponseDataDto
+
+    @PATCH("api/v1/actionplan/{actionplanId}/completion")
+    suspend fun completeActionplan(
+        @Path("actionplanId") actionplanId: Int,
+    ): ResponseDto
+
+    @PATCH("api/v1/actionplan/{actionplanId}")
+    suspend fun modifyActionplan(
+        @Path("actionplanId") actionplanId: Int,
+    ): ResponseDto
 }
