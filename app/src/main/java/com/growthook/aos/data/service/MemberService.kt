@@ -1,6 +1,7 @@
 package com.growthook.aos.data.service
 
 import com.growthook.aos.data.model.response.ResponseGatheredThookDto
+import com.growthook.aos.data.model.response.ResponseGetProfileDto
 import com.growthook.aos.data.model.response.ResponseGetUsedThook
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -15,4 +16,9 @@ interface MemberService {
     suspend fun getUsedThook(
         @Path("memberId") memberId: Int,
     ): ResponseGetUsedThook
+
+    @GET("api/v1/member/{memberId}/profile")
+    suspend fun getEmail(
+        @Path("memberId") memberId: Int,
+    ): ResponseGetProfileDto
 }
