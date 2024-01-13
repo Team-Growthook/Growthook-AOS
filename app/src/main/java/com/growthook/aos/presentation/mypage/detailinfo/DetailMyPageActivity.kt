@@ -75,7 +75,8 @@ class DetailMyPageActivity :
 
     private fun deleteAccount() {
         kakaoAuthService.kakaoDeleteAccount(viewModel.kakaoCallback)
-        viewModel.isKakaoDeleteAccount.observe(this) {
+        viewModel.deleteMember()
+        viewModel.isDeleteSuccess.observe(this) {
             if (it) {
                 val intent =
                     Intent(this, LoginActivity::class.java)
