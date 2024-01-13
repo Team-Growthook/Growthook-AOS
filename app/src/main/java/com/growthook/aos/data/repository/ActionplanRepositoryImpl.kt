@@ -38,6 +38,11 @@ class ActionplanRepositoryImpl @Inject constructor(private val actionplanDataSou
             actionplanDataSource.modifyActionplan(actionplanId)
         }
 
+    override suspend fun deleteActionplan(actionplanId: Int): Result<Unit> =
+        runCatching {
+            actionplanDataSource.deleteActionplan(actionplanId)
+        }
+
     override suspend fun getActionplanPercent(memberId: Int): Result<Int> =
         runCatching {
             actionplanDataSource.getActionplanPercent(memberId).data
