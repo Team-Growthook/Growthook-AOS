@@ -34,4 +34,7 @@ class ActionplanDataSourceImpl @Inject constructor(private val apiService: Actio
 
     override suspend fun modifyActionplan(actionplanId: Int): ResponseDto =
         apiService.modifyActionplan(actionplanId)
+
+    override suspend fun deleteActionplan(actionplanId: Int): ResponseDto =
+        apiService.deleteActionplan(actionplanId)
 }

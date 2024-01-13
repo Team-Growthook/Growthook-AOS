@@ -23,4 +23,6 @@ interface ActionplanDataSource {
     suspend fun completeActionplan(actionplanId: Int): ResponseDto
 
     suspend fun modifyActionplan(actionplanId: Int): ResponseDto
+
+    suspend fun deleteActionplan(actionplanId: Int): ResponseDto
 }
