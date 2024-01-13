@@ -27,4 +27,9 @@ class ActionplanRepositoryImpl @Inject constructor(private val actionplanDataSou
         runCatching {
             actionplanDataSource.getFinishedActionplans(memberId).toActionlist()
         }
+
+    override suspend fun getActionplanPercent(memberId: Int): Result<Unit> =
+        runCatching {
+            actionplanDataSource.getActionplanPercent(memberId)
+        }
 }
