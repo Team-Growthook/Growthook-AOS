@@ -57,10 +57,8 @@ class CompletedActionlistFragment : BaseFragment<FragmentCompletedActionlistBind
         startActivity(intent)
     }
 
-    private fun clickReviewDetail() {
-        val intent =
-            Intent(requireActivity(), ReviewDetailActivity::class.java)
-        startActivity(intent)
+    private fun clickReviewDetail(actionplanId: Int) {
+        startActivity(ReviewDetailActivity.getIntent(requireContext(), actionplanId))
     }
 
     override fun onDestroyView() {

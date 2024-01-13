@@ -4,13 +4,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.growthook.aos.R
 import com.growthook.aos.databinding.ItemCompletedActionplanBinding
 import com.growthook.aos.domain.entity.ActionlistDetail
 import com.growthook.aos.util.extension.ItemDiffCallback
 
 class CompletedActionlistAdapter(
     private val clickSeedDetail: (Int) -> Unit,
-    private val clickReviewDetail: () -> Unit,
+    private val clickReviewDetail: (Int) -> Unit,
 
 ) :
     ListAdapter<ActionlistDetail, CompletedActionlistAdapter.CompletedActionlistViewHolder>(
@@ -22,16 +23,23 @@ class CompletedActionlistAdapter(
     class CompletedActionlistViewHolder(
         private val binding: ItemCompletedActionplanBinding,
         private val selectedItem: (Int) -> Unit,
-        private val clickReviewDetail: () -> Unit,
+        private val clickReviewDetail: (Int) -> Unit,
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun onBind(data: ActionlistDetail) {
-            binding.tvCompletedActionplanTitle.text = data.content
-            binding.tvCompletedActionplanBtnLeft.setOnClickListener {
-                selectedItem(data.actionplanId)
-            }
-            binding.tvCompletedActionplanBtnRight.setOnClickListener {
-                clickReviewDetail()
+            with(binding) {
+                tvCompletedActionplanTitle.text = data.content
+                tvCompletedActionplanBtnLeft.setOnClickListener {
+                    selectedItem(data.actionplanId)
+                }
+                tvCompletedActionplanBtnRight.setOnClickListener {
+                    clickReviewDetail(data.actionplanId)
+                }
+                if (data.isScraped) {
+                    ivCompletedActionplan.setImageResource(R.drawable.ic_scrap_selected)
+                } else {
+                    ivCompletedActionplan.setImageResource(R.drawable.ic_scrap_unselected)
+                }
             }
         }
     }

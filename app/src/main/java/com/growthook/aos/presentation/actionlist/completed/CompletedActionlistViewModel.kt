@@ -13,8 +13,8 @@ import javax.inject.Inject
 class CompletedActionlistViewModel @Inject constructor(
     private val getFinishedActionplansUseCase: GetFinishedActionplansUseCase,
 ) : ViewModel() {
-    var finishedActionplans: MutableStateFlow<List<ActionlistDetail>> =
-        MutableStateFlow<List<ActionlistDetail>>(mutableListOf())
+    private val _finishedActionplans = MutableStateFlow<List<ActionlistDetail>>(mutableListOf())
+    val finishedActionplans: MutableStateFlow<List<ActionlistDetail>> = _finishedActionplans
 
     init {
         getFinishedActionplans()
