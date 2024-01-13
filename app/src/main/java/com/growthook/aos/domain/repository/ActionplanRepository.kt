@@ -12,5 +12,5 @@ interface ActionplanRepository {
 
     suspend fun getFinishedActionplans(memberId: Int): Result<List<ActionlistDetail>>
 
-    suspend fun getActionplanPercent(memberId: Int): Result<Unit>
+    suspend fun getActionplanPercent(memberId: Int): Result<Int>
 }
