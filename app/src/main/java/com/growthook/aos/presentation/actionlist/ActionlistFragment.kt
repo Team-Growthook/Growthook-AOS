@@ -26,14 +26,21 @@ class ActionlistFragment : BaseFragment<FragmentActionlistBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setTitleText()
+        observeNickname()
+        observeActionplanPercent()
         initItem()
         clickTabItem()
     }
 
-    private fun setTitleText() {
+    private fun observeNickname() {
         viewModel.nickname.observe(viewLifecycleOwner) { nickName ->
             binding.tvActionlistTitle.text = "${nickName}님의 액션"
+        }
+    }
+
+    private fun observeActionplanPercent() {
+        viewModel.actionplanPercent.observe(viewLifecycleOwner) { percent ->
+            binding.tvActionlisTPercent.text = "$percent% 달성!"
         }
     }
 
