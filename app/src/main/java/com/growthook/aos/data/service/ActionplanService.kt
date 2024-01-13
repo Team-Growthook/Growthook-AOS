@@ -6,6 +6,7 @@ import com.growthook.aos.data.model.response.ResponseDataDto
 import com.growthook.aos.data.model.response.ResponseDto
 import com.growthook.aos.data.model.response.ResponseGetActionplanDto
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.PATCH
 import retrofit2.http.POST
@@ -45,6 +46,11 @@ interface ActionplanService {
 
     @PATCH("api/v1/actionplan/{actionplanId}")
     suspend fun modifyActionplan(
+        @Path("actionplanId") actionplanId: Int,
+    ): ResponseDto
+
+    @DELETE("api/v1/actionplan/{actionplanId}")
+    suspend fun deleteActionplan(
         @Path("actionplanId") actionplanId: Int,
     ): ResponseDto
 }
