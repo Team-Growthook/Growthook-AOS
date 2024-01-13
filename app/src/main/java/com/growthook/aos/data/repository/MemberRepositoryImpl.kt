@@ -9,4 +9,8 @@ class MemberRepositoryImpl @Inject constructor(private val apiService: MemberSer
     override suspend fun getGatherdThook(memberId: Int): Result<Int> = runCatching {
         apiService.getGatheredThook(memberId).data.gatheredThook
     }
+
+    override suspend fun getUsedThook(memberId: Int): Result<Int> = runCatching {
+        apiService.getUsedThook(memberId).data.usedThook
+    }
 }
