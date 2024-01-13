@@ -3,6 +3,7 @@ package com.growthook.aos.data.datasource.remote.impl
 import com.growthook.aos.data.datasource.remote.ActionplanDataSource
 import com.growthook.aos.data.model.request.RequestActionplanPostDto
 import com.growthook.aos.data.model.response.ResponseActionlistDto
+import com.growthook.aos.data.model.response.ResponseDataDto
 import com.growthook.aos.data.model.response.ResponseDto
 import com.growthook.aos.data.model.response.ResponseGetActionplanDto
 import com.growthook.aos.data.service.ActionplanService
@@ -24,4 +25,7 @@ class ActionplanDataSourceImpl @Inject constructor(private val apiService: Actio
 
     override suspend fun getFinishedActionplans(memberId: Int): ResponseActionlistDto =
         apiService.getFinishedActionplans(memberId)
+
+    override suspend fun getActionplanPercent(memberId: Int): ResponseDataDto =
+        apiService.getActionplanPercent(memberId)
 }
