@@ -61,24 +61,8 @@ class ActionplanInsightActivity :
             type = BaseWritingBottomSheet.WritingType.LARGE,
             title = "리뷰 작성",
             clickSaveBtn = {
-                BaseAlertDialog.Builder()
-                    .setCancelable(false)
-                    .build(
-                        type = BaseAlertDialog.DialogType.SINGLE_INTENDED,
-                        title = "성장의 보상으로\n쑥을 얻었어요!",
-                        description = "한 단계 쑥! 성장한 것을 축하해요.\n수확한 쑥을 통해\n씨앗의 잠금을 해제해보세요:)",
-                        isTipVisility = false,
-                        isRemainThookVisility = false,
-                        isBackgroundImageVisility = true,
-                        isDescriptionVisility = true,
-                        positiveText = "확인",
-                        negativeText = "",
-                        tipText = "",
-                        negativeAction = {},
-                        positiveAction = {
-                            viewModel.completeActionplan(actionplanId, DUMMY_SEED)
-                        },
-                    ).show(supportFragmentManager, "get thook dialog")
+                viewModel.postReview(actionplanId, it)
+                viewModel.completeActionplan(actionplanId, DUMMY_SEED)
             },
             clickNoWritingBtn = {
                 viewModel.completeActionplan(actionplanId, DUMMY_SEED)
@@ -184,12 +168,8 @@ class ActionplanInsightActivity :
     private fun observeEvent() {
         viewModel.event.flowWithLifecycle(lifecycle).onEach { event ->
             when (event) {
-                is Event.PostSuccess -> {
+                is Event.PostActionplanSuccess -> {
                     Toast.makeText(this, "액션을 만들었어요!", Toast.LENGTH_SHORT).show()
-                }
-
-                is Event.PostFailed -> {
-                    Toast.makeText(this, "액션플랜 생성에 실패했어요", Toast.LENGTH_SHORT).show()
                 }
 
                 is Event.ModifySuccess -> {
@@ -198,6 +178,25 @@ class ActionplanInsightActivity :
 
                 is Event.DeleteSuccess -> {
                     Toast.makeText(this, "액션이 삭제되었어요", Toast.LENGTH_SHORT).show()
+                }
+
+                is Event.PostReviewSuccess -> {
+                    BaseAlertDialog.Builder()
+                        .setCancelable(false)
+                        .build(
+                            type = BaseAlertDialog.DialogType.SINGLE_INTENDED,
+                            title = "성장의 보상으로\n쑥을 얻었어요!",
+                            description = "한 단계 쑥! 성장한 것을 축하해요.\n수확한 쑥을 통해\n씨앗의 잠금을 해제해보세요:)",
+                            isTipVisility = false,
+                            isRemainThookVisility = false,
+                            isBackgroundImageVisility = true,
+                            isDescriptionVisility = true,
+                            positiveText = "확인",
+                            negativeText = "",
+                            tipText = "",
+                            negativeAction = {},
+                            positiveAction = {},
+                        ).show(supportFragmentManager, "get thook dialog")
                 }
 
                 else -> {

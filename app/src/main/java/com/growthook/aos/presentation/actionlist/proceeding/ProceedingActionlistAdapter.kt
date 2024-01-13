@@ -1,5 +1,6 @@
 package com.growthook.aos.presentation.actionlist.proceeding
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
@@ -9,7 +10,7 @@ import com.growthook.aos.domain.entity.ActionlistDetail
 import com.growthook.aos.util.extension.ItemDiffCallback
 
 class ProceedingActionlistAdapter(
-    private val selectedItem: (Int) -> Unit,
+    private val clickSeedDetail: (Int) -> Unit,
     private val clickCompleted: (Int) -> Unit,
 ) :
     ListAdapter<ActionlistDetail, ProceedingActionlistAdapter.ProceedingActionlistViewHolder>(
@@ -20,19 +21,20 @@ class ProceedingActionlistAdapter(
     ) {
     class ProceedingActionlistViewHolder(
         private val binding: ItemProceedingActionplanBinding,
-        private val selectedItem: (Int) -> Unit,
+        private val clickSeedDetail: (Int) -> Unit,
         private val clickCompleted: (Int) -> Unit,
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun onBind(data: ActionlistDetail) {
-            binding.tvProceedingActionplanTitle.text = data.content
-
-            binding.root.setOnClickListener {
-                selectedItem(data.actionplanId)
-            }
-
-            binding.tvProceedingActionplanBtnRight.setOnClickListener {
-                clickCompleted(data.actionplanId)
+            with(binding) {
+                tvProceedingActionplanTitle.text = data.content
+                tvProceedingActionplanBtnRight.setOnClickListener {
+                    clickCompleted(data.actionplanId)
+                }
+                tvProceedingActionplanBtnLeft.setOnClickListener {
+                    Log.d("doing", "33333")
+                    clickSeedDetail(data.seedId)
+                }
             }
         }
     }
@@ -47,7 +49,7 @@ class ProceedingActionlistAdapter(
                 parent,
                 false,
             )
-        return ProceedingActionlistViewHolder(binding, selectedItem, clickCompleted)
+        return ProceedingActionlistViewHolder(binding, clickSeedDetail, clickCompleted)
     }
 
     override fun onBindViewHolder(holder: ProceedingActionlistViewHolder, position: Int) {

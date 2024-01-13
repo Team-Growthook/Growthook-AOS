@@ -21,6 +21,7 @@ class AddActionplanViewModel @Inject constructor(
 
     private val _event = MutableLiveData<Event>()
     val event: LiveData<Event> = _event
+
     fun postActionplans(seedId: Int, actionplans: List<String>) {
         viewModelScope.launch {
             postActionplansUseCase.invoke(seedId, actionplans).onSuccess {

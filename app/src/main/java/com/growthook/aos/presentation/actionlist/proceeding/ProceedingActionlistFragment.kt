@@ -1,6 +1,5 @@
 package com.growthook.aos.presentation.actionlist.proceeding
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.growthook.aos.databinding.FragmentProceedingActionlistBinding
 import com.growthook.aos.presentation.actionlist.ActionlistFragment
+import com.growthook.aos.presentation.actionlist.proceeding.ProceedingActionlistViewModel.Event
 import com.growthook.aos.presentation.insight.actionplan.ActionplanInsightActivity
 import com.growthook.aos.util.base.BaseAlertDialog
 import com.growthook.aos.util.base.BaseFragment
@@ -38,11 +38,12 @@ class ProceedingActionlistFragment(private val parentFragment: ActionlistFragmen
         super.onViewCreated(view, savedInstanceState)
         initActionplanAdapter()
         observeActionplan()
+        observeEvent()
     }
 
     private fun initActionplanAdapter() {
         _proceedingActionlistAdapter =
-            ProceedingActionlistAdapter(::selectedActionplanItem, ::clickCompleteBtn)
+            ProceedingActionlistAdapter(::clickSeedDetail, ::clickCompleteBtn)
         binding.rcvProceedingActionlist.adapter = _proceedingActionlistAdapter
         binding.rcvProceedingActionlist.layoutManager = LinearLayoutManager(requireContext())
     }
@@ -58,25 +59,8 @@ class ProceedingActionlistFragment(private val parentFragment: ActionlistFragmen
             type = BaseWritingBottomSheet.WritingType.LARGE,
             title = "리뷰 작성",
             clickSaveBtn = {
-                BaseAlertDialog.Builder()
-                    .setCancelable(false)
-                    .build(
-                        type = BaseAlertDialog.DialogType.SINGLE_INTENDED,
-                        title = "성장의 보상으로\n쑥을 얻었어요!",
-                        description = "한 단계 쑥! 성장한 것을 축하해요.\n수확한 쑥을 통해\n씨앗의 잠금을 해제해보세요:)",
-                        isTipVisility = false,
-                        isRemainThookVisility = false,
-                        isBackgroundImageVisility = true,
-                        isDescriptionVisility = true,
-                        positiveText = "확인",
-                        negativeText = "",
-                        tipText = "",
-                        negativeAction = {},
-                        positiveAction = {
-                            viewModel.completeActionplan(actionplanId)
-                            parentFragment.moveToCompletedActionTab()
-                        },
-                    ).show(parentFragmentManager, "get thook dialog")
+                viewModel.postReview(actionplanId, it)
+                viewModel.completeActionplan(actionplanId)
             },
             clickNoWritingBtn = {
                 viewModel.completeActionplan(actionplanId)
@@ -85,11 +69,42 @@ class ProceedingActionlistFragment(private val parentFragment: ActionlistFragmen
         ).show(parentFragmentManager, "review complete dialog")
     }
 
-    private fun selectedActionplanItem(seedId: Int) {
-        val intent =
-            Intent(requireActivity(), ActionplanInsightActivity::class.java)
-        intent.putExtra("insightId", seedId)
-        startActivity(intent)
+    private fun clickSeedDetail(seedId: Int) {
+        startActivity(
+            ActionplanInsightActivity.getIntent(
+                requireContext(),
+                seedId,
+            ),
+        )
+    }
+
+    private fun observeEvent() {
+        viewModel.event.flowWithLifecycle(lifecycle).onEach { event ->
+            when (event) {
+                is Event.PostReviewSuccess -> {
+                    BaseAlertDialog.Builder()
+                        .setCancelable(false)
+                        .build(
+                            type = BaseAlertDialog.DialogType.SINGLE_INTENDED,
+                            title = "성장의 보상으로\n쑥을 얻었어요!",
+                            description = "한 단계 쑥! 성장한 것을 축하해요.\n수확한 쑥을 통해\n씨앗의 잠금을 해제해보세요:)",
+                            isTipVisility = false,
+                            isRemainThookVisility = false,
+                            isBackgroundImageVisility = true,
+                            isDescriptionVisility = true,
+                            positiveText = "확인",
+                            negativeText = "",
+                            tipText = "",
+                            negativeAction = {},
+                            positiveAction = {
+                                parentFragment.moveToCompletedActionTab()
+                            },
+                        ).show(parentFragmentManager, "get thook dialog")
+                }
+
+                else -> {}
+            }
+        }.launchIn(lifecycleScope)
     }
 
     override fun onDestroyView() {

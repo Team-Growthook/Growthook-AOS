@@ -12,6 +12,7 @@ import com.growthook.aos.domain.usecase.actionplan.DeleteActionplanUseCase
 import com.growthook.aos.domain.usecase.actionplan.GetActionplansUseCase
 import com.growthook.aos.domain.usecase.actionplan.ModifyActionplanUseCase
 import com.growthook.aos.domain.usecase.actionplan.PostActionplansUseCase
+import com.growthook.aos.domain.usecase.review.PostReviewUseCase
 import com.growthook.aos.domain.usecase.seeddetail.GetSeedUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -27,6 +28,7 @@ class ActionplanInsightViewModel @Inject constructor(
     private val completeActionplanUseCase: CompleteActionplanUseCase,
     private val modifyActionplanUseCase: ModifyActionplanUseCase,
     private val deleteActionplanUseCase: DeleteActionplanUseCase,
+    private val postReviewUseCase: PostReviewUseCase,
 ) : ViewModel() {
     private val _actionplans = MutableStateFlow<List<Actionplan>>(listOf())
     val actionplans: MutableStateFlow<List<Actionplan>> = _actionplans
@@ -40,9 +42,6 @@ class ActionplanInsightViewModel @Inject constructor(
     private val _event = MutableStateFlow<Event>(Event.Default)
     val event: MutableStateFlow<Event> = _event
 
-    private val _isComplete = MutableLiveData<Boolean>()
-    val isComplete: MutableLiveData<Boolean> = _isComplete
-
     init {
         // TODO intent로 받은 seedId로 변경
         getSeedDetail(DUMMY_SEED)
@@ -53,10 +52,10 @@ class ActionplanInsightViewModel @Inject constructor(
         viewModelScope.launch {
             postActionplanUseCase.invoke(seedId, listOf(actionplan)).onSuccess {
                 getActionplans(seedId)
-                _event.value = Event.PostSuccess
+                _event.value = Event.PostActionplanSuccess
             }.onFailure { throwable ->
                 Timber.e(throwable.message)
-                _event.value = Event.PostFailed
+                _event.value = Event.Failed
             }
         }
     }
@@ -67,7 +66,7 @@ class ActionplanInsightViewModel @Inject constructor(
                 .onSuccess { seed ->
                     Log.d("seed", "seed:: $seed")
                     _seedData.value = seed
-                    _event.value = Event.Success
+                    _event.value = Event.GetSeedSuccess
                 }
                 .onFailure { throwable ->
                     Timber.e(throwable.message)
@@ -81,7 +80,7 @@ class ActionplanInsightViewModel @Inject constructor(
             getActionplansUseCase.invoke(seedId)
                 .onSuccess { actionplan ->
                     _actionplans.value = actionplan
-                    _event.value = Event.Success
+                    _event.value = Event.GetActionplanSuccess
                 }
                 .onFailure { throwable ->
                     Timber.e(throwable.message)
@@ -94,9 +93,10 @@ class ActionplanInsightViewModel @Inject constructor(
         viewModelScope.launch {
             completeActionplanUseCase.invoke(actionplanId).onSuccess {
                 getActionplans(seedId)
-                _isComplete.value = true
+                _event.value = Event.PostCompletedActionplanSuccess
             }.onFailure {
-                _isComplete.value = false
+                Timber.e(it.message)
+                _event.value = Event.Failed
             }
         }
     }
@@ -129,23 +129,28 @@ class ActionplanInsightViewModel @Inject constructor(
         }
     }
 
+    fun postReview(actionplanId: Int, content: String) {
+        viewModelScope.launch {
+            postReviewUseCase.invoke(actionplanId, content).onSuccess {
+                _event.value = Event.PostReviewSuccess
+            }.onFailure { throwable ->
+                Timber.e(throwable.message)
+                _event.value = Event.Failed
+            }
+        }
+    }
+
     sealed interface Event {
         object Failed : Event
-        object Success : Event
-        object PostFailed : Event
-        object PostSuccess : Event
+        object GetSeedSuccess : Event
+        object GetActionplanSuccess : Event
+        object PostActionplanSuccess : Event
+        object PostCompletedActionplanSuccess : Event
         object Default : Event
         object ModifySuccess : Event
         object DeleteSuccess : Event
+        object PostReviewSuccess : Event
     }
-
-//    fun deleteActionplan(position: Int) {
-//        val currentList = actionplanList.value.orEmpty().toMutableList()
-//        if (position in currentList.indices) {
-//            currentList.removeAt(position)
-//            actionplanList.value = currentList.toList()
-//        }
-//    }
 
     companion object {
         const val DUMMY_SEED = 113
