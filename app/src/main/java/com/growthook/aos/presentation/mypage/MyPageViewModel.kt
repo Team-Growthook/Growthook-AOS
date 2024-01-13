@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.growthook.aos.domain.usecase.GetGatherdThookUseCase
 import com.growthook.aos.domain.usecase.local.GetUserUseCase
 import com.growthook.aos.domain.usecase.local.PostUserUseCase
+import com.growthook.aos.domain.usecase.mypage.GetUsedThookUseCase
 import com.growthook.aos.util.callback.KakaoLogoutCallback
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -18,6 +19,7 @@ class MyPageViewModel @Inject constructor(
     private val postUserUseCase: PostUserUseCase,
     private val getUserUseCase: GetUserUseCase,
     private val getGatherdThookUseCase: GetGatherdThookUseCase,
+    private val getUsedThookUseCase: GetUsedThookUseCase,
 ) : ViewModel() {
 
     private val _isLogoutSuccess = MutableLiveData<Boolean>()
@@ -28,6 +30,9 @@ class MyPageViewModel @Inject constructor(
 
     private val _gatherdThook = MutableLiveData<Int>()
     val gatherdThook: LiveData<Int> = _gatherdThook
+
+    private val _usedThook = MutableLiveData<Int>()
+    val usedThook: LiveData<Int> = _usedThook
 
     private val memberId = MutableLiveData<Int>(0)
 
@@ -47,12 +52,23 @@ class MyPageViewModel @Inject constructor(
             memberId.value = 4
         }
         getGatherdThook()
+        getUsedThook()
     }
 
     fun getGatherdThook() {
         viewModelScope.launch {
             getGatherdThookUseCase.invoke(memberId.value ?: 0).onSuccess { thookCount ->
                 _gatherdThook.value = thookCount
+            }.onFailure {
+                Timber.e(it.message)
+            }
+        }
+    }
+
+    fun getUsedThook() {
+        viewModelScope.launch {
+            getUsedThookUseCase.invoke(memberId.value ?: 0).onSuccess { thookCount ->
+                _usedThook.value = thookCount
             }.onFailure {
                 Timber.e(it.message)
             }
