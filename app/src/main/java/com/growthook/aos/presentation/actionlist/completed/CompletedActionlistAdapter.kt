@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.growthook.aos.databinding.ItemCompletedActionplanBinding
-import com.growthook.aos.domain.entity.Actionplan
+import com.growthook.aos.domain.entity.ActionlistDetail
 import com.growthook.aos.util.extension.ItemDiffCallback
 
 class CompletedActionlistAdapter(
@@ -13,8 +13,8 @@ class CompletedActionlistAdapter(
     private val clickReviewDetail: () -> Unit,
 
 ) :
-    ListAdapter<Actionplan, CompletedActionlistAdapter.CompletedActionlistViewHolder>(
-        ItemDiffCallback<Actionplan>(
+    ListAdapter<ActionlistDetail, CompletedActionlistAdapter.CompletedActionlistViewHolder>(
+        ItemDiffCallback<ActionlistDetail>(
             onContentsTheSame = { old, new -> old == new },
             onItemsTheSame = { old, new -> old.actionplanId == new.actionplanId },
         ),
@@ -25,7 +25,7 @@ class CompletedActionlistAdapter(
         private val clickReviewDetail: () -> Unit,
     ) :
         RecyclerView.ViewHolder(binding.root) {
-        fun onBind(data: Actionplan) {
+        fun onBind(data: ActionlistDetail) {
             binding.tvCompletedActionplanTitle.text = data.content
             binding.tvCompletedActionplanBtnLeft.setOnClickListener {
                 selectedItem(data.actionplanId)
@@ -51,7 +51,7 @@ class CompletedActionlistAdapter(
 
     override fun onBindViewHolder(holder: CompletedActionlistViewHolder, position: Int) {
         holder.onBind(
-            getItem(position) as Actionplan,
+            getItem(position) as ActionlistDetail,
         )
     }
 }

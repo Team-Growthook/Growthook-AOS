@@ -48,10 +48,6 @@ class ProceedingActionlistFragment(private val parentFragment: ActionlistFragmen
     }
 
     private fun observeActionplan() {
-//        viewModel.proceedingActionplanList.observe(viewLifecycleOwner) {
-//            _proceedingActionlistAdapter?.submitList(it)
-//        }
-
         viewModel.doingActionplans.flowWithLifecycle(lifecycle).onEach { doingActionplan ->
             _proceedingActionlistAdapter?.submitList(doingActionplan)
         }.launchIn(lifecycleScope)

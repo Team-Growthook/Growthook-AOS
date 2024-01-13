@@ -1,17 +1,34 @@
 package com.growthook.aos.presentation.actionlist.completed
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.growthook.aos.domain.entity.Actionplan
+import androidx.lifecycle.viewModelScope
+import com.growthook.aos.domain.entity.ActionlistDetail
+import com.growthook.aos.domain.usecase.actionplan.GetFinishedActionplansUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class CompletedActionlistViewModel : ViewModel() {
-    var completedActionplanList: MutableLiveData<List<Actionplan>> =
-        MutableLiveData<List<Actionplan>>()
+@HiltViewModel
+class CompletedActionlistViewModel @Inject constructor(
+    private val getFinishedActionplansUseCase: GetFinishedActionplansUseCase,
+) : ViewModel() {
+    var finishedActionplans: MutableStateFlow<List<ActionlistDetail>> =
+        MutableStateFlow<List<ActionlistDetail>>(mutableListOf())
 
     init {
-        completedActionplanList.value = listOf(
-            Actionplan(1, "1완", isScraped = true, isFinished = false),
-            Actionplan(2, "2완", isScraped = false, isFinished = false),
-        )
+        getFinishedActionplans()
+    }
+
+    private fun getFinishedActionplans() {
+        viewModelScope.launch {
+            getFinishedActionplansUseCase.invoke(MEMBER_ID).onSuccess {
+                finishedActionplans.value = it
+            }
+        }
+    }
+
+    companion object {
+        private const val MEMBER_ID = 4
     }
 }
