@@ -76,21 +76,29 @@ class ActionplanInsightActivity :
                         tipText = "",
                         negativeAction = {},
                         positiveAction = {
-                            viewModel.completeActionplan(actionplanId)
+                            viewModel.completeActionplan(actionplanId, DUMMY_SEED)
                         },
                     ).show(supportFragmentManager, "get thook dialog")
             },
             clickNoWritingBtn = {
-                viewModel.completeActionplan(actionplanId)
+                viewModel.completeActionplan(actionplanId, DUMMY_SEED)
             },
         ).show(supportFragmentManager, "review dialog")
     }
 
-    private fun clickModifyMenu() {
-        Timber.e("수정 바텀시트 구현해야함")
+    private fun clickModifyMenu(actionplanId: Int) {
+        BaseWritingBottomSheet.Builder().build(
+            type = BaseWritingBottomSheet.WritingType.SMALL,
+            title = "액션플랜 수정",
+            clickSaveBtn = {
+                viewModel.modifyActionplan(actionplanId, it, DUMMY_SEED)
+            },
+            clickNoWritingBtn = {
+            },
+        ).show(supportFragmentManager, "actionplan modify dialog")
     }
 
-    private fun clickDeleteMenu(position: Int) {
+    private fun clickDeleteMenu(actionplanId: Int) {
         BaseAlertDialog.Builder()
             .setCancelable(true)
             .build(
@@ -105,9 +113,7 @@ class ActionplanInsightActivity :
                 isRemainThookVisility = false,
                 isTipVisility = false,
                 negativeAction = {
-                    // 삭제 로직 구현 필요
-//                    viewModel.deleteActionplan(position)
-                    Toast.makeText(this, "액션이 삭제되었어요", Toast.LENGTH_SHORT).show()
+                    viewModel.deleteActionplan(actionplanId, DUMMY_SEED)
                 },
                 positiveAction = {
                 },
@@ -184,6 +190,14 @@ class ActionplanInsightActivity :
 
                 is Event.PostFailed -> {
                     Toast.makeText(this, "액션플랜 생성에 실패했어요", Toast.LENGTH_SHORT).show()
+                }
+
+                is Event.ModifySuccess -> {
+                    Toast.makeText(this, "액션이 수정되었어요", Toast.LENGTH_SHORT).show()
+                }
+
+                is Event.DeleteSuccess -> {
+                    Toast.makeText(this, "액션이 삭제되었어요", Toast.LENGTH_SHORT).show()
                 }
 
                 else -> {

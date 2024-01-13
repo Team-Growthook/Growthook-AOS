@@ -10,8 +10,8 @@ import com.growthook.aos.domain.entity.Actionplan
 import com.growthook.aos.util.extension.ItemDiffCallback
 
 class ActionplanAdapter(
-    private val clickModify: () -> Unit,
-    private val clickDelete: (position: Int) -> Unit,
+    private val clickModify: (Int) -> Unit,
+    private val clickDelete: (Int) -> Unit,
     private val clickComplete: (Int) -> Unit,
 ) :
     ListAdapter<Actionplan, ActionplanAdapter.ActionplanViewHolder>(
@@ -23,13 +23,13 @@ class ActionplanAdapter(
 
     inner class ActionplanViewHolder(
         private val binding: ItemActionplanBinding,
-        private val clickModify: () -> Unit,
-        private val clickDelete: (position: Int) -> Unit,
+        private val clickModify: (Int) -> Unit,
+        private val clickDelete: (Int) -> Unit,
         private val clickComplete: (Int) -> Unit,
     ) :
         RecyclerView.ViewHolder(binding.root) {
         private var isItemSelected = false
-        fun onBind(data: Actionplan, position: Int) {
+        fun onBind(data: Actionplan) {
             with(binding) {
                 tvActionplanTitle.text = data.content
                 ivActionplanMenu.setOnClickListener {
@@ -41,11 +41,12 @@ class ActionplanAdapter(
                     }
                 }
                 tvActionplanModify.setOnClickListener {
-                    clickModify()
+                    clActionplanMenu.visibility = View.INVISIBLE
+                    clickModify(data.actionplanId)
                 }
                 tvActionplanDelete.setOnClickListener {
                     clActionplanMenu.visibility = View.INVISIBLE
-                    clickDelete(absoluteAdapterPosition)
+                    clickDelete(data.actionplanId)
                 }
                 tvActionplanCompleteBtn.setOnClickListener {
                     clickComplete(data.actionplanId)
@@ -64,6 +65,6 @@ class ActionplanAdapter(
     }
 
     override fun onBindViewHolder(holder: ActionplanViewHolder, position: Int) {
-        holder.onBind(getItem(position) as Actionplan, position)
+        holder.onBind(getItem(position) as Actionplan)
     }
 }

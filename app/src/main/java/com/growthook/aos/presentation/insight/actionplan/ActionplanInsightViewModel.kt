@@ -8,7 +8,9 @@ import androidx.lifecycle.viewModelScope
 import com.growthook.aos.domain.entity.Actionplan
 import com.growthook.aos.domain.entity.Seed
 import com.growthook.aos.domain.usecase.actionplan.CompleteActionplanUseCase
+import com.growthook.aos.domain.usecase.actionplan.DeleteActionplanUseCase
 import com.growthook.aos.domain.usecase.actionplan.GetActionplansUseCase
+import com.growthook.aos.domain.usecase.actionplan.ModifyActionplanUseCase
 import com.growthook.aos.domain.usecase.actionplan.PostActionplansUseCase
 import com.growthook.aos.domain.usecase.seeddetail.GetSeedUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,6 +25,8 @@ class ActionplanInsightViewModel @Inject constructor(
     private val getActionplansUseCase: GetActionplansUseCase,
     private val postActionplanUseCase: PostActionplansUseCase,
     private val completeActionplanUseCase: CompleteActionplanUseCase,
+    private val modifyActionplanUseCase: ModifyActionplanUseCase,
+    private val deleteActionplanUseCase: DeleteActionplanUseCase,
 ) : ViewModel() {
     private val _actionplans = MutableStateFlow<List<Actionplan>>(listOf())
     val actionplans: MutableStateFlow<List<Actionplan>> = _actionplans
@@ -86,13 +90,42 @@ class ActionplanInsightViewModel @Inject constructor(
         }
     }
 
-    fun completeActionplan(actionplanId: Int) {
+    fun completeActionplan(actionplanId: Int, seedId: Int) {
         viewModelScope.launch {
             completeActionplanUseCase.invoke(actionplanId).onSuccess {
+                getActionplans(seedId)
                 _isComplete.value = true
             }.onFailure {
                 _isComplete.value = false
             }
+        }
+    }
+
+    fun modifyActionplan(actionplanId: Int, content: String, seedId: Int) {
+        viewModelScope.launch {
+            modifyActionplanUseCase.invoke(actionplanId, content)
+                .onSuccess {
+                    getActionplans(seedId)
+                    _event.value = Event.ModifySuccess
+                }
+                .onFailure { throwable ->
+                    Timber.e(throwable.message)
+                    _event.value = Event.Failed
+                }
+        }
+    }
+
+    fun deleteActionplan(actionplanId: Int, seedId: Int) {
+        viewModelScope.launch {
+            deleteActionplanUseCase.invoke(actionplanId)
+                .onSuccess {
+                    getActionplans(seedId)
+                    _event.value = Event.DeleteSuccess
+                }
+                .onFailure { throwable ->
+                    Timber.e(throwable.message)
+                    _event.value = Event.Failed
+                }
         }
     }
 
@@ -102,6 +135,8 @@ class ActionplanInsightViewModel @Inject constructor(
         object PostFailed : Event
         object PostSuccess : Event
         object Default : Event
+        object ModifySuccess : Event
+        object DeleteSuccess : Event
     }
 
 //    fun deleteActionplan(position: Int) {
