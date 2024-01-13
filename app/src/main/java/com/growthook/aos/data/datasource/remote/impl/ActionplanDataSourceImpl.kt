@@ -28,4 +28,10 @@ class ActionplanDataSourceImpl @Inject constructor(private val apiService: Actio
 
     override suspend fun getActionplanPercent(memberId: Int): ResponseDataDto =
         apiService.getActionplanPercent(memberId)
+
+    override suspend fun completeActionplan(actionplanId: Int): ResponseDto =
+        apiService.completeActionplan(actionplanId)
+
+    override suspend fun modifyActionplan(actionplanId: Int): ResponseDto =
+        apiService.modifyActionplan(actionplanId)
 }

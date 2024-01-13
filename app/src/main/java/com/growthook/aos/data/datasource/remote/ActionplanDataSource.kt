@@ -19,4 +19,8 @@ interface ActionplanDataSource {
     suspend fun getFinishedActionplans(memberId: Int): ResponseActionlistDto
 
     suspend fun getActionplanPercent(memberId: Int): ResponseDataDto
+
+    suspend fun completeActionplan(actionplanId: Int): ResponseDto
+
+    suspend fun modifyActionplan(actionplanId: Int): ResponseDto
 }
