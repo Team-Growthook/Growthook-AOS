@@ -17,4 +17,8 @@ class MemberRepositoryImpl @Inject constructor(private val apiService: MemberSer
     override suspend fun getEmail(memberId: Int): Result<String> = runCatching {
         apiService.getEmail(memberId).data.email
     }
+
+    override suspend fun deleteMember(memberId: Int): Result<Unit> = runCatching {
+        apiService.deleteMember(memberId)
+    }
 }

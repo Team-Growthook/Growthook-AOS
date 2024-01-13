@@ -1,6 +1,7 @@
 package com.growthook.aos.data.datasource.remote.impl
 
 import com.growthook.aos.data.datasource.remote.MemberDataSource
+import com.growthook.aos.data.model.response.ResponseDto
 import com.growthook.aos.data.model.response.ResponseGatheredThookDto
 import com.growthook.aos.data.model.response.ResponseGetProfileDto
 import com.growthook.aos.data.model.response.ResponseGetUsedThook
@@ -17,4 +18,7 @@ class MemberDataSourceImpl @Inject constructor(private val apiService: MemberSer
 
     override suspend fun getEmail(memberId: Int): ResponseGetProfileDto =
         apiService.getEmail(memberId)
+
+    override suspend fun deleteMember(memberId: Int): ResponseDto =
+        apiService.deleteMember(memberId)
 }

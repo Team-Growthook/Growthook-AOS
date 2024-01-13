@@ -7,4 +7,6 @@ interface MemberRepository {
     suspend fun getUsedThook(memberId: Int): Result<Int>
 
     suspend fun getEmail(memberId: Int): Result<String>
+
+    suspend fun deleteMember(memberId: Int): Result<Unit>
 }
