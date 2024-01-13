@@ -12,7 +12,7 @@ import com.growthook.aos.util.extension.ItemDiffCallback
 class ActionplanAdapter(
     private val clickModify: () -> Unit,
     private val clickDelete: (position: Int) -> Unit,
-    private val clickComplete: () -> Unit,
+    private val clickComplete: (Int) -> Unit,
 ) :
     ListAdapter<Actionplan, ActionplanAdapter.ActionplanViewHolder>(
         ItemDiffCallback<Actionplan>(
@@ -25,7 +25,7 @@ class ActionplanAdapter(
         private val binding: ItemActionplanBinding,
         private val clickModify: () -> Unit,
         private val clickDelete: (position: Int) -> Unit,
-        private val clickComplete: () -> Unit,
+        private val clickComplete: (Int) -> Unit,
     ) :
         RecyclerView.ViewHolder(binding.root) {
         private var isItemSelected = false
@@ -48,7 +48,7 @@ class ActionplanAdapter(
                     clickDelete(absoluteAdapterPosition)
                 }
                 tvActionplanCompleteBtn.setOnClickListener {
-                    clickComplete()
+                    clickComplete(data.actionplanId)
                 }
             }
         }

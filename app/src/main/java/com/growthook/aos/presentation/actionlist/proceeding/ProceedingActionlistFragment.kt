@@ -53,7 +53,7 @@ class ProceedingActionlistFragment(private val parentFragment: ActionlistFragmen
         }.launchIn(lifecycleScope)
     }
 
-    private fun clickCompleteBtn() {
+    private fun clickCompleteBtn(actionplanId: Int) {
         BaseWritingBottomSheet.Builder().build(
             type = BaseWritingBottomSheet.WritingType.LARGE,
             title = "리뷰 작성",
@@ -73,11 +73,15 @@ class ProceedingActionlistFragment(private val parentFragment: ActionlistFragmen
                         tipText = "",
                         negativeAction = {},
                         positiveAction = {
+                            viewModel.completeActionplan(actionplanId)
                             parentFragment.moveToCompletedActionTab()
                         },
                     ).show(parentFragmentManager, "get thook dialog")
             },
-            clickNoWritingBtn = {},
+            clickNoWritingBtn = {
+                viewModel.completeActionplan(actionplanId)
+                parentFragment.moveToCompletedActionTab()
+            },
         ).show(parentFragmentManager, "review complete dialog")
     }
 

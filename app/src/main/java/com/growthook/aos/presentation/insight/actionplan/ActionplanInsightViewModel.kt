@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.growthook.aos.domain.entity.Actionplan
 import com.growthook.aos.domain.entity.Seed
+import com.growthook.aos.domain.usecase.actionplan.CompleteActionplanUseCase
 import com.growthook.aos.domain.usecase.actionplan.GetActionplansUseCase
 import com.growthook.aos.domain.usecase.actionplan.PostActionplansUseCase
 import com.growthook.aos.domain.usecase.seeddetail.GetSeedUseCase
@@ -21,6 +22,7 @@ class ActionplanInsightViewModel @Inject constructor(
     private val getSeedUseCase: GetSeedUseCase,
     private val getActionplansUseCase: GetActionplansUseCase,
     private val postActionplanUseCase: PostActionplansUseCase,
+    private val completeActionplanUseCase: CompleteActionplanUseCase,
 ) : ViewModel() {
     private val _actionplans = MutableStateFlow<List<Actionplan>>(listOf())
     val actionplans: MutableStateFlow<List<Actionplan>> = _actionplans
@@ -33,6 +35,9 @@ class ActionplanInsightViewModel @Inject constructor(
 
     private val _event = MutableStateFlow<Event>(Event.Default)
     val event: MutableStateFlow<Event> = _event
+
+    private val _isComplete = MutableLiveData<Boolean>()
+    val isComplete: MutableLiveData<Boolean> = _isComplete
 
     init {
         // TODO intent로 받은 seedId로 변경
@@ -78,6 +83,16 @@ class ActionplanInsightViewModel @Inject constructor(
                     Timber.e(throwable.message)
                     _event.value = Event.Failed
                 }
+        }
+    }
+
+    fun completeActionplan(actionplanId: Int) {
+        viewModelScope.launch {
+            completeActionplanUseCase.invoke(actionplanId).onSuccess {
+                _isComplete.value = true
+            }.onFailure {
+                _isComplete.value = false
+            }
         }
     }
 

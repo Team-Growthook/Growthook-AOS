@@ -1,6 +1,5 @@
 package com.growthook.aos.presentation.actionlist.proceeding
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
@@ -11,7 +10,7 @@ import com.growthook.aos.util.extension.ItemDiffCallback
 
 class ProceedingActionlistAdapter(
     private val selectedItem: (Int) -> Unit,
-    private val clickCompleted: () -> Unit,
+    private val clickCompleted: (Int) -> Unit,
 ) :
     ListAdapter<ActionlistDetail, ProceedingActionlistAdapter.ProceedingActionlistViewHolder>(
         ItemDiffCallback<ActionlistDetail>(
@@ -22,7 +21,7 @@ class ProceedingActionlistAdapter(
     class ProceedingActionlistViewHolder(
         private val binding: ItemProceedingActionplanBinding,
         private val selectedItem: (Int) -> Unit,
-        private val clickCompleted: () -> Unit,
+        private val clickCompleted: (Int) -> Unit,
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun onBind(data: ActionlistDetail) {
@@ -33,8 +32,7 @@ class ProceedingActionlistAdapter(
             }
 
             binding.tvProceedingActionplanBtnRight.setOnClickListener {
-                Log.d("proceeding", "click!!!")
-                clickCompleted()
+                clickCompleted(data.actionplanId)
             }
         }
     }

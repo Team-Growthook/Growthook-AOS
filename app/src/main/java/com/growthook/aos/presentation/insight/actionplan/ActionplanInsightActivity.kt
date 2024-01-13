@@ -56,7 +56,7 @@ class ActionplanInsightActivity :
         }.launchIn(lifecycleScope)
     }
 
-    private fun clickCompleteBtn() {
+    private fun clickCompleteBtn(actionplanId: Int) {
         BaseWritingBottomSheet.Builder().build(
             type = BaseWritingBottomSheet.WritingType.LARGE,
             title = "리뷰 작성",
@@ -75,10 +75,14 @@ class ActionplanInsightActivity :
                         negativeText = "",
                         tipText = "",
                         negativeAction = {},
-                        positiveAction = {},
+                        positiveAction = {
+                            viewModel.completeActionplan(actionplanId)
+                        },
                     ).show(supportFragmentManager, "get thook dialog")
             },
-            clickNoWritingBtn = {},
+            clickNoWritingBtn = {
+                viewModel.completeActionplan(actionplanId)
+            },
         ).show(supportFragmentManager, "review dialog")
     }
 
