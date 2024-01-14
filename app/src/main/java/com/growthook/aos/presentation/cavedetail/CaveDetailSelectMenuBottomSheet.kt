@@ -40,7 +40,7 @@ class CaveDetailSelectMenuBottomSheet() :
         binding.btnHomeSelectMove.setOnClickListener {
             CaveSelect.Builder().build(
                 CaveSelect.CaveSelectType.YES_API,
-                viewModel.longClickInsight.value?.insightId ?: 1,
+                viewModel.longClickInsight.value?.seedId ?: 1,
             ).show(parentFragmentManager, "select")
         }
     }
@@ -61,7 +61,7 @@ class CaveDetailSelectMenuBottomSheet() :
                     isRemainThookVisility = false,
                     isTipVisility = false,
                     negativeAction = {
-                        viewModel.deleteSeed(viewModel.longClickInsight.value?.insightId ?: 0)
+                        viewModel.deleteSeed(viewModel.longClickInsight.value?.seedId ?: 0)
                         viewModel.isSeedDelete.observe(viewLifecycleOwner) { isDelete ->
                             if (isDelete) {
                                 Toast.makeText(context, "씨앗이 삭제되었어요", Toast.LENGTH_SHORT).show()

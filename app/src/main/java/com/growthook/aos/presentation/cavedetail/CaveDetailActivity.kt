@@ -14,6 +14,7 @@ import com.growthook.aos.databinding.ActivityCaveDetailBinding
 import com.growthook.aos.domain.entity.Insight
 import com.growthook.aos.presentation.MainActivity
 import com.growthook.aos.presentation.home.HomeInsightAdapter
+import com.growthook.aos.presentation.insight.actionplan.ActionplanInsightActivity
 import com.growthook.aos.presentation.insight.noactionplan.InsightMenuBottomsheet
 import com.growthook.aos.presentation.insight.noactionplan.NoActionplanInsightActivity
 import com.growthook.aos.util.EmptyDataObserver
@@ -47,8 +48,9 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
         modifySelectBottomSheet = CaveModifySelectBottomSheet()
 
         val caveId = intent.getIntExtra("caveId", 0)
-        viewModel.caveId.value = caveId
-        viewModel.getInsights(caveId)
+        // viewModel.caveId.value = caveId
+        viewModel.caveId.value = 54
+        viewModel.getInsights()
         setCaveDetail()
         setInsightAdapter()
         setNickName()
@@ -167,25 +169,34 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
                     negativeAction = {
                     },
                     positiveAction = {
-                        Toast.makeText(this, "잠금이 영구적으로 해제되었어요!", Toast.LENGTH_SHORT).show()
-                        val intent =
-                            Intent(this, NoActionplanInsightActivity::class.java)
-                        intent.putExtra("insightId", item.insightId)
-                        startActivity(intent)
+                        viewModel.unLockSeed(item.seedId)
+                        viewModel.isUnlock.observe(this) {
+                            Toast.makeText(this, "잠금이 영구적으로 해제되었어요!", Toast.LENGTH_SHORT).show()
+                            startActivity(
+                                NoActionplanInsightActivity.getIntent(
+                                    this,
+                                    item.seedId,
+                                ),
+                            )
+                        }
                     },
                 ).show(supportFragmentManager, InsightMenuBottomsheet.DELETE_DIALOG)
-        } else if (!item.isAction) {
+        } else if (!item.hasActionPlan) {
             val intent =
                 Intent(this, NoActionplanInsightActivity::class.java)
-            intent.putExtra("insightId", item.insightId)
+            intent.putExtra("insightId", item.seedId)
             startActivity(intent)
         }
     }
 
-    private fun clickedScrap(isScrap: Boolean) {
-        viewModel.changeScrap(isScrap)
-        Timber.d("스크랩 $isScrap")
-        Toast.makeText(this, "스크랩 완료", Toast.LENGTH_SHORT).show()
+    private fun clickedScrap(seedId: Int) {
+        viewModel.changeScrap(seedId)
+        viewModel.isScrapedSuccess.observe(this) { isSuccess ->
+            if (isSuccess) {
+                viewModel.getInsights()
+                Toast.makeText(this, "스크랩 완료", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun setNickName() {
@@ -199,7 +210,7 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
             if (isChecked) {
                 viewModel.getScrapedInsight()
             } else {
-                viewModel.getInsights(caveId)
+                viewModel.getInsights()
             }
         }
     }

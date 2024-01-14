@@ -40,6 +40,6 @@ interface CaveService {
     @POST("/api/v1/member/{memberId}/cave")
     suspend fun postCave(
         @Path("memberId") memberId: Int,
-        @Body request: RequestCavePostDto
+        @Body request: RequestCavePostDto,
     ): ResponsePostCaveDto
 }

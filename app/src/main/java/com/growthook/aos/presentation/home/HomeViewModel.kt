@@ -9,6 +9,10 @@ import com.growthook.aos.domain.entity.Cave
 import com.growthook.aos.domain.entity.Insight
 import com.growthook.aos.domain.usecase.DeleteSeedUseCase
 import com.growthook.aos.domain.usecase.GetCavesUseCase
+import com.growthook.aos.domain.usecase.ScrapSeedUseCase
+import com.growthook.aos.domain.usecase.UnLockSeedUseCase
+import com.growthook.aos.domain.usecase.home.GetSeedAlarmUseCase
+import com.growthook.aos.domain.usecase.home.GetSeedsUseCase
 import com.growthook.aos.domain.usecase.local.GetUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -20,6 +24,10 @@ class HomeViewModel @Inject constructor(
     private val getUserUseCase: GetUserUseCase,
     private val deleteSeedUseCase: DeleteSeedUseCase,
     private val getCavesUseCase: GetCavesUseCase,
+    private val getSeedAlarmUseCase: GetSeedAlarmUseCase,
+    private val getSeedsUseCase: GetSeedsUseCase,
+    private val scrapSeedUseCase: ScrapSeedUseCase,
+    private val unLockSeedUseCase: UnLockSeedUseCase,
 ) : ViewModel() {
 
     private val _nickName = MutableLiveData<String>()
@@ -37,6 +45,16 @@ class HomeViewModel @Inject constructor(
     private val _isDelete = MutableLiveData<Boolean>()
     val isDelete: LiveData<Boolean> = _isDelete
 
+    private val _isScrapedSuccess = MutableLiveData<Boolean>()
+    val isScrapedSuccess: LiveData<Boolean> = _isScrapedSuccess
+
+    private val _isUnlock = MutableLiveData<Boolean>()
+    val isUnlock: LiveData<Boolean> = _isUnlock
+
+    private val scrapedInsights = MutableLiveData<List<Insight>>()
+
+    private val memberId = MutableLiveData<Int>(0)
+
     val isMenuDismissed = MutableLiveData<Boolean>()
 
     val longClickInsight = MutableLiveData<Insight>()
@@ -48,110 +66,41 @@ class HomeViewModel @Inject constructor(
             getInsights()
             setNickName()
             getCaves()
+            // memberId.value = getUserUseCase.invoke().memberId ?: 0
+            memberId.value = 4
         }
     }
 
     private fun getAlertCount() {
-        _alertAmount.value = 0
+        viewModelScope.launch {
+            getSeedAlarmUseCase.invoke(memberId.value ?: 0).onSuccess { seedCount ->
+                _alertAmount.value = seedCount
+            }.onFailure {
+                Timber.e(it.message)
+            }
+        }
     }
 
     fun getInsights() {
-        var dummyInsights = listOf(
-            Insight(
-                "제목1",
-                12,
-                isScraped = true,
-                isLocked = false,
-                isAction = false,
-                1,
-            ),
-            Insight(
-                "제목2",
-                24,
-                isScraped = false,
-                isLocked = false,
-                isAction = false,
-                2,
-            ),
-            Insight(
-                "제목3",
-                12,
-                isScraped = true,
-                isLocked = true,
-                isAction = false,
-                3,
-            ),
-            Insight(
-                "제목4",
-                12,
-                isScraped = true,
-                isLocked = false,
-                isAction = false,
-                4,
-            ),
-            Insight(
-                "제목5",
-                12,
-                isScraped = false,
-                isLocked = true,
-                isAction = false,
-                5,
-            ),
-            Insight(
-                "제목6",
-                12,
-                isScraped = true,
-                isLocked = false,
-                isAction = false,
-                6,
-            ),
-            Insight(
-                "제목7",
-                12,
-                isScraped = false,
-                isLocked = false,
-                isAction = true,
-                7,
-            ),
-            Insight(
-                "제목8",
-                12,
-                isScraped = true,
-                isLocked = false,
-                isAction = false,
-                8,
-            ),
-            Insight(
-                "제목9",
-                12,
-                isScraped = true,
-                isLocked = true,
-                isAction = false,
-                9,
-            ),
-            Insight(
-                "제목10",
-                12,
-                isScraped = false,
-                isLocked = false,
-                isAction = true,
-                10,
-            ),
-
-        )
-
-        _insights.value = dummyInsights
+        viewModelScope.launch {
+            getSeedsUseCase.invoke(memberId.value ?: 0).onSuccess { insights ->
+                _insights.value = insights
+                scrapedInsights.value = insights.filter { it.isScraped }
+            }.onFailure {
+                Timber.e(it.message)
+            }
+        }
     }
 
     fun getScrapedInsight() {
-        _insights.value = _insights.value?.filter { it.isScraped }
+        _insights.value = scrapedInsights.value
         Timber.d("getScrapedInsight ${_insights.value?.size}")
     }
 
     fun getCaves() {
         viewModelScope.launch {
             Log.d("user", "memberID:: ${getUserUseCase.invoke().memberId}")
-            getCavesUseCase(DUMMY_MEMBER_ID).onSuccess { caves ->
+            getCavesUseCase(memberId.value ?: 0).onSuccess { caves ->
                 _caves.value = caves
             }
         }
@@ -163,8 +112,14 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun changeScrap(isScrap: Boolean) {
-        // TODO 스크랩 api 구현
+    fun changeScrap(seedId: Int) {
+        viewModelScope.launch {
+            scrapSeedUseCase.invoke(seedId).onSuccess {
+                _isScrapedSuccess.value = true
+            }.onFailure {
+                _isScrapedSuccess.value = false
+            }
+        }
     }
 
     fun deleteSeed(caveId: Int) {
@@ -177,7 +132,13 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    companion object {
-        const val DUMMY_MEMBER_ID = 3
+    fun unLockSeed(seedId: Int) {
+        viewModelScope.launch {
+            unLockSeedUseCase.invoke(seedId).onSuccess {
+                _isUnlock.value = true
+            }.onFailure {
+                _isUnlock.value = false
+            }
+        }
     }
 }
