@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.growthook.aos.R
 import com.growthook.aos.databinding.FragmentProceedingActionlistBinding
 import com.growthook.aos.presentation.actionlist.ActionlistFragment
 import com.growthook.aos.presentation.actionlist.proceeding.ProceedingActionlistViewModel.Event
@@ -22,6 +23,7 @@ import kotlinx.coroutines.flow.onEach
 @AndroidEntryPoint
 class ProceedingActionlistFragment(private val parentFragment: ActionlistFragment) :
     BaseFragment<FragmentProceedingActionlistBinding>() {
+    private var isScrapped = false
     private var _proceedingActionlistAdapter: ProceedingActionlistAdapter? = null
     private val proceedingActionlistAdapter
         get() = requireNotNull(_proceedingActionlistAdapter) { "proceedingActionlistAdapter is null" }
@@ -39,6 +41,7 @@ class ProceedingActionlistFragment(private val parentFragment: ActionlistFragmen
         initActionplanAdapter()
         observeActionplan()
         observeEvent()
+        clickScrapBtn()
     }
 
     private fun initActionplanAdapter() {
@@ -52,6 +55,19 @@ class ProceedingActionlistFragment(private val parentFragment: ActionlistFragmen
         viewModel.doingActionplans.flowWithLifecycle(lifecycle).onEach { doingActionplan ->
             _proceedingActionlistAdapter?.submitList(doingActionplan)
         }.launchIn(lifecycleScope)
+    }
+
+    private fun clickScrapBtn() {
+        binding.clProceedingActionplanScrap.setOnClickListener {
+            isScrapped = !isScrapped
+            if (isScrapped) {
+                binding.ivProceedingActionlistScrap.setImageResource(R.drawable.ic_home_scrap_true)
+                binding.tvProceedingActionlistScrap.setTextColor(requireContext().getColor(R.color.Green200))
+            } else {
+                binding.ivProceedingActionlistScrap.setImageResource(R.drawable.ic_home_scrap_false)
+                binding.tvProceedingActionlistScrap.setTextColor(requireContext().getColor(R.color.White000))
+            }
+        }
     }
 
     private fun clickCompleteBtn(actionplanId: Int) {
