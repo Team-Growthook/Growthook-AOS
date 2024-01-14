@@ -6,35 +6,35 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.growthook.aos.databinding.ItemProceedingActionplanBinding
-import com.growthook.aos.domain.entity.Actionplan
+import com.growthook.aos.domain.entity.ActionlistDetail
 import com.growthook.aos.util.extension.ItemDiffCallback
 
 class ProceedingActionlistAdapter(
-    private val selectedItem: (Int) -> Unit,
-    private val clickCompleted: () -> Unit,
+    private val clickSeedDetail: (Int) -> Unit,
+    private val clickCompleted: (Int) -> Unit,
 ) :
-    ListAdapter<Actionplan, ProceedingActionlistAdapter.ProceedingActionlistViewHolder>(
-        ItemDiffCallback<Actionplan>(
+    ListAdapter<ActionlistDetail, ProceedingActionlistAdapter.ProceedingActionlistViewHolder>(
+        ItemDiffCallback<ActionlistDetail>(
             onContentsTheSame = { old, new -> old == new },
             onItemsTheSame = { old, new -> old.actionplanId == new.actionplanId },
         ),
     ) {
     class ProceedingActionlistViewHolder(
         private val binding: ItemProceedingActionplanBinding,
-        private val selectedItem: (Int) -> Unit,
-        private val clickCompleted: () -> Unit,
+        private val clickSeedDetail: (Int) -> Unit,
+        private val clickCompleted: (Int) -> Unit,
     ) :
         RecyclerView.ViewHolder(binding.root) {
-        fun onBind(data: Actionplan) {
-            binding.tvProceedingActionplanTitle.text = data.content
-
-            binding.root.setOnClickListener {
-                selectedItem(data.actionplanId)
-            }
-
-            binding.tvProceedingActionplanBtnRight.setOnClickListener {
-                Log.d("proceeding", "click!!!")
-                clickCompleted()
+        fun onBind(data: ActionlistDetail) {
+            with(binding) {
+                tvProceedingActionplanTitle.text = data.content
+                tvProceedingActionplanBtnRight.setOnClickListener {
+                    clickCompleted(data.actionplanId)
+                }
+                tvProceedingActionplanBtnLeft.setOnClickListener {
+                    Log.d("doing", "33333")
+                    clickSeedDetail(data.seedId)
+                }
             }
         }
     }
@@ -49,12 +49,12 @@ class ProceedingActionlistAdapter(
                 parent,
                 false,
             )
-        return ProceedingActionlistViewHolder(binding, selectedItem, clickCompleted)
+        return ProceedingActionlistViewHolder(binding, clickSeedDetail, clickCompleted)
     }
 
     override fun onBindViewHolder(holder: ProceedingActionlistViewHolder, position: Int) {
         holder.onBind(
-            getItem(position) as Actionplan,
+            getItem(position) as ActionlistDetail,
         )
     }
 }

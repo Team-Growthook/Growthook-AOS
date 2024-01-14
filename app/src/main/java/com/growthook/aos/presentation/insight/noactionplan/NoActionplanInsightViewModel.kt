@@ -11,7 +11,6 @@ import com.growthook.aos.domain.usecase.DeleteSeedUseCase
 import com.growthook.aos.domain.usecase.GetCavesUseCase
 import com.growthook.aos.domain.usecase.local.GetUserUseCase
 import com.growthook.aos.domain.usecase.seeddetail.GetSeedUseCase
-import com.growthook.aos.presentation.insight.actionplan.ActionplanInsightViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -34,8 +33,8 @@ class NoActionplanInsightViewModel @Inject constructor(
     private val _isDelete = MutableLiveData<Boolean>()
     val isDelete: LiveData<Boolean> = _isDelete
 
-    private val _event = MutableLiveData<ActionplanInsightViewModel.Event>()
-    val event: LiveData<ActionplanInsightViewModel.Event> = _event
+    private val _event = MutableLiveData<Event>()
+    val event: LiveData<Event> = _event
 
     init {
         getSeedDetail(DUMMY_SEED)
@@ -48,11 +47,11 @@ class NoActionplanInsightViewModel @Inject constructor(
                 .onSuccess { seed ->
                     Log.d("seed", "seed:: $seed")
                     _seedData.value = seed
-                    _event.value = ActionplanInsightViewModel.Event.Success
+                    _event.value = Event.Success
                 }
                 .onFailure { throwable ->
                     Timber.e(throwable.message)
-                    _event.value = ActionplanInsightViewModel.Event.Failed
+                    _event.value = Event.Failed
                 }
         }
     }
@@ -80,8 +79,13 @@ class NoActionplanInsightViewModel @Inject constructor(
         }
     }
 
+    sealed interface Event {
+        object Success : Event
+        object Failed : Event
+    }
+
     companion object {
-        private const val DUMMY_SEED = 47
-        private const val DUMMY_MEMBER_ID = 3
+        private const val DUMMY_SEED = 113
+        private const val DUMMY_MEMBER_ID = 4
     }
 }

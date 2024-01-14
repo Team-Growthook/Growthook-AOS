@@ -2,10 +2,10 @@ package com.growthook.aos.data.service
 
 import com.growthook.aos.data.model.request.RequestSeedMoveDto
 import com.growthook.aos.data.model.request.RequestSeedPostDto
+import com.growthook.aos.data.model.response.ResponseDataDto
 import com.growthook.aos.data.model.response.ResponseDto
 import com.growthook.aos.data.model.response.ResponseGetSeedDto
 import com.growthook.aos.data.model.response.ResponseMoveSeedDto
-import com.growthook.aos.data.model.response.ResponsePostSeedDto
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -34,5 +34,5 @@ interface SeedService {
     suspend fun postSeed(
         @Path("caveId") caveId: Int,
         @Body request: RequestSeedPostDto,
-    ): ResponsePostSeedDto
+    ): ResponseDataDto
 }

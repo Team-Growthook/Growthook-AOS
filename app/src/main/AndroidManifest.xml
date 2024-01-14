@@ -17,6 +17,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".presentation.insight.noactionplan.add.AddActionplanActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.actionlist.ReviewDetailActivity"
             android:exported="false" />
         <activity
@@ -40,28 +43,30 @@
             android:exported="false" />
         <activity
             android:name=".presentation.onboarding.LoginActivity"
-            android:exported="false"/>
-        <activity android:name=".presentation.onboarding.OnboardingActivity"
-            android:exported="false"/>
+            android:exported="false" />
+        <activity
+            android:name=".presentation.onboarding.OnboardingActivity"
+            android:exported="false" />
         <activity
             android:name=".presentation.cavedetail.cavemodify.CaveDetailModifyActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.cavecreate.CreateNewCaveActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".presentation.cavecreate.SeeNewCaveActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:exported="false"/>
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".presentation.insight.write.InsightWriteActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".presentation.insight.write.InsightWriteNewActivity"
-            android:exported="false"/>
-        <activity android:name=".presentation.onboarding.SplashActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.onboarding.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

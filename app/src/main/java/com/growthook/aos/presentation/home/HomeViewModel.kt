@@ -9,6 +9,7 @@ import com.growthook.aos.domain.entity.Cave
 import com.growthook.aos.domain.entity.Insight
 import com.growthook.aos.domain.usecase.DeleteSeedUseCase
 import com.growthook.aos.domain.usecase.GetCavesUseCase
+import com.growthook.aos.domain.usecase.actionplan.GetActionplanPercentUseCase
 import com.growthook.aos.domain.usecase.local.GetUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -20,6 +21,7 @@ class HomeViewModel @Inject constructor(
     private val getUserUseCase: GetUserUseCase,
     private val deleteSeedUseCase: DeleteSeedUseCase,
     private val getCavesUseCase: GetCavesUseCase,
+    private val getGetActionplanPercentUseCase: GetActionplanPercentUseCase,
 ) : ViewModel() {
 
     private val _nickName = MutableLiveData<String>()
@@ -37,6 +39,9 @@ class HomeViewModel @Inject constructor(
     private val _isDelete = MutableLiveData<Boolean>()
     val isDelete: LiveData<Boolean> = _isDelete
 
+    private val _actionplanPercent = MutableLiveData<Int>()
+    val actionplanPercent: LiveData<Int> = _actionplanPercent
+
     val isMenuDismissed = MutableLiveData<Boolean>()
 
     val longClickInsight = MutableLiveData<Insight>()
@@ -48,6 +53,7 @@ class HomeViewModel @Inject constructor(
             getInsights()
             setNickName()
             getCaves()
+            getActionplanPercent()
         }
     }
 
@@ -177,7 +183,17 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    fun getActionplanPercent() {
+        viewModelScope.launch {
+            getGetActionplanPercentUseCase.invoke(DUMMY_MEMBER_ID).onSuccess {
+                _actionplanPercent.value = it
+            }.onFailure { throwable ->
+                Timber.e(throwable.message)
+            }
+        }
+    }
+
     companion object {
-        const val DUMMY_MEMBER_ID = 3
+        const val DUMMY_MEMBER_ID = 4
     }
 }

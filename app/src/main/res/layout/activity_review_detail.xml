@@ -57,7 +57,7 @@
             android:id="@+id/iv_review_detail_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="20dp"
             android:src="@drawable/ic_scrap_unselected"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_review_detail_title" />
@@ -75,6 +75,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_review_detail_title">
 
             <TextView
+                android:id="@+id/tv_review_detail_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:text="행복해요 :)"
@@ -89,6 +90,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
+            android:id="@+id/tv_review_detail_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"

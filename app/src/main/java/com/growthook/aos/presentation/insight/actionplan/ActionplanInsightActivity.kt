@@ -56,37 +56,33 @@ class ActionplanInsightActivity :
         }.launchIn(lifecycleScope)
     }
 
-    private fun clickCompleteBtn() {
+    private fun clickCompleteBtn(actionplanId: Int) {
         BaseWritingBottomSheet.Builder().build(
             type = BaseWritingBottomSheet.WritingType.LARGE,
             title = "리뷰 작성",
             clickSaveBtn = {
-                BaseAlertDialog.Builder()
-                    .setCancelable(false)
-                    .build(
-                        type = BaseAlertDialog.DialogType.SINGLE_INTENDED,
-                        title = "성장의 보상으로\n쑥을 얻었어요!",
-                        description = "한 단계 쑥! 성장한 것을 축하해요.\n수확한 쑥을 통해\n씨앗의 잠금을 해제해보세요:)",
-                        isTipVisility = false,
-                        isRemainThookVisility = false,
-                        isBackgroundImageVisility = true,
-                        isDescriptionVisility = true,
-                        positiveText = "확인",
-                        negativeText = "",
-                        tipText = "",
-                        negativeAction = {},
-                        positiveAction = {},
-                    ).show(supportFragmentManager, "get thook dialog")
+                viewModel.postReview(actionplanId, it)
+                viewModel.completeActionplan(actionplanId, DUMMY_SEED)
             },
-            clickNoWritingBtn = {},
+            clickNoWritingBtn = {
+                viewModel.completeActionplan(actionplanId, DUMMY_SEED)
+            },
         ).show(supportFragmentManager, "review dialog")
     }
 
-    private fun clickModifyMenu() {
-        Timber.e("수정 바텀시트 구현해야함")
+    private fun clickModifyMenu(actionplanId: Int) {
+        BaseWritingBottomSheet.Builder().build(
+            type = BaseWritingBottomSheet.WritingType.SMALL,
+            title = "액션플랜 수정",
+            clickSaveBtn = {
+                viewModel.modifyActionplan(actionplanId, it, DUMMY_SEED)
+            },
+            clickNoWritingBtn = {
+            },
+        ).show(supportFragmentManager, "actionplan modify dialog")
     }
 
-    private fun clickDeleteMenu(position: Int) {
+    private fun clickDeleteMenu(actionplanId: Int) {
         BaseAlertDialog.Builder()
             .setCancelable(true)
             .build(
@@ -101,9 +97,7 @@ class ActionplanInsightActivity :
                 isRemainThookVisility = false,
                 isTipVisility = false,
                 negativeAction = {
-                    // 삭제 로직 구현 필요
-//                    viewModel.deleteActionplan(position)
-                    Toast.makeText(this, "액션이 삭제되었어요", Toast.LENGTH_SHORT).show()
+                    viewModel.deleteActionplan(actionplanId, DUMMY_SEED)
                 },
                 positiveAction = {
                 },
@@ -174,12 +168,35 @@ class ActionplanInsightActivity :
     private fun observeEvent() {
         viewModel.event.flowWithLifecycle(lifecycle).onEach { event ->
             when (event) {
-                is Event.PostSuccess -> {
+                is Event.PostActionplanSuccess -> {
                     Toast.makeText(this, "액션을 만들었어요!", Toast.LENGTH_SHORT).show()
                 }
 
-                is Event.PostFailed -> {
-                    Toast.makeText(this, "액션플랜 생성에 실패했어요", Toast.LENGTH_SHORT).show()
+                is Event.ModifySuccess -> {
+                    Toast.makeText(this, "액션이 수정되었어요", Toast.LENGTH_SHORT).show()
+                }
+
+                is Event.DeleteSuccess -> {
+                    Toast.makeText(this, "액션이 삭제되었어요", Toast.LENGTH_SHORT).show()
+                }
+
+                is Event.PostReviewSuccess -> {
+                    BaseAlertDialog.Builder()
+                        .setCancelable(false)
+                        .build(
+                            type = BaseAlertDialog.DialogType.SINGLE_INTENDED,
+                            title = "성장의 보상으로\n쑥을 얻었어요!",
+                            description = "한 단계 쑥! 성장한 것을 축하해요.\n수확한 쑥을 통해\n씨앗의 잠금을 해제해보세요:)",
+                            isTipVisility = false,
+                            isRemainThookVisility = false,
+                            isBackgroundImageVisility = true,
+                            isDescriptionVisility = true,
+                            positiveText = "확인",
+                            negativeText = "",
+                            tipText = "",
+                            negativeAction = {},
+                            positiveAction = {},
+                        ).show(supportFragmentManager, "get thook dialog")
                 }
 
                 else -> {
@@ -197,7 +214,7 @@ class ActionplanInsightActivity :
         const val DELETE_DIALOG = "delete dialog"
         private const val TAG = "tag"
         private const val SEED_ID = "seedId"
-        private const val DUMMY_SEED = 47
+        private const val DUMMY_SEED = 113
 
         fun getIntent(context: Context, seedId: Int): Intent {
             return Intent(context, ActionplanInsightActivity::class.java).apply {
