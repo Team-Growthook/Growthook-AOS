@@ -4,11 +4,15 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import com.growthook.aos.R
 import com.growthook.aos.databinding.ActivityNoActionplanInsightBinding
 import com.growthook.aos.presentation.insight.noactionplan.add.AddActionplanActivity
 import com.growthook.aos.util.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -25,7 +29,8 @@ class NoActionplanInsightActivity :
     }
 
     private fun observeSeedDetail() {
-        viewModel.seedData.observe(this) { seed ->
+        viewModel.seedData.flowWithLifecycle(lifecycle).onEach { seed ->
+            Timber.d("seed data:: $seed")
             with(binding) {
                 tvNoactionInsightTitle.text = seed?.title
                 tvNoactionInsightContent.text = seed?.content
@@ -35,13 +40,13 @@ class NoActionplanInsightActivity :
                 tvNoactionInsightUrl.text = seed?.url
                 "D-${seed?.remainingDays}".also { tvNoactionInsightDday.text = it }
 
-                if (seed.isScraped) {
+                if (seed?.isScraped == true) {
                     ivNoactionInsightSeed.setImageResource(R.drawable.ic_scrap_selected)
                 } else {
                     ivNoactionInsightSeed.setImageResource(R.drawable.ic_scrap_unselected)
                 }
             }
-        }
+        }.launchIn(lifecycleScope)
     }
 
     private fun setClickListeners() {

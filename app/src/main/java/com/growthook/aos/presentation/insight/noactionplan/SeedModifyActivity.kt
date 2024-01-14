@@ -1,5 +1,6 @@
 package com.growthook.aos.presentation.insight.noactionplan
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MotionEvent
@@ -31,7 +32,7 @@ class SeedModifyActivity : BaseActivity<ActivitySeedModifyBinding>({
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         this.currentFocus?.let { hideKeyboard(it) }
-        with (binding) {
+        with(binding) {
             edtSeedModifyInsight.clearFocus()
             edtSeedModifyMemo.clearFocus()
             edtSeedModifySource.clearFocus()
@@ -44,7 +45,7 @@ class SeedModifyActivity : BaseActivity<ActivitySeedModifyBinding>({
         // getSeedIntentInfo()
 
         viewModel.seedInfo.observe(this) { seedInfo ->
-            with (binding) {
+            with(binding) {
                 edtSeedModifyInsight.setText(seedInfo.insight)
                 edtSeedModifyMemo.setText(seedInfo.memo)
                 edtSeedModifySource.setText(seedInfo.source)
@@ -52,7 +53,7 @@ class SeedModifyActivity : BaseActivity<ActivitySeedModifyBinding>({
                 tvSeedModifyGoalSelected.text = "${seedInfo.goalMonth}개월"
                 tvSeedModifyCaveSelected.text = seedInfo.cave
             }
-            with (viewModel) {
+            with(viewModel) {
                 setInsightModify(seedInfo.insight)
                 setMemoModify(seedInfo.memo ?: "")
                 setSourceModify(seedInfo.source)
@@ -66,20 +67,20 @@ class SeedModifyActivity : BaseActivity<ActivitySeedModifyBinding>({
     }
 
     private fun initGetSeedModifyEdt() {
-        val insightModifyTextWatcher = CommonTextWatcher( afterChanged = { edtInsightModify ->
+        val insightModifyTextWatcher = CommonTextWatcher(afterChanged = { edtInsightModify ->
             viewModel.setInsightModify(edtInsightModify.toString())
         })
-        val memoModifyTextWatcher = CommonTextWatcher( afterChanged = { edtMemoModify ->
+        val memoModifyTextWatcher = CommonTextWatcher(afterChanged = { edtMemoModify ->
             viewModel.setMemoModify(edtMemoModify.toString())
         })
-        val sourceModifyTextWatcher = CommonTextWatcher( afterChanged = { edtSourceModify ->
+        val sourceModifyTextWatcher = CommonTextWatcher(afterChanged = { edtSourceModify ->
             viewModel.setSourceModify(edtSourceModify.toString())
         })
-        val urlModifyTextWatcher = CommonTextWatcher( afterChanged = { edtUrlModify ->
+        val urlModifyTextWatcher = CommonTextWatcher(afterChanged = { edtUrlModify ->
             viewModel.setUrlModify(edtUrlModify.toString())
         })
 
-        with (binding) {
+        with(binding) {
             edtSeedModifyInsight.addTextChangedListener(insightModifyTextWatcher)
             edtSeedModifyMemo.addTextChangedListener(memoModifyTextWatcher)
             edtSeedModifySource.addTextChangedListener(sourceModifyTextWatcher)
@@ -95,7 +96,7 @@ class SeedModifyActivity : BaseActivity<ActivitySeedModifyBinding>({
 
     private fun initSetBtnEnabled() {
         viewModel.checkSeedModifyBtnEnabled.observe(this) {
-            with (binding.btnSeedModify) {
+            with(binding.btnSeedModify) {
                 if (it) {
                     isEnabled = true
                     clickSeedModifyBtn()
@@ -120,5 +121,15 @@ class SeedModifyActivity : BaseActivity<ActivitySeedModifyBinding>({
 
     private fun sendSeedModifyInfo() {
         // TODO 버튼 클릭 시 수정된 정보 서버통신
+    }
+
+    companion object {
+        private const val SEED_ID = "seedId"
+
+        fun getIntent(context: Context, seedId: Int): Intent {
+            return Intent(context, SeedModifyActivity::class.java).apply {
+                putExtra(SEED_ID, seedId)
+            }
+        }
     }
 }

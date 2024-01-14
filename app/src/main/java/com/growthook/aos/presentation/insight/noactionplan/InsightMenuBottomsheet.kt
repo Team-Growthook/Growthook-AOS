@@ -1,6 +1,5 @@
 package com.growthook.aos.presentation.insight.noactionplan
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,8 +8,10 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.growthook.aos.R
 import com.growthook.aos.databinding.FragmentInsightMenuBottomsheetBinding
+import com.growthook.aos.presentation.insight.noactionplan.NoActionplanInsightViewModel.Event
 import com.growthook.aos.util.base.BaseAlertDialog
 import com.growthook.aos.util.base.BaseBottomSheetFragment
+import com.growthook.aos.util.selectcave.CaveSelect
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -38,8 +39,12 @@ class InsightMenuBottomsheet :
     private fun clickMoveMenu() {
         binding.clInsightMenuMove.setOnClickListener {
             dismiss()
-            val bottomSheetDialog = InsightCaveBottomsheet()
-            bottomSheetDialog.show(parentFragmentManager, "show")
+            CaveSelect.Builder().build(
+                CaveSelect.CaveSelectType.YES_API,
+                clickBtnAction = {
+                    DUMMY_SEED
+                },
+            ).show(parentFragmentManager, CAVE_SELECT_DIALOG)
         }
     }
 
@@ -52,8 +57,12 @@ class InsightMenuBottomsheet :
 
     private fun clickModifyMenu() {
         binding.clInsightMenuModify.setOnClickListener {
-            val intent = Intent(requireActivity(), SeedModifyActivity::class.java)
-            startActivity(intent)
+            startActivity(
+                SeedModifyActivity.getIntent(
+                    requireContext(),
+                    DUMMY_SEED,
+                ),
+            )
             dismiss()
         }
     }
@@ -75,18 +84,26 @@ class InsightMenuBottomsheet :
                 negativeAction = {
                     // TODO 전달 받은 seedId 변경
                     viewModel.deleteSeed(DUMMY_SEED)
-                    viewModel.isDelete.observe(viewLifecycleOwner) { isDelete ->
-                        if (isDelete) {
-                            Toast.makeText(context, "씨앗이 삭제되었어요", Toast.LENGTH_SHORT).show()
-                        }
-                    }
                 },
                 positiveAction = {},
             ).show(parentFragmentManager, DELETE_DIALOG)
     }
 
+    private fun observeEvent() {
+        viewModel.event.observe(viewLifecycleOwner) { event ->
+            when (event) {
+                is Event.DeleteSeedSuccess -> {
+                    Toast.makeText(context, "씨앗이 삭제되었어요", Toast.LENGTH_SHORT).show()
+                }
+
+                else -> {}
+            }
+        }
+    }
+
     companion object {
         const val DELETE_DIALOG = "delete dialog"
+        const val CAVE_SELECT_DIALOG = "cave select dialog"
         private const val DUMMY_SEED = 113
     }
 }
