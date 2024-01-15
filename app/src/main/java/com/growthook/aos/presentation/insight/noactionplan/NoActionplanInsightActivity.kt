@@ -30,8 +30,9 @@ class NoActionplanInsightActivity :
 
     private fun getSeedIdFromHome() {
         seedId = intent.getIntExtra("insightId", 0)
+        viewModel.seedId = seedId
         Timber.d("인사이트 id $seedId")
-        viewModel.getSeedDetail(seedId)
+        viewModel.getSeedDetail()
     }
 
     private fun observeSeedDetail() {
@@ -76,13 +77,12 @@ class NoActionplanInsightActivity :
 
     private fun clickAddAction() {
         binding.btnNoactionInsight.setOnClickListener {
-            startActivity(AddActionplanActivity.getIntent(this, DUMMY_SEED))
+            startActivity(AddActionplanActivity.getIntent(this, seedId))
         }
     }
 
     companion object {
         private const val SEED_ID = "seedId"
-        private const val DUMMY_SEED = 113
 
         fun getIntent(context: Context, seedId: Int): Intent {
             return Intent(context, NoActionplanInsightActivity::class.java).apply {

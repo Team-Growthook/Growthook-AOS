@@ -42,7 +42,7 @@ class InsightMenuBottomsheet :
             CaveSelect.Builder().build(
                 CaveSelect.CaveSelectType.YES_API,
                 clickBtnAction = {
-                    DUMMY_SEED
+                    viewModel.seedId
                 },
             ).show(parentFragmentManager, CAVE_SELECT_DIALOG)
         }
@@ -60,7 +60,7 @@ class InsightMenuBottomsheet :
             startActivity(
                 SeedModifyActivity.getIntent(
                     requireContext(),
-                    DUMMY_SEED,
+                    viewModel.seedId,
                 ),
             )
             dismiss()
@@ -82,8 +82,7 @@ class InsightMenuBottomsheet :
                 isRemainThookVisility = false,
                 isTipVisility = false,
                 negativeAction = {
-                    // TODO 전달 받은 seedId 변경
-                    viewModel.deleteSeed(DUMMY_SEED)
+                    viewModel.deleteSeed()
                 },
                 positiveAction = {},
             ).show(parentFragmentManager, DELETE_DIALOG)
@@ -104,6 +103,5 @@ class InsightMenuBottomsheet :
     companion object {
         const val DELETE_DIALOG = "delete dialog"
         const val CAVE_SELECT_DIALOG = "cave select dialog"
-        private const val DUMMY_SEED = 113
     }
 }

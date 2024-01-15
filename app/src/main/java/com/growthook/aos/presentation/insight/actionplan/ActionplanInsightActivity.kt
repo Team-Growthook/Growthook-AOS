@@ -32,17 +32,18 @@ class ActionplanInsightActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         getSeedIdFromHome()
+        initActionplanAdapter()
         subscribe()
         foldInsightContent()
-        initActionplanAdapter()
         clickeListeners()
     }
 
     private fun getSeedIdFromHome() {
         seedId = intent.getIntExtra(SEED_ID, 0)
         Timber.d("ActionplanInsightActivity seed id $seedId")
-        viewModel.getSeedDetail(seedId)
-        viewModel.getActionplans(seedId)
+        viewModel.seedId = seedId
+        viewModel.getSeedDetail()
+        viewModel.getActionplans()
     }
 
     private fun subscribe() {
@@ -69,10 +70,10 @@ class ActionplanInsightActivity :
             title = "리뷰 작성",
             clickSaveBtn = {
                 viewModel.postReview(actionplanId, it)
-                viewModel.completeActionplan(actionplanId, DUMMY_SEED)
+                viewModel.completeActionplan(actionplanId)
             },
             clickNoWritingBtn = {
-                viewModel.completeActionplan(actionplanId, DUMMY_SEED)
+                viewModel.completeActionplan(actionplanId)
             },
         ).show(supportFragmentManager, "review dialog")
     }
@@ -82,7 +83,7 @@ class ActionplanInsightActivity :
             type = BaseWritingBottomSheet.WritingType.SMALL,
             title = "액션플랜 수정",
             clickSaveBtn = {
-                viewModel.modifyActionplan(actionplanId, it, DUMMY_SEED)
+                viewModel.modifyActionplan(actionplanId, it)
             },
             clickNoWritingBtn = {
             },
@@ -104,7 +105,7 @@ class ActionplanInsightActivity :
                 isRemainThookVisility = false,
                 isTipVisility = false,
                 negativeAction = {
-                    viewModel.deleteActionplan(actionplanId, DUMMY_SEED)
+                    viewModel.deleteActionplan(actionplanId)
                 },
                 positiveAction = {
                 },
@@ -165,7 +166,7 @@ class ActionplanInsightActivity :
                 type = BaseWritingBottomSheet.WritingType.SMALL,
                 title = "액션 플랜 추가",
                 clickSaveBtn = {
-                    viewModel.postActionplan(DUMMY_SEED, it)
+                    viewModel.postActionplan(seedId, it)
                 },
                 clickNoWritingBtn = {},
             ).show(supportFragmentManager, "add actionplan dialog")
@@ -221,7 +222,6 @@ class ActionplanInsightActivity :
         const val DELETE_DIALOG = "delete dialog"
         private const val TAG = "tag"
         private const val SEED_ID = "seedId"
-        private const val DUMMY_SEED = 113
 
         fun getIntent(context: Context, seedId: Int): Intent {
             return Intent(context, ActionplanInsightActivity::class.java).apply {

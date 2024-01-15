@@ -37,7 +37,9 @@ class NoActionplanInsightViewModel @Inject constructor(
     private val _event = MutableLiveData<Event>()
     val event: LiveData<Event> = _event
 
-    fun getSeedDetail(seedId: Int) {
+    var seedId: Int = 0
+
+    fun getSeedDetail() {
         viewModelScope.launch {
             getSeedUseCase.invoke(seedId)
                 .onSuccess { seed ->
@@ -62,7 +64,7 @@ class NoActionplanInsightViewModel @Inject constructor(
         }
     }
 
-    fun deleteSeed(seedId: Int) {
+    fun deleteSeed() {
         viewModelScope.launch {
             deleteSeedUseCase.invoke(seedId).onSuccess {
                 _event.value = Event.DeleteSeedSuccess
@@ -81,7 +83,6 @@ class NoActionplanInsightViewModel @Inject constructor(
     }
 
     companion object {
-        private const val DUMMY_SEED = 113
         private const val DUMMY_MEMBER_ID = 4
     }
 }

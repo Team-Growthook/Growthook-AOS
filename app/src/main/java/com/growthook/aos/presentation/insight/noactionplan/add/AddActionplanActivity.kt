@@ -21,13 +21,20 @@ class AddActionplanActivity :
     private val addActionplanAdapter
         get() = requireNotNull(_addActionplanAdapter) { "addActionplanAdapter is null" }
     private val viewModel by viewModels<AddActionplanViewModel>()
+    private var seedId: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        getSeedIdFromSeedDetail()
         foldInsightContent()
         initEditTextAdapter()
         subscribe()
         clickListeners()
+    }
+
+    private fun getSeedIdFromSeedDetail() {
+        seedId = intent.getIntExtra(SEED_ID, 0)
+        Timber.d("AddActionplanActivity seed id $seedId")
     }
 
     private fun subscribe() {
@@ -98,7 +105,7 @@ class AddActionplanActivity :
     private fun clickCompleteBtn() {
         binding.tvAddActionplanComplete.setOnClickListener {
             viewModel.actionplanList.value?.let { actionplans ->
-                viewModel.postActionplans(DUMMY_SEED, actionplans)
+                viewModel.postActionplans(seedId, actionplans)
             }
         }
     }
@@ -107,7 +114,7 @@ class AddActionplanActivity :
         viewModel.event.observe(this) { event ->
             when (event) {
                 is Event.PostSuccess -> {
-                    startActivity(ActionplanInsightActivity.getIntent(this, DUMMY_SEED))
+                    startActivity(ActionplanInsightActivity.getIntent(this, seedId))
                 }
 
                 is Event.PostFailed -> {
@@ -124,8 +131,6 @@ class AddActionplanActivity :
 
     companion object {
         private const val SEED_ID = "seedId"
-        private const val DUMMY_SEED = 113
-
         fun getIntent(context: Context, seedId: Int): Intent {
             return Intent(context, AddActionplanActivity::class.java).apply {
                 putExtra(SEED_ID, seedId)

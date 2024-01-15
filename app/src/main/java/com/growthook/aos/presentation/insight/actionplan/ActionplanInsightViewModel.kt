@@ -30,6 +30,8 @@ class ActionplanInsightViewModel @Inject constructor(
     private val deleteActionplanUseCase: DeleteActionplanUseCase,
     private val postReviewUseCase: PostReviewUseCase,
 ) : ViewModel() {
+    var seedId: Int = 0
+
     private val _actionplans = MutableStateFlow<List<Actionplan>>(listOf())
     val actionplans: MutableStateFlow<List<Actionplan>> = _actionplans
 
@@ -42,10 +44,15 @@ class ActionplanInsightViewModel @Inject constructor(
     private val _event = MutableStateFlow<Event>(Event.Default)
     val event: MutableStateFlow<Event> = _event
 
+//    init {
+//        getSeedDetail()
+//        getActionplans()
+//    }
+
     fun postActionplan(seedId: Int, actionplan: String) {
         viewModelScope.launch {
             postActionplanUseCase.invoke(seedId, listOf(actionplan)).onSuccess {
-                getActionplans(seedId)
+                getActionplans()
                 _event.value = Event.PostActionplanSuccess
             }.onFailure { throwable ->
                 Timber.e(throwable.message)
@@ -54,7 +61,7 @@ class ActionplanInsightViewModel @Inject constructor(
         }
     }
 
-    fun getSeedDetail(seedId: Int) {
+    fun getSeedDetail() {
         viewModelScope.launch {
             getSeedUseCase.invoke(seedId)
                 .onSuccess { seed ->
@@ -69,7 +76,7 @@ class ActionplanInsightViewModel @Inject constructor(
         }
     }
 
-    fun getActionplans(seedId: Int) {
+    fun getActionplans() {
         viewModelScope.launch {
             getActionplansUseCase.invoke(seedId)
                 .onSuccess { actionplan ->
@@ -83,10 +90,10 @@ class ActionplanInsightViewModel @Inject constructor(
         }
     }
 
-    fun completeActionplan(actionplanId: Int, seedId: Int) {
+    fun completeActionplan(actionplanId: Int) {
         viewModelScope.launch {
             completeActionplanUseCase.invoke(actionplanId).onSuccess {
-                getActionplans(seedId)
+                getActionplans()
                 _event.value = Event.PostCompletedActionplanSuccess
             }.onFailure {
                 Timber.e(it.message)
@@ -95,11 +102,11 @@ class ActionplanInsightViewModel @Inject constructor(
         }
     }
 
-    fun modifyActionplan(actionplanId: Int, content: String, seedId: Int) {
+    fun modifyActionplan(actionplanId: Int, content: String) {
         viewModelScope.launch {
             modifyActionplanUseCase.invoke(actionplanId, content)
                 .onSuccess {
-                    getActionplans(seedId)
+                    getActionplans()
                     _event.value = Event.ModifySuccess
                 }
                 .onFailure { throwable ->
@@ -109,11 +116,11 @@ class ActionplanInsightViewModel @Inject constructor(
         }
     }
 
-    fun deleteActionplan(actionplanId: Int, seedId: Int) {
+    fun deleteActionplan(actionplanId: Int) {
         viewModelScope.launch {
             deleteActionplanUseCase.invoke(actionplanId)
                 .onSuccess {
-                    getActionplans(seedId)
+                    getActionplans()
                     _event.value = Event.DeleteSuccess
                 }
                 .onFailure { throwable ->
