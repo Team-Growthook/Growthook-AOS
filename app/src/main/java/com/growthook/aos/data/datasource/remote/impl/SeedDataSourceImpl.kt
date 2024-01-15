@@ -10,7 +10,6 @@ import com.growthook.aos.data.model.response.ResponseGetCaveSeedsDto
 import com.growthook.aos.data.model.response.ResponseGetSeedDto
 import com.growthook.aos.data.model.response.ResponseGetSeedsDto
 import com.growthook.aos.data.model.response.ResponseMoveSeedDto
-import com.growthook.aos.data.model.response.ResponsePostSeedDto
 import com.growthook.aos.data.service.SeedService
 import javax.inject.Inject
 

@@ -30,7 +30,7 @@ class HomeViewModel @Inject constructor(
     private val scrapSeedUseCase: ScrapSeedUseCase,
     private val unLockSeedUseCase: UnLockSeedUseCase,
     private val getGetActionplanPercentUseCase: GetActionplanPercentUseCase,
-    ) : ViewModel() {
+) : ViewModel() {
 
     private val _nickName = MutableLiveData<String>()
     val nickname: LiveData<String> = _nickName
@@ -60,6 +60,9 @@ class HomeViewModel @Inject constructor(
     val isMenuDismissed = MutableLiveData<Boolean>()
 
     val longClickInsight = MutableLiveData<Insight>()
+
+    private val _actionplanPercent = MutableLiveData<Int>()
+    val actionplanPercent: LiveData<Int> = _actionplanPercent
 
     init {
         viewModelScope.launch {
@@ -147,7 +150,7 @@ class HomeViewModel @Inject constructor(
 
     fun getActionplanPercent() {
         viewModelScope.launch {
-            getGetActionplanPercentUseCase.invoke(DUMMY_MEMBER_ID).onSuccess {
+            getGetActionplanPercentUseCase.invoke(memberId.value ?: 0).onSuccess {
                 _actionplanPercent.value = it
             }.onFailure { throwable ->
                 Timber.e(throwable.message)
