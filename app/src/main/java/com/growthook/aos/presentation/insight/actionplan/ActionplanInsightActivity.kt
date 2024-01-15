@@ -27,15 +27,22 @@ class ActionplanInsightActivity :
         get() = requireNotNull(_actionplanAdapter) { "actionplanAdapter is null" }
 
     private val viewModel by viewModels<ActionplanInsightViewModel>()
+    private var seedId: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val insightId = intent.getIntExtra(SEED_ID, 0)
-        Timber.d("인사이트 id $insightId")
+        getSeedIdFromHome()
         subscribe()
         foldInsightContent()
         initActionplanAdapter()
         clickeListeners()
+    }
+
+    private fun getSeedIdFromHome() {
+        seedId = intent.getIntExtra(SEED_ID, 0)
+        Timber.d("ActionplanInsightActivity seed id $seedId")
+        viewModel.getSeedDetail(seedId)
+        viewModel.getActionplans(seedId)
     }
 
     private fun subscribe() {

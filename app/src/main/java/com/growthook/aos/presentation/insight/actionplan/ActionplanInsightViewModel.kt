@@ -42,12 +42,6 @@ class ActionplanInsightViewModel @Inject constructor(
     private val _event = MutableStateFlow<Event>(Event.Default)
     val event: MutableStateFlow<Event> = _event
 
-    init {
-        // TODO intent로 받은 seedId로 변경
-        getSeedDetail(DUMMY_SEED)
-        getActionplans(DUMMY_SEED)
-    }
-
     fun postActionplan(seedId: Int, actionplan: String) {
         viewModelScope.launch {
             postActionplanUseCase.invoke(seedId, listOf(actionplan)).onSuccess {
@@ -60,7 +54,7 @@ class ActionplanInsightViewModel @Inject constructor(
         }
     }
 
-    private fun getSeedDetail(seedId: Int) {
+    fun getSeedDetail(seedId: Int) {
         viewModelScope.launch {
             getSeedUseCase.invoke(seedId)
                 .onSuccess { seed ->

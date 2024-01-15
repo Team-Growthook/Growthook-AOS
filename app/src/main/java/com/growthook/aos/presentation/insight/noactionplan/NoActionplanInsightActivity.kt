@@ -19,13 +19,19 @@ import timber.log.Timber
 class NoActionplanInsightActivity :
     BaseActivity<ActivityNoActionplanInsightBinding>({ ActivityNoActionplanInsightBinding.inflate(it) }) {
     private val viewModel by viewModels<NoActionplanInsightViewModel>()
+    private var seedId: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        getSeedIdFromHome()
         observeSeedDetail()
         setClickListeners()
-        val insightId = intent.getIntExtra("insightId", 0)
-        Timber.d("인사이트 id $insightId")
+    }
+
+    private fun getSeedIdFromHome() {
+        seedId = intent.getIntExtra("insightId", 0)
+        Timber.d("인사이트 id $seedId")
+        viewModel.getSeedDetail(seedId)
     }
 
     private fun observeSeedDetail() {

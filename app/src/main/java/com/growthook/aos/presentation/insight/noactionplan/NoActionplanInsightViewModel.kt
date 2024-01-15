@@ -37,12 +37,7 @@ class NoActionplanInsightViewModel @Inject constructor(
     private val _event = MutableLiveData<Event>()
     val event: LiveData<Event> = _event
 
-    init {
-        getSeedDetail(DUMMY_SEED)
-        // TODO seedId 변경하기
-    }
-
-    private fun getSeedDetail(seedId: Int) {
+    fun getSeedDetail(seedId: Int) {
         viewModelScope.launch {
             getSeedUseCase.invoke(seedId)
                 .onSuccess { seed ->
