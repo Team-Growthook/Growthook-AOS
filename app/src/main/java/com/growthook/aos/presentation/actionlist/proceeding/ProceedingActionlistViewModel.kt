@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.growthook.aos.domain.entity.ActionlistDetail
+import com.growthook.aos.domain.usecase.ScrapSeedUseCase
 import com.growthook.aos.domain.usecase.actionplan.CompleteActionplanUseCase
 import com.growthook.aos.domain.usecase.actionplan.GetDoingActionplansUseCase
 import com.growthook.aos.domain.usecase.review.PostReviewUseCase
@@ -18,6 +19,7 @@ class ProceedingActionlistViewModel @Inject constructor(
     private val getDoingActionplansUseCase: GetDoingActionplansUseCase,
     private val completeActionplanUseCase: CompleteActionplanUseCase,
     private val postReviewUseCase: PostReviewUseCase,
+    private val scrapSeedUseCase: ScrapSeedUseCase,
 ) : ViewModel() {
     private val _doingActionplans = MutableStateFlow<List<ActionlistDetail>>(mutableListOf())
     val doingActionplans: MutableStateFlow<List<ActionlistDetail>> = _doingActionplans
@@ -69,11 +71,23 @@ class ProceedingActionlistViewModel @Inject constructor(
         }
     }
 
+    fun changeScrap(seedId: Int) {
+        viewModelScope.launch {
+            scrapSeedUseCase.invoke(seedId).onSuccess {
+                _event.value = Event.ScrapSuccess
+            }.onFailure {
+                _event.value = Event.Failed
+            }
+        }
+    }
+
     sealed interface Event {
         object Default : Event
         object PostReviewSuccess : Event
         object GetDoingActionplanSuccess : Event
         object PostCompletedActionplanSuccess : Event
+        object ScrapSuccess : Event
+
         object Failed : Event
     }
 

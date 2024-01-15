@@ -46,7 +46,7 @@ class ProceedingActionlistFragment(private val parentFragment: ActionlistFragmen
 
     private fun initActionplanAdapter() {
         _proceedingActionlistAdapter =
-            ProceedingActionlistAdapter(::clickSeedDetail, ::clickCompleteBtn)
+            ProceedingActionlistAdapter(::clickSeedDetail, ::clickCompleteBtn, ::clickScrapBtn)
         binding.rcvProceedingActionlist.adapter = _proceedingActionlistAdapter
         binding.rcvProceedingActionlist.layoutManager = LinearLayoutManager(requireContext())
     }
