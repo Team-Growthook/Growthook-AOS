@@ -20,7 +20,7 @@ import javax.annotation.Nullable
 
 class HomeInsightAdapter(
     private val selectedItem: (Insight) -> Unit,
-    private val clickScrap: (Boolean) -> Unit,
+    private val clickScrap: (Int) -> Unit,
 ) :
     ListAdapter<Insight, RecyclerView.ViewHolder>(diffCallback) {
 
@@ -41,7 +41,7 @@ class HomeInsightAdapter(
     override fun getItemViewType(position: Int): Int {
         when {
             currentList[position].isLocked -> return LOCK
-            currentList[position].isAction -> return YES_ACTION
+            currentList[position].hasActionPlan -> return YES_ACTION
         }
 
         return NO_ACTION
@@ -93,9 +93,11 @@ class HomeInsightAdapter(
         fun onBind(item: Insight, itemPosition: Int) {
             if (item.isScraped) {
                 binding.btnHomeScrap.setImageResource(R.drawable.ic_scrap_unselected)
+            } else {
+                binding.btnHomeScrap.setImageResource(R.drawable.ic_scrap_unselected)
             }
-            binding.tvHomeInsightTitle.text = item.title
-            binding.tvHomeInsightLock.text = "${item.remainedLock}일 후 잠금"
+            binding.tvHomeInsightTitle.text = item.name
+            binding.tvHomeInsightLock.text = "${item.remainingDays}일 후 잠금"
             binding.root.setOnClickListener {
                 selectedItem(item)
                 Timber.d("선택된 아이템 ${selectionLongTracker.selection}")
@@ -123,9 +125,11 @@ class HomeInsightAdapter(
         fun onBind(item: Insight, itemPosition: Int) {
             if (item.isScraped) {
                 binding.btnHomeScrap.setImageResource(R.drawable.ic_scrap_yes_action_selected)
+            } else {
+                binding.btnHomeScrap.setImageResource(R.drawable.ic_scrap_unselected)
             }
-            binding.tvHomeInsightTitle.text = item.title
-            binding.tvHomeInsightLock.text = "${item.remainedLock}일 후 잠금"
+            binding.tvHomeInsightTitle.text = item.name
+            binding.tvHomeInsightLock.text = "${item.remainingDays}일 후 잠금"
             binding.root.setOnLongClickListener {
                 selectionLongTracker.select(itemPosition.toLong())
                 binding.viewHomeInsightClick.visibility = View.VISIBLE
@@ -140,7 +144,7 @@ class HomeInsightAdapter(
                 binding.viewHomeInsightClick.visibility = View.VISIBLE
             }
             binding.btnHomeScrap.setOnClickListener {
-                clickScrap(!item.isScraped)
+                clickScrap(item.seedId)
             }
         }
 
@@ -165,9 +169,11 @@ class HomeInsightAdapter(
         fun onBind(item: Insight, itemPosition: Int) {
             if (item.isScraped) {
                 binding.btnHomeScrap.setImageResource(R.drawable.ic_scrap_selected)
+            } else {
+                binding.btnHomeScrap.setImageResource(R.drawable.ic_scrap_unselected)
             }
-            binding.tvHomeInsightTitle.text = item.title
-            binding.tvHomeInsightLock.text = "${item.remainedLock}일 후 잠금"
+            binding.tvHomeInsightTitle.text = item.name
+            binding.tvHomeInsightLock.text = "${item.remainingDays}일 후 잠금"
             binding.root.setOnLongClickListener {
                 binding.viewHomeInsightClick.visibility = View.VISIBLE
                 selectionLongTracker.select(itemPosition.toLong())
@@ -183,7 +189,7 @@ class HomeInsightAdapter(
                 binding.viewHomeInsightClick.visibility = View.VISIBLE
             }
             binding.btnHomeScrap.setOnClickListener {
-                clickScrap(!item.isScraped)
+                clickScrap(item.seedId)
             }
         }
 

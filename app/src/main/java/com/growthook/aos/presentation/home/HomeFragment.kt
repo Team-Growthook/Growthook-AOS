@@ -159,17 +159,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     negativeAction = {
                     },
                     positiveAction = {
-                        Toast.makeText(context, "잠금이 영구적으로 해제되었어요!", Toast.LENGTH_SHORT).show()
-                        startActivity(
-                            ActionplanInsightActivity.getIntent(
-                                requireContext(),
-                                DUMMY_SEED,
-                            ),
-                        )
+                        viewModel.unLockSeed(item.seedId)
+                        viewModel.isUnlock.observe(viewLifecycleOwner) {
+                            Toast.makeText(context, "잠금이 영구적으로 해제되었어요!", Toast.LENGTH_SHORT).show()
+                            startActivity(
+                                ActionplanInsightActivity.getIntent(
+                                    requireContext(),
+                                    item.seedId,
+                                ),
+                            )
+                        }
                     },
                 ).show(parentFragmentManager, InsightMenuBottomsheet.DELETE_DIALOG)
-        } else if (!item.isAction) {
-            startActivity(ActionplanInsightActivity.getIntent(requireContext(), DUMMY_SEED))
+        } else if (!item.hasActionPlan) {
+            startActivity(ActionplanInsightActivity.getIntent(requireContext(), item.seedId))
         }
     }
 
@@ -194,10 +197,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         startActivity(intent)
     }
 
-    private fun clickedScrap(isScrap: Boolean) {
-        viewModel.changeScrap(isScrap)
-        Timber.d("스크랩 $isScrap")
-        Toast.makeText(requireContext(), "스크랩 완료", Toast.LENGTH_SHORT).show()
+    private fun clickedScrap(seedId: Int) {
+        viewModel.changeScrap(seedId)
+        viewModel.isScrapedSuccess.observe(viewLifecycleOwner) { isSuccess ->
+            if (isSuccess) {
+                viewModel.getInsights()
+                Toast.makeText(requireContext(), "스크랩 완료", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun setAlertMessage() {
@@ -263,9 +270,5 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         _caveAdapter = null
         _insightAdapter = null
         super.onDestroyView()
-    }
-
-    companion object {
-        private const val DUMMY_SEED = 113
     }
 }
