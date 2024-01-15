@@ -10,6 +10,7 @@ import com.growthook.aos.domain.usecase.actionplan.GetDoingActionplansUseCase
 import com.growthook.aos.domain.usecase.review.PostReviewUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -24,6 +25,11 @@ class ProceedingActionlistViewModel @Inject constructor(
     private val _doingActionplans = MutableStateFlow<List<ActionlistDetail>>(mutableListOf())
     val doingActionplans: MutableStateFlow<List<ActionlistDetail>> = _doingActionplans
 
+    private val scrapedActionplans = MutableLiveData<List<ActionlistDetail>>()
+
+//    private val _scrapedActionplans = MutableLiveData<List<ActionlistDetail>>(mutableListOf())
+//    val scrapedActionplans: MutableLiveData<List<ActionlistDetail>> = _scrapedActionplans
+
     private val _actionplanId = MutableStateFlow(-1)
     val actionplanId: MutableStateFlow<Int> = _actionplanId
 
@@ -37,11 +43,19 @@ class ProceedingActionlistViewModel @Inject constructor(
         getDoingActionplans()
     }
 
-    private fun getDoingActionplans() {
+    fun getScrapedActionplan() {
+        _doingActionplans.value = scrapedActionplans.value.orEmpty()
+        Timber.d("getScrapedActionplan() ${_doingActionplans.value}")
+    }
+
+    fun getDoingActionplans() {
         viewModelScope.launch {
             getDoingActionplansUseCase.invoke(MEMBER_ID).onSuccess {
                 _doingActionplans.value = it
                 _event.value = Event.GetDoingActionplanSuccess
+                scrapedActionplans.value = it.filter { actionplan ->
+                    actionplan.isScraped
+                }
             }.onFailure { throwable ->
                 Timber.e(throwable.message)
                 _event.value = Event.Failed
@@ -71,15 +85,14 @@ class ProceedingActionlistViewModel @Inject constructor(
         }
     }
 
-    fun changeScrap(seedId: Int) {
-        viewModelScope.launch {
-            scrapSeedUseCase.invoke(seedId).onSuccess {
-                _event.value = Event.ScrapSuccess
-            }.onFailure {
-                _event.value = Event.Failed
-            }
-        }
-    }
+//    fun filterScrap() {
+//        viewModelScope.launch {
+//            _scrappedActionplans.value = _doingActionplans.value
+//                .filter { actionplan ->
+//                    actionplan.isScraped
+//                }
+//        }
+//    }
 
     sealed interface Event {
         object Default : Event

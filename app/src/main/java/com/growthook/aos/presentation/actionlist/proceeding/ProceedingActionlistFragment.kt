@@ -23,7 +23,7 @@ import kotlinx.coroutines.flow.onEach
 @AndroidEntryPoint
 class ProceedingActionlistFragment(private val parentFragment: ActionlistFragment) :
     BaseFragment<FragmentProceedingActionlistBinding>() {
-    private var isScrapped = false
+    private var isScraped = false
     private var _proceedingActionlistAdapter: ProceedingActionlistAdapter? = null
     private val proceedingActionlistAdapter
         get() = requireNotNull(_proceedingActionlistAdapter) { "proceedingActionlistAdapter is null" }
@@ -59,13 +59,15 @@ class ProceedingActionlistFragment(private val parentFragment: ActionlistFragmen
 
     private fun clickScrapBtn() {
         binding.clProceedingActionplanScrap.setOnClickListener {
-            isScrapped = !isScrapped
-            if (isScrapped) {
+            isScraped = !isScraped
+            if (isScraped) {
                 binding.ivProceedingActionlistScrap.setImageResource(R.drawable.ic_home_scrap_true)
                 binding.tvProceedingActionlistScrap.setTextColor(requireContext().getColor(R.color.Green200))
+                viewModel.getScrapedActionplan()
             } else {
                 binding.ivProceedingActionlistScrap.setImageResource(R.drawable.ic_home_scrap_false)
                 binding.tvProceedingActionlistScrap.setTextColor(requireContext().getColor(R.color.White000))
+                viewModel.getDoingActionplans()
             }
         }
     }

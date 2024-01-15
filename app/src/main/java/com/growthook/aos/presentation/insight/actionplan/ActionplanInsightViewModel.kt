@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.growthook.aos.domain.entity.Actionplan
 import com.growthook.aos.domain.entity.Seed
+import com.growthook.aos.domain.usecase.ScrapSeedUseCase
 import com.growthook.aos.domain.usecase.actionplan.CompleteActionplanUseCase
 import com.growthook.aos.domain.usecase.actionplan.DeleteActionplanUseCase
 import com.growthook.aos.domain.usecase.actionplan.GetActionplansUseCase
@@ -29,6 +30,7 @@ class ActionplanInsightViewModel @Inject constructor(
     private val modifyActionplanUseCase: ModifyActionplanUseCase,
     private val deleteActionplanUseCase: DeleteActionplanUseCase,
     private val postReviewUseCase: PostReviewUseCase,
+    private val scrapSeedUseCase: ScrapSeedUseCase,
 ) : ViewModel() {
     var seedId: Int = 0
 
@@ -43,11 +45,6 @@ class ActionplanInsightViewModel @Inject constructor(
 
     private val _event = MutableStateFlow<Event>(Event.Default)
     val event: MutableStateFlow<Event> = _event
-
-//    init {
-//        getSeedDetail()
-//        getActionplans()
-//    }
 
     fun postActionplan(seedId: Int, actionplan: String) {
         viewModelScope.launch {
@@ -141,12 +138,25 @@ class ActionplanInsightViewModel @Inject constructor(
         }
     }
 
+    fun changeScrap() {
+        viewModelScope.launch {
+//            scrapSeedUseCase.invoke(seedId).onSuccess {
+//                _event.value = Event.ScrapSuccess
+//            }.onFailure {
+//                _event.value = Event.Failed
+//            }
+            // TODO 액션플랜 스크랩
+        }
+    }
+
     sealed interface Event {
         object Failed : Event
         object GetSeedSuccess : Event
         object GetActionplanSuccess : Event
         object PostActionplanSuccess : Event
         object PostCompletedActionplanSuccess : Event
+        object ScrapSuccess : Event
+
         object Default : Event
         object ModifySuccess : Event
         object DeleteSuccess : Event

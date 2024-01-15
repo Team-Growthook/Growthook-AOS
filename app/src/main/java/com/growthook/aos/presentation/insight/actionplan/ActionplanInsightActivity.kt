@@ -54,13 +54,19 @@ class ActionplanInsightActivity :
 
     private fun initActionplanAdapter() {
         _actionplanAdapter =
-            ActionplanAdapter(::clickModifyMenu, ::clickDeleteMenu, ::clickCompleteBtn)
+            ActionplanAdapter(
+                ::clickModifyMenu,
+                ::clickDeleteMenu,
+                ::clickCompleteBtn,
+                ::clickScrapSeed,
+            )
         binding.rcvActionplanInsight.adapter = _actionplanAdapter
     }
 
     private fun observeActionplanData() {
         viewModel.actionplans.flowWithLifecycle(lifecycle).onEach { actionplans ->
             _actionplanAdapter?.submitList(actionplans)
+            _actionplanAdapter?.notifyDataSetChanged()
         }.launchIn(lifecycleScope)
     }
 
@@ -160,6 +166,10 @@ class ActionplanInsightActivity :
         }
     }
 
+    private fun clickScrapSeed() {
+        viewModel.changeScrap()
+    }
+
     private fun clickAddActionplan() {
         binding.btnActionplanInsightAdd.setOnClickListener {
             BaseWritingBottomSheet.Builder().build(
@@ -207,8 +217,11 @@ class ActionplanInsightActivity :
                         ).show(supportFragmentManager, "get thook dialog")
                 }
 
-                else -> {
+                is Event.ScrapSuccess -> {
+                    Toast.makeText(this, "스크랩 완료!", Toast.LENGTH_SHORT).show()
                 }
+
+                else -> {}
             }
         }.launchIn(lifecycleScope)
     }
