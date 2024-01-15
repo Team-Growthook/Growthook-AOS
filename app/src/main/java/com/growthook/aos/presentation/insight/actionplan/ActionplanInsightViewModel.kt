@@ -7,8 +7,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.growthook.aos.domain.entity.Actionplan
 import com.growthook.aos.domain.entity.Seed
+import com.growthook.aos.domain.usecase.actionplan.CompleteActionplanUseCase
+import com.growthook.aos.domain.usecase.actionplan.DeleteActionplanUseCase
 import com.growthook.aos.domain.usecase.actionplan.GetActionplansUseCase
+import com.growthook.aos.domain.usecase.actionplan.ModifyActionplanUseCase
 import com.growthook.aos.domain.usecase.actionplan.PostActionplansUseCase
+import com.growthook.aos.domain.usecase.review.PostReviewUseCase
 import com.growthook.aos.domain.usecase.seeddetail.GetSeedUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,6 +25,10 @@ class ActionplanInsightViewModel @Inject constructor(
     private val getSeedUseCase: GetSeedUseCase,
     private val getActionplansUseCase: GetActionplansUseCase,
     private val postActionplanUseCase: PostActionplansUseCase,
+    private val completeActionplanUseCase: CompleteActionplanUseCase,
+    private val modifyActionplanUseCase: ModifyActionplanUseCase,
+    private val deleteActionplanUseCase: DeleteActionplanUseCase,
+    private val postReviewUseCase: PostReviewUseCase,
 ) : ViewModel() {
     private val _actionplans = MutableStateFlow<List<Actionplan>>(listOf())
     val actionplans: MutableStateFlow<List<Actionplan>> = _actionplans
@@ -44,10 +52,10 @@ class ActionplanInsightViewModel @Inject constructor(
         viewModelScope.launch {
             postActionplanUseCase.invoke(seedId, listOf(actionplan)).onSuccess {
                 getActionplans(seedId)
-                _event.value = Event.PostSuccess
+                _event.value = Event.PostActionplanSuccess
             }.onFailure { throwable ->
                 Timber.e(throwable.message)
-                _event.value = Event.PostFailed
+                _event.value = Event.Failed
             }
         }
     }
@@ -58,7 +66,7 @@ class ActionplanInsightViewModel @Inject constructor(
                 .onSuccess { seed ->
                     Log.d("seed", "seed:: $seed")
                     _seedData.value = seed
-                    _event.value = Event.Success
+                    _event.value = Event.GetSeedSuccess
                 }
                 .onFailure { throwable ->
                     Timber.e(throwable.message)
@@ -72,7 +80,7 @@ class ActionplanInsightViewModel @Inject constructor(
             getActionplansUseCase.invoke(seedId)
                 .onSuccess { actionplan ->
                     _actionplans.value = actionplan
-                    _event.value = Event.Success
+                    _event.value = Event.GetActionplanSuccess
                 }
                 .onFailure { throwable ->
                     Timber.e(throwable.message)
@@ -81,23 +89,70 @@ class ActionplanInsightViewModel @Inject constructor(
         }
     }
 
-    sealed interface Event {
-        object Failed : Event
-        object Success : Event
-        object PostFailed : Event
-        object PostSuccess : Event
-        object Default : Event
+    fun completeActionplan(actionplanId: Int, seedId: Int) {
+        viewModelScope.launch {
+            completeActionplanUseCase.invoke(actionplanId).onSuccess {
+                getActionplans(seedId)
+                _event.value = Event.PostCompletedActionplanSuccess
+            }.onFailure {
+                Timber.e(it.message)
+                _event.value = Event.Failed
+            }
+        }
     }
 
-//    fun deleteActionplan(position: Int) {
-//        val currentList = actionplanList.value.orEmpty().toMutableList()
-//        if (position in currentList.indices) {
-//            currentList.removeAt(position)
-//            actionplanList.value = currentList.toList()
-//        }
-//    }
+    fun modifyActionplan(actionplanId: Int, content: String, seedId: Int) {
+        viewModelScope.launch {
+            modifyActionplanUseCase.invoke(actionplanId, content)
+                .onSuccess {
+                    getActionplans(seedId)
+                    _event.value = Event.ModifySuccess
+                }
+                .onFailure { throwable ->
+                    Timber.e(throwable.message)
+                    _event.value = Event.Failed
+                }
+        }
+    }
+
+    fun deleteActionplan(actionplanId: Int, seedId: Int) {
+        viewModelScope.launch {
+            deleteActionplanUseCase.invoke(actionplanId)
+                .onSuccess {
+                    getActionplans(seedId)
+                    _event.value = Event.DeleteSuccess
+                }
+                .onFailure { throwable ->
+                    Timber.e(throwable.message)
+                    _event.value = Event.Failed
+                }
+        }
+    }
+
+    fun postReview(actionplanId: Int, content: String) {
+        viewModelScope.launch {
+            postReviewUseCase.invoke(actionplanId, content).onSuccess {
+                _event.value = Event.PostReviewSuccess
+            }.onFailure { throwable ->
+                Timber.e(throwable.message)
+                _event.value = Event.Failed
+            }
+        }
+    }
+
+    sealed interface Event {
+        object Failed : Event
+        object GetSeedSuccess : Event
+        object GetActionplanSuccess : Event
+        object PostActionplanSuccess : Event
+        object PostCompletedActionplanSuccess : Event
+        object Default : Event
+        object ModifySuccess : Event
+        object DeleteSuccess : Event
+        object PostReviewSuccess : Event
+    }
 
     companion object {
-        const val DUMMY_SEED = 47
+        const val DUMMY_SEED = 113
     }
 }

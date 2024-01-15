@@ -12,6 +12,7 @@ import com.growthook.aos.domain.usecase.GetCavesUseCase
 import com.growthook.aos.domain.usecase.GetGatherdThookUseCase
 import com.growthook.aos.domain.usecase.ScrapSeedUseCase
 import com.growthook.aos.domain.usecase.UnLockSeedUseCase
+import com.growthook.aos.domain.usecase.actionplan.GetActionplanPercentUseCase
 import com.growthook.aos.domain.usecase.home.GetSeedAlarmUseCase
 import com.growthook.aos.domain.usecase.home.GetSeedsUseCase
 import com.growthook.aos.domain.usecase.local.GetUserUseCase
@@ -30,6 +31,7 @@ class HomeViewModel @Inject constructor(
     private val scrapSeedUseCase: ScrapSeedUseCase,
     private val unLockSeedUseCase: UnLockSeedUseCase,
     private val getGatherdThookUseCase: GetGatherdThookUseCase,
+    private val getGetActionplanPercentUseCase: GetActionplanPercentUseCase,
 ) : ViewModel() {
 
     private val _nickName = MutableLiveData<String>()
@@ -64,6 +66,9 @@ class HomeViewModel @Inject constructor(
 
     val longClickInsight = MutableLiveData<Insight>()
 
+    private val _actionplanPercent = MutableLiveData<Int>()
+    val actionplanPercent: LiveData<Int> = _actionplanPercent
+
     init {
         viewModelScope.launch {
             // memberId.value = getUserUseCase.invoke().memberId ?: 0
@@ -75,6 +80,7 @@ class HomeViewModel @Inject constructor(
         setNickName()
         getCaves()
         getGatherdThook()
+        getActionplanPercent()
     }
 
     private fun getAlertCount() {
@@ -154,6 +160,16 @@ class HomeViewModel @Inject constructor(
                 _gatherdThook.value = thookCount
             }.onFailure {
                 Timber.e(it.message)
+            }
+        }
+    }
+
+    fun getActionplanPercent() {
+        viewModelScope.launch {
+            getGetActionplanPercentUseCase.invoke(memberId.value ?: 0).onSuccess {
+                _actionplanPercent.value = it
+            }.onFailure { throwable ->
+                Timber.e(throwable.message)
             }
         }
     }

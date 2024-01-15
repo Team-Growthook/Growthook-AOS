@@ -6,12 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.growthook.aos.databinding.FragmentCompletedActionlistBinding
 import com.growthook.aos.presentation.actionlist.ReviewDetailActivity
 import com.growthook.aos.presentation.insight.actionplan.ActionplanInsightActivity
 import com.growthook.aos.util.base.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
+@AndroidEntryPoint
 class CompletedActionlistFragment : BaseFragment<FragmentCompletedActionlistBinding>() {
     private var _completedActionlistAdapter: CompletedActionlistAdapter? = null
     private val completedActionlistAdapter
@@ -32,15 +38,16 @@ class CompletedActionlistFragment : BaseFragment<FragmentCompletedActionlistBind
     }
 
     private fun initActionplanAdapter() {
-        _completedActionlistAdapter = CompletedActionlistAdapter(::clickSeedDetail, ::clickReviewDetail)
+        _completedActionlistAdapter =
+            CompletedActionlistAdapter(::clickSeedDetail, ::clickReviewDetail)
         binding.rcvCompletedActionlist.adapter = _completedActionlistAdapter
         binding.rcvCompletedActionlist.layoutManager = LinearLayoutManager(requireContext())
     }
 
     private fun observeActionplan() {
-        viewModel.completedActionplanList.observe(viewLifecycleOwner) {
-            _completedActionlistAdapter?.submitList(it)
-        }
+        viewModel.finishedActionplans.flowWithLifecycle(lifecycle).onEach { finishedActionplan ->
+            _completedActionlistAdapter?.submitList(finishedActionplan)
+        }.launchIn(lifecycleScope)
     }
 
     private fun clickSeedDetail(seedId: Int) {
@@ -50,10 +57,8 @@ class CompletedActionlistFragment : BaseFragment<FragmentCompletedActionlistBind
         startActivity(intent)
     }
 
-    private fun clickReviewDetail() {
-        val intent =
-            Intent(requireActivity(), ReviewDetailActivity::class.java)
-        startActivity(intent)
+    private fun clickReviewDetail(actionplanId: Int) {
+        startActivity(ReviewDetailActivity.getIntent(requireContext(), actionplanId))
     }
 
     override fun onDestroyView() {
