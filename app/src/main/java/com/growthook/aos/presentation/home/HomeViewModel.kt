@@ -9,6 +9,7 @@ import com.growthook.aos.domain.entity.Cave
 import com.growthook.aos.domain.entity.Insight
 import com.growthook.aos.domain.usecase.DeleteSeedUseCase
 import com.growthook.aos.domain.usecase.GetCavesUseCase
+import com.growthook.aos.domain.usecase.GetGatherdThookUseCase
 import com.growthook.aos.domain.usecase.ScrapSeedUseCase
 import com.growthook.aos.domain.usecase.UnLockSeedUseCase
 import com.growthook.aos.domain.usecase.actionplan.GetActionplanPercentUseCase
@@ -29,6 +30,7 @@ class HomeViewModel @Inject constructor(
     private val getSeedsUseCase: GetSeedsUseCase,
     private val scrapSeedUseCase: ScrapSeedUseCase,
     private val unLockSeedUseCase: UnLockSeedUseCase,
+    private val getGatherdThookUseCase: GetGatherdThookUseCase,
     private val getGetActionplanPercentUseCase: GetActionplanPercentUseCase,
 ) : ViewModel() {
 
@@ -53,6 +55,9 @@ class HomeViewModel @Inject constructor(
     private val _isUnlock = MutableLiveData<Boolean>()
     val isUnlock: LiveData<Boolean> = _isUnlock
 
+    private val _gatherdThook = MutableLiveData<Int>()
+    val gatherdThook: LiveData<Int> = _gatherdThook
+
     private val scrapedInsights = MutableLiveData<List<Insight>>()
 
     private val memberId = MutableLiveData<Int>(0)
@@ -66,15 +71,16 @@ class HomeViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-
-            getAlertCount()
-            getInsights()
-            setNickName()
-            getCaves()
-            getActionplanPercent()
             // memberId.value = getUserUseCase.invoke().memberId ?: 0
             memberId.value = 4
         }
+
+        getAlertCount()
+        getInsights()
+        setNickName()
+        getCaves()
+        getGatherdThook()
+        getActionplanPercent()
     }
 
     private fun getAlertCount() {
@@ -144,6 +150,16 @@ class HomeViewModel @Inject constructor(
                 _isUnlock.value = true
             }.onFailure {
                 _isUnlock.value = false
+            }
+        }
+    }
+
+    fun getGatherdThook() {
+        viewModelScope.launch {
+            getGatherdThookUseCase.invoke(memberId.value ?: 0).onSuccess { thookCount ->
+                _gatherdThook.value = thookCount
+            }.onFailure {
+                Timber.e(it.message)
             }
         }
     }

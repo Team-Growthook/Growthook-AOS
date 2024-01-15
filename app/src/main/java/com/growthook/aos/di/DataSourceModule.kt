@@ -2,10 +2,12 @@ package com.growthook.aos.di
 
 import com.growthook.aos.data.datasource.remote.ActionplanDataSource
 import com.growthook.aos.data.datasource.remote.CaveDataSource
+import com.growthook.aos.data.datasource.remote.MemberDataSource
 import com.growthook.aos.data.datasource.remote.ReviewDataSource
 import com.growthook.aos.data.datasource.remote.SeedDataSource
 import com.growthook.aos.data.datasource.remote.impl.ActionplanDataSourceImpl
 import com.growthook.aos.data.datasource.remote.impl.CaveDataSourceImpl
+import com.growthook.aos.data.datasource.remote.impl.MemberDataSourceImpl
 import com.growthook.aos.data.datasource.remote.impl.ReviewDataSourceImpl
 import com.growthook.aos.data.datasource.remote.impl.SeedDataSourceImpl
 import dagger.Binds
@@ -33,4 +35,8 @@ abstract class DataSourceModule {
     @Singleton
     @Binds
     abstract fun providesReviewDataSource(dataSourceImpl: ReviewDataSourceImpl): ReviewDataSource
+
+    @Singleton
+    @Binds
+    abstract fun providesMemberDataSource(dataSourceImpl: MemberDataSourceImpl): MemberDataSource
 }

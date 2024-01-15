@@ -66,6 +66,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         clickAddCave()
         getCaves()
         clickAddSeedBtn()
+        setThook()
     }
 
     override fun onResume() {
@@ -263,6 +264,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         val intent = Intent(requireActivity(), InsightWriteActivity::class.java)
         binding.fabHomeAddInsight.setOnClickListener {
             startActivity(intent)
+        }
+    }
+
+    private fun setThook() {
+        viewModel.gatherdThook.observe(viewLifecycleOwner) { thookCount ->
+            binding.tvHomeGathredThook.text = thookCount.toString()
         }
     }
 
