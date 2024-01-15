@@ -27,9 +27,6 @@ class ProceedingActionlistViewModel @Inject constructor(
 
     private val scrapedActionplans = MutableLiveData<List<ActionlistDetail>>()
 
-//    private val _scrapedActionplans = MutableLiveData<List<ActionlistDetail>>(mutableListOf())
-//    val scrapedActionplans: MutableLiveData<List<ActionlistDetail>> = _scrapedActionplans
-
     private val _actionplanId = MutableStateFlow(-1)
     val actionplanId: MutableStateFlow<Int> = _actionplanId
 
