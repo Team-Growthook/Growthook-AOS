@@ -64,14 +64,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         activity = requireActivity() as MainActivity
 
         clickAddCave()
-        getCaves()
         clickAddSeedBtn()
         setThook()
+        observeNickName()
+        observeInsight()
     }
 
     override fun onResume() {
         super.onResume()
-        getCaves()
+        renewalData()
     }
 
     private fun clickAddCave() {
@@ -83,23 +84,48 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private fun setTitleText() {
         viewModel.setNickName()
+    }
+
+    private fun observeNickName() {
         viewModel.nickname.observe(viewLifecycleOwner) { nickName ->
             binding.tvHomeAppbarTitle.text = "${nickName}님의 동굴 속"
         }
     }
 
-    private fun getCaves() {
+    private fun renewalData() {
         viewModel.getCaves()
+        viewModel.getInsights()
     }
 
     private fun setInsightAdapter() {
         _insightAdapter = HomeInsightAdapter(::selectedItem, ::clickedScrap)
+        observeInsight()
+
+        binding.rcvHomeInsight.adapter = insightAdapter
+
+        observeListIsEmpty()
+        setInsightTracker()
+    }
+
+    private fun observeListIsEmpty() {
+        insightAdapter.registerAdapterDataObserver(
+            EmptyDataObserver(
+                binding.rcvHomeInsight,
+                binding.tvHomeInsightTitle,
+                binding.tvHomeEmptyInsight,
+                binding.ivHomeEmptyInsight,
+            ),
+        )
+    }
+
+    private fun observeInsight() {
         viewModel.insights.observe(viewLifecycleOwner) {
             insightAdapter.submitList(it)
             binding.tvHomeInsightTitle.text = "${it.size}개의 씨앗을 모았어요!"
         }
-        binding.rcvHomeInsight.adapter = insightAdapter
+    }
 
+    private fun setInsightTracker() {
         val longTracker = SelectionTracker.Builder<Long>(
             "myLongSelection",
             binding.rcvHomeInsight,
@@ -111,15 +137,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         ).build()
 
         insightAdapter.setSelectionLongTracker(longTracker)
-        insightAdapter.registerAdapterDataObserver(
-            EmptyDataObserver(
-                binding.rcvHomeInsight,
-                binding.tvHomeInsightTitle,
-                binding.tvHomeEmptyInsight,
-                binding.ivHomeEmptyInsight,
-            ),
-        )
-
         longTracker.addObserver(object : SelectionTracker.SelectionObserver<Long>() {
             override fun onSelectionChanged() {
                 super.onSelectionChanged()
@@ -200,6 +217,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private fun clickedScrap(seedId: Int) {
         viewModel.changeScrap(seedId)
+        observeScrap()
+    }
+
+    private fun observeScrap() {
         viewModel.isScrapedSuccess.observe(viewLifecycleOwner) { isSuccess ->
             if (isSuccess) {
                 viewModel.getInsights()
