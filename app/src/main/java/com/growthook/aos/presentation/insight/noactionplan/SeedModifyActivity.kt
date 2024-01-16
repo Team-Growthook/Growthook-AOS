@@ -23,6 +23,7 @@ class SeedModifyActivity : BaseActivity<ActivitySeedModifyBinding>({
         binding = ActivitySeedModifyBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        initSetBackBtn()
         initSetBeforeModifyInfo()
         initGetSeedModifyEdt()
         initSetClickGoalMonth()
@@ -38,6 +39,14 @@ class SeedModifyActivity : BaseActivity<ActivitySeedModifyBinding>({
             edtSeedModifyUrl.clearFocus()
         }
         return super.dispatchTouchEvent(ev)
+    }
+
+    private fun initSetBackBtn() {
+        val intent = Intent(this, NoActionplanInsightActivity::class.java)
+        binding.btnSeedModifyBack.setOnClickListener {
+            startActivity(intent)
+            finish()
+        }
     }
 
     private fun initSetBeforeModifyInfo() {
