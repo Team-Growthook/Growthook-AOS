@@ -64,4 +64,9 @@ interface SeedService {
     suspend fun scrapSeed(
         @Path("seedId") seedId: Int,
     ): ResponseDto
+
+    @PATCH("/api/v1/seed/{seedId}")
+    suspend fun modifySeed(
+        @Path("seedId") seedId: Int
+    ): ResponseDto
 }
