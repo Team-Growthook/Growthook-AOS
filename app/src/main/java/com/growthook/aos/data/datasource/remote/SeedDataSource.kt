@@ -28,4 +28,6 @@ interface SeedDataSource {
     suspend fun unLockSeed(seedId: Int): ResponseDto
 
     suspend fun scrapSeed(seedId: Int): ResponseDto
+
+    suspend fun modifySeed(seedId: Int): ResponseDto
 }
