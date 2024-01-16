@@ -145,7 +145,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 val selectedInsight = insightAdapter.getSelectedLongInsight()
 
                 selectedInsight?.let {
-                    activity.hideBottomNavigation(true)
+                    binding.fabHomeAddInsight.visibility = View.GONE
                     selectMenuBottomSheet.show(parentFragmentManager, "show")
                     viewModel.longClickInsight.value = it
                 }
@@ -154,7 +154,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
         viewModel.isMenuDismissed.observe(viewLifecycleOwner) {
             longTracker.clearSelection()
-            activity.hideBottomNavigation(false)
+            binding.fabHomeAddInsight.visibility = View.VISIBLE
         }
     }
 
