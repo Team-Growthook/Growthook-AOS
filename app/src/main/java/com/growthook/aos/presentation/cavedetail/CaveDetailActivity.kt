@@ -14,8 +14,10 @@ import com.growthook.aos.databinding.ActivityCaveDetailBinding
 import com.growthook.aos.domain.entity.Insight
 import com.growthook.aos.presentation.MainActivity
 import com.growthook.aos.presentation.home.HomeInsightAdapter
+import com.growthook.aos.presentation.insight.actionplan.ActionplanInsightActivity
 import com.growthook.aos.presentation.insight.noactionplan.InsightMenuBottomsheet
 import com.growthook.aos.presentation.insight.noactionplan.NoActionplanInsightActivity
+import com.growthook.aos.presentation.insight.write.InsightWriteActivity
 import com.growthook.aos.util.EmptyDataObserver
 import com.growthook.aos.util.base.BaseActivity
 import com.growthook.aos.util.base.BaseAlertDialog
@@ -46,7 +48,7 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
         selectMenuBottomSheet = CaveDetailSelectMenuBottomSheet()
         modifySelectBottomSheet = CaveModifySelectBottomSheet()
 
-        val caveId = intent.getIntExtra("caveId", 0)
+        val caveId = intent.getIntExtra(CAVE_ID, 0)
         // viewModel.caveId.value = caveId
         viewModel.caveId.value = 54
         viewModel.getInsights()
@@ -57,6 +59,7 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
 
         clickBackNavi()
         clickMainMenu()
+        clickAddSeed()
     }
 
     override fun onResume() {
@@ -193,11 +196,10 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
                         }
                     },
                 ).show(supportFragmentManager, InsightMenuBottomsheet.DELETE_DIALOG)
-        } else if (!item.hasActionPlan) {
-            val intent =
-                Intent(this, NoActionplanInsightActivity::class.java)
-            intent.putExtra("insightId", item.seedId)
-            startActivity(intent)
+        } else if (item.hasActionPlan) {
+            startActivity(ActionplanInsightActivity.getIntent(this, item.seedId))
+        } else {
+            startActivity(NoActionplanInsightActivity.getIntent(this, item.seedId))
         }
     }
 
@@ -242,6 +244,13 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
     private fun clickMainMenu() {
         binding.ibCaveDetailMainmenu.setOnClickListener {
             modifySelectBottomSheet.show(supportFragmentManager, "show2")
+        }
+    }
+
+    private fun clickAddSeed() {
+        binding.fabCaveDetailAddInsight.setOnClickListener {
+            val intent = Intent(this, InsightWriteActivity::class.java)
+            startActivity(intent)
         }
     }
 

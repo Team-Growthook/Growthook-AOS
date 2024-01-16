@@ -21,6 +21,7 @@ import com.growthook.aos.presentation.cavecreate.CreateNewCaveActivity
 import com.growthook.aos.presentation.cavedetail.CaveDetailActivity
 import com.growthook.aos.presentation.insight.actionplan.ActionplanInsightActivity
 import com.growthook.aos.presentation.insight.noactionplan.InsightMenuBottomsheet
+import com.growthook.aos.presentation.insight.noactionplan.NoActionplanInsightActivity
 import com.growthook.aos.presentation.insight.write.InsightWriteActivity
 import com.growthook.aos.util.EmptyDataObserver
 import com.growthook.aos.util.base.BaseAlertDialog
@@ -181,7 +182,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                         viewModel.isUnlock.observe(viewLifecycleOwner) {
                             Toast.makeText(context, "잠금이 영구적으로 해제되었어요!", Toast.LENGTH_SHORT).show()
                             startActivity(
-                                ActionplanInsightActivity.getIntent(
+                                NoActionplanInsightActivity.getIntent(
                                     requireContext(),
                                     item.seedId,
                                 ),
@@ -189,8 +190,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                         }
                     },
                 ).show(parentFragmentManager, InsightMenuBottomsheet.DELETE_DIALOG)
-        } else if (!item.hasActionPlan) {
+        } else if (item.hasActionPlan) {
             startActivity(ActionplanInsightActivity.getIntent(requireContext(), item.seedId))
+        } else {
+            startActivity(NoActionplanInsightActivity.getIntent(requireContext(), item.seedId))
         }
     }
 
@@ -210,9 +213,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun clickedCave(item: Cave) {
-        val intent = Intent(requireActivity(), CaveDetailActivity::class.java)
-        intent.putExtra("caveId", item.id)
-        startActivity(intent)
+        startActivity(CaveDetailActivity.getIntent(requireContext(), item.id))
     }
 
     private fun clickedScrap(seedId: Int) {
