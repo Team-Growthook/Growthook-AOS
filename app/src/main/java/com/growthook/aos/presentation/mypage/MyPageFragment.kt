@@ -52,12 +52,16 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>() {
     private fun clickLogout() {
         binding.btnMyPageLogout.setOnClickListener {
             kakaoAuthService.kakaoLogout(viewModel.kakaoLogoutCallback)
-            viewModel.isLogoutSuccess.observe(viewLifecycleOwner) {
-                if (it) {
-                    val intent = Intent(requireActivity(), LoginActivity::class.java)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-                    startActivity(intent)
-                }
+            observeLogoutSuccess()
+        }
+    }
+
+    private fun observeLogoutSuccess() {
+        viewModel.isLogoutSuccess.observe(viewLifecycleOwner) { isSuccess ->
+            if (isSuccess) {
+                val intent = Intent(requireActivity(), LoginActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
             }
         }
     }
