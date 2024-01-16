@@ -6,8 +6,12 @@ import android.view.MotionEvent
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.growthook.aos.databinding.ActivitySeedModifyBinding
+import com.growthook.aos.domain.entity.SeedInfo
+import com.growthook.aos.presentation.insight.noactionplan.InsightMenuBottomsheet.Companion.SEED_MODIFY_INTENT
+import com.growthook.aos.presentation.insight.noactionplan.model.SeedModifyIntent
 import com.growthook.aos.util.base.BaseActivity
 import com.growthook.aos.util.extension.CommonTextWatcher
+import com.growthook.aos.util.extension.getParcelable
 import com.growthook.aos.util.extension.hideKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -50,7 +54,7 @@ class SeedModifyActivity : BaseActivity<ActivitySeedModifyBinding>({
     }
 
     private fun initSetBeforeModifyInfo() {
-        // getSeedIntentInfo()
+         getSeedIntentInfo()
 
         viewModel.seedInfo.observe(this) { seedInfo ->
             with (binding) {
@@ -71,7 +75,15 @@ class SeedModifyActivity : BaseActivity<ActivitySeedModifyBinding>({
     }
 
     private fun getSeedIntentInfo() {
-        // TODO 인사이트 조회 뷰에서 넘어온 cave 정보 받아서 SeedInfo에 저장
+        val seedModifyIntent = intent.getParcelable(SEED_MODIFY_INTENT, SeedModifyIntent::class.java)
+        viewModel.setSeedInfo(
+            SeedInfo(
+            seedModifyIntent?.insight ?: "",
+                seedModifyIntent?.memo ?: "",
+                seedModifyIntent?.cave ?: "",
+                seedModifyIntent?.source ?: "",
+                seedModifyIntent?.url ?: "",
+                seedModifyIntent?.goalMonth ?: 0))
     }
 
     private fun initGetSeedModifyEdt() {

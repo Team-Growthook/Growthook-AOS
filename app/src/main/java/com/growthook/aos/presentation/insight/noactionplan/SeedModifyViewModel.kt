@@ -5,6 +5,7 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.growthook.aos.domain.entity.SeedInfo
+import com.growthook.aos.presentation.insight.noactionplan.model.SeedModifyIntent
 import com.growthook.aos.util.extension.addSourceList
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -49,23 +50,17 @@ class SeedModifyViewModel @Inject constructor(): ViewModel() {
     }
 
     private fun checkSeedModifyEnabled(): Boolean =
-        insightModify.value != _seedInfo.value?.insight
-                || memoModify.value != _seedInfo.value?.memo
-                || sourceModify.value != _seedInfo.value?.source
-                || urlModify.value != _seedInfo.value?.url
+        insightModify.value != seedInfo.value?.insight
+                || memoModify.value != seedInfo.value?.memo
+                || sourceModify.value != seedInfo.value?.source
+                || urlModify.value != seedInfo.value?.url
 
-    private val _seedInfo: MutableLiveData<SeedInfo> = MutableLiveData(
-       SeedInfo(
-           "작성완",
-           "",
-           "선택완",
-           "출처만 입력한 경우",
-           "",
-           1
-       )
-    )
-
+    private val _seedInfo = MutableLiveData<SeedInfo>()
     val seedInfo: LiveData<SeedInfo>
         get() = _seedInfo
+
+    fun setSeedInfo(info: SeedInfo) {
+        _seedInfo.value = info
+    }
 
 }
