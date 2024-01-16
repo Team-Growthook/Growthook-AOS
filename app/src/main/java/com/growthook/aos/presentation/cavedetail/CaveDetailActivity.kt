@@ -14,7 +14,6 @@ import com.growthook.aos.databinding.ActivityCaveDetailBinding
 import com.growthook.aos.domain.entity.Insight
 import com.growthook.aos.presentation.MainActivity
 import com.growthook.aos.presentation.home.HomeInsightAdapter
-import com.growthook.aos.presentation.insight.actionplan.ActionplanInsightActivity
 import com.growthook.aos.presentation.insight.noactionplan.InsightMenuBottomsheet
 import com.growthook.aos.presentation.insight.noactionplan.NoActionplanInsightActivity
 import com.growthook.aos.util.EmptyDataObserver
@@ -80,12 +79,33 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
 
     private fun setInsightAdapter() {
         _insightAdapter = HomeInsightAdapter(::selectedItem, ::clickedScrap)
+        observeInsight()
+
+        binding.rcvCaveDetailInsight.adapter = insightAdapter
+
+        observeListIsEmpty()
+        setInsightTracker()
+    }
+
+    private fun observeInsight() {
         viewModel.insights.observe(this) {
             insightAdapter.submitList(it)
             binding.tvCaveDetailInsightTitle.text = "${it.size}개의 씨앗을 모았어요!"
         }
-        binding.rcvCaveDetailInsight.adapter = insightAdapter
+    }
 
+    private fun observeListIsEmpty() {
+        insightAdapter.registerAdapterDataObserver(
+            EmptyDataObserver(
+                binding.rcvCaveDetailInsight,
+                binding.tvCaveDetailInsightTitle,
+                binding.tvCaveDetailEmptyInsight,
+                binding.ivCaveDetailEmptyInsight,
+            ),
+        )
+    }
+
+    private fun setInsightTracker() {
         val longTracker = SelectionTracker.Builder<Long>(
             "caveDetailSelection",
             binding.rcvCaveDetailInsight,
@@ -97,14 +117,6 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
         ).build()
 
         insightAdapter.setSelectionLongTracker(longTracker)
-        insightAdapter.registerAdapterDataObserver(
-            EmptyDataObserver(
-                binding.rcvCaveDetailInsight,
-                binding.tvCaveDetailInsightTitle,
-                binding.tvCaveDetailEmptyInsight,
-                binding.ivCaveDetailEmptyInsight,
-            ),
-        )
 
         longTracker.addObserver(object : SelectionTracker.SelectionObserver<Long>() {
             override fun onSelectionChanged() {
@@ -191,6 +203,10 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
 
     private fun clickedScrap(seedId: Int) {
         viewModel.changeScrap(seedId)
+        observeScrap()
+    }
+
+    private fun observeScrap() {
         viewModel.isScrapedSuccess.observe(this) { isSuccess ->
             if (isSuccess) {
                 viewModel.getInsights()
