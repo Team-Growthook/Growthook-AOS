@@ -263,7 +263,7 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
         private const val CAVE_ID = "caveId"
 
         fun getIntent(context: Context, caveId: Int): Intent {
-            return Intent(context, NoActionplanInsightActivity::class.java).apply {
+            return Intent(context, CaveDetailActivity::class.java).apply {
                 putExtra(CAVE_ID, caveId)
             }
         }
