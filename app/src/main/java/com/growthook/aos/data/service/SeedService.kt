@@ -1,5 +1,6 @@
 package com.growthook.aos.data.service
 
+import com.growthook.aos.data.model.request.RequestSeedModifyDto
 import com.growthook.aos.data.model.request.RequestSeedMoveDto
 import com.growthook.aos.data.model.request.RequestSeedPostDto
 import com.growthook.aos.data.model.response.ResponseAlarmDto
@@ -65,8 +66,9 @@ interface SeedService {
         @Path("seedId") seedId: Int,
     ): ResponseDto
 
-    @PATCH("/api/v1/seed/{seedId}")
+    @PATCH("api/v1/seed/{seedId}")
     suspend fun modifySeed(
-        @Path("seedId") seedId: Int
+        @Path("seedId") seedId: Int,
+        @Body request: RequestSeedModifyDto
     ): ResponseDto
 }

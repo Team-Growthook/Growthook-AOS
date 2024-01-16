@@ -29,5 +29,11 @@ interface SeedRepository {
 
     suspend fun scrapSeed(seedId: Int): Result<Unit>
 
-    suspend fun modifySeed(seedId: Int): Result<Unit>
+    suspend fun modifySeed(
+        seedId: Int,
+        insight: String,
+        memo: String,
+        source: String,
+        url: String
+    ): Result<Unit>
 }

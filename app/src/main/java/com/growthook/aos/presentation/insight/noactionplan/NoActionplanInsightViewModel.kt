@@ -85,7 +85,7 @@ class NoActionplanInsightViewModel @Inject constructor(
     }
 
     companion object {
-        private const val DUMMY_SEED = 113
+        const val DUMMY_SEED = 113
         private const val DUMMY_MEMBER_ID = 4
     }
 }

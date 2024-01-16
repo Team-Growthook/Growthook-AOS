@@ -1,5 +1,6 @@
 package com.growthook.aos.data.datasource.remote
 
+import com.growthook.aos.data.model.request.RequestSeedModifyDto
 import com.growthook.aos.data.model.request.RequestSeedMoveDto
 import com.growthook.aos.data.model.request.RequestSeedPostDto
 import com.growthook.aos.data.model.response.ResponseAlarmDto
@@ -29,5 +30,5 @@ interface SeedDataSource {
 
     suspend fun scrapSeed(seedId: Int): ResponseDto
 
-    suspend fun modifySeed(seedId: Int): ResponseDto
+    suspend fun modifySeed(seedId: Int, request: RequestSeedModifyDto): ResponseDto
 }
