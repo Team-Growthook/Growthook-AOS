@@ -130,28 +130,27 @@ class SeedModifyActivity : BaseActivity<ActivitySeedModifyBinding>({
     }
 
     private fun clickSeedModifyBtn() {
-        val intent = Intent(this, NoActionplanInsightActivity::class.java)
+        binding.btnSeedModify.setOnClickListener {
+            viewModel.modifySeed(
+                DUMMY_SEED,
+                viewModel.seedInfo.value?.insight ?: "",
+                viewModel.seedInfo.value?.memo ?: "",
+                viewModel.seedInfo.value?.source ?: "",
+                viewModel.seedInfo.value?.url ?: ""
+            )
 
-        sendSeedModifyInfo()
+            sendSeedModifyInfo()
+        }
     }
 
     private fun sendSeedModifyInfo() {
+        val intent = Intent(this, NoActionplanInsightActivity::class.java)
+
         viewModel.seedModifyResponse.observe(this) {
             if (it) {
-                binding.btnSeedModify.setOnClickListener {
-                    viewModel.modifySeed(
-                        DUMMY_SEED,
-                        viewModel.seedInfo.value?.insight ?: "",
-                        viewModel.seedInfo.value?.memo ?: "",
-                        viewModel.seedInfo.value?.source ?: "",
-                        viewModel.seedInfo.value?.url ?: "")
-
-                    Toast.makeText(this, "씨앗이 수정되었어요", Toast.LENGTH_SHORT).show()
-                    startActivity(intent)
-                    finish()
-                }
-            } else {
-                Timber.d("서버 통신 실패")
+                Toast.makeText(this, "씨앗이 수정되었어요", Toast.LENGTH_SHORT).show()
+                startActivity(intent)
+                finish()
             }
         }
     }
