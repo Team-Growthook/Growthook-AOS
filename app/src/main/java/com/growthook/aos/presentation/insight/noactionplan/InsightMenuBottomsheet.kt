@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.growthook.aos.R
 import com.growthook.aos.databinding.FragmentInsightMenuBottomsheetBinding
+import com.growthook.aos.presentation.insight.noactionplan.model.SeedModifyIntent
 import com.growthook.aos.util.base.BaseAlertDialog
 import com.growthook.aos.util.base.BaseBottomSheetFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -53,8 +54,18 @@ class InsightMenuBottomsheet :
     private fun clickModifyMenu() {
         binding.clInsightMenuModify.setOnClickListener {
             val intent = Intent(requireActivity(), SeedModifyActivity::class.java)
-            startActivity(intent)
-            dismiss()
+            viewModel.seedData.observe(viewLifecycleOwner) { seed ->
+                intent.putExtra(SEED_MODIFY_INTENT, SeedModifyIntent(
+                    seed.title,
+                    seed.content,
+                    seed.caveName,
+                    seed.source,
+                    seed.url,
+                    seed.remainingDays/30
+                    ))
+                startActivity(intent)
+                dismiss()
+            }
         }
     }
 
@@ -88,5 +99,6 @@ class InsightMenuBottomsheet :
     companion object {
         const val DELETE_DIALOG = "delete dialog"
         private const val DUMMY_SEED = 113
+        const val SEED_MODIFY_INTENT = "SEED_MODIFY_INTENT"
     }
 }

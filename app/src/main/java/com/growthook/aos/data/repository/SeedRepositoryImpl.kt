@@ -1,6 +1,7 @@
 package com.growthook.aos.data.repository
 
 import com.growthook.aos.data.datasource.remote.SeedDataSource
+import com.growthook.aos.data.model.request.RequestSeedModifyDto
 import com.growthook.aos.data.model.request.RequestSeedMoveDto
 import com.growthook.aos.data.model.request.RequestSeedPostDto
 import com.growthook.aos.domain.entity.Insight
@@ -51,5 +52,15 @@ class SeedRepositoryImpl @Inject constructor(private val seedDataSource: SeedDat
 
     override suspend fun scrapSeed(seedId: Int): Result<Unit> = runCatching {
         seedDataSource.scrapSeed(seedId)
+    }
+
+    override suspend fun modifySeed(
+        seedId: Int,
+        insight: String,
+        memo: String,
+        source: String,
+        url: String
+    ): Result<Unit> = runCatching {
+        seedDataSource.modifySeed(seedId, RequestSeedModifyDto(insight, memo, source, url))
     }
 }
