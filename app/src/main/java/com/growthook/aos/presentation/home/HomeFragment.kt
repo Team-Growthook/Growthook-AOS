@@ -60,6 +60,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         setTitleText()
         setInsightAdapter()
         setAlertMessage()
+        setInsightTitle()
         clickScrap()
         setCaveAdapter()
 
@@ -86,6 +87,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     override fun onResume() {
         super.onResume()
         renewalData()
+    }
+
+    private fun setInsightTitle() {
+        viewModel.unScrapedInsights.observe(viewLifecycleOwner) {
+            binding.tvHomeInsightTitle.text = "${it.size}개의 씨앗을 모았어요"
+        }
     }
 
     private fun clickAddCave() {
