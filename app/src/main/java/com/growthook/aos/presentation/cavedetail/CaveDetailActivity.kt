@@ -20,6 +20,7 @@ import com.growthook.aos.presentation.insight.noactionplan.NoActionplanInsightAc
 import com.growthook.aos.presentation.insight.write.InsightWriteActivity
 import com.growthook.aos.util.EmptyDataObserver
 import com.growthook.aos.util.EventObserver
+import com.growthook.aos.util.LinearLayoutManagerWrapper
 import com.growthook.aos.util.base.BaseActivity
 import com.growthook.aos.util.base.BaseAlertDialog
 import dagger.hilt.android.AndroidEntryPoint
@@ -87,6 +88,7 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
         _insightAdapter = HomeInsightAdapter(::selectedItem, ::clickedScrap)
 
         binding.rcvCaveDetailInsight.adapter = insightAdapter
+        binding.rcvCaveDetailInsight.layoutManager = LinearLayoutManagerWrapper(this)
 
         observeListIsEmpty()
         setInsightTracker()

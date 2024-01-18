@@ -144,7 +144,6 @@
         android:layout_marginTop="32dp"
         android:paddingBottom="26dp"
         android:visibility="visible"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@id/fab_cave_detail_add_insight"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
