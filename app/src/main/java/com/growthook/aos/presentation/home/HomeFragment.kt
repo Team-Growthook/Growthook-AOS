@@ -24,6 +24,7 @@ import com.growthook.aos.presentation.insight.noactionplan.InsightMenuBottomshee
 import com.growthook.aos.presentation.insight.noactionplan.NoActionplanInsightActivity
 import com.growthook.aos.presentation.insight.write.InsightWriteActivity
 import com.growthook.aos.util.EmptyDataObserver
+import com.growthook.aos.util.EventObserver
 import com.growthook.aos.util.base.BaseAlertDialog
 import com.growthook.aos.util.base.BaseFragment
 import com.skydoves.balloon.Balloon
@@ -68,7 +69,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         clickAddSeedBtn()
         setThook()
         observeNickName()
-        observeInsight()
     }
 
     override fun onResume() {
@@ -222,12 +222,21 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun observeScrap() {
-        viewModel.isScrapedSuccess.observe(viewLifecycleOwner) { isSuccess ->
-            if (isSuccess) {
-                viewModel.getInsights()
-                Toast.makeText(requireContext(), "스크랩 완료", Toast.LENGTH_SHORT).show()
-            }
-        }
+        viewModel.isScrapedSuccess.observe(
+            viewLifecycleOwner,
+            EventObserver { isSuccess ->
+                if (isSuccess) {
+                    if (binding.chbHomeScrap.isChecked) {
+                        // viewModel.getScrapedInsight()
+                        Toast.makeText(requireContext(), "스크랩 완료", Toast.LENGTH_SHORT).show()
+                    } else {
+                        // viewModel.getUnScrapedInsight()
+                        Timber.d("스크랩 버튼 클릭 인사이트 서버통신함")
+                        Toast.makeText(requireContext(), "스크랩 완료", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            },
+        )
     }
 
     private fun setAlertMessage() {

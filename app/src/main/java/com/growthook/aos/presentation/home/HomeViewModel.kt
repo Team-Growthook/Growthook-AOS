@@ -16,8 +16,11 @@ import com.growthook.aos.domain.usecase.actionplan.GetActionplanPercentUseCase
 import com.growthook.aos.domain.usecase.home.GetSeedAlarmUseCase
 import com.growthook.aos.domain.usecase.home.GetSeedsUseCase
 import com.growthook.aos.domain.usecase.local.GetUserUseCase
+import com.growthook.aos.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -49,8 +52,8 @@ class HomeViewModel @Inject constructor(
     private val _isDelete = MutableLiveData<Boolean>()
     val isDelete: LiveData<Boolean> = _isDelete
 
-    private val _isScrapedSuccess = MutableLiveData<Boolean>()
-    val isScrapedSuccess: LiveData<Boolean> = _isScrapedSuccess
+    private val _isScrapedSuccess = MutableLiveData<Event<Boolean>>()
+    val isScrapedSuccess: LiveData<Event<Boolean>> = _isScrapedSuccess
 
     private val _isUnlock = MutableLiveData<Boolean>()
     val isUnlock: LiveData<Boolean> = _isUnlock
@@ -127,9 +130,9 @@ class HomeViewModel @Inject constructor(
     fun changeScrap(seedId: Int) {
         viewModelScope.launch {
             scrapSeedUseCase.invoke(seedId).onSuccess {
-                _isScrapedSuccess.value = true
+                _isScrapedSuccess.value = Event(true)
             }.onFailure {
-                _isScrapedSuccess.value = false
+                _isScrapedSuccess.value = Event(false)
             }
         }
     }
