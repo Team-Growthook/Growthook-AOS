@@ -41,9 +41,6 @@ class HomeViewModel @Inject constructor(
     private val _alertAmount = MutableLiveData<Int>()
     val alertAmount: LiveData<Int> = _alertAmount
 
-    private val _insights = MutableLiveData<List<Insight>>()
-    val insights: LiveData<List<Insight>> = _insights
-
     private val _caves = MutableLiveData<List<Cave>>()
     val caves: LiveData<List<Cave>> = _caves
 
@@ -53,20 +50,17 @@ class HomeViewModel @Inject constructor(
     private val _isScrapedSuccess = MutableLiveData<Event<Boolean>>()
     val isScrapedSuccess: LiveData<Event<Boolean>> = _isScrapedSuccess
 
-    private val _isGetScrapedSuccess = MutableLiveData<Event<Boolean>>()
-    val isGetScrapedSuccess: LiveData<Event<Boolean>> = _isGetScrapedSuccess
-
-    private val _isGetUnScrapedSuccess = MutableLiveData<Event<Boolean>>()
-    val isGetUnScrapedSuccess: LiveData<Event<Boolean>> = _isGetUnScrapedSuccess
-
     private val _isUnlock = MutableLiveData<Boolean>()
     val isUnlock: LiveData<Boolean> = _isUnlock
 
     private val _gatherdThook = MutableLiveData<Int>()
     val gatherdThook: LiveData<Int> = _gatherdThook
 
-    val scrapedInsights = MutableLiveData<List<Insight>>()
-    val unScrapedInsights = MutableLiveData<List<Insight>>()
+    private val _scrapedInsights = MutableLiveData<List<Insight>>()
+    val scrapedInsights:LiveData<List<Insight>> = _scrapedInsights
+
+    private val _unScrapedInsights = MutableLiveData<List<Insight>>()
+    val unScrapedInsights:LiveData<List<Insight>> = _unScrapedInsights
 
     private val memberId = MutableLiveData<Int>(0)
 
@@ -104,34 +98,21 @@ class HomeViewModel @Inject constructor(
     fun getInsights() {
         viewModelScope.launch {
             getSeedsUseCase.invoke(memberId.value ?: 0).onSuccess { insights ->
-                unScrapedInsights.value = insights
-                _isGetUnScrapedSuccess.value = Event(true)
-                Timber.d("스크랩된 인사이트 ${scrapedInsights.value}")
+                _unScrapedInsights.value = insights
             }.onFailure {
                 Timber.e(it.message)
-                _isGetUnScrapedSuccess.value = Event(false)
             }
         }
-    }
-
-    fun setUnScrapedInsightAdapter() {
-        _insights.value = unScrapedInsights.value
     }
 
     fun getScrapedInsight() {
         viewModelScope.launch {
             getSeedsUseCase.invoke(memberId.value ?: 0).onSuccess { insights ->
-                scrapedInsights.value = insights.filter { it.isScraped }
-                _isGetScrapedSuccess.value = Event(true)
-                Timber.d("스크랩된 인사이트 ${scrapedInsights.value}")
+                _scrapedInsights.value = insights.filter { it.isScraped }
             }.onFailure {
                 Timber.e(it.message)
             }
         }
-    }
-
-    fun setScrapedInsightAdapter() {
-        _insights.value = scrapedInsights.value
     }
 
     fun getCaves() {

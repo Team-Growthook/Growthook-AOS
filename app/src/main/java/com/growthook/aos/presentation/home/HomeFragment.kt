@@ -111,7 +111,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private fun setInsightAdapter() {
         _insightAdapter = HomeInsightAdapter(::selectedItem, ::clickedScrap)
-        observeInsight()
 
         binding.rcvHomeInsight.adapter = insightAdapter
 
@@ -128,13 +127,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 binding.ivHomeEmptyInsight,
             ),
         )
-    }
-
-    private fun observeInsight() {
-        viewModel.insights.observe(viewLifecycleOwner) {
-            insightAdapter.submitList(it)
-            binding.tvHomeInsightTitle.text = "${it.size}개의 씨앗을 모았어요!"
-        }
     }
 
     private fun setInsightTracker() {
@@ -242,7 +234,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                         Toast.makeText(requireContext(), "스크랩 완료", Toast.LENGTH_SHORT).show()
                     } else {
                         viewModel.getInsights()
-                        Timber.d("스크랩 버튼 클릭 인사이트 서버통신함")
                         Toast.makeText(requireContext(), "스크랩 완료", Toast.LENGTH_SHORT).show()
                     }
                 }
