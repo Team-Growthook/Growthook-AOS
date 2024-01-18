@@ -13,7 +13,7 @@ class CaveAdapter(private val selectedItem: (Cave) -> Unit) :
     ListAdapter<Cave, CaveAdapter.CaveViewHolder>(diffCallback) {
 
     override fun getItemViewType(position: Int): Int {
-        return when (position % 4) {
+        return when (currentList[position].caveImageIndex) {
             0 -> sunrise
             1 -> sunset
             2 -> pink
