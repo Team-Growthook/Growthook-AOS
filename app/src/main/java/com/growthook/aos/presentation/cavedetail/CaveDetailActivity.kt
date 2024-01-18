@@ -19,6 +19,7 @@ import com.growthook.aos.presentation.insight.noactionplan.InsightMenuBottomshee
 import com.growthook.aos.presentation.insight.noactionplan.NoActionplanInsightActivity
 import com.growthook.aos.presentation.insight.write.InsightWriteActivity
 import com.growthook.aos.util.EmptyDataObserver
+import com.growthook.aos.util.EventObserver
 import com.growthook.aos.util.base.BaseActivity
 import com.growthook.aos.util.base.BaseAlertDialog
 import dagger.hilt.android.AndroidEntryPoint
@@ -55,16 +56,18 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
         setCaveDetail()
         setInsightAdapter()
         setNickName()
-        clickScrap(caveId)
+        clickScrap()
 
         clickBackNavi()
         clickMainMenu()
         clickAddSeed()
+        observeInsights()
     }
 
     override fun onResume() {
         super.onResume()
         setCaveDetail()
+        viewModel.getInsights()
     }
 
     private fun setCaveDetail() {
@@ -82,7 +85,6 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
 
     private fun setInsightAdapter() {
         _insightAdapter = HomeInsightAdapter(::selectedItem, ::clickedScrap)
-        observeInsight()
 
         binding.rcvCaveDetailInsight.adapter = insightAdapter
 
@@ -90,13 +92,14 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
         setInsightTracker()
     }
 
-    private fun observeInsight() {
-        viewModel.insights.observe(this) {
+    private fun observeInsights() {
+        viewModel.scrapedInsights.observe(this) {
             insightAdapter.submitList(it)
-            binding.tvCaveDetailInsightTitle.text = "${it.size}개의 씨앗을 모았어요!"
+        }
+        viewModel.unScrapedInsights.observe(this) {
+            insightAdapter.submitList(it)
         }
     }
-
     private fun observeListIsEmpty() {
         insightAdapter.registerAdapterDataObserver(
             EmptyDataObserver(
@@ -209,12 +212,20 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
     }
 
     private fun observeScrap() {
-        viewModel.isScrapedSuccess.observe(this) { isSuccess ->
-            if (isSuccess) {
-                viewModel.getInsights()
-                Toast.makeText(this, "스크랩 완료", Toast.LENGTH_SHORT).show()
-            }
-        }
+        viewModel.isScrapedSuccess.observe(
+            this,
+            EventObserver { isSuccess ->
+                if (isSuccess) {
+                    if (binding.chbCaveDetailScrap.isChecked) {
+                        viewModel.getScrapedInsights()
+                        Toast.makeText(this, "스크랩 완료", Toast.LENGTH_SHORT).show()
+                    } else {
+                        viewModel.getInsights()
+                        Toast.makeText(this, "스크랩 완료", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            },
+        )
     }
 
     private fun setNickName() {
@@ -223,10 +234,10 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
         }
     }
 
-    private fun clickScrap(caveId: Int) {
+    private fun clickScrap() {
         binding.chbCaveDetailScrap.setOnCheckedChangeListener { button, isChecked ->
             if (isChecked) {
-                viewModel.getScrapedInsight()
+                viewModel.getScrapedInsights()
             } else {
                 viewModel.getInsights()
             }
