@@ -6,10 +6,16 @@ import android.view.MotionEvent
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.growthook.aos.databinding.ActivitySeedModifyBinding
+import com.growthook.aos.domain.entity.SeedInfo
+import com.growthook.aos.presentation.insight.noactionplan.InsightMenuBottomsheet.Companion.SEED_MODIFY_INTENT
+import com.growthook.aos.presentation.insight.noactionplan.NoActionplanInsightViewModel.Companion.DUMMY_SEED
+import com.growthook.aos.presentation.insight.noactionplan.model.SeedModifyIntent
 import com.growthook.aos.util.base.BaseActivity
 import com.growthook.aos.util.extension.CommonTextWatcher
+import com.growthook.aos.util.extension.getParcelable
 import com.growthook.aos.util.extension.hideKeyboard
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class SeedModifyActivity : BaseActivity<ActivitySeedModifyBinding>({
@@ -23,6 +29,7 @@ class SeedModifyActivity : BaseActivity<ActivitySeedModifyBinding>({
         binding = ActivitySeedModifyBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        initSetBackBtn()
         initSetBeforeModifyInfo()
         initGetSeedModifyEdt()
         initSetClickGoalMonth()
@@ -40,8 +47,16 @@ class SeedModifyActivity : BaseActivity<ActivitySeedModifyBinding>({
         return super.dispatchTouchEvent(ev)
     }
 
+    private fun initSetBackBtn() {
+        val intent = Intent(this, NoActionplanInsightActivity::class.java)
+        binding.btnSeedModifyBack.setOnClickListener {
+            startActivity(intent)
+            finish()
+        }
+    }
+
     private fun initSetBeforeModifyInfo() {
-        // getSeedIntentInfo()
+         getSeedIntentInfo()
 
         viewModel.seedInfo.observe(this) { seedInfo ->
             with (binding) {
@@ -62,7 +77,15 @@ class SeedModifyActivity : BaseActivity<ActivitySeedModifyBinding>({
     }
 
     private fun getSeedIntentInfo() {
-        // TODO 인사이트 조회 뷰에서 넘어온 cave 정보 받아서 SeedInfo에 저장
+        val seedModifyIntent = intent.getParcelable(SEED_MODIFY_INTENT, SeedModifyIntent::class.java)
+        viewModel.setSeedInfo(
+            SeedInfo(
+            seedModifyIntent?.insight ?: "",
+                seedModifyIntent?.memo ?: "",
+                seedModifyIntent?.cave ?: "",
+                seedModifyIntent?.source ?: "",
+                seedModifyIntent?.url ?: "",
+                seedModifyIntent?.goalMonth ?: 0))
     }
 
     private fun initGetSeedModifyEdt() {
@@ -107,18 +130,28 @@ class SeedModifyActivity : BaseActivity<ActivitySeedModifyBinding>({
     }
 
     private fun clickSeedModifyBtn() {
-        val intent = Intent(this, NoActionplanInsightActivity::class.java)
-
         binding.btnSeedModify.setOnClickListener {
-            // sendSeedModifyInfo()
+            viewModel.modifySeed(
+                DUMMY_SEED,
+                viewModel.seedInfo.value?.insight ?: "",
+                viewModel.seedInfo.value?.memo ?: "",
+                viewModel.seedInfo.value?.source ?: "",
+                viewModel.seedInfo.value?.url ?: ""
+            )
 
-            Toast.makeText(this, "씨앗이 수정되었어요", Toast.LENGTH_SHORT).show()
-            startActivity(intent)
-            finish()
+            sendSeedModifyInfo()
         }
     }
 
     private fun sendSeedModifyInfo() {
-        // TODO 버튼 클릭 시 수정된 정보 서버통신
+        val intent = Intent(this, NoActionplanInsightActivity::class.java)
+
+        viewModel.seedModifyResponse.observe(this) {
+            if (it) {
+                Toast.makeText(this, "씨앗이 수정되었어요", Toast.LENGTH_SHORT).show()
+                startActivity(intent)
+                finish()
+            }
+        }
     }
 }
