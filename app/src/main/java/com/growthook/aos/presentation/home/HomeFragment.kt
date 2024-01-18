@@ -69,6 +69,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         clickAddSeedBtn()
         setThook()
         observeNickName()
+
+        observeInsights()
+    }
+
+    private fun observeInsights() {
+        viewModel.scrapedInsights.observe(viewLifecycleOwner) {
+            insightAdapter.submitList(it)
+        }
+        viewModel.unScrapedInsights.observe(viewLifecycleOwner) {
+            insightAdapter.submitList(it)
+        }
     }
 
     override fun onResume() {
@@ -227,10 +238,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             EventObserver { isSuccess ->
                 if (isSuccess) {
                     if (binding.chbHomeScrap.isChecked) {
-                        // viewModel.getScrapedInsight()
+                        viewModel.getScrapedInsight()
                         Toast.makeText(requireContext(), "스크랩 완료", Toast.LENGTH_SHORT).show()
                     } else {
-                        // viewModel.getUnScrapedInsight()
+                        viewModel.getInsights()
                         Timber.d("스크랩 버튼 클릭 인사이트 서버통신함")
                         Toast.makeText(requireContext(), "스크랩 완료", Toast.LENGTH_SHORT).show()
                     }

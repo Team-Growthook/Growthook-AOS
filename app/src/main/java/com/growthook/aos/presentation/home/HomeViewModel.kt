@@ -18,9 +18,7 @@ import com.growthook.aos.domain.usecase.home.GetSeedsUseCase
 import com.growthook.aos.domain.usecase.local.GetUserUseCase
 import com.growthook.aos.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -55,13 +53,20 @@ class HomeViewModel @Inject constructor(
     private val _isScrapedSuccess = MutableLiveData<Event<Boolean>>()
     val isScrapedSuccess: LiveData<Event<Boolean>> = _isScrapedSuccess
 
+    private val _isGetScrapedSuccess = MutableLiveData<Event<Boolean>>()
+    val isGetScrapedSuccess: LiveData<Event<Boolean>> = _isGetScrapedSuccess
+
+    private val _isGetUnScrapedSuccess = MutableLiveData<Event<Boolean>>()
+    val isGetUnScrapedSuccess: LiveData<Event<Boolean>> = _isGetUnScrapedSuccess
+
     private val _isUnlock = MutableLiveData<Boolean>()
     val isUnlock: LiveData<Boolean> = _isUnlock
 
     private val _gatherdThook = MutableLiveData<Int>()
     val gatherdThook: LiveData<Int> = _gatherdThook
 
-    private val scrapedInsights = MutableLiveData<List<Insight>>()
+    val scrapedInsights = MutableLiveData<List<Insight>>()
+    val unScrapedInsights = MutableLiveData<List<Insight>>()
 
     private val memberId = MutableLiveData<Int>(0)
 
@@ -99,17 +104,34 @@ class HomeViewModel @Inject constructor(
     fun getInsights() {
         viewModelScope.launch {
             getSeedsUseCase.invoke(memberId.value ?: 0).onSuccess { insights ->
-                _insights.value = insights
+                unScrapedInsights.value = insights
+                _isGetUnScrapedSuccess.value = Event(true)
+                Timber.d("스크랩된 인사이트 ${scrapedInsights.value}")
+            }.onFailure {
+                Timber.e(it.message)
+                _isGetUnScrapedSuccess.value = Event(false)
+            }
+        }
+    }
+
+    fun setUnScrapedInsightAdapter() {
+        _insights.value = unScrapedInsights.value
+    }
+
+    fun getScrapedInsight() {
+        viewModelScope.launch {
+            getSeedsUseCase.invoke(memberId.value ?: 0).onSuccess { insights ->
                 scrapedInsights.value = insights.filter { it.isScraped }
+                _isGetScrapedSuccess.value = Event(true)
+                Timber.d("스크랩된 인사이트 ${scrapedInsights.value}")
             }.onFailure {
                 Timber.e(it.message)
             }
         }
     }
 
-    fun getScrapedInsight() {
+    fun setScrapedInsightAdapter() {
         _insights.value = scrapedInsights.value
-        Timber.d("getScrapedInsight ${_insights.value?.size}")
     }
 
     fun getCaves() {
