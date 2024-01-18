@@ -51,8 +51,7 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
         modifySelectBottomSheet = CaveModifySelectBottomSheet()
 
         val caveId = intent.getIntExtra(CAVE_ID, 0)
-        // viewModel.caveId.value = caveId
-        viewModel.caveId.value = 54
+        viewModel.caveId.value = caveId
         viewModel.getInsights()
         setCaveDetail()
         setInsightAdapter()

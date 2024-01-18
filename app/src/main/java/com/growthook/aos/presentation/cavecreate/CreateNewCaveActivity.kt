@@ -1,6 +1,5 @@
 package com.growthook.aos.presentation.cavecreate
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.MotionEvent
 import android.widget.Toast
@@ -67,7 +66,7 @@ class CreateNewCaveActivity : BaseActivity<ActivityCreateNewCaveBinding>({
                         negativeText = "",
                         tipText = "",
                         negativeAction = {},
-                        positiveAction = {}
+                        positiveAction = {},
                     ).show(supportFragmentManager, "delete dialog")
             } else {
                 //
@@ -118,21 +117,12 @@ class CreateNewCaveActivity : BaseActivity<ActivityCreateNewCaveBinding>({
     }
 
     private fun sendNewCaveData() {
-        val intent = Intent(this, SeeNewCaveActivity::class.java)
-        with (binding) {
-            intent.putExtra(
-                NEW_CAVE_INFO,
-                NewCaveIntent(
-                    edtCaveName.text.toString(),
-                    edtCaveIntroduction.text.toString()
-                )
-            )
-        }
-        startActivity(intent)
-        finish()
-    }
+        val newCaveIntent = NewCaveIntent(
+            binding.edtCaveName.text.toString(),
+            binding.edtCaveIntroduction.text.toString(),
+        )
 
-    companion object {
-        const val NEW_CAVE_INFO = "NEW_CAVE_INFO"
+        startActivity(SeeNewCaveActivity.getIntent(this, newCaveIntent))
+        finish()
     }
 }
