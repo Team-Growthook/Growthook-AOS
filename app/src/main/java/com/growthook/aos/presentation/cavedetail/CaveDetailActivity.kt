@@ -63,12 +63,19 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
         clickMainMenu()
         clickAddSeed()
         observeInsights()
+        setInsightTitle()
     }
 
     override fun onResume() {
         super.onResume()
         setCaveDetail()
         viewModel.getInsights()
+    }
+
+    private fun setInsightTitle() {
+        viewModel.unScrapedInsights.observe(this) {
+            binding.tvCaveDetailInsightTitle.text = "${it.size}개의 씨앗을 모았어요"
+        }
     }
 
     private fun setCaveDetail() {
