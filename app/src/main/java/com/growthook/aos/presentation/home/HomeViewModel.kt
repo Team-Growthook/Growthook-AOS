@@ -57,10 +57,10 @@ class HomeViewModel @Inject constructor(
     val gatherdThook: LiveData<Int> = _gatherdThook
 
     private val _scrapedInsights = MutableLiveData<List<Insight>>()
-    val scrapedInsights:LiveData<List<Insight>> = _scrapedInsights
+    val scrapedInsights: LiveData<List<Insight>> = _scrapedInsights
 
     private val _unScrapedInsights = MutableLiveData<List<Insight>>()
-    val unScrapedInsights:LiveData<List<Insight>> = _unScrapedInsights
+    val unScrapedInsights: LiveData<List<Insight>> = _unScrapedInsights
 
     private val memberId = MutableLiveData<Int>(0)
 
