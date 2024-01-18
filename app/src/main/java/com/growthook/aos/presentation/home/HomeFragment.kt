@@ -25,6 +25,7 @@ import com.growthook.aos.presentation.insight.noactionplan.NoActionplanInsightAc
 import com.growthook.aos.presentation.insight.write.InsightWriteActivity
 import com.growthook.aos.util.EmptyDataObserver
 import com.growthook.aos.util.EventObserver
+import com.growthook.aos.util.LinearLayoutManagerWrapper
 import com.growthook.aos.util.base.BaseAlertDialog
 import com.growthook.aos.util.base.BaseFragment
 import com.skydoves.balloon.Balloon
@@ -113,6 +114,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         _insightAdapter = HomeInsightAdapter(::selectedItem, ::clickedScrap)
 
         binding.rcvHomeInsight.adapter = insightAdapter
+        binding.rcvHomeInsight.layoutManager = LinearLayoutManagerWrapper(requireActivity())
 
         observeListIsEmpty()
         setInsightTracker()
