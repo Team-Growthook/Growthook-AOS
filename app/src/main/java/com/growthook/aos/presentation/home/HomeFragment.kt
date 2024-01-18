@@ -243,7 +243,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                         Toast.makeText(requireContext(), "스크랩 완료", Toast.LENGTH_SHORT).show()
                     } else {
                         viewModel.getInsights()
-                        Toast.makeText(requireContext(), "스크랩 완료", Toast.LENGTH_SHORT).show()
                     }
                 }
             },
