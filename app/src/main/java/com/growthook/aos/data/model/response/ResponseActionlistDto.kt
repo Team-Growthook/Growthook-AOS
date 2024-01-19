@@ -25,6 +25,8 @@ data class ResponseActionlistDto(
         val isScraped: Boolean,
         @SerialName("seedId")
         val seedId: Int,
+        @SerialName("hasReview")
+        val hasReview: Boolean,
     )
 
     fun toActionlist() = data.map { actionplan ->
@@ -33,6 +35,7 @@ data class ResponseActionlistDto(
             actionplan.content,
             actionplan.isScraped,
             actionplan.seedId,
+            actionplan.hasReview,
         )
     }
 }
