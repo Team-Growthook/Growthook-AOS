@@ -29,9 +29,17 @@ class CaveSelectBottomSheetViewModel @Inject constructor(
 
     val selectedCave = MutableStateFlow<Cave?>(null)
 
+    private val memberId = MutableLiveData<Int>(0)
+
+    init {
+        viewModelScope.launch {
+            memberId.value = getUserUseCase.invoke().memberId ?: 0
+        }
+    }
+
     fun getCaves() {
         viewModelScope.launch {
-            getCavesUseCase(DUMMY_MEMBER_ID).onSuccess { caves ->
+            getCavesUseCase(memberId.value ?: 0).onSuccess { caves ->
                 _caves.value = caves
             }
         }
@@ -46,9 +54,5 @@ class CaveSelectBottomSheetViewModel @Inject constructor(
                 Timber.d("씨앗 옮기기 ${it.message}")
             }
         }
-    }
-
-    companion object {
-        const val DUMMY_MEMBER_ID = 4
     }
 }

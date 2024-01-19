@@ -82,15 +82,6 @@ class ProceedingActionlistViewModel @Inject constructor(
         }
     }
 
-//    fun filterScrap() {
-//        viewModelScope.launch {
-//            _scrappedActionplans.value = _doingActionplans.value
-//                .filter { actionplan ->
-//                    actionplan.isScraped
-//                }
-//        }
-//    }
-
     sealed interface Event {
         object Default : Event
         object PostReviewSuccess : Event

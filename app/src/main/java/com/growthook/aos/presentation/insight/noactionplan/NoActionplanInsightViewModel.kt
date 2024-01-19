@@ -39,6 +39,14 @@ class NoActionplanInsightViewModel @Inject constructor(
 
     var seedId: Int = 0
 
+    private val memberId = MutableLiveData<Int>(0)
+
+    init {
+        viewModelScope.launch {
+            memberId.value = getUserUseCase.invoke().memberId ?: 0
+        }
+    }
+
     fun getSeedDetail() {
         viewModelScope.launch {
             getSeedUseCase.invoke(seedId)
@@ -57,7 +65,7 @@ class NoActionplanInsightViewModel @Inject constructor(
     fun getCaves() {
         viewModelScope.launch {
             viewModelScope.launch {
-                getCavesUseCase(DUMMY_MEMBER_ID).onSuccess { caves ->
+                getCavesUseCase(memberId.value ?: 0).onSuccess { caves ->
                     _caves.value = caves
                 }
             }
@@ -80,9 +88,5 @@ class NoActionplanInsightViewModel @Inject constructor(
         object DeleteSeedSuccess : Event
 
         object Failed : Event
-    }
-
-    companion object {
-        private const val DUMMY_MEMBER_ID = 4
     }
 }

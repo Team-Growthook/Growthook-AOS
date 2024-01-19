@@ -162,8 +162,4 @@ class ActionplanInsightViewModel @Inject constructor(
         object DeleteSuccess : Event
         object PostReviewSuccess : Event
     }
-
-    companion object {
-        const val DUMMY_SEED = 113
-    }
 }

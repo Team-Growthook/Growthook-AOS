@@ -71,8 +71,8 @@ class HomeViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            // memberId.value = getUserUseCase.invoke().memberId ?: 0
-            memberId.value = 4
+            memberId.value = getUserUseCase.invoke().memberId ?: 0
+//            memberId.value = 4
         }
 
         getAlertCount()
