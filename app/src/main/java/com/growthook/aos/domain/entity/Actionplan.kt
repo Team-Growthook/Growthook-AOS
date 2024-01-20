@@ -5,4 +5,5 @@ data class Actionplan(
     val content: String,
     val isScraped: Boolean,
     val isFinished: Boolean,
+    val hasReview: Boolean,
 )

@@ -26,18 +26,10 @@ class CompletedActionlistViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            memberId.value = getUserUseCase.invoke().memberId ?: 0
+            memberId.value = getUserUseCase.invoke().memberId ?: 9
         }
         getFinishedActionplans()
     }
-
-    /*
-        init {
-        viewModelScope.launch {
-            memberId.value = getUserUseCase.invoke().memberId ?: 0
-//            memberId.value = 4
-        }
-     */
 
     fun getScrapedActionplan() {
         _finishedActionplans.value = scrapedActionplans.value.orEmpty()
