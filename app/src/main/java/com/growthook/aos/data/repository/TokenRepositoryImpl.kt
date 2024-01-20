@@ -8,8 +8,8 @@ import javax.inject.Inject
 
 class TokenRepositoryImpl @Inject constructor(private val dataStore: DataStore<Token>) :
     TokenRepository {
-    override suspend fun setToken(accessToken: String) {
-        dataStore.updateData { Token(accessToken) }
+        override suspend fun setToken(accessToken: String, refreshToken: String) {
+        dataStore.updateData { Token(accessToken, refreshToken) }
     }
 
     override suspend fun getToken(): Token = dataStore.data.first()
