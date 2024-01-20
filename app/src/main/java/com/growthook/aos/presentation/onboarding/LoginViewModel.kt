@@ -5,8 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.growthook.aos.domain.usecase.local.GetUserUseCase
-import com.growthook.aos.domain.usecase.local.PostTokenUseCase
-import com.growthook.aos.domain.usecase.local.PostUserUseCase
+import com.growthook.aos.domain.usecase.onboarding.SignUpUseCase
 import com.growthook.aos.util.callback.KakaoLoginCallback
 import com.growthook.aos.util.callback.KakaoUserCallback
 import com.kakao.sdk.auth.model.OAuthToken
@@ -19,8 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val getUserUseCase: GetUserUseCase,
-    private val postUserUseCase: PostUserUseCase,
-    private val postTokenUseCase: PostTokenUseCase,
+    private val postAuthUserUseCase: SignUpUseCase,
 ) :
     ViewModel() {
     private val _isLoginSuccess = MutableLiveData<Boolean>()
@@ -31,15 +29,20 @@ class LoginViewModel @Inject constructor(
 
     val kakaoLoginCallback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
         KakaoLoginCallback {
-            _isLoginSuccess.value = true
-            Timber.d("LoginViewModel 카카오 로그인 set 토큰 $token")
+            viewModelScope.launch {
+                token?.let {
+                    _isLoginSuccess.value =
+                        postAuthUserUseCase.invoke("KAKAO", "Bearer ${token.accessToken}").isSuccess
+                    Timber.d("LoginViewModel 카카오 로그인 set 토큰 ${postAuthUserUseCase.invoke("KAKAO", "Bearer ${token?.accessToken}").isSuccess}")
+                }
+            }
         }.handleResult(token, error)
     }
 
     val kakaoUserCallback: (User?, Throwable?) -> Unit = { user, error ->
         KakaoUserCallback { userName ->
             viewModelScope.launch {
-                postUserUseCase.invoke(userName, 3, true)
+                // postUserUseCase.invoke(userName, 3, true)
                 Timber.d("유저 닉네임: ${getUserUseCase.invoke().name}")
             }
         }.handleResult(user, error)
