@@ -7,6 +7,7 @@ import com.growthook.aos.domain.entity.ActionlistDetail
 import com.growthook.aos.domain.usecase.ScrapSeedUseCase
 import com.growthook.aos.domain.usecase.actionplan.CompleteActionplanUseCase
 import com.growthook.aos.domain.usecase.actionplan.GetDoingActionplansUseCase
+import com.growthook.aos.domain.usecase.local.GetUserUseCase
 import com.growthook.aos.domain.usecase.review.PostReviewUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,6 +22,7 @@ class ProceedingActionlistViewModel @Inject constructor(
     private val completeActionplanUseCase: CompleteActionplanUseCase,
     private val postReviewUseCase: PostReviewUseCase,
     private val scrapSeedUseCase: ScrapSeedUseCase,
+    private val getUserUseCase: GetUserUseCase,
 ) : ViewModel() {
     private val _doingActionplans = MutableStateFlow<List<ActionlistDetail>>(mutableListOf())
     val doingActionplans: MutableStateFlow<List<ActionlistDetail>> = _doingActionplans
@@ -36,7 +38,12 @@ class ProceedingActionlistViewModel @Inject constructor(
     private val _event = MutableStateFlow<Event>(Event.Default)
     val event: MutableStateFlow<Event> = _event
 
+    private val memberId = MutableLiveData<Int>(0)
+
     init {
+        viewModelScope.launch {
+            memberId.value = getUserUseCase.invoke().memberId ?: 9
+        }
         getDoingActionplans()
     }
 
@@ -47,7 +54,7 @@ class ProceedingActionlistViewModel @Inject constructor(
 
     fun getDoingActionplans() {
         viewModelScope.launch {
-            getDoingActionplansUseCase.invoke(MEMBER_ID).onSuccess {
+            getDoingActionplansUseCase.invoke(memberId.value ?: 0).onSuccess {
                 _doingActionplans.value = it
                 _event.value = Event.GetDoingActionplanSuccess
                 scrapedActionplans.value = it.filter { actionplan ->
@@ -90,9 +97,5 @@ class ProceedingActionlistViewModel @Inject constructor(
         object ScrapSuccess : Event
 
         object Failed : Event
-    }
-
-    companion object {
-        private const val MEMBER_ID = 4
     }
 }
