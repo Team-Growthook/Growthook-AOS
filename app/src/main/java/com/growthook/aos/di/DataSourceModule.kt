@@ -5,11 +5,13 @@ import com.growthook.aos.data.datasource.remote.CaveDataSource
 import com.growthook.aos.data.datasource.remote.MemberDataSource
 import com.growthook.aos.data.datasource.remote.ReviewDataSource
 import com.growthook.aos.data.datasource.remote.SeedDataSource
+import com.growthook.aos.data.datasource.remote.SignUpDataSource
 import com.growthook.aos.data.datasource.remote.impl.ActionplanDataSourceImpl
 import com.growthook.aos.data.datasource.remote.impl.CaveDataSourceImpl
 import com.growthook.aos.data.datasource.remote.impl.MemberDataSourceImpl
 import com.growthook.aos.data.datasource.remote.impl.ReviewDataSourceImpl
 import com.growthook.aos.data.datasource.remote.impl.SeedDataSourceImpl
+import com.growthook.aos.data.datasource.remote.impl.SignUpDataSourceImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -39,4 +41,8 @@ abstract class DataSourceModule {
     @Singleton
     @Binds
     abstract fun providesMemberDataSource(dataSourceImpl: MemberDataSourceImpl): MemberDataSource
+
+    @Singleton
+    @Binds
+    abstract fun providesSignUpDataSource(dataSourceImpl: SignUpDataSourceImpl): SignUpDataSource
 }
