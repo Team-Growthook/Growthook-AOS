@@ -15,7 +15,8 @@ class ActionplanAdapter(
     private val clickModify: (Int) -> Unit,
     private val clickDelete: (Int) -> Unit,
     private val clickComplete: (Int) -> Unit,
-    private val clickSeed: () -> Unit,
+    private val clickScrapActionplan: (Int) -> Unit,
+    private val isScraped: () -> Boolean,
 ) :
     ListAdapter<Actionplan, ActionplanAdapter.ActionplanViewHolder>(
         ItemDiffCallback<Actionplan>(
@@ -29,7 +30,8 @@ class ActionplanAdapter(
         private val clickModify: (Int) -> Unit,
         private val clickDelete: (Int) -> Unit,
         private val clickComplete: (Int) -> Unit,
-        private val clickSeed: () -> Unit,
+        private val clickScrapActionplan: (Int) -> Unit,
+        private val isScraped: () -> Boolean,
     ) :
         RecyclerView.ViewHolder(binding.root) {
         private var isItemSelected = false
@@ -64,12 +66,12 @@ class ActionplanAdapter(
                 }
                 ivActionplan.setOnClickListener {
                     isSeedSelected = !isSeedSelected
+                    clickScrapActionplan(data.actionplanId)
                     if (isSeedSelected) {
                         ivActionplan.setImageResource(R.drawable.ic_scrap_selected)
                     } else {
                         ivActionplan.setImageResource(R.drawable.ic_scrap_unselected)
                     }
-                    clickSeed()
                 }
             }
         }
@@ -81,7 +83,14 @@ class ActionplanAdapter(
     ): ActionplanViewHolder {
         val binding =
             ItemActionplanBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ActionplanViewHolder(binding, clickModify, clickDelete, clickComplete, clickSeed)
+        return ActionplanViewHolder(
+            binding,
+            clickModify,
+            clickDelete,
+            clickComplete,
+            clickScrapActionplan,
+            isScraped,
+        )
     }
 
     override fun onBindViewHolder(holder: ActionplanViewHolder, position: Int) {

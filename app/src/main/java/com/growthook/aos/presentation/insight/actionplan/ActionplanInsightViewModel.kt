@@ -13,6 +13,7 @@ import com.growthook.aos.domain.usecase.actionplan.DeleteActionplanUseCase
 import com.growthook.aos.domain.usecase.actionplan.GetActionplansUseCase
 import com.growthook.aos.domain.usecase.actionplan.ModifyActionplanUseCase
 import com.growthook.aos.domain.usecase.actionplan.PostActionplansUseCase
+import com.growthook.aos.domain.usecase.actionplan.ScrapActionplanUseCase
 import com.growthook.aos.domain.usecase.review.PostReviewUseCase
 import com.growthook.aos.domain.usecase.seeddetail.GetSeedUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -31,6 +32,7 @@ class ActionplanInsightViewModel @Inject constructor(
     private val deleteActionplanUseCase: DeleteActionplanUseCase,
     private val postReviewUseCase: PostReviewUseCase,
     private val scrapSeedUseCase: ScrapSeedUseCase,
+    private val scrapActionplanUseCase: ScrapActionplanUseCase,
 ) : ViewModel() {
     var seedId: Int = 0
 
@@ -138,14 +140,13 @@ class ActionplanInsightViewModel @Inject constructor(
         }
     }
 
-    fun changeScrap() {
+    fun changeScrap(actionplanId: Int) {
         viewModelScope.launch {
-//            scrapSeedUseCase.invoke(seedId).onSuccess {
-//                _event.value = Event.ScrapSuccess
-//            }.onFailure {
-//                _event.value = Event.Failed
-//            }
-            // TODO 액션플랜 스크랩
+            scrapActionplanUseCase.invoke(actionplanId).onSuccess {
+                _event.value = Event.ScrapSuccess
+            }.onFailure {
+                _event.value = Event.Failed
+            }
         }
     }
 

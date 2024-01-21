@@ -58,7 +58,8 @@ class ActionplanInsightActivity :
                 ::clickModifyMenu,
                 ::clickDeleteMenu,
                 ::clickCompleteBtn,
-                ::clickScrapSeed,
+                ::clickScrapActionplan,
+                ::isScraped,
             )
         binding.rcvActionplanInsight.adapter = _actionplanAdapter
     }
@@ -166,8 +167,8 @@ class ActionplanInsightActivity :
         }
     }
 
-    private fun clickScrapSeed() {
-        viewModel.changeScrap()
+    private fun clickScrapActionplan(actionplanId: Int) {
+        viewModel.changeScrap(actionplanId)
     }
 
     private fun clickAddActionplan() {
@@ -181,6 +182,16 @@ class ActionplanInsightActivity :
                 clickNoWritingBtn = {},
             ).show(supportFragmentManager, "add actionplan dialog")
         }
+    }
+
+    private fun isScraped(): Boolean {
+        var isScraped = false
+        viewModel.event.flowWithLifecycle(lifecycle).onEach { event ->
+            if (event == Event.ScrapSuccess) {
+                isScraped = true
+            }
+        }.launchIn(lifecycleScope)
+        return isScraped
     }
 
     private fun observeEvent() {
@@ -218,7 +229,7 @@ class ActionplanInsightActivity :
                 }
 
                 is Event.ScrapSuccess -> {
-                    Toast.makeText(this, "스크랩 완료!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "액션플랜 스크랩 완료!", Toast.LENGTH_SHORT).show()
                 }
 
                 else -> {}
