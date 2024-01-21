@@ -48,4 +48,9 @@ class ActionplanRepositoryImpl @Inject constructor(private val actionplanDataSou
         runCatching {
             actionplanDataSource.getActionplanPercent(memberId).data
         }
+
+    override suspend fun scrapActionplan(actionplanId: Int): Result<Unit> =
+        runCatching {
+            actionplanDataSource.scrapActionplan(actionplanId)
+        }
 }
