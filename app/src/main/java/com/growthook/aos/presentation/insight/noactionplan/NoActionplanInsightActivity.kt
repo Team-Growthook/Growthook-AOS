@@ -2,6 +2,7 @@ package com.growthook.aos.presentation.insight.noactionplan
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.flowWithLifecycle
@@ -20,6 +21,7 @@ class NoActionplanInsightActivity :
     BaseActivity<ActivityNoActionplanInsightBinding>({ ActivityNoActionplanInsightBinding.inflate(it) }) {
     private val viewModel by viewModels<NoActionplanInsightViewModel>()
     private var seedId: Int = 0
+    private lateinit var seedUrl: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +31,7 @@ class NoActionplanInsightActivity :
     }
 
     private fun getSeedIdFromHome() {
-        seedId = intent.getIntExtra("insightId", 0)
+        seedId = intent.getIntExtra(SEED_ID, 0)
         viewModel.seedId = seedId
         Timber.d("인사이트 id $seedId")
         viewModel.getSeedDetail()
@@ -45,6 +47,7 @@ class NoActionplanInsightActivity :
                 tvNoactionInsightChip.text = seed?.caveName
                 tvNoactionInsightContentChipTitle.text = seed?.source
                 tvNoactionInsightUrl.text = seed?.url
+                seedUrl = seed?.url.toString()
                 "D-${seed?.remainingDays}".also { tvNoactionInsightDday.text = it }
 
                 if (seed?.isScraped == true) {
@@ -60,6 +63,7 @@ class NoActionplanInsightActivity :
         clickMenu()
         clickAddAction()
         clickBackBtn()
+        clickUrl()
     }
 
     private fun clickMenu() {
@@ -78,6 +82,13 @@ class NoActionplanInsightActivity :
     private fun clickAddAction() {
         binding.btnNoactionInsight.setOnClickListener {
             startActivity(AddActionplanActivity.getIntent(this, seedId))
+        }
+    }
+
+    private fun clickUrl() {
+        binding.tvNoactionInsightUrl.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(seedUrl))
+            startActivity(intent)
         }
     }
 
