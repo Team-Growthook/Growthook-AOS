@@ -56,7 +56,7 @@ class CompletedActionlistFragment : BaseFragment<FragmentCompletedActionlistBind
     private fun clickSeedDetail(seedId: Int) {
         val intent =
             Intent(requireActivity(), ActionplanInsightActivity::class.java)
-        intent.putExtra("insightId", seedId)
+        intent.putExtra("seedId", seedId)
         startActivity(intent)
     }
 
