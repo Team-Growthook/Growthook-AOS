@@ -1,6 +1,5 @@
 package com.growthook.aos.presentation.actionlist.completed
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -54,10 +53,13 @@ class CompletedActionlistFragment : BaseFragment<FragmentCompletedActionlistBind
     }
 
     private fun clickSeedDetail(seedId: Int) {
-        val intent =
-            Intent(requireActivity(), ActionplanInsightActivity::class.java)
-        intent.putExtra("seedId", seedId)
-        startActivity(intent)
+        startActivity(
+            ActionplanInsightActivity.getIntent(
+                requireContext(),
+                seedId,
+                "CompletedActionlistFragment",
+            ),
+        )
     }
 
     private fun clickReviewDetail(actionplanId: Int) {
