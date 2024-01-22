@@ -6,15 +6,11 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
-import androidx.lifecycle.flowWithLifecycle
-import androidx.lifecycle.lifecycleScope
 import com.growthook.aos.R
 import com.growthook.aos.databinding.ActivityNoActionplanInsightBinding
 import com.growthook.aos.presentation.insight.noactionplan.add.AddActionplanActivity
 import com.growthook.aos.util.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -39,7 +35,7 @@ class NoActionplanInsightActivity :
     }
 
     private fun observeSeedDetail() {
-        viewModel.seedData.flowWithLifecycle(lifecycle).onEach { seed ->
+        viewModel.seedData.observe(this) { seed ->
             Timber.d("seed data:: $seed")
             with(binding) {
                 tvNoactionInsightTitle.text = seed?.title
@@ -66,7 +62,7 @@ class NoActionplanInsightActivity :
                     ivNoactionInsightSeed.setImageResource(R.drawable.ic_scrap_unselected)
                 }
             }
-        }.launchIn(lifecycleScope)
+        }
     }
 
     private fun setClickListeners() {
