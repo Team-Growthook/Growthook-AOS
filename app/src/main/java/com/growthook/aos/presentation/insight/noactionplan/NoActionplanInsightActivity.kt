@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -51,6 +52,9 @@ class NoActionplanInsightActivity :
 
                 if (seedUrl.length >= 35) {
                     "${seedUrl.take(35)}...".also { tvNoactionInsightUrl.text = it }
+                } else if (seedUrl.isNullOrEmpty()) {
+                    dividerNoactionInsightThird.visibility = View.GONE
+                    tvNoactionInsightUrl.visibility = View.GONE
                 } else {
                     tvNoactionInsightUrl.text = seedUrl
                 }
