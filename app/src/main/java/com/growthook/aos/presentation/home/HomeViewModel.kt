@@ -16,6 +16,7 @@ import com.growthook.aos.domain.usecase.actionplan.GetActionplanPercentUseCase
 import com.growthook.aos.domain.usecase.home.GetSeedAlarmUseCase
 import com.growthook.aos.domain.usecase.home.GetSeedsUseCase
 import com.growthook.aos.domain.usecase.local.GetUserUseCase
+import com.growthook.aos.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -40,17 +41,14 @@ class HomeViewModel @Inject constructor(
     private val _alertAmount = MutableLiveData<Int>()
     val alertAmount: LiveData<Int> = _alertAmount
 
-    private val _insights = MutableLiveData<List<Insight>>()
-    val insights: LiveData<List<Insight>> = _insights
-
     private val _caves = MutableLiveData<List<Cave>>()
     val caves: LiveData<List<Cave>> = _caves
 
     private val _isDelete = MutableLiveData<Boolean>()
     val isDelete: LiveData<Boolean> = _isDelete
 
-    private val _isScrapedSuccess = MutableLiveData<Boolean>()
-    val isScrapedSuccess: LiveData<Boolean> = _isScrapedSuccess
+    private val _isScrapedSuccess = MutableLiveData<Event<Boolean>>()
+    val isScrapedSuccess: LiveData<Event<Boolean>> = _isScrapedSuccess
 
     private val _isUnlock = MutableLiveData<Boolean>()
     val isUnlock: LiveData<Boolean> = _isUnlock
@@ -58,7 +56,11 @@ class HomeViewModel @Inject constructor(
     private val _gatherdThook = MutableLiveData<Int>()
     val gatherdThook: LiveData<Int> = _gatherdThook
 
-    private val scrapedInsights = MutableLiveData<List<Insight>>()
+    private val _scrapedInsights = MutableLiveData<List<Insight>>()
+    val scrapedInsights: LiveData<List<Insight>> = _scrapedInsights
+
+    private val _unScrapedInsights = MutableLiveData<List<Insight>>()
+    val unScrapedInsights: LiveData<List<Insight>> = _unScrapedInsights
 
     private val memberId = MutableLiveData<Int>(0)
 
@@ -96,8 +98,7 @@ class HomeViewModel @Inject constructor(
     fun getInsights() {
         viewModelScope.launch {
             getSeedsUseCase.invoke(memberId.value ?: 0).onSuccess { insights ->
-                _insights.value = insights
-                scrapedInsights.value = insights.filter { it.isScraped }
+                _unScrapedInsights.value = insights
             }.onFailure {
                 Timber.e(it.message)
             }
@@ -105,8 +106,13 @@ class HomeViewModel @Inject constructor(
     }
 
     fun getScrapedInsight() {
-        _insights.value = scrapedInsights.value
-        Timber.d("getScrapedInsight ${_insights.value?.size}")
+        viewModelScope.launch {
+            getSeedsUseCase.invoke(memberId.value ?: 0).onSuccess { insights ->
+                _scrapedInsights.value = insights.filter { it.isScraped }
+            }.onFailure {
+                Timber.e(it.message)
+            }
+        }
     }
 
     fun getCaves() {
@@ -127,9 +133,9 @@ class HomeViewModel @Inject constructor(
     fun changeScrap(seedId: Int) {
         viewModelScope.launch {
             scrapSeedUseCase.invoke(seedId).onSuccess {
-                _isScrapedSuccess.value = true
+                _isScrapedSuccess.value = Event(true)
             }.onFailure {
-                _isScrapedSuccess.value = false
+                _isScrapedSuccess.value = Event(false)
             }
         }
     }

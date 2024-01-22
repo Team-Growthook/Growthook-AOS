@@ -14,7 +14,7 @@ interface MemberService {
         @Path("memberId") memberId: Int,
     ): ResponseGatheredThookDto
 
-    @GET("api/v1/memberId/{memberId}/used-ssuk")
+    @GET("api/v1/member/{memberId}/used-ssuk")
     suspend fun getUsedThook(
         @Path("memberId") memberId: Int,
     ): ResponseGetUsedThook

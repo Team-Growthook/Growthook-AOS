@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@drawable/rect_gray400_fill_6"
+    android:layout_height="wrap_content"
     android:layout_marginVertical="6dp"
-    android:layout_height="wrap_content">
+    android:background="@drawable/rect_gray400_fill_6">
 
     <ImageButton
         android:id="@+id/btn_home_scrap"
@@ -23,12 +23,16 @@
 
     <TextView
         android:id="@+id/tv_home_insight_title"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="14dp"
+        android:ellipsize="end"
         android:includeFontPadding="false"
+        android:maxLines="1"
         android:textAppearance="@style/body2_bold"
         android:textColor="@color/White000"
         app:layout_constraintBottom_toTopOf="@id/tv_home_insight_lock"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/btn_home_scrap"
         app:layout_constraintTop_toTopOf="@id/btn_home_scrap"
         tools:text="쑥쑥이들은 최고다" />
@@ -49,10 +53,10 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/bg_home_insight_check"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />

@@ -34,6 +34,8 @@ class DetailMyPageViewModel @Inject constructor(
     private val isMemberDelete = MutableLiveData<Boolean>()
     private val isKakaoDeleteAccount = MutableLiveData(false)
 
+    private val memberId = MutableLiveData<Int>()
+
     val kakaoCallback: (Throwable?) -> Unit = { error ->
         KakaoLogoutCallback {
             isKakaoDeleteAccount.value = it
@@ -51,16 +53,15 @@ class DetailMyPageViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            getUserUseCase.invoke().name.let { nickName ->
-                _nickName.value = nickName
-            }
+            _nickName.value = getUserUseCase.invoke().name ?: ""
+            memberId.value = getUserUseCase.invoke().memberId ?: 0
         }
         getEmail()
     }
 
     private fun getEmail() {
         viewModelScope.launch {
-            getEmailUseCase.invoke(4).onSuccess { email ->
+            getEmailUseCase.invoke(memberId.value ?: 0).onSuccess { email ->
                 _email.value = email
             }.onFailure {
                 Timber.e(it.message)
@@ -70,7 +71,7 @@ class DetailMyPageViewModel @Inject constructor(
 
     fun deleteMember() {
         viewModelScope.launch {
-            deleteMemberUseCase.invoke(5).onSuccess {
+            deleteMemberUseCase.invoke(memberId.value ?: 0).onSuccess {
                 isMemberDelete.value = true
             }.onFailure {
                 isMemberDelete.value = false

@@ -13,6 +13,7 @@ import com.growthook.aos.domain.usecase.cavedetail.DeleteCaveUseCase
 import com.growthook.aos.domain.usecase.cavedetail.GetCaveDetailUseCase
 import com.growthook.aos.domain.usecase.cavedetail.GetCaveSeedsUseCase
 import com.growthook.aos.domain.usecase.local.GetUserUseCase
+import com.growthook.aos.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -29,10 +30,12 @@ class CaveDetailViewModel @Inject constructor(
     private val scrapSeedUseCase: ScrapSeedUseCase,
     private val unLockSeedUseCase: UnLockSeedUseCase,
 ) : ViewModel() {
-    private val _insights = MutableLiveData<List<Insight>>()
-    val insights: LiveData<List<Insight>> = _insights
 
-    private val scrapedInsight = MutableLiveData<List<Insight>>()
+    private val _scrapedInsights = MutableLiveData<List<Insight>>()
+    val scrapedInsights: LiveData<List<Insight>> = _scrapedInsights
+
+    private val _unScrapedInsights = MutableLiveData<List<Insight>>()
+    val unScrapedInsights: LiveData<List<Insight>> = _unScrapedInsights
 
     private val _nickName = MutableLiveData<String>()
     val nickname: LiveData<String> = _nickName
@@ -46,8 +49,8 @@ class CaveDetailViewModel @Inject constructor(
     private val _caveDetail = MutableLiveData<CaveDetail>()
     val caveDetail: LiveData<CaveDetail> = _caveDetail
 
-    private val _isScrapedSuccess = MutableLiveData<Boolean>()
-    val isScrapedSuccess: LiveData<Boolean> = _isScrapedSuccess
+    private val _isScrapedSuccess = MutableLiveData<Event<Boolean>>()
+    val isScrapedSuccess: LiveData<Event<Boolean>> = _isScrapedSuccess
 
     private val _isUnlock = MutableLiveData<Boolean>()
     val isUnlock: LiveData<Boolean> = _isUnlock
@@ -65,13 +68,25 @@ class CaveDetailViewModel @Inject constructor(
             _nickName.value = getUserUseCase.invoke().name ?: ""
             memberId.value = 9
         }
+        getInsights()
     }
 
     fun getInsights() {
         viewModelScope.launch {
-            getCaveSeedsUseCase.invoke(caveId.value).onSuccess { insights ->
-                _insights.value = insights
-                scrapedInsight.value = insights.filter { it.isScraped }
+            getCaveSeedsUseCase.invoke(memberId.value ?: 0).onSuccess { insights ->
+                _unScrapedInsights.value = insights
+            }.onFailure {
+                Timber.e(it.message)
+            }
+        }
+    }
+
+    fun getScrapedInsights() {
+        viewModelScope.launch {
+            getCaveSeedsUseCase.invoke(memberId.value ?: 0).onSuccess { insights ->
+                _scrapedInsights.value = insights.filter { it.isScraped }
+            }.onFailure {
+                Timber.e(it.message)
             }
         }
     }
@@ -79,15 +94,11 @@ class CaveDetailViewModel @Inject constructor(
     fun changeScrap(seedId: Int) {
         viewModelScope.launch {
             scrapSeedUseCase.invoke(seedId).onSuccess {
-                _isScrapedSuccess.value = true
+                _isScrapedSuccess.value = Event(true)
             }.onFailure {
-                _isScrapedSuccess.value = false
+                _isScrapedSuccess.value = Event(false)
             }
         }
-    }
-
-    fun getScrapedInsight() {
-        _insights.value = scrapedInsight.value
     }
 
     fun deleteCave(caveId: Int) {
