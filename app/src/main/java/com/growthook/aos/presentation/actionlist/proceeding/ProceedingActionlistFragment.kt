@@ -92,6 +92,7 @@ class ProceedingActionlistFragment(private val parentFragment: ActionlistFragmen
             ActionplanInsightActivity.getIntent(
                 requireContext(),
                 seedId,
+                "ProceedingActionlistFragment",
             ),
         )
     }
