@@ -1,5 +1,6 @@
 package com.growthook.aos.presentation.onboarding
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -34,14 +35,9 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun getUserKakaoNickName() {
-        kakaoAuthService.kakaoGetUserInfo(viewModel.kakaoUserCallback)
-    }
-
     private fun isKakaoLogin() {
         viewModel.isLoginSuccess.observe(this) { isSuccess ->
             if (isSuccess) {
-                getUserKakaoNickName()
                 val intent = Intent(this, MainActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
@@ -60,6 +56,12 @@ class LoginActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }
+        }
+    }
+
+    companion object {
+        fun newInstance(context: Context) = Intent(context, LoginActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
     }
 }

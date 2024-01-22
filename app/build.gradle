@@ -121,6 +121,8 @@ dependencies {
     // selection tracker
     implementation 'androidx.recyclerview:recyclerview-selection:1.1.0'
 
+    // phoenix
+    implementation 'com.jakewharton:process-phoenix:2.1.2'
 
 }
 kapt {
