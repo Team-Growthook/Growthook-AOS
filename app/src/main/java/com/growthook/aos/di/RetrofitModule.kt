@@ -1,13 +1,17 @@
 package com.growthook.aos.di
 
+import android.content.Context
+import android.content.Intent
 import android.util.Log
 import com.facebook.flipper.plugins.network.FlipperOkhttpInterceptor
 import com.facebook.flipper.plugins.network.NetworkFlipperPlugin
 import com.growthook.aos.domain.repository.RefreshRepository
 import com.growthook.aos.domain.repository.TokenRepository
+import com.growthook.aos.presentation.onboarding.LoginActivity
 import com.growthook.aos.util.callback.KakaoLogoutCallback
 import com.growthook.aos.util.extension.isJsonArray
 import com.growthook.aos.util.extension.isJsonObject
+import com.jakewharton.processphoenix.ProcessPhoenix
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.kakao.sdk.user.UserApiClient
 import dagger.Module
@@ -88,7 +92,7 @@ object RetrofitModule {
     @Provides
     @GrowthookRetrofit
     fun tokenInterceptor(
-        @ApplicationContext context: ApplicationContext,
+        @ApplicationContext context: Context,
         tokenRepository: TokenRepository,
         refreshRepository: RefreshRepository,
     ): Interceptor {
@@ -116,7 +120,17 @@ object RetrofitModule {
                         }.onFailure { throwable ->
                             Timber.e(throwable.message)
                             if (throwable is HttpException && (response.code == 400 || response.code == 401)) {
-                                logout(tokenRepository)
+                                val kakaoCallback: (Throwable?) -> Unit = { error ->
+                                    KakaoLogoutCallback { isSuccess ->
+                                        if (isSuccess) {
+                                            runBlocking {
+                                                tokenRepository.setToken("", "")
+                                                ProcessPhoenix.triggerRebirth(context, LoginActivity.newInstance(context))
+                                            }
+                                        }
+                                    }.handleResult(error)
+                                }
+                                UserApiClient.instance.logout(kakaoCallback)
                             }
                         }
                     }
@@ -125,18 +139,5 @@ object RetrofitModule {
             response
         }
         return requestInterceptor
-    }
-
-    private fun logout(tokenRepository: TokenRepository) {
-        val kakaoCallback: (Throwable?) -> Unit = { error ->
-            KakaoLogoutCallback { isSuccess ->
-                if (isSuccess) {
-                    runBlocking {
-                        tokenRepository.setToken("", "")
-                    }
-                }
-            }.handleResult(error)
-        }
-        UserApiClient.instance.logout(kakaoCallback)
     }
 }
