@@ -1,22 +1,35 @@
 package com.growthook.aos.di
 
+import android.content.Context
+import android.content.Intent
 import android.util.Log
 import com.facebook.flipper.plugins.network.FlipperOkhttpInterceptor
 import com.facebook.flipper.plugins.network.NetworkFlipperPlugin
+import com.growthook.aos.domain.repository.RefreshRepository
+import com.growthook.aos.domain.repository.TokenRepository
+import com.growthook.aos.presentation.onboarding.LoginActivity
+import com.growthook.aos.util.callback.KakaoLogoutCallback
 import com.growthook.aos.util.extension.isJsonArray
 import com.growthook.aos.util.extension.isJsonObject
+import com.jakewharton.processphoenix.ProcessPhoenix
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import com.kakao.sdk.user.UserApiClient
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.Json
+import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.json.JSONArray
 import org.json.JSONObject
+import retrofit2.HttpException
 import retrofit2.Retrofit
+import timber.log.Timber
 import javax.inject.Singleton
 
 @Module
@@ -25,14 +38,23 @@ object RetrofitModule {
 
     private const val GROWTHOOK_BASE_URL = com.growthook.aos.BuildConfig.GROWTHOOK_BASE_URL
 
+    private const val BAD_REQUEST = 400
+    private const val EXPIRED_TOKEN = 401
+
+    private const val BEARER = "Bearer "
+    private const val AUTHORIZATION = "Authorization"
+
     @Provides
     @Singleton
+    @GrowthookRetrofit
     fun provideOkHttpClient(
         loggingInterceptor: HttpLoggingInterceptor,
         networkFlipperPlugin: NetworkFlipperPlugin,
+        @GrowthookRetrofit tokenInterceptor: Interceptor,
     ): OkHttpClient =
         OkHttpClient.Builder().apply {
             addInterceptor(loggingInterceptor)
+            addInterceptor(tokenInterceptor)
             addNetworkInterceptor(FlipperOkhttpInterceptor(networkFlipperPlugin))
         }.build()
 
@@ -65,9 +87,63 @@ object RetrofitModule {
     @Singleton
     @Provides
     @GrowthookRetrofit
-    fun provideGrowthookRetrofit(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
-        .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
-        .baseUrl(GROWTHOOK_BASE_URL)
-        .client(okHttpClient)
-        .build()
+    fun provideGrowthookRetrofit(@GrowthookRetrofit okHttpClient: OkHttpClient): Retrofit =
+        Retrofit.Builder()
+            .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
+            .baseUrl(GROWTHOOK_BASE_URL)
+            .client(okHttpClient)
+            .build()
+
+    @Singleton
+    @Provides
+    @GrowthookRetrofit
+    fun tokenInterceptor(
+        @ApplicationContext context: Context,
+        tokenRepository: TokenRepository,
+        refreshRepository: RefreshRepository,
+    ): Interceptor {
+        val requestInterceptor = Interceptor { chain ->
+            val originalRequest = chain.request()
+            val builder = originalRequest.newBuilder()
+            val accessToken = runBlocking {
+                tokenRepository.getToken().accessToken
+            }
+            builder.addHeader(
+                AUTHORIZATION,
+                BEARER + accessToken,
+            )
+            var response = chain.proceed(builder.build())
+
+            when (response.code) {
+                BAD_REQUEST, EXPIRED_TOKEN -> {
+                    runBlocking {
+                        refreshRepository.getRefreshToken().onSuccess { token ->
+                            response = chain.proceed(
+                                originalRequest.newBuilder()
+                                    .addHeader(AUTHORIZATION, BEARER + token.accessToken)
+                                    .build(),
+                            )
+                        }.onFailure { throwable ->
+                            Timber.e(throwable.message)
+                            if (throwable is HttpException && (response.code == BAD_REQUEST || response.code == EXPIRED_TOKEN)) {
+                                val kakaoCallback: (Throwable?) -> Unit = { error ->
+                                    KakaoLogoutCallback { isSuccess ->
+                                        if (isSuccess) {
+                                            runBlocking {
+                                                tokenRepository.setToken("", "")
+                                                ProcessPhoenix.triggerRebirth(context, LoginActivity.newInstance(context))
+                                            }
+                                        }
+                                    }.handleResult(error)
+                                }
+                                UserApiClient.instance.logout(kakaoCallback)
+                            }
+                        }
+                    }
+                }
+            }
+            response
+        }
+        return requestInterceptor
+    }
 }
