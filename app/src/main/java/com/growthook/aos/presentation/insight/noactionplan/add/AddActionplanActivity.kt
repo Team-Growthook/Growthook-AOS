@@ -42,6 +42,7 @@ class AddActionplanActivity :
         seedId = intent.getIntExtra(SEED_ID, 0)
         Timber.d("AddActionplanActivity seed id $seedId")
         viewModel.seedId = seedId
+        viewModel.getSeedDetail()
     }
 
     private fun observeSeedDetail() {
