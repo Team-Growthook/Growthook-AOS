@@ -3,6 +3,7 @@ package com.growthook.aos.presentation.insight.actionplan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.growthook.aos.R
@@ -72,6 +73,27 @@ class ActionplanAdapter(
                     } else {
                         ivActionplan.setImageResource(R.drawable.ic_scrap_unselected)
                     }
+                }
+                if (data.hasReview) {
+                    tvActionplanCompleteBtn.setTextColor(
+                        ContextCompat.getColor(
+                            itemView.context,
+                            R.color.Gray400,
+                        ),
+                    )
+                    tvActionplanCompleteBtn.setBackgroundResource(R.drawable.rect_gray600_fill_4)
+                    tvActionplanCompleteBtn.isClickable = false
+                    tvActionplanCompleteBtn.text = "달성완료"
+                } else {
+                    tvActionplanCompleteBtn.setTextColor(
+                        ContextCompat.getColor(
+                            itemView.context,
+                            R.color.White000,
+                        ),
+                    )
+                    tvActionplanCompleteBtn.setBackgroundResource(R.drawable.rect_green400_fill_4)
+                    tvActionplanCompleteBtn.isClickable = true
+                    tvActionplanCompleteBtn.text = "완료하기"
                 }
             }
         }

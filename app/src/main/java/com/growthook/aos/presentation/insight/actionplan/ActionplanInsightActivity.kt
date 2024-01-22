@@ -71,6 +71,9 @@ class ActionplanInsightActivity :
         }.launchIn(lifecycleScope)
     }
 
+    private fun completedReview() {
+    }
+
     private fun clickCompleteBtn(actionplanId: Int) {
         BaseWritingBottomSheet.Builder().build(
             type = BaseWritingBottomSheet.WritingType.LARGE,
