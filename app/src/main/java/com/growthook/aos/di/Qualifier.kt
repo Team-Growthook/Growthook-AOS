@@ -9,3 +9,7 @@ annotation class GrowthookRetrofit
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
 annotation class SignUpRetrofit
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class RefreshRetrofit

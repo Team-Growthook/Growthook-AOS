@@ -1,11 +1,12 @@
 package com.growthook.aos.di
 
 import com.growthook.aos.data.service.ActionplanService
-import com.growthook.aos.data.service.SignUpService
 import com.growthook.aos.data.service.CaveService
 import com.growthook.aos.data.service.MemberService
+import com.growthook.aos.data.service.RefreshService
 import com.growthook.aos.data.service.ReviewService
 import com.growthook.aos.data.service.SeedService
+import com.growthook.aos.data.service.SignUpService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -46,4 +47,9 @@ object ApiModule {
     @Singleton
     fun provideSignUpService(@SignUpRetrofit retrofit: Retrofit): SignUpService =
         retrofit.create(SignUpService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideRefreshService(@RefreshRetrofit retrofit: Retrofit): RefreshService =
+        retrofit.create(RefreshService::class.java)
 }
