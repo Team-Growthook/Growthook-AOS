@@ -118,7 +118,6 @@ class InsightMenuBottomsheet :
 
     companion object {
         const val DELETE_DIALOG = "delete dialog"
-        private const val DUMMY_SEED = 113
         const val SEED_MODIFY_INTENT = "SEED_MODIFY_INTENT"
         const val CAVE_SELECT_DIALOG = "cave select dialog"
     }

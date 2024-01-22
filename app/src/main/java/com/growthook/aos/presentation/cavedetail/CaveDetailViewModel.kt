@@ -66,7 +66,7 @@ class CaveDetailViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             _nickName.value = getUserUseCase.invoke().name ?: ""
-            memberId.value = 9
+            memberId.value = getUserUseCase.invoke().memberId ?: 0
         }
         getInsights()
     }
