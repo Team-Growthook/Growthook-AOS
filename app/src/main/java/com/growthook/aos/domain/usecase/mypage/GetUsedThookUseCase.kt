@@ -5,5 +5,5 @@ import javax.inject.Inject
 
 class GetUsedThookUseCase @Inject constructor(private val repository: MemberRepository) {
 
-    suspend operator fun invoke(memberId: Int) = repository.getGatherdThook(memberId)
+    suspend operator fun invoke(memberId: Int) = repository.getUsedThook(memberId)
 }

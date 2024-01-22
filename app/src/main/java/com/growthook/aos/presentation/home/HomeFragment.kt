@@ -21,8 +21,11 @@ import com.growthook.aos.presentation.cavecreate.CreateNewCaveActivity
 import com.growthook.aos.presentation.cavedetail.CaveDetailActivity
 import com.growthook.aos.presentation.insight.actionplan.ActionplanInsightActivity
 import com.growthook.aos.presentation.insight.noactionplan.InsightMenuBottomsheet
+import com.growthook.aos.presentation.insight.noactionplan.NoActionplanInsightActivity
 import com.growthook.aos.presentation.insight.write.InsightWriteActivity
 import com.growthook.aos.util.EmptyDataObserver
+import com.growthook.aos.util.EventObserver
+import com.growthook.aos.util.LinearLayoutManagerWrapper
 import com.growthook.aos.util.base.BaseAlertDialog
 import com.growthook.aos.util.base.BaseFragment
 import com.skydoves.balloon.Balloon
@@ -57,6 +60,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         setTitleText()
         setInsightAdapter()
         setAlertMessage()
+        setInsightTitle()
         clickScrap()
         setCaveAdapter()
 
@@ -64,14 +68,31 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         activity = requireActivity() as MainActivity
 
         clickAddCave()
-        getCaves()
         clickAddSeedBtn()
         setThook()
+        observeNickName()
+
+        observeInsights()
+    }
+
+    private fun observeInsights() {
+        viewModel.scrapedInsights.observe(viewLifecycleOwner) {
+            insightAdapter.submitList(it)
+        }
+        viewModel.unScrapedInsights.observe(viewLifecycleOwner) {
+            insightAdapter.submitList(it)
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        getCaves()
+        renewalData()
+    }
+
+    private fun setInsightTitle() {
+        viewModel.unScrapedInsights.observe(viewLifecycleOwner) {
+            binding.tvHomeInsightTitle.text = "${it.size}개의 씨앗을 모았어요"
+        }
     }
 
     private fun clickAddCave() {
@@ -83,23 +104,41 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private fun setTitleText() {
         viewModel.setNickName()
+    }
+
+    private fun observeNickName() {
         viewModel.nickname.observe(viewLifecycleOwner) { nickName ->
             binding.tvHomeAppbarTitle.text = "${nickName}님의 동굴 속"
         }
     }
 
-    private fun getCaves() {
+    private fun renewalData() {
         viewModel.getCaves()
+        viewModel.getInsights()
     }
 
     private fun setInsightAdapter() {
         _insightAdapter = HomeInsightAdapter(::selectedItem, ::clickedScrap)
-        viewModel.insights.observe(viewLifecycleOwner) {
-            insightAdapter.submitList(it)
-            binding.tvHomeInsightTitle.text = "${it.size}개의 씨앗을 모았어요!"
-        }
-        binding.rcvHomeInsight.adapter = insightAdapter
 
+        binding.rcvHomeInsight.adapter = insightAdapter
+        binding.rcvHomeInsight.layoutManager = LinearLayoutManagerWrapper(requireActivity())
+
+        observeListIsEmpty()
+        setInsightTracker()
+    }
+
+    private fun observeListIsEmpty() {
+        insightAdapter.registerAdapterDataObserver(
+            EmptyDataObserver(
+                binding.rcvHomeInsight,
+                binding.tvHomeInsightTitle,
+                binding.tvHomeEmptyInsight,
+                binding.ivHomeEmptyInsight,
+            ),
+        )
+    }
+
+    private fun setInsightTracker() {
         val longTracker = SelectionTracker.Builder<Long>(
             "myLongSelection",
             binding.rcvHomeInsight,
@@ -111,15 +150,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         ).build()
 
         insightAdapter.setSelectionLongTracker(longTracker)
-        insightAdapter.registerAdapterDataObserver(
-            EmptyDataObserver(
-                binding.rcvHomeInsight,
-                binding.tvHomeInsightTitle,
-                binding.tvHomeEmptyInsight,
-                binding.ivHomeEmptyInsight,
-            ),
-        )
-
         longTracker.addObserver(object : SelectionTracker.SelectionObserver<Long>() {
             override fun onSelectionChanged() {
                 super.onSelectionChanged()
@@ -127,7 +157,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 val selectedInsight = insightAdapter.getSelectedLongInsight()
 
                 selectedInsight?.let {
-                    activity.hideBottomNavigation(true)
+                    binding.fabHomeAddInsight.visibility = View.GONE
                     selectMenuBottomSheet.show(parentFragmentManager, "show")
                     viewModel.longClickInsight.value = it
                 }
@@ -136,7 +166,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
         viewModel.isMenuDismissed.observe(viewLifecycleOwner) {
             longTracker.clearSelection()
-            activity.hideBottomNavigation(false)
+            binding.fabHomeAddInsight.visibility = View.VISIBLE
         }
     }
 
@@ -164,7 +194,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                         viewModel.isUnlock.observe(viewLifecycleOwner) {
                             Toast.makeText(context, "잠금이 영구적으로 해제되었어요!", Toast.LENGTH_SHORT).show()
                             startActivity(
-                                ActionplanInsightActivity.getIntent(
+                                NoActionplanInsightActivity.getIntent(
                                     requireContext(),
                                     item.seedId,
                                 ),
@@ -172,8 +202,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                         }
                     },
                 ).show(parentFragmentManager, InsightMenuBottomsheet.DELETE_DIALOG)
-        } else if (!item.hasActionPlan) {
+        } else if (item.hasActionPlan) {
             startActivity(ActionplanInsightActivity.getIntent(requireContext(), item.seedId))
+        } else {
+            startActivity(NoActionplanInsightActivity.getIntent(requireContext(), item.seedId))
         }
     }
 
@@ -193,19 +225,28 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun clickedCave(item: Cave) {
-        val intent = Intent(requireActivity(), CaveDetailActivity::class.java)
-        intent.putExtra("caveId", item.id)
-        startActivity(intent)
+        startActivity(CaveDetailActivity.getIntent(requireContext(), item.id))
     }
 
     private fun clickedScrap(seedId: Int) {
         viewModel.changeScrap(seedId)
-        viewModel.isScrapedSuccess.observe(viewLifecycleOwner) { isSuccess ->
-            if (isSuccess) {
-                viewModel.getInsights()
-                Toast.makeText(requireContext(), "스크랩 완료", Toast.LENGTH_SHORT).show()
-            }
-        }
+        observeScrap()
+    }
+
+    private fun observeScrap() {
+        viewModel.isScrapedSuccess.observe(
+            viewLifecycleOwner,
+            EventObserver { isSuccess ->
+                if (isSuccess) {
+                    if (binding.chbHomeScrap.isChecked) {
+                        viewModel.getScrapedInsight()
+                        Toast.makeText(requireContext(), "스크랩 완료", Toast.LENGTH_SHORT).show()
+                    } else {
+                        viewModel.getInsights()
+                    }
+                }
+            },
+        )
     }
 
     private fun setAlertMessage() {

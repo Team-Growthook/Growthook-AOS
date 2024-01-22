@@ -42,13 +42,4 @@ class MainActivity : AppCompatActivity() {
             replace<T>(R.id.fcv_home, T::class.simpleName)
         }
     }
-
-    fun hideBottomNavigation(state: Boolean) {
-        if (state) {
-            binding.bnvHome.visibility = View.GONE
-        } else {
-            binding.bnvHome.visibility =
-                View.VISIBLE
-        }
-    }
 }

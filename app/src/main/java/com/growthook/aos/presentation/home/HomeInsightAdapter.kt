@@ -100,22 +100,6 @@ class HomeInsightAdapter(
             binding.tvHomeInsightLock.text = "${item.remainingDays}일 후 잠금"
             binding.root.setOnClickListener {
                 selectedItem(item)
-                Timber.d("선택된 아이템 ${selectionLongTracker.selection}")
-            }
-        }
-
-        fun getItemDetails(viewHolder: RecyclerView.ViewHolder?): ItemDetailsLookup.ItemDetails<Long> {
-            return object : ItemDetailsLookup.ItemDetails<Long>() {
-                override fun getSelectionKey(): Long? {
-                    return itemId
-                }
-
-                override fun getPosition(): Int {
-                    if (viewHolder == null) {
-                        return RecyclerView.NO_POSITION
-                    }
-                    return viewHolder.absoluteAdapterPosition
-                }
             }
         }
     }
@@ -216,7 +200,6 @@ class HomeInsightAdapter(
 
             if (view != null) {
                 return when (val viewHolder = recyclerView.getChildViewHolder(view)) {
-                    is LockedInsightViewHolder -> viewHolder.getItemDetails(viewHolder)
                     is YesActionViewHolder -> viewHolder.getItemDetails(viewHolder)
                     is NoActionViewHolder -> viewHolder.getItemDetails(viewHolder)
                     else -> null

@@ -16,7 +16,7 @@ data class ResponseGetUsedThook(
 ) {
     @Serializable
     data class UsedThook(
-        @SerialName("usedThook")
+        @SerialName("usedSsuk")
         val usedThook: Int,
     )
 }

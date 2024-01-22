@@ -1,6 +1,7 @@
 package com.growthook.aos.presentation.mypage
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -34,6 +35,7 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>() {
         setUsedThook()
         clickDetailMyInfo()
         clickLogout()
+        clickPolicy()
     }
 
     private fun setNickName() {
@@ -52,12 +54,16 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>() {
     private fun clickLogout() {
         binding.btnMyPageLogout.setOnClickListener {
             kakaoAuthService.kakaoLogout(viewModel.kakaoLogoutCallback)
-            viewModel.isLogoutSuccess.observe(viewLifecycleOwner) {
-                if (it) {
-                    val intent = Intent(requireActivity(), LoginActivity::class.java)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-                    startActivity(intent)
-                }
+            observeLogoutSuccess()
+        }
+    }
+
+    private fun observeLogoutSuccess() {
+        viewModel.isLogoutSuccess.observe(viewLifecycleOwner) { isSuccess ->
+            if (isSuccess) {
+                val intent = Intent(requireActivity(), LoginActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
             }
         }
     }
@@ -71,6 +77,13 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>() {
     private fun setUsedThook() {
         viewModel.usedThook.observe(viewLifecycleOwner) { thookCount ->
             binding.tvMyPageUsedThookCount.text = thookCount.toString()
+        }
+    }
+
+    private fun clickPolicy(){
+        binding.btnMyPagePolicy.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://groovy-need-069.notion.site/9edc8ab432d34da682b9320f9bc6fd31"))
+            startActivity(intent)
         }
     }
 }
