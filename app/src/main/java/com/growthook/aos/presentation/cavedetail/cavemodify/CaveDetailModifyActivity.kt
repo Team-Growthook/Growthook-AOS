@@ -1,11 +1,13 @@
 package com.growthook.aos.presentation.cavedetail.cavemodify
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MotionEvent
 import androidx.activity.viewModels
 import com.growthook.aos.databinding.ActivityCaveDetailModifyBinding
 import com.growthook.aos.presentation.cavedetail.CaveDetailActivity
+import com.growthook.aos.presentation.insight.noactionplan.NoActionplanInsightActivity
 import com.growthook.aos.presentation.model.CaveModifyIntent
 import com.growthook.aos.util.base.BaseActivity
 import com.growthook.aos.util.extension.CommonTextWatcher
@@ -21,7 +23,7 @@ class CaveDetailModifyActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val caveModifyIntent = intent.getParcelable("caveModify", CaveModifyIntent::class.java)
+        val caveModifyIntent = intent.getParcelable(CAVE_MODIFY_ID, CaveModifyIntent::class.java)
         viewModel.setCaveId(caveModifyIntent?.let { it.caveId } ?: 0)
 
         setText(caveModifyIntent)
@@ -81,5 +83,15 @@ class CaveDetailModifyActivity :
         }
 
         return super.dispatchTouchEvent(ev)
+    }
+
+    companion object {
+        private const val CAVE_MODIFY_ID = "caveModify"
+
+        fun getIntent(context: Context, caveModifyIntent: CaveModifyIntent): Intent {
+            return Intent(context, NoActionplanInsightActivity::class.java).apply {
+                putExtra(CAVE_MODIFY_ID, caveModifyIntent)
+            }
+        }
     }
 }

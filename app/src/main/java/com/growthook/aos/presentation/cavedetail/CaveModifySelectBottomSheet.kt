@@ -1,6 +1,5 @@
 package com.growthook.aos.presentation.cavedetail
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -39,16 +38,12 @@ class CaveModifySelectBottomSheet :
 
     private fun clickModify() {
         binding.btnCaveDetailModify.setOnClickListener {
-            val intent = Intent(requireActivity(), CaveDetailModifyActivity::class.java)
-            intent.putExtra(
-                "caveModify",
-                CaveModifyIntent(
-                    viewModel.caveId.value,
-                    viewModel.caveDetail.value?.caveName ?: "",
-                    viewModel.caveDetail.value?.introduction ?: "",
-                ),
+            val caveModifyIntent = CaveModifyIntent(
+                viewModel.caveId.value,
+                viewModel.caveDetail.value?.caveName ?: "",
+                viewModel.caveDetail.value?.introduction ?: "",
             )
-            startActivity(intent)
+            startActivity(CaveDetailModifyActivity.getIntent(requireContext(), caveModifyIntent))
             dismiss()
         }
     }

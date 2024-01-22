@@ -46,10 +46,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
             android:layout_marginTop="24dp"
+            android:text="동굴이름임다"
             android:textAppearance="@style/head4"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:text="동굴이름임다" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_cave_detail_cave_desc"
@@ -142,9 +142,9 @@
         android:layout_height="0dp"
         android:layout_marginHorizontal="18dp"
         android:layout_marginTop="32dp"
+        android:paddingBottom="26dp"
         android:visibility="visible"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/fab_cave_detail_add_insight"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_cave_detail_insight_title"
@@ -175,6 +175,7 @@
         app:layout_constraintTop_toBottomOf="@id/iv_cave_detail_empty_insight" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/fab_cave_detail_add_insight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="18dp"

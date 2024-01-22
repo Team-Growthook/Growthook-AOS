@@ -21,7 +21,9 @@ data class ResponseGetCavesDto(
         val caveId: Int,
         @SerialName("caveName")
         val caveName: String,
+        @SerialName("caveImageIndex")
+        val caveImageIndex: Int?,
     )
 
-    fun toCaves() = data.map { cave -> Cave(cave.caveId, cave.caveName) }
+    fun toCaves() = data.map { cave -> Cave(cave.caveId, cave.caveName, cave.caveImageIndex) }
 }

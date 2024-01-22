@@ -61,7 +61,7 @@ class CreateNewCaveViewModel @Inject constructor(
     fun postNewCave() {
         viewModelScope.launch {
             postCaveUseCase(
-                3,
+                getUserUseCase.invoke().memberId ?: 0,
                 caveName.value.toString(),
                 caveIntroduction.value.toString(),
             ).onSuccess {

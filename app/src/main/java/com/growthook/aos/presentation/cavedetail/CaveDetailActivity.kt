@@ -17,7 +17,10 @@ import com.growthook.aos.presentation.home.HomeInsightAdapter
 import com.growthook.aos.presentation.insight.actionplan.ActionplanInsightActivity
 import com.growthook.aos.presentation.insight.noactionplan.InsightMenuBottomsheet
 import com.growthook.aos.presentation.insight.noactionplan.NoActionplanInsightActivity
+import com.growthook.aos.presentation.insight.write.InsightWriteActivity
 import com.growthook.aos.util.EmptyDataObserver
+import com.growthook.aos.util.EventObserver
+import com.growthook.aos.util.LinearLayoutManagerWrapper
 import com.growthook.aos.util.base.BaseActivity
 import com.growthook.aos.util.base.BaseAlertDialog
 import dagger.hilt.android.AndroidEntryPoint
@@ -47,22 +50,31 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
         selectMenuBottomSheet = CaveDetailSelectMenuBottomSheet()
         modifySelectBottomSheet = CaveModifySelectBottomSheet()
 
-        val caveId = intent.getIntExtra("caveId", 0)
-        // viewModel.caveId.value = caveId
-        viewModel.caveId.value = 54
+        val caveId = intent.getIntExtra(CAVE_ID, 0)
+        viewModel.caveId.value = caveId
         viewModel.getInsights()
         setCaveDetail()
         setInsightAdapter()
         setNickName()
-        clickScrap(caveId)
+        clickScrap()
 
         clickBackNavi()
         clickMainMenu()
+        clickAddSeed()
+        observeInsights()
+        setInsightTitle()
     }
 
     override fun onResume() {
         super.onResume()
         setCaveDetail()
+        viewModel.getInsights()
+    }
+
+    private fun setInsightTitle() {
+        viewModel.unScrapedInsights.observe(this) {
+            binding.tvCaveDetailInsightTitle.text = "${it.size}개의 씨앗을 모았어요"
+        }
     }
 
     private fun setCaveDetail() {
@@ -80,12 +92,34 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
 
     private fun setInsightAdapter() {
         _insightAdapter = HomeInsightAdapter(::selectedItem, ::clickedScrap)
-        viewModel.insights.observe(this) {
-            insightAdapter.submitList(it)
-            binding.tvCaveDetailInsightTitle.text = "${it.size}개의 씨앗을 모았어요!"
-        }
-        binding.rcvCaveDetailInsight.adapter = insightAdapter
 
+        binding.rcvCaveDetailInsight.adapter = insightAdapter
+        binding.rcvCaveDetailInsight.layoutManager = LinearLayoutManagerWrapper(this)
+
+        observeListIsEmpty()
+        setInsightTracker()
+    }
+
+    private fun observeInsights() {
+        viewModel.scrapedInsights.observe(this) {
+            insightAdapter.submitList(it)
+        }
+        viewModel.unScrapedInsights.observe(this) {
+            insightAdapter.submitList(it)
+        }
+    }
+    private fun observeListIsEmpty() {
+        insightAdapter.registerAdapterDataObserver(
+            EmptyDataObserver(
+                binding.rcvCaveDetailInsight,
+                binding.tvCaveDetailInsightTitle,
+                binding.tvCaveDetailEmptyInsight,
+                binding.ivCaveDetailEmptyInsight,
+            ),
+        )
+    }
+
+    private fun setInsightTracker() {
         val longTracker = SelectionTracker.Builder<Long>(
             "caveDetailSelection",
             binding.rcvCaveDetailInsight,
@@ -97,14 +131,6 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
         ).build()
 
         insightAdapter.setSelectionLongTracker(longTracker)
-        insightAdapter.registerAdapterDataObserver(
-            EmptyDataObserver(
-                binding.rcvCaveDetailInsight,
-                binding.tvCaveDetailInsightTitle,
-                binding.tvCaveDetailEmptyInsight,
-                binding.ivCaveDetailEmptyInsight,
-            ),
-        )
 
         longTracker.addObserver(object : SelectionTracker.SelectionObserver<Long>() {
             override fun onSelectionChanged() {
@@ -181,22 +207,33 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
                         }
                     },
                 ).show(supportFragmentManager, InsightMenuBottomsheet.DELETE_DIALOG)
-        } else if (!item.hasActionPlan) {
-            val intent =
-                Intent(this, NoActionplanInsightActivity::class.java)
-            intent.putExtra("insightId", item.seedId)
-            startActivity(intent)
+        } else if (item.hasActionPlan) {
+            startActivity(ActionplanInsightActivity.getIntent(this, item.seedId))
+        } else {
+            startActivity(NoActionplanInsightActivity.getIntent(this, item.seedId))
         }
     }
 
     private fun clickedScrap(seedId: Int) {
         viewModel.changeScrap(seedId)
-        viewModel.isScrapedSuccess.observe(this) { isSuccess ->
-            if (isSuccess) {
-                viewModel.getInsights()
-                Toast.makeText(this, "스크랩 완료", Toast.LENGTH_SHORT).show()
-            }
-        }
+        observeScrap()
+    }
+
+    private fun observeScrap() {
+        viewModel.isScrapedSuccess.observe(
+            this,
+            EventObserver { isSuccess ->
+                if (isSuccess) {
+                    if (binding.chbCaveDetailScrap.isChecked) {
+                        viewModel.getScrapedInsights()
+                        Toast.makeText(this, "스크랩 완료", Toast.LENGTH_SHORT).show()
+                    } else {
+                        viewModel.getInsights()
+                        Toast.makeText(this, "스크랩 완료", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            },
+        )
     }
 
     private fun setNickName() {
@@ -205,10 +242,10 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
         }
     }
 
-    private fun clickScrap(caveId: Int) {
+    private fun clickScrap() {
         binding.chbCaveDetailScrap.setOnCheckedChangeListener { button, isChecked ->
             if (isChecked) {
-                viewModel.getScrapedInsight()
+                viewModel.getScrapedInsights()
             } else {
                 viewModel.getInsights()
             }
@@ -229,6 +266,13 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
         }
     }
 
+    private fun clickAddSeed() {
+        binding.fabCaveDetailAddInsight.setOnClickListener {
+            val intent = Intent(this, InsightWriteActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
     override fun onDestroy() {
         _insightAdapter = null
         super.onDestroy()
@@ -238,7 +282,7 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
         private const val CAVE_ID = "caveId"
 
         fun getIntent(context: Context, caveId: Int): Intent {
-            return Intent(context, NoActionplanInsightActivity::class.java).apply {
+            return Intent(context, CaveDetailActivity::class.java).apply {
                 putExtra(CAVE_ID, caveId)
             }
         }
