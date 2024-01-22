@@ -7,11 +7,16 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
+import com.growthook.aos.R
 import com.growthook.aos.databinding.ActivityAddActionplanBinding
 import com.growthook.aos.presentation.insight.actionplan.ActionplanInsightActivity
 import com.growthook.aos.presentation.insight.noactionplan.add.AddActionplanViewModel.Event
 import com.growthook.aos.util.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -26,6 +31,7 @@ class AddActionplanActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         getSeedIdFromSeedDetail()
+        observeSeedDetail()
         foldInsightContent()
         initEditTextAdapter()
         subscribe()
@@ -35,6 +41,27 @@ class AddActionplanActivity :
     private fun getSeedIdFromSeedDetail() {
         seedId = intent.getIntExtra(SEED_ID, 0)
         Timber.d("AddActionplanActivity seed id $seedId")
+        viewModel.seedId = seedId
+    }
+
+    private fun observeSeedDetail() {
+        viewModel.seedData.flowWithLifecycle(lifecycle).onEach { seed ->
+            Timber.d("seed data:: $seed")
+            with(binding) {
+                tvAddActionplanTitle.text = seed?.title
+                tvAddActionplanContent.text = seed?.content
+                tvAddActionplanDate.text = seed?.date
+                tvAddActionplanChip.text = seed?.caveName
+
+                "D-${seed?.remainingDays}".also { tvAddActionplanDday.text = it }
+
+                if (seed?.isScraped == true) {
+                    ivAddActionplanSeed.setImageResource(R.drawable.ic_scrap_selected)
+                } else {
+                    ivAddActionplanSeed.setImageResource(R.drawable.ic_scrap_unselected)
+                }
+            }
+        }.launchIn(lifecycleScope)
     }
 
     private fun subscribe() {
@@ -120,6 +147,8 @@ class AddActionplanActivity :
                 is Event.PostFailed -> {
                     Toast.makeText(this, "업로드에 실패했습니다", Toast.LENGTH_SHORT).show()
                 }
+
+                else -> {}
             }
         }
     }
