@@ -5,4 +5,5 @@ data class ActionlistDetail(
     val content: String,
     val isScraped: Boolean,
     val seedId: Int,
+    val hasReview: Boolean,
 )

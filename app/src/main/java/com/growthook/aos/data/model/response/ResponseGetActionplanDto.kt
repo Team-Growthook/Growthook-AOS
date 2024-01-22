@@ -25,6 +25,8 @@ data class ResponseGetActionplanDto(
         val isScraped: Boolean,
         @SerialName("isFinished")
         val isFinished: Boolean,
+        @SerialName("hasReview")
+        val hasReview: Boolean,
     )
 
     fun toActionplan() = data.map { actionplan ->
@@ -33,6 +35,7 @@ data class ResponseGetActionplanDto(
             actionplan.content,
             actionplan.isScraped,
             actionplan.isFinished,
+            actionplan.hasReview,
         )
     }
 }

@@ -2,6 +2,7 @@ package com.growthook.aos.presentation.actionlist.completed
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.growthook.aos.R
@@ -39,6 +40,35 @@ class CompletedActionlistAdapter(
                     ivCompletedActionplan.setImageResource(R.drawable.ic_scrap_selected)
                 } else {
                     ivCompletedActionplan.setImageResource(R.drawable.ic_scrap_unselected)
+                }
+                if (data.hasReview) {
+                    tvCompletedActionplanBtnRight.setTextColor(
+                        ContextCompat.getColor(
+                            itemView.context,
+                            R.color.White000,
+                        ),
+                    )
+                    tvCompletedActionplanBtnRight.setBackgroundColor(
+                        ContextCompat.getColor(
+                            itemView.context,
+                            R.color.Gray600,
+                        ),
+                    )
+                    tvCompletedActionplanBtnRight.isClickable = true
+                } else {
+                    tvCompletedActionplanBtnRight.setTextColor(
+                        ContextCompat.getColor(
+                            itemView.context,
+                            R.color.Gray300,
+                        ),
+                    )
+                    tvCompletedActionplanBtnRight.setBackgroundColor(
+                        ContextCompat.getColor(
+                            itemView.context,
+                            R.color.Gray500,
+                        ),
+                    )
+                    tvCompletedActionplanBtnRight.isClickable = false
                 }
             }
         }

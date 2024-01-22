@@ -22,7 +22,7 @@ abstract class CaveSelect :
     class Builder {
         fun build(
             type: CaveSelectType,
-            toMoveSeedId: Int = 0,
+            toMoveSeedId: Int = 113,
             clickBtnAction: (Cave) -> Unit = {},
         ): CaveSelect {
             return type.getInstance().apply {

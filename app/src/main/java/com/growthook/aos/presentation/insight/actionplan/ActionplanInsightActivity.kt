@@ -27,15 +27,23 @@ class ActionplanInsightActivity :
         get() = requireNotNull(_actionplanAdapter) { "actionplanAdapter is null" }
 
     private val viewModel by viewModels<ActionplanInsightViewModel>()
+    private var seedId: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val insightId = intent.getIntExtra(SEED_ID, 0)
-        Timber.d("인사이트 id $insightId")
+        getSeedIdFromHome()
+        initActionplanAdapter()
         subscribe()
         foldInsightContent()
-        initActionplanAdapter()
         clickeListeners()
+    }
+
+    private fun getSeedIdFromHome() {
+        seedId = intent.getIntExtra(SEED_ID, 0)
+        Timber.d("ActionplanInsightActivity seed id $seedId")
+        viewModel.seedId = seedId
+        viewModel.getSeedDetail()
+        viewModel.getActionplans()
     }
 
     private fun subscribe() {
@@ -46,13 +54,20 @@ class ActionplanInsightActivity :
 
     private fun initActionplanAdapter() {
         _actionplanAdapter =
-            ActionplanAdapter(::clickModifyMenu, ::clickDeleteMenu, ::clickCompleteBtn)
+            ActionplanAdapter(
+                ::clickModifyMenu,
+                ::clickDeleteMenu,
+                ::clickCompleteBtn,
+                ::clickScrapActionplan,
+                ::isScraped,
+            )
         binding.rcvActionplanInsight.adapter = _actionplanAdapter
     }
 
     private fun observeActionplanData() {
         viewModel.actionplans.flowWithLifecycle(lifecycle).onEach { actionplans ->
             _actionplanAdapter?.submitList(actionplans)
+            _actionplanAdapter?.notifyDataSetChanged()
         }.launchIn(lifecycleScope)
     }
 
@@ -62,10 +77,12 @@ class ActionplanInsightActivity :
             title = "리뷰 작성",
             clickSaveBtn = {
                 viewModel.postReview(actionplanId, it)
-                viewModel.completeActionplan(actionplanId, DUMMY_SEED)
+                viewModel.completeActionplan(actionplanId)
+                viewModel.getActionplans()
             },
             clickNoWritingBtn = {
-                viewModel.completeActionplan(actionplanId, DUMMY_SEED)
+                viewModel.completeActionplan(actionplanId)
+                viewModel.getActionplans()
             },
         ).show(supportFragmentManager, "review dialog")
     }
@@ -75,7 +92,7 @@ class ActionplanInsightActivity :
             type = BaseWritingBottomSheet.WritingType.SMALL,
             title = "액션플랜 수정",
             clickSaveBtn = {
-                viewModel.modifyActionplan(actionplanId, it, DUMMY_SEED)
+                viewModel.modifyActionplan(actionplanId, it)
             },
             clickNoWritingBtn = {
             },
@@ -97,7 +114,7 @@ class ActionplanInsightActivity :
                 isRemainThookVisility = false,
                 isTipVisility = false,
                 negativeAction = {
-                    viewModel.deleteActionplan(actionplanId, DUMMY_SEED)
+                    viewModel.deleteActionplan(actionplanId)
                 },
                 positiveAction = {
                 },
@@ -152,17 +169,31 @@ class ActionplanInsightActivity :
         }
     }
 
+    private fun clickScrapActionplan(actionplanId: Int) {
+        viewModel.changeScrap(actionplanId)
+    }
+
     private fun clickAddActionplan() {
         binding.btnActionplanInsightAdd.setOnClickListener {
             BaseWritingBottomSheet.Builder().build(
                 type = BaseWritingBottomSheet.WritingType.SMALL,
                 title = "액션 플랜 추가",
                 clickSaveBtn = {
-                    viewModel.postActionplan(DUMMY_SEED, it)
+                    viewModel.postActionplan(seedId, it)
                 },
                 clickNoWritingBtn = {},
             ).show(supportFragmentManager, "add actionplan dialog")
         }
+    }
+
+    private fun isScraped(): Boolean {
+        var isScraped = false
+        viewModel.event.flowWithLifecycle(lifecycle).onEach { event ->
+            if (event == Event.ScrapSuccess) {
+                isScraped = true
+            }
+        }.launchIn(lifecycleScope)
+        return isScraped
     }
 
     private fun observeEvent() {
@@ -199,8 +230,11 @@ class ActionplanInsightActivity :
                         ).show(supportFragmentManager, "get thook dialog")
                 }
 
-                else -> {
+                is Event.ScrapSuccess -> {
+                    Toast.makeText(this, "액션플랜 스크랩 완료!", Toast.LENGTH_SHORT).show()
                 }
+
+                else -> {}
             }
         }.launchIn(lifecycleScope)
     }
@@ -214,7 +248,6 @@ class ActionplanInsightActivity :
         const val DELETE_DIALOG = "delete dialog"
         private const val TAG = "tag"
         private const val SEED_ID = "seedId"
-        private const val DUMMY_SEED = 113
 
         fun getIntent(context: Context, seedId: Int): Intent {
             return Intent(context, ActionplanInsightActivity::class.java).apply {

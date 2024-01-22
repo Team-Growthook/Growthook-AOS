@@ -55,4 +55,9 @@ interface ActionplanService {
     suspend fun deleteActionplan(
         @Path("actionplanId") actionplanId: Int,
     ): ResponseDto
+
+    @PATCH("api/v1/actionplan/{actionplanId}/scrap")
+    suspend fun scrapActionplan(
+        @Path("actionplanId") actionplanId: Int,
+    ): ResponseDto
 }
