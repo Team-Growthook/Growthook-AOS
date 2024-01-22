@@ -1,19 +1,17 @@
 package com.growthook.aos.di
 
 import android.content.Context
-import android.content.Intent
 import android.util.Log
 import com.facebook.flipper.plugins.network.FlipperOkhttpInterceptor
 import com.facebook.flipper.plugins.network.NetworkFlipperPlugin
 import com.growthook.aos.domain.repository.RefreshRepository
 import com.growthook.aos.domain.repository.TokenRepository
+import com.growthook.aos.domain.repository.UserRepository
 import com.growthook.aos.presentation.onboarding.LoginActivity
-import com.growthook.aos.util.callback.KakaoLogoutCallback
 import com.growthook.aos.util.extension.isJsonArray
 import com.growthook.aos.util.extension.isJsonObject
 import com.jakewharton.processphoenix.ProcessPhoenix
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
-import com.kakao.sdk.user.UserApiClient
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -101,6 +99,7 @@ object RetrofitModule {
         @ApplicationContext context: Context,
         tokenRepository: TokenRepository,
         refreshRepository: RefreshRepository,
+        userRepository: UserRepository,
     ): Interceptor {
         val requestInterceptor = Interceptor { chain ->
             val originalRequest = chain.request()
@@ -126,17 +125,12 @@ object RetrofitModule {
                         }.onFailure { throwable ->
                             Timber.e(throwable.message)
                             if (throwable is HttpException && (response.code == BAD_REQUEST || response.code == EXPIRED_TOKEN)) {
-                                val kakaoCallback: (Throwable?) -> Unit = { error ->
-                                    KakaoLogoutCallback { isSuccess ->
-                                        if (isSuccess) {
-                                            runBlocking {
-                                                tokenRepository.setToken("", "")
-                                                ProcessPhoenix.triggerRebirth(context, LoginActivity.newInstance(context))
-                                            }
-                                        }
-                                    }.handleResult(error)
-                                }
-                                UserApiClient.instance.logout(kakaoCallback)
+                                tokenRepository.setToken("", "")
+                                userRepository.setUserInfo("", 0, true)
+                                ProcessPhoenix.triggerRebirth(
+                                    context,
+                                    LoginActivity.newInstance(context),
+                                )
                             }
                         }
                     }
