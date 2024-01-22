@@ -3,16 +3,21 @@ package com.growthook.aos.presentation.insight.actionplan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.growthook.aos.R
 import com.growthook.aos.databinding.ItemActionplanBinding
 import com.growthook.aos.domain.entity.Actionplan
 import com.growthook.aos.util.extension.ItemDiffCallback
+import timber.log.Timber
 
 class ActionplanAdapter(
     private val clickModify: (Int) -> Unit,
     private val clickDelete: (Int) -> Unit,
     private val clickComplete: (Int) -> Unit,
+    private val clickScrapActionplan: (Int) -> Unit,
+    private val isScraped: () -> Boolean,
 ) :
     ListAdapter<Actionplan, ActionplanAdapter.ActionplanViewHolder>(
         ItemDiffCallback<Actionplan>(
@@ -26,11 +31,15 @@ class ActionplanAdapter(
         private val clickModify: (Int) -> Unit,
         private val clickDelete: (Int) -> Unit,
         private val clickComplete: (Int) -> Unit,
+        private val clickScrapActionplan: (Int) -> Unit,
+        private val isScraped: () -> Boolean,
     ) :
         RecyclerView.ViewHolder(binding.root) {
         private var isItemSelected = false
+        private var isSeedSelected = false
         fun onBind(data: Actionplan) {
             with(binding) {
+                Timber.d("isScraped: ${data.isScraped}")
                 tvActionplanTitle.text = data.content
                 ivActionplanMenu.setOnClickListener {
                     isItemSelected = !isItemSelected
@@ -51,6 +60,41 @@ class ActionplanAdapter(
                 tvActionplanCompleteBtn.setOnClickListener {
                     clickComplete(data.actionplanId)
                 }
+                if (data.isScraped) {
+                    ivActionplan.setImageResource(R.drawable.ic_scrap_selected)
+                } else {
+                    ivActionplan.setImageResource(R.drawable.ic_scrap_unselected)
+                }
+                ivActionplan.setOnClickListener {
+                    isSeedSelected = !isSeedSelected
+                    clickScrapActionplan(data.actionplanId)
+                    if (isSeedSelected) {
+                        ivActionplan.setImageResource(R.drawable.ic_scrap_selected)
+                    } else {
+                        ivActionplan.setImageResource(R.drawable.ic_scrap_unselected)
+                    }
+                }
+                if (data.isFinished) {
+                    tvActionplanCompleteBtn.setTextColor(
+                        ContextCompat.getColor(
+                            itemView.context,
+                            R.color.Gray400,
+                        ),
+                    )
+                    tvActionplanCompleteBtn.setBackgroundResource(R.drawable.rect_gray600_fill_4)
+                    tvActionplanCompleteBtn.isClickable = false
+                    tvActionplanCompleteBtn.text = "달성완료"
+                } else {
+                    tvActionplanCompleteBtn.setTextColor(
+                        ContextCompat.getColor(
+                            itemView.context,
+                            R.color.White000,
+                        ),
+                    )
+                    tvActionplanCompleteBtn.setBackgroundResource(R.drawable.rect_green400_fill_4)
+                    tvActionplanCompleteBtn.isClickable = true
+                    tvActionplanCompleteBtn.text = "완료하기"
+                }
             }
         }
     }
@@ -61,7 +105,14 @@ class ActionplanAdapter(
     ): ActionplanViewHolder {
         val binding =
             ItemActionplanBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ActionplanViewHolder(binding, clickModify, clickDelete, clickComplete)
+        return ActionplanViewHolder(
+            binding,
+            clickModify,
+            clickDelete,
+            clickComplete,
+            clickScrapActionplan,
+            isScraped,
+        )
     }
 
     override fun onBindViewHolder(holder: ActionplanViewHolder, position: Int) {

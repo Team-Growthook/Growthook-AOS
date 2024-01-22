@@ -9,9 +9,12 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.growthook.aos.R
 import com.growthook.aos.databinding.FragmentInsightMenuBottomsheetBinding
+import com.growthook.aos.presentation.MainActivity
+import com.growthook.aos.presentation.insight.noactionplan.NoActionplanInsightViewModel.Event
 import com.growthook.aos.presentation.insight.noactionplan.model.SeedModifyIntent
 import com.growthook.aos.util.base.BaseAlertDialog
 import com.growthook.aos.util.base.BaseBottomSheetFragment
+import com.growthook.aos.util.selectcave.CaveSelect
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -28,6 +31,7 @@ class InsightMenuBottomsheet :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setClickListeners()
+        observeEvent()
     }
 
     private fun setClickListeners() {
@@ -39,8 +43,12 @@ class InsightMenuBottomsheet :
     private fun clickMoveMenu() {
         binding.clInsightMenuMove.setOnClickListener {
             dismiss()
-            val bottomSheetDialog = InsightCaveBottomsheet()
-            bottomSheetDialog.show(parentFragmentManager, "show")
+            CaveSelect.Builder().build(
+                CaveSelect.CaveSelectType.YES_API,
+                clickBtnAction = {
+                    viewModel.seedId
+                },
+            ).show(parentFragmentManager, CAVE_SELECT_DIALOG)
         }
     }
 
@@ -55,14 +63,17 @@ class InsightMenuBottomsheet :
         binding.clInsightMenuModify.setOnClickListener {
             val intent = Intent(requireActivity(), SeedModifyActivity::class.java)
             viewModel.seedData.observe(viewLifecycleOwner) { seed ->
-                intent.putExtra(SEED_MODIFY_INTENT, SeedModifyIntent(
-                    seed.title,
-                    seed.content,
-                    seed.caveName,
-                    seed.source,
-                    seed.url,
-                    seed.remainingDays/30
-                    ))
+                intent.putExtra(
+                    SEED_MODIFY_INTENT,
+                    SeedModifyIntent(
+                        seed.title,
+                        seed.content,
+                        seed.caveName,
+                        seed.source,
+                        seed.url,
+                        seed.remainingDays / 30,
+                    ),
+                )
                 startActivity(intent)
                 dismiss()
             }
@@ -84,21 +95,31 @@ class InsightMenuBottomsheet :
                 isRemainThookVisility = false,
                 isTipVisility = false,
                 negativeAction = {
-                    // TODO 전달 받은 seedId 변경
-                    viewModel.deleteSeed(DUMMY_SEED)
-                    viewModel.isDelete.observe(viewLifecycleOwner) { isDelete ->
-                        if (isDelete) {
-                            Toast.makeText(context, "씨앗이 삭제되었어요", Toast.LENGTH_SHORT).show()
-                        }
-                    }
+                    viewModel.deleteSeed()
+                    val intent = Intent(requireActivity(), MainActivity::class.java)
+                    startActivity(intent)
+                    dismiss()
                 },
                 positiveAction = {},
             ).show(parentFragmentManager, DELETE_DIALOG)
+    }
+
+    private fun observeEvent() {
+        viewModel.event.observe(viewLifecycleOwner) { event ->
+            when (event) {
+                is Event.DeleteSeedSuccess -> {
+                    Toast.makeText(context, "씨앗이 삭제되었어요", Toast.LENGTH_SHORT).show()
+                }
+
+                else -> {}
+            }
+        }
     }
 
     companion object {
         const val DELETE_DIALOG = "delete dialog"
         private const val DUMMY_SEED = 113
         const val SEED_MODIFY_INTENT = "SEED_MODIFY_INTENT"
+        const val CAVE_SELECT_DIALOG = "cave select dialog"
     }
 }
