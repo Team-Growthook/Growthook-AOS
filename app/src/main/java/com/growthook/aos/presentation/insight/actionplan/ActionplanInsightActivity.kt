@@ -71,9 +71,6 @@ class ActionplanInsightActivity :
         }.launchIn(lifecycleScope)
     }
 
-    private fun completedReview() {
-    }
-
     private fun clickCompleteBtn(actionplanId: Int) {
         BaseWritingBottomSheet.Builder().build(
             type = BaseWritingBottomSheet.WritingType.LARGE,
@@ -81,9 +78,11 @@ class ActionplanInsightActivity :
             clickSaveBtn = {
                 viewModel.postReview(actionplanId, it)
                 viewModel.completeActionplan(actionplanId)
+                viewModel.getActionplans()
             },
             clickNoWritingBtn = {
                 viewModel.completeActionplan(actionplanId)
+                viewModel.getActionplans()
             },
         ).show(supportFragmentManager, "review dialog")
     }

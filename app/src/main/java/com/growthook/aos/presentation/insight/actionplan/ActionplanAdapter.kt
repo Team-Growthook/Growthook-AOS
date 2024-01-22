@@ -74,7 +74,7 @@ class ActionplanAdapter(
                         ivActionplan.setImageResource(R.drawable.ic_scrap_unselected)
                     }
                 }
-                if (data.hasReview) {
+                if (data.isFinished) {
                     tvActionplanCompleteBtn.setTextColor(
                         ContextCompat.getColor(
                             itemView.context,
