@@ -1,19 +1,21 @@
 package com.growthook.aos.di
 
 import com.growthook.aos.data.repository.ActionplanRepositoryImpl
-import com.growthook.aos.data.repository.SignUpRepositoryImpl
 import com.growthook.aos.data.repository.CaveRepositoryImpl
 import com.growthook.aos.data.repository.MemberRepositoryImpl
+import com.growthook.aos.data.repository.RefreshRepositoryImpl
 import com.growthook.aos.data.repository.ReviewRepositoryImpl
 import com.growthook.aos.data.repository.SeedRepositoryImpl
+import com.growthook.aos.data.repository.SignUpRepositoryImpl
 import com.growthook.aos.data.repository.TokenRepositoryImpl
 import com.growthook.aos.data.repository.UserRepositoryImpl
 import com.growthook.aos.domain.repository.ActionplanRepository
-import com.growthook.aos.domain.repository.SignUpRepository
 import com.growthook.aos.domain.repository.CaveRepository
 import com.growthook.aos.domain.repository.MemberRepository
+import com.growthook.aos.domain.repository.RefreshRepository
 import com.growthook.aos.domain.repository.ReviewRepository
 import com.growthook.aos.domain.repository.SeedRepository
+import com.growthook.aos.domain.repository.SignUpRepository
 import com.growthook.aos.domain.repository.TokenRepository
 import com.growthook.aos.domain.repository.UserRepository
 import dagger.Binds
@@ -57,4 +59,8 @@ abstract class RepositoryModule {
     @Singleton
     @Binds
     abstract fun providesSignUpRepository(repoImpl: SignUpRepositoryImpl): SignUpRepository
+
+    @Singleton
+    @Binds
+    abstract fun providesRefreshRepository(repoImpl: RefreshRepositoryImpl): RefreshRepository
 }
