@@ -23,6 +23,10 @@ import javax.inject.Singleton
 object RefreshRetrofitModule {
     private const val PUZZLING_BASE_URL = BuildConfig.GROWTHOOK_BASE_URL
 
+    private const val BEARER = "Bearer "
+    private const val AUTHORIZATION = "Authorization"
+    private const val REFRESH_HEADER = "Refresh"
+
     @Provides
     @Singleton
     @RefreshRetrofit
@@ -59,11 +63,11 @@ object RefreshRetrofitModule {
             }
 
             builder.addHeader(
-                "Authorization",
-                "Bearer ${token.accessToken}",
+                AUTHORIZATION,
+                BEARER + token.accessToken,
             ).addHeader(
-                "Refresh",
-                "Bearer ${token.refreshToken}",
+                REFRESH_HEADER,
+                BEARER + token.refreshToken,
             )
             chain.proceed(builder.build())
         }

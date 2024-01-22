@@ -38,6 +38,12 @@ object RetrofitModule {
 
     private const val GROWTHOOK_BASE_URL = com.growthook.aos.BuildConfig.GROWTHOOK_BASE_URL
 
+    private const val BAD_REQUEST = 400
+    private const val EXPIRED_TOKEN = 401
+
+    private const val BEARER = "Bearer "
+    private const val AUTHORIZATION = "Authorization"
+
     @Provides
     @Singleton
     @GrowthookRetrofit
@@ -103,23 +109,23 @@ object RetrofitModule {
                 tokenRepository.getToken().accessToken
             }
             builder.addHeader(
-                "Authorization",
-                "Bearer $accessToken",
+                AUTHORIZATION,
+                BEARER + accessToken,
             )
             var response = chain.proceed(builder.build())
 
             when (response.code) {
-                400, 401 -> {
+                BAD_REQUEST, EXPIRED_TOKEN -> {
                     runBlocking {
                         refreshRepository.getRefreshToken().onSuccess { token ->
                             response = chain.proceed(
                                 originalRequest.newBuilder()
-                                    .addHeader("Authorization", "Bearer ${token.accessToken}")
+                                    .addHeader(AUTHORIZATION, BEARER + token.accessToken)
                                     .build(),
                             )
                         }.onFailure { throwable ->
                             Timber.e(throwable.message)
-                            if (throwable is HttpException && (response.code == 400 || response.code == 401)) {
+                            if (throwable is HttpException && (response.code == BAD_REQUEST || response.code == EXPIRED_TOKEN)) {
                                 val kakaoCallback: (Throwable?) -> Unit = { error ->
                                     KakaoLogoutCallback { isSuccess ->
                                         if (isSuccess) {
