@@ -8,7 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.growthook.aos.R
 import com.growthook.aos.databinding.FragmentInsightMenuBottomsheetBinding
-import com.growthook.aos.presentation.insight.noactionplan.model.SeedModifyIntent
+import com.growthook.aos.presentation.insight.noactionplan.NoActionplanInsightViewModel.Event
 import com.growthook.aos.util.base.BaseAlertDialog
 import com.growthook.aos.util.base.BaseBottomSheetFragment
 import com.growthook.aos.util.selectcave.CaveSelect
@@ -28,6 +28,7 @@ class InsightMenuBottomsheet :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setClickListeners()
+        observeEvent()
     }
 
     private fun setClickListeners() {
@@ -57,22 +58,23 @@ class InsightMenuBottomsheet :
 
     private fun clickModifyMenu() {
         binding.clInsightMenuModify.setOnClickListener {
-            val intent = Intent(requireActivity(), SeedModifyActivity::class.java)
-            viewModel.seedData.observe(viewLifecycleOwner) { seed ->
-                intent.putExtra(
-                    SEED_MODIFY_INTENT,
-                    SeedModifyIntent(
-                        seed.title,
-                        seed.content,
-                        seed.caveName,
-                        seed.source,
-                        seed.url,
-                        seed.remainingDays / 30,
-                    ),
-                )
-                startActivity(intent)
-                dismiss()
-            }
+            // TODO 수정 필요
+//            val intent = Intent(requireActivity(), SeedModifyActivity::class.java)
+//            viewModel.seedData.observe(viewLifecycleOwner) { seed ->
+//                intent.putExtra(
+//                    SEED_MODIFY_INTENT,
+//                    SeedModifyIntent(
+//                        seed.title,
+//                        seed.content,
+//                        seed.caveName,
+//                        seed.source,
+//                        seed.url,
+//                        seed.remainingDays / 30,
+//                    ),
+//                )
+//                startActivity(intent)
+//                dismiss()
+//            }
         }
     }
 
