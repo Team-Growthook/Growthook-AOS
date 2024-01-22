@@ -24,6 +24,7 @@ class NoActionplanInsightActivity :
         super.onCreate(savedInstanceState)
         getSeedIdFromHome()
         observeSeedDetail()
+        observeEvent()
         setClickListeners()
     }
 
@@ -95,6 +96,17 @@ class NoActionplanInsightActivity :
         binding.tvNoactionInsightUrl.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(seedUrl))
             startActivity(intent)
+        }
+    }
+
+    private fun observeEvent() {
+        viewModel.event.observe(this) { event ->
+            when (event) {
+                NoActionplanInsightViewModel.Event.DeleteSeedSuccess -> {
+                    finish()
+                }
+                else -> {}
+            }
         }
     }
 
