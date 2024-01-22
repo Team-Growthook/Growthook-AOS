@@ -1,5 +1,6 @@
 package com.growthook.aos.presentation.insight.noactionplan
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +9,9 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.growthook.aos.R
 import com.growthook.aos.databinding.FragmentInsightMenuBottomsheetBinding
+import com.growthook.aos.presentation.MainActivity
 import com.growthook.aos.presentation.insight.noactionplan.NoActionplanInsightViewModel.Event
+import com.growthook.aos.presentation.insight.noactionplan.model.SeedModifyIntent
 import com.growthook.aos.util.base.BaseAlertDialog
 import com.growthook.aos.util.base.BaseBottomSheetFragment
 import com.growthook.aos.util.selectcave.CaveSelect
@@ -58,23 +61,22 @@ class InsightMenuBottomsheet :
 
     private fun clickModifyMenu() {
         binding.clInsightMenuModify.setOnClickListener {
-            // TODO 수정 필요
-//            val intent = Intent(requireActivity(), SeedModifyActivity::class.java)
-//            viewModel.seedData.observe(viewLifecycleOwner) { seed ->
-//                intent.putExtra(
-//                    SEED_MODIFY_INTENT,
-//                    SeedModifyIntent(
-//                        seed.title,
-//                        seed.content,
-//                        seed.caveName,
-//                        seed.source,
-//                        seed.url,
-//                        seed.remainingDays / 30,
-//                    ),
-//                )
-//                startActivity(intent)
-//                dismiss()
-//            }
+            val intent = Intent(requireActivity(), SeedModifyActivity::class.java)
+            viewModel.seedData.observe(viewLifecycleOwner) { seed ->
+                intent.putExtra(
+                    SEED_MODIFY_INTENT,
+                    SeedModifyIntent(
+                        seed.title,
+                        seed.content,
+                        seed.caveName,
+                        seed.source,
+                        seed.url,
+                        seed.remainingDays / 30,
+                    ),
+                )
+                startActivity(intent)
+                dismiss()
+            }
         }
     }
 
@@ -94,6 +96,9 @@ class InsightMenuBottomsheet :
                 isTipVisility = false,
                 negativeAction = {
                     viewModel.deleteSeed()
+                    val intent = Intent(requireActivity(), MainActivity::class.java)
+                    startActivity(intent)
+                    dismiss()
                 },
                 positiveAction = {},
             ).show(parentFragmentManager, DELETE_DIALOG)

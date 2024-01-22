@@ -9,10 +9,11 @@ import com.growthook.aos.domain.entity.Cave
 import com.growthook.aos.domain.entity.Seed
 import com.growthook.aos.domain.usecase.DeleteSeedUseCase
 import com.growthook.aos.domain.usecase.GetCavesUseCase
+import com.growthook.aos.domain.usecase.MoveSeedUseCase
 import com.growthook.aos.domain.usecase.local.GetUserUseCase
 import com.growthook.aos.domain.usecase.seeddetail.GetSeedUseCase
+import com.growthook.aos.domain.usecase.seeddetail.ModifySeedUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -23,16 +24,21 @@ class NoActionplanInsightViewModel @Inject constructor(
     private val getSeedUseCase: GetSeedUseCase,
     private val getCavesUseCase: GetCavesUseCase,
     private val deleteSeedUseCase: DeleteSeedUseCase,
+    private val modifySeedUseCase: ModifySeedUseCase,
+    private val moveSeedUseCase: MoveSeedUseCase,
 ) :
     ViewModel() {
     private val _caves = MutableLiveData<List<Cave>>()
     val caves: LiveData<List<Cave>> = _caves
 
-    private val _seedData = MutableStateFlow<Seed?>(null)
-    val seedData: MutableStateFlow<Seed?> = _seedData
+    private val _seedData = MutableLiveData<Seed>()
+    val seedData: LiveData<Seed> = _seedData
 
     private val _isDelete = MutableLiveData<Boolean>()
     val isDelete: LiveData<Boolean> = _isDelete
+
+    private val _isMove = MutableLiveData<Boolean>()
+    val isMove: LiveData<Boolean> = _isMove
 
     private val _event = MutableLiveData<Event>()
     val event: LiveData<Event> = _event
@@ -44,6 +50,17 @@ class NoActionplanInsightViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             memberId.value = getUserUseCase.invoke().memberId ?: 0
+        }
+    }
+
+    fun moveSeed(seedId: Int, caveId: Int) {
+        viewModelScope.launch {
+            moveSeedUseCase(seedId, caveId).onSuccess {
+                _isMove.value = true
+            }.onFailure {
+                _isMove.value = false
+                Timber.d("씨앗 옮기기 ${it.message}")
+            }
         }
     }
 

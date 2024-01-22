@@ -47,9 +47,7 @@ class SeedModifyActivity : BaseActivity<ActivitySeedModifyBinding>({
     }
 
     private fun initSetBackBtn() {
-        val intent = Intent(this, NoActionplanInsightActivity::class.java)
         binding.btnSeedModifyBack.setOnClickListener {
-            startActivity(intent)
             finish()
         }
     }
