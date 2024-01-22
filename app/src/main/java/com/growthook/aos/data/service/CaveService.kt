@@ -6,6 +6,7 @@ import com.growthook.aos.data.model.response.ResponseDataDto
 import com.growthook.aos.data.model.response.ResponseDto
 import com.growthook.aos.data.model.response.ResponseGetCavesDto
 import com.growthook.aos.data.model.response.ResponseGetDetailCaveDto
+import com.growthook.aos.data.model.response.ResponsePostCaveDto
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -41,5 +42,5 @@ interface CaveService {
     suspend fun postCave(
         @Path("memberId") memberId: Int,
         @Body request: RequestCavePostDto,
-    ): ResponseDataDto
+    ): ResponsePostCaveDto
 }
