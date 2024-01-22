@@ -6,7 +6,7 @@ import com.growthook.aos.domain.repository.RefreshRepository
 import com.growthook.aos.domain.repository.TokenRepository
 import javax.inject.Inject
 
-class RefreshRepository @Inject constructor(
+class RefreshRepositoryImpl @Inject constructor(
     private val dataSource: RefreshDataSource,
     private val tokenRepository: TokenRepository,
 ) :
