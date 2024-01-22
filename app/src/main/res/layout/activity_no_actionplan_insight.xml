@@ -87,7 +87,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="야식에 불닭과 만두의 조합 좋다"
+            tools:text="야식에 불닭과 만두의 조합 좋다"
             android:textColor="@color/White000"
             app:layout_constraintStart_toStartOf="@id/tv_noaction_insight_chip"
             app:layout_constraintTop_toBottomOf="@id/tv_noaction_insight_chip" />
@@ -98,7 +98,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="2023.11.08"
+            tools:text="2023.11.08"
             android:textColor="@color/Gray200"
             app:layout_constraintStart_toStartOf="@id/tv_noaction_insight_title"
             app:layout_constraintTop_toBottomOf="@id/tv_noaction_insight_title" />
@@ -119,7 +119,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="D-21"
+            tools:text="D-21"
             android:textColor="@color/Red200"
             app:layout_constraintBottom_toBottomOf="@id/divider_noaction_insight_first"
             app:layout_constraintStart_toEndOf="@id/divider_noaction_insight_first"
@@ -149,7 +149,7 @@
                 style="@style/body3_reg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="앱잼 합숙 기간 새벽에 먹으면 더욱 효과적으로 행복할 수 있다.ferergfergregergfergreg"
+                tools:text="앱잼 합숙 기간 새벽에 먹으면 더욱 효과적으로 행복할 수 있다.ferergfergregergfergreg"
                 android:textColor="@color/White000"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
