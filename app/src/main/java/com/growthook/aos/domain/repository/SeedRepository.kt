@@ -17,7 +17,7 @@ interface SeedRepository {
         source: String,
         url: String,
         goalMonth: Int,
-    ): Result<Unit>
+    ): Result<Int>
 
     suspend fun getCaveSeeds(caveId: Int): Result<List<Insight>>
 
