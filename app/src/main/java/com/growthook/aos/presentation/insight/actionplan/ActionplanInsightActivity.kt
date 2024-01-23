@@ -72,7 +72,7 @@ class ActionplanInsightActivity :
             viewModel.changeSeedScrap(seedId)
             if (isSeedSelected) {
                 binding.ivActionplanInsightSeed.setImageResource(R.drawable.ic_scrap_selected)
-                Toast.makeText(this, "씨앗 스크랩 완료", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "씨앗이 스크랩 되었어요", Toast.LENGTH_SHORT).show()
             } else {
                 binding.ivActionplanInsightSeed.setImageResource(R.drawable.ic_scrap_unselected)
             }
@@ -87,9 +87,6 @@ class ActionplanInsightActivity :
                 ::clickCompleteBtn,
                 ::clickScrapActionplan,
             )
-        _actionplanAdapter?.setSeedSelectedCallback {
-            Toast.makeText(this, "액션이 스크랩되었어요", Toast.LENGTH_SHORT).show()
-        }
         binding.rcvActionplanInsight.adapter = _actionplanAdapter
     }
 
@@ -209,8 +206,11 @@ class ActionplanInsightActivity :
         }
     }
 
-    private fun clickScrapActionplan(actionplanId: Int) {
+    private fun clickScrapActionplan(actionplanId: Int, isSeedSelected: Boolean) {
         viewModel.changeActionplanScrap(actionplanId)
+        if (isSeedSelected) {
+            Toast.makeText(this, "액션이 스크랩 되었어요", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun clickAddActionplan() {
@@ -224,16 +224,6 @@ class ActionplanInsightActivity :
                 clickNoWritingBtn = {},
             ).show(supportFragmentManager, "add actionplan dialog")
         }
-    }
-
-    private fun isScraped(): Boolean {
-        var isScraped = false
-        viewModel.event.flowWithLifecycle(lifecycle).onEach { event ->
-            if (event == Event.ScrapSuccess) {
-                isScraped = true
-            }
-        }.launchIn(lifecycleScope)
-        return isScraped
     }
 
     private fun observeEvent() {
@@ -270,9 +260,9 @@ class ActionplanInsightActivity :
                         ).show(supportFragmentManager, "get thook dialog")
                 }
 
-                is Event.ScrapSuccess -> {
-                    Toast.makeText(this, "액션플랜 스크랩 완료!", Toast.LENGTH_SHORT).show()
-                }
+//                is Event.ScrapSuccess -> {
+//                    Toast.makeText(this, "액션플랜 스크랩 완료!", Toast.LENGTH_SHORT).show()
+//                }
 
                 else -> {}
             }

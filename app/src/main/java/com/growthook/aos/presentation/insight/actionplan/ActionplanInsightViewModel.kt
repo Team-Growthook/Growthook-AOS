@@ -50,15 +50,15 @@ class ActionplanInsightViewModel @Inject constructor(
     val event: MutableStateFlow<Event> = _event
 
     // TODO util Event 네이밍 수정
-    private val _isScrapedSuccess = MutableLiveData<com.growthook.aos.util.Event<Boolean>>()
-    val isScrapedSuccess: LiveData<com.growthook.aos.util.Event<Boolean>> = _isScrapedSuccess
+    private val _isSeedScrapedSuccess = MutableLiveData<com.growthook.aos.util.Event<Boolean>>()
+    val isSeedScrapedSuccess: LiveData<com.growthook.aos.util.Event<Boolean>> = _isSeedScrapedSuccess
 
     fun changeSeedScrap(seedId: Int) {
         viewModelScope.launch {
             scrapSeedUseCase.invoke(seedId).onSuccess {
-                _isScrapedSuccess.value = Event(true)
+                _isSeedScrapedSuccess.value = Event(true)
             }.onFailure {
-                _isScrapedSuccess.value = Event(false)
+                _isSeedScrapedSuccess.value = Event(false)
             }
         }
     }

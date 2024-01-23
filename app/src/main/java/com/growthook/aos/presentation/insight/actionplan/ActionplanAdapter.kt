@@ -15,7 +15,7 @@ class ActionplanAdapter(
     private val clickModify: (Int) -> Unit,
     private val clickDelete: (Int) -> Unit,
     private val clickComplete: (Int) -> Unit,
-    private val clickScrapActionplan: (Int) -> Unit,
+    private val clickScrapActionplan: (Int, Boolean) -> Unit,
 ) :
     ListAdapter<Actionplan, ActionplanAdapter.ActionplanViewHolder>(
         ItemDiffCallback<Actionplan>(
@@ -23,9 +23,9 @@ class ActionplanAdapter(
             onItemsTheSame = { old, new -> old.actionplanId == new.actionplanId },
         ),
     ) {
-    private var isSeedSelectedCallback: (() -> Unit)? = null
+    private var isSeedSelectedCallback: ((Int, Boolean) -> Unit)? = null
 
-    fun setSeedSelectedCallback(callback: (() -> Unit)?) {
+    fun setSeedSelectedCallback(callback: ((Int, Boolean) -> Unit)?) {
         isSeedSelectedCallback = callback
     }
 
@@ -34,7 +34,7 @@ class ActionplanAdapter(
         private val clickModify: (Int) -> Unit,
         private val clickDelete: (Int) -> Unit,
         private val clickComplete: (Int) -> Unit,
-        private val clickScrapActionplan: (Int) -> Unit,
+        private val clickScrapActionplan: (Int, Boolean) -> Unit,
     ) :
         RecyclerView.ViewHolder(binding.root) {
         private var isItemSelected = false
@@ -45,7 +45,6 @@ class ActionplanAdapter(
                 ivActionplanMenu.setOnClickListener {
                     isItemSelected = !isItemSelected
                     if (isItemSelected) {
-                        isSeedSelectedCallback?.invoke()
                         clActionplanMenu.visibility = View.VISIBLE
                     } else {
                         clActionplanMenu.visibility = View.INVISIBLE
@@ -69,7 +68,7 @@ class ActionplanAdapter(
                 }
                 ivActionplan.setOnClickListener {
                     isSeedSelected = !isSeedSelected
-                    clickScrapActionplan(data.actionplanId)
+                    clickScrapActionplan(data.actionplanId, isSeedSelected)
                     if (isSeedSelected) {
                         ivActionplan.setImageResource(R.drawable.ic_scrap_selected)
                     } else {
