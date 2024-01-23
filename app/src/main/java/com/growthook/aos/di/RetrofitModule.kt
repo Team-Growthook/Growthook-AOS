@@ -126,7 +126,7 @@ object RetrofitModule {
                             Timber.e(throwable.message)
                             if (throwable is HttpException && (response.code == BAD_REQUEST || response.code == EXPIRED_TOKEN)) {
                                 tokenRepository.setToken("", "")
-                                userRepository.setUserInfo("", 0, true)
+                                userRepository.setUserInfo("", 0)
                                 ProcessPhoenix.triggerRebirth(
                                     context,
                                     LoginActivity.newInstance(context),
