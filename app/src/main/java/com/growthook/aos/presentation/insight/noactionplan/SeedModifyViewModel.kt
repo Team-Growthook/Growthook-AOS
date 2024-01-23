@@ -82,8 +82,13 @@ class SeedModifyViewModel @Inject constructor(
             sourceModify.value != seedInfo.value?.source ||
             urlModify.value != seedInfo.value?.url
 
-    private fun checkIsModifySuccess(): Boolean =
-        seedModifyResponse.value == true && seedMoveResponse.value == true
+    private fun checkIsModifySuccess(): Boolean {
+        return if (selectedCaveId.value != 0) {
+            seedModifyResponse.value == true && seedMoveResponse.value == true
+        } else {
+            seedModifyResponse.value == true
+        }
+    }
 
     fun setSeedInfo(info: SeedInfo) {
         _seedInfo.value = info
@@ -91,7 +96,7 @@ class SeedModifyViewModel @Inject constructor(
 
     fun modifySeed(insight: String, memo: String, source: String, url: String) {
         viewModelScope.launch {
-            modifySeedUseCase(_seedInfo.value?.seedId?:0, insight, memo, source, url)
+            modifySeedUseCase(_seedInfo.value?.seedId ?: 0, insight, memo, source, url)
                 .onSuccess {
                     seedModifyResponse.value = true
                     Timber.d("서버 통신 -> 성공 씨앗 수정 ")
@@ -104,7 +109,7 @@ class SeedModifyViewModel @Inject constructor(
 
     fun moveSeed() {
         viewModelScope.launch {
-            moveSeedUseCase.invoke(_seedInfo.value?.seedId?:0, selectedCaveId.value).onSuccess {
+            moveSeedUseCase.invoke(_seedInfo.value?.seedId ?: 0, selectedCaveId.value).onSuccess {
                 seedMoveResponse.value = true
             }.onFailure {
                 seedMoveResponse.value = false

@@ -72,6 +72,7 @@ class InsightMenuBottomsheet :
                     seed.remainingDays / 30,
                 )
                 startActivity(SeedModifyActivity.getIntent(requireContext(), modifyIntent))
+                requireActivity().finish()
                 dismiss()
             }
         }
