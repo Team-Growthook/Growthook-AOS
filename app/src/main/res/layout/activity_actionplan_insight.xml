@@ -211,7 +211,7 @@
                     android:layout_marginTop="8dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/iv_actionplan_insight_empty"
+                    app:layout_constraintTop_toBottomOf="@id/iv_actionplan_insight_empty"
                     android:textColor="@color/Gray200" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -226,7 +226,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_actionplan_insight_date">
-
                 <TextView
                     android:id="@+id/tv_actionplan_insight_content"
                     style="@style/body3_reg"

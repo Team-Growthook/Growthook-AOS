@@ -143,7 +143,7 @@ class ActionplanInsightActivity :
                 tvActionplanInsightChip.text = seed?.caveName
                 "D-${seed?.remainingDays}".also { tvActionplanInsightDday.text = it }
 
-                if (seed.content == null) {
+                if (seed.content.isNullOrEmpty()) {
                     clActionplanInsightMemoEmpty.visibility = View.VISIBLE
                     scvActionplanInsightContent.visibility = View.INVISIBLE
                 } else {
