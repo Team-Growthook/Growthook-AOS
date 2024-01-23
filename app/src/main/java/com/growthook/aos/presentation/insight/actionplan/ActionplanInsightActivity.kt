@@ -86,8 +86,10 @@ class ActionplanInsightActivity :
                 ::clickDeleteMenu,
                 ::clickCompleteBtn,
                 ::clickScrapActionplan,
-                ::isScraped,
             )
+        _actionplanAdapter?.setSeedSelectedCallback {
+            Toast.makeText(this, "액션이 스크랩되었어요", Toast.LENGTH_SHORT).show()
+        }
         binding.rcvActionplanInsight.adapter = _actionplanAdapter
     }
 
@@ -208,7 +210,7 @@ class ActionplanInsightActivity :
     }
 
     private fun clickScrapActionplan(actionplanId: Int) {
-        viewModel.changeScrap(actionplanId)
+        viewModel.changeActionplanScrap(actionplanId)
     }
 
     private fun clickAddActionplan() {

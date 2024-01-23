@@ -10,14 +10,12 @@ import com.growthook.aos.R
 import com.growthook.aos.databinding.ItemActionplanBinding
 import com.growthook.aos.domain.entity.Actionplan
 import com.growthook.aos.util.extension.ItemDiffCallback
-import timber.log.Timber
 
 class ActionplanAdapter(
     private val clickModify: (Int) -> Unit,
     private val clickDelete: (Int) -> Unit,
     private val clickComplete: (Int) -> Unit,
     private val clickScrapActionplan: (Int) -> Unit,
-    private val isScraped: () -> Boolean,
 ) :
     ListAdapter<Actionplan, ActionplanAdapter.ActionplanViewHolder>(
         ItemDiffCallback<Actionplan>(
@@ -25,6 +23,11 @@ class ActionplanAdapter(
             onItemsTheSame = { old, new -> old.actionplanId == new.actionplanId },
         ),
     ) {
+    private var isSeedSelectedCallback: (() -> Unit)? = null
+
+    fun setSeedSelectedCallback(callback: (() -> Unit)?) {
+        isSeedSelectedCallback = callback
+    }
 
     inner class ActionplanViewHolder(
         private val binding: ItemActionplanBinding,
@@ -32,18 +35,17 @@ class ActionplanAdapter(
         private val clickDelete: (Int) -> Unit,
         private val clickComplete: (Int) -> Unit,
         private val clickScrapActionplan: (Int) -> Unit,
-        private val isScraped: () -> Boolean,
     ) :
         RecyclerView.ViewHolder(binding.root) {
         private var isItemSelected = false
         private var isSeedSelected = false
         fun onBind(data: Actionplan) {
             with(binding) {
-                Timber.d("isScraped: ${data.isScraped}")
                 tvActionplanTitle.text = data.content
                 ivActionplanMenu.setOnClickListener {
                     isItemSelected = !isItemSelected
                     if (isItemSelected) {
+                        isSeedSelectedCallback?.invoke()
                         clActionplanMenu.visibility = View.VISIBLE
                     } else {
                         clActionplanMenu.visibility = View.INVISIBLE
@@ -111,7 +113,6 @@ class ActionplanAdapter(
             clickDelete,
             clickComplete,
             clickScrapActionplan,
-            isScraped,
         )
     }
 

@@ -155,7 +155,7 @@ class ActionplanInsightViewModel @Inject constructor(
         }
     }
 
-    fun changeScrap(actionplanId: Int) {
+    fun changeActionplanScrap(actionplanId: Int) {
         viewModelScope.launch {
             scrapActionplanUseCase.invoke(actionplanId).onSuccess {
                 _event.value = Event.ScrapSuccess
