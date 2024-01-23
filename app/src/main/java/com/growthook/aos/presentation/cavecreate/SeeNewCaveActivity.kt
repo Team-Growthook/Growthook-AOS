@@ -58,7 +58,7 @@ class SeeNewCaveActivity : BaseActivity<ActivitySeeNewCaveBinding>({
         const val NEW_CAVE_INFO = "NEW_CAVE_INFO"
 
         fun getIntent(context: Context, newCaveIntent: NewCaveIntent): Intent {
-            return Intent(context, NoActionplanInsightActivity::class.java).apply {
+            return Intent(context, SeeNewCaveActivity::class.java).apply {
                 putExtra(NEW_CAVE_INFO, newCaveIntent)
             }
         }

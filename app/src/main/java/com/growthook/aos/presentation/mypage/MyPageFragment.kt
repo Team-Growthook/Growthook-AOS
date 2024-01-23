@@ -10,7 +10,7 @@ import androidx.fragment.app.viewModels
 import com.growthook.aos.data.service.KakaoAuthService
 import com.growthook.aos.databinding.FragmentMypageBinding
 import com.growthook.aos.presentation.mypage.detailinfo.DetailMyPageActivity
-import com.growthook.aos.presentation.onboarding.LoginActivity
+import com.growthook.aos.presentation.onboarding.OnboardingActivity
 import com.growthook.aos.util.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -61,7 +61,7 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>() {
     private fun observeLogoutSuccess() {
         viewModel.isLogoutSuccess.observe(viewLifecycleOwner) { isSuccess ->
             if (isSuccess) {
-                val intent = Intent(requireActivity(), LoginActivity::class.java)
+                val intent = Intent(requireActivity(), OnboardingActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
             }
@@ -80,9 +80,12 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>() {
         }
     }
 
-    private fun clickPolicy(){
+    private fun clickPolicy() {
         binding.btnMyPagePolicy.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://groovy-need-069.notion.site/9edc8ab432d34da682b9320f9bc6fd31"))
+            val intent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("https://groovy-need-069.notion.site/9edc8ab432d34da682b9320f9bc6fd31"),
+            )
             startActivity(intent)
         }
     }

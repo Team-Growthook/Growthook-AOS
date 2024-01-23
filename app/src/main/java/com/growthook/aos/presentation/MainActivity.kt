@@ -1,7 +1,8 @@
 package com.growthook.aos.presentation
 
+import android.content.Intent
 import android.os.Bundle
-import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
@@ -11,16 +12,20 @@ import com.growthook.aos.databinding.ActivityMainBinding
 import com.growthook.aos.presentation.actionlist.ActionlistFragment
 import com.growthook.aos.presentation.home.HomeFragment
 import com.growthook.aos.presentation.mypage.MyPageFragment
+import com.growthook.aos.presentation.onboarding.OnboardingActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private val viewModel by viewModels<MainActivityViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initBottomNavigation()
+        isAlreadyLogin()
     }
 
     private fun initBottomNavigation() {
@@ -34,6 +39,18 @@ class MainActivity : AppCompatActivity() {
                 R.id.menu_mypage -> navigateTo<MyPageFragment>()
             }
             true
+        }
+    }
+
+    private fun isAlreadyLogin() {
+        viewModel.isAlreadyLogin.observe(this) { isAlreadyLogin ->
+            if (!isAlreadyLogin) {
+                val intent =
+                    Intent(this, OnboardingActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+                finish()
+            }
         }
     }
 

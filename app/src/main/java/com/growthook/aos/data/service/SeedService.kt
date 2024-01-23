@@ -4,12 +4,12 @@ import com.growthook.aos.data.model.request.RequestSeedModifyDto
 import com.growthook.aos.data.model.request.RequestSeedMoveDto
 import com.growthook.aos.data.model.request.RequestSeedPostDto
 import com.growthook.aos.data.model.response.ResponseAlarmDto
-import com.growthook.aos.data.model.response.ResponseDataDto
 import com.growthook.aos.data.model.response.ResponseDto
 import com.growthook.aos.data.model.response.ResponseGetCaveSeedsDto
 import com.growthook.aos.data.model.response.ResponseGetSeedDto
 import com.growthook.aos.data.model.response.ResponseGetSeedsDto
 import com.growthook.aos.data.model.response.ResponseMoveSeedDto
+import com.growthook.aos.data.model.response.ResponsePostSeedDto
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -39,7 +39,7 @@ interface SeedService {
     suspend fun postSeed(
         @Path("caveId") caveId: Int,
         @Body request: RequestSeedPostDto,
-    ): ResponseDataDto
+    ): ResponsePostSeedDto
 
     @GET("api/v1/cave/{caveId}/seed/list")
     suspend fun getCaveSeeds(
@@ -69,6 +69,6 @@ interface SeedService {
     @PATCH("api/v1/seed/{seedId}")
     suspend fun modifySeed(
         @Path("seedId") seedId: Int,
-        @Body request: RequestSeedModifyDto
+        @Body request: RequestSeedModifyDto,
     ): ResponseDto
 }

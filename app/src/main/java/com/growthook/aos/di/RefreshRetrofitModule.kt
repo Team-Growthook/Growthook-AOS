@@ -25,7 +25,7 @@ object RefreshRetrofitModule {
 
     private const val BEARER = "Bearer "
     private const val AUTHORIZATION = "Authorization"
-    private const val REFRESH_HEADER = "Refresh"
+    private const val REFRESH_HEADER = "refreshToken"
 
     @Provides
     @Singleton

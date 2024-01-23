@@ -71,10 +71,8 @@ class NoApiCaveSelectBottomSheet : CaveSelect() {
         adapter.registerAdapterDataObserver(
             EmptyDataObserver(
                 binding.rcvHomeSelectCave,
-                emptyViews = arrayOf(
-                    binding.ivCaveSelectEmpty,
-                    binding.tvCaveSelectEmpty,
-                ),
+                binding.ivCaveSelectEmpty,
+                binding.tvCaveSelectEmpty,
             ),
         )
 

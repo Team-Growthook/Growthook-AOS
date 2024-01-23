@@ -1,6 +1,5 @@
 package com.growthook.aos.presentation.onboarding
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -24,7 +23,6 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        isAlreadyLogin()
         startKakaoLogin()
         isKakaoLogin()
     }
@@ -43,25 +41,6 @@ class LoginActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }
-        }
-    }
-
-    private fun isAlreadyLogin() {
-        viewModel.checkIsAlreadyLogin()
-        viewModel.isAlreadyLogin.observe(this) { isAlreadyLogin ->
-            if (isAlreadyLogin) {
-                val intent =
-                    Intent(this@LoginActivity, MainActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-                startActivity(intent)
-                finish()
-            }
-        }
-    }
-
-    companion object {
-        fun newInstance(context: Context) = Intent(context, LoginActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
     }
 }
