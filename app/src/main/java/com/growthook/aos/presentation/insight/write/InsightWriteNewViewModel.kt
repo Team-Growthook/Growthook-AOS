@@ -1,13 +1,11 @@
 package com.growthook.aos.presentation.insight.write
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.growthook.aos.domain.entity.Seed
 import com.growthook.aos.domain.usecase.seeddetail.GetSeedUseCase
-import com.growthook.aos.presentation.insight.noactionplan.NoActionplanInsightViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -23,7 +21,7 @@ class InsightWriteNewViewModel @Inject constructor(
 
     fun getNewSeedData(seedId: Int) {
         viewModelScope.launch {
-            getSeedUseCase.invoke(seedId)
+            getSeedUseCase(seedId)
                 .onSuccess { seed ->
                     _newSeedData.value = seed
                 }

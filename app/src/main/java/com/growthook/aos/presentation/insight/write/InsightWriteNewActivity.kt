@@ -5,13 +5,13 @@ import android.view.View
 import androidx.activity.viewModels
 import com.growthook.aos.R
 import com.growthook.aos.databinding.ActivityInsightWriteNewBinding
+import com.growthook.aos.presentation.insight.noactionplan.add.AddActionplanActivity
 import com.growthook.aos.util.base.BaseActivity
 import com.growthook.aos.util.base.BaseAlertDialog
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
-class InsightWriteNewActivity: BaseActivity<ActivityInsightWriteNewBinding>({
+class InsightWriteNewActivity : BaseActivity<ActivityInsightWriteNewBinding>({
     ActivityInsightWriteNewBinding.inflate(it)
 }) {
 
@@ -51,11 +51,11 @@ class InsightWriteNewActivity: BaseActivity<ActivityInsightWriteNewBinding>({
 
     private fun initMakeNewInsightWriteView() {
 
-        seedId = intent.getIntExtra(NEW_SEED_ID , 0)
+        seedId = intent.getIntExtra(NEW_SEED_ID, 0)
         viewModel.getNewSeedData(seedId)
 
         viewModel.newSeedData.observe(this) { seed ->
-            with (binding) {
+            with(binding) {
                 tvInsightWriteNewChip.text = seed.caveName
                 tvInsightWriteNewTitle.text = seed.title
                 tvInsightWriteNewContent.text = seed.content
@@ -85,7 +85,7 @@ class InsightWriteNewActivity: BaseActivity<ActivityInsightWriteNewBinding>({
 
     private fun clickCreateNewActionPlanBtn() {
         binding.btnInsightWriteNewActionplan.setOnClickListener {
-            // TODO 액션플랜 생성 뷰로 넘어가는 로직 추가
+            startActivity(AddActionplanActivity.getIntent(this, seedId))
         }
     }
 
