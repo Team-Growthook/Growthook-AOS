@@ -61,20 +61,17 @@ class InsightMenuBottomsheet :
 
     private fun clickModifyMenu() {
         binding.clInsightMenuModify.setOnClickListener {
-            val intent = Intent(requireActivity(), SeedModifyActivity::class.java)
             viewModel.seedData.observe(viewLifecycleOwner) { seed ->
-                intent.putExtra(
-                    SEED_MODIFY_INTENT,
-                    SeedModifyIntent(
-                        seed.title,
-                        seed.content,
-                        seed.caveName,
-                        seed.source,
-                        seed.url,
-                        seed.remainingDays / 30,
-                    ),
+                val modifyIntent = SeedModifyIntent(
+                    viewModel.seedId,
+                    seed.title,
+                    seed.content,
+                    seed.caveName,
+                    seed.source,
+                    seed.url,
+                    seed.remainingDays / 30,
                 )
-                startActivity(intent)
+                startActivity(SeedModifyActivity.getIntent(requireContext(), modifyIntent))
                 dismiss()
             }
         }

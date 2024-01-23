@@ -8,13 +8,15 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import com.growthook.aos.databinding.ActivitySeedModifyBinding
 import com.growthook.aos.domain.entity.SeedInfo
-import com.growthook.aos.presentation.insight.noactionplan.InsightMenuBottomsheet.Companion.SEED_MODIFY_INTENT
 import com.growthook.aos.presentation.insight.noactionplan.model.SeedModifyIntent
+import com.growthook.aos.presentation.insight.write.InsightWriteActivity
 import com.growthook.aos.util.base.BaseActivity
 import com.growthook.aos.util.extension.CommonTextWatcher
 import com.growthook.aos.util.extension.getParcelable
 import com.growthook.aos.util.extension.hideKeyboard
+import com.growthook.aos.util.selectcave.CaveSelect
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class SeedModifyActivity : BaseActivity<ActivitySeedModifyBinding>({
@@ -33,6 +35,7 @@ class SeedModifyActivity : BaseActivity<ActivitySeedModifyBinding>({
         initGetSeedModifyEdt()
         initSetClickGoalMonth()
         initSetBtnEnabled()
+        initSetSelectCaveBottomSheet()
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
@@ -75,9 +78,10 @@ class SeedModifyActivity : BaseActivity<ActivitySeedModifyBinding>({
 
     private fun getSeedIntentInfo() {
         val seedModifyIntent =
-            intent.getParcelable(SEED_MODIFY_INTENT, SeedModifyIntent::class.java)
+            intent.getParcelable(SEED_ID, SeedModifyIntent::class.java)
         viewModel.setSeedInfo(
             SeedInfo(
+                seedModifyIntent?.seedId ?: 0,
                 seedModifyIntent?.insight ?: "",
                 seedModifyIntent?.memo ?: "",
                 seedModifyIntent?.cave ?: "",
@@ -129,27 +133,43 @@ class SeedModifyActivity : BaseActivity<ActivitySeedModifyBinding>({
         }
     }
 
+    private fun initSetSelectCaveBottomSheet() {
+        binding.layoutSeedModifyCave.setOnClickListener {
+            binding.layoutSeedModifyCave.requestFocusFromTouch()
+            CaveSelect.Builder().build(
+                CaveSelect.CaveSelectType.NO_API,
+                clickBtnAction = { cave ->
+                    viewModel.selectedCaveId.value = cave.id
+                    binding.tvSeedModifyCaveSelected.text = cave.name
+                },
+            ).show(supportFragmentManager, InsightWriteActivity.TAG_BOTTOM_SHEET)
+        }
+    }
+
     private fun clickSeedModifyBtn() {
         binding.btnSeedModify.setOnClickListener {
             viewModel.modifySeed(
-                DUMMY_SEED,
                 viewModel.seedInfo.value?.insight ?: "",
                 viewModel.seedInfo.value?.memo ?: "",
                 viewModel.seedInfo.value?.source ?: "",
                 viewModel.seedInfo.value?.url ?: "",
             )
+            viewModel.moveSeed()
 
             sendSeedModifyInfo()
         }
     }
 
     private fun sendSeedModifyInfo() {
-        val intent = Intent(this, NoActionplanInsightActivity::class.java)
-
-        viewModel.seedModifyResponse.observe(this) {
-            if (it) {
+        viewModel.isModifySuccess.observe(this) { isSuccess ->
+            if (isSuccess) {
                 Toast.makeText(this, "씨앗이 수정되었어요", Toast.LENGTH_SHORT).show()
-                startActivity(intent)
+                startActivity(
+                    NoActionplanInsightActivity.getIntent(
+                        this,
+                        viewModel.seedInfo.value?.seedId ?: 0,
+                    ),
+                )
                 finish()
             }
         }
@@ -157,11 +177,10 @@ class SeedModifyActivity : BaseActivity<ActivitySeedModifyBinding>({
 
     companion object {
         private const val SEED_ID = "seedId"
-        private const val DUMMY_SEED = 159
 
-        fun getIntent(context: Context, seedId: Int): Intent {
+        fun getIntent(context: Context, seedModifyIntent: SeedModifyIntent): Intent {
             return Intent(context, SeedModifyActivity::class.java).apply {
-                putExtra(SEED_ID, seedId)
+                putExtra(SEED_ID, seedModifyIntent)
             }
         }
     }
