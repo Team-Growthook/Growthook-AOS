@@ -23,7 +23,7 @@ class CompletedActionlistAdapter(
     ) {
     class CompletedActionlistViewHolder(
         private val binding: ItemCompletedActionplanBinding,
-        private val selectedItem: (Int) -> Unit,
+        private val clickSeedDetail: (Int) -> Unit,
         private val clickReviewDetail: (Int) -> Unit,
     ) :
         RecyclerView.ViewHolder(binding.root) {
@@ -31,7 +31,7 @@ class CompletedActionlistAdapter(
             with(binding) {
                 tvCompletedActionplanTitle.text = data.content
                 tvCompletedActionplanBtnLeft.setOnClickListener {
-                    selectedItem(data.actionplanId)
+                    clickSeedDetail(data.seedId)
                 }
                 tvCompletedActionplanBtnRight.setOnClickListener {
                     clickReviewDetail(data.actionplanId)

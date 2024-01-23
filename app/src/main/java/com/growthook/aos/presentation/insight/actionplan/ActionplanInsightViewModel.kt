@@ -16,6 +16,7 @@ import com.growthook.aos.domain.usecase.actionplan.PostActionplansUseCase
 import com.growthook.aos.domain.usecase.actionplan.ScrapActionplanUseCase
 import com.growthook.aos.domain.usecase.review.PostReviewUseCase
 import com.growthook.aos.domain.usecase.seeddetail.GetSeedUseCase
+import com.growthook.aos.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -47,6 +48,20 @@ class ActionplanInsightViewModel @Inject constructor(
 
     private val _event = MutableStateFlow<Event>(Event.Default)
     val event: MutableStateFlow<Event> = _event
+
+    // TODO util Event 네이밍 수정
+    private val _isSeedScrapedSuccess = MutableLiveData<com.growthook.aos.util.Event<Boolean>>()
+    val isSeedScrapedSuccess: LiveData<com.growthook.aos.util.Event<Boolean>> = _isSeedScrapedSuccess
+
+    fun changeSeedScrap(seedId: Int) {
+        viewModelScope.launch {
+            scrapSeedUseCase.invoke(seedId).onSuccess {
+                _isSeedScrapedSuccess.value = Event(true)
+            }.onFailure {
+                _isSeedScrapedSuccess.value = Event(false)
+            }
+        }
+    }
 
     fun postActionplan(seedId: Int, actionplan: String) {
         viewModelScope.launch {
@@ -140,7 +155,7 @@ class ActionplanInsightViewModel @Inject constructor(
         }
     }
 
-    fun changeScrap(actionplanId: Int) {
+    fun changeActionplanScrap(actionplanId: Int) {
         viewModelScope.launch {
             scrapActionplanUseCase.invoke(actionplanId).onSuccess {
                 _event.value = Event.ScrapSuccess

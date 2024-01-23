@@ -211,7 +211,7 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
                     },
                 ).show(supportFragmentManager, InsightMenuBottomsheet.DELETE_DIALOG)
         } else if (item.hasActionPlan) {
-            startActivity(ActionplanInsightActivity.getIntent(this, item.seedId))
+            startActivity(ActionplanInsightActivity.getIntent(this, item.seedId, "CaveDetailActivity"))
         } else {
             startActivity(NoActionplanInsightActivity.getIntent(this, item.seedId))
         }

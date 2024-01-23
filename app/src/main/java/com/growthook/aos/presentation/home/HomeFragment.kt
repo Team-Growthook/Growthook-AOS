@@ -218,7 +218,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     },
                 ).show(parentFragmentManager, InsightMenuBottomsheet.DELETE_DIALOG)
         } else if (item.hasActionPlan) {
-            startActivity(ActionplanInsightActivity.getIntent(requireContext(), item.seedId))
+            startActivity(ActionplanInsightActivity.getIntent(requireContext(), item.seedId, "HomeFragment"))
         } else {
             startActivity(NoActionplanInsightActivity.getIntent(requireContext(), item.seedId))
         }

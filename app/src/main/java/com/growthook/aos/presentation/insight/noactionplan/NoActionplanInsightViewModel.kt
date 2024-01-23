@@ -10,9 +10,10 @@ import com.growthook.aos.domain.entity.Seed
 import com.growthook.aos.domain.usecase.DeleteSeedUseCase
 import com.growthook.aos.domain.usecase.GetCavesUseCase
 import com.growthook.aos.domain.usecase.MoveSeedUseCase
+import com.growthook.aos.domain.usecase.ScrapSeedUseCase
 import com.growthook.aos.domain.usecase.local.GetUserUseCase
 import com.growthook.aos.domain.usecase.seeddetail.GetSeedUseCase
-import com.growthook.aos.domain.usecase.seeddetail.ModifySeedUseCase
+import com.growthook.aos.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -24,8 +25,8 @@ class NoActionplanInsightViewModel @Inject constructor(
     private val getSeedUseCase: GetSeedUseCase,
     private val getCavesUseCase: GetCavesUseCase,
     private val deleteSeedUseCase: DeleteSeedUseCase,
-    private val modifySeedUseCase: ModifySeedUseCase,
     private val moveSeedUseCase: MoveSeedUseCase,
+    private val scrapSeedUseCase: ScrapSeedUseCase,
 ) :
     ViewModel() {
     private val _caves = MutableLiveData<List<Cave>>()
@@ -47,19 +48,22 @@ class NoActionplanInsightViewModel @Inject constructor(
 
     private val memberId = MutableLiveData<Int>(0)
 
+    // TODO util Event 네이밍 수정
+    private val _isScrapedSuccess = MutableLiveData<com.growthook.aos.util.Event<Boolean>>()
+    val isScrapedSuccess: LiveData<com.growthook.aos.util.Event<Boolean>> = _isScrapedSuccess
+
     init {
         viewModelScope.launch {
             memberId.value = getUserUseCase.invoke().memberId ?: 0
         }
     }
 
-    fun moveSeed(seedId: Int, caveId: Int) {
+    fun changeSeedScrap(seedId: Int) {
         viewModelScope.launch {
-            moveSeedUseCase(seedId, caveId).onSuccess {
-                _isMove.value = true
+            scrapSeedUseCase.invoke(seedId).onSuccess {
+                _isScrapedSuccess.value = Event(true)
             }.onFailure {
-                _isMove.value = false
-                Timber.d("씨앗 옮기기 ${it.message}")
+                _isScrapedSuccess.value = Event(false)
             }
         }
     }

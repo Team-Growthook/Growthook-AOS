@@ -10,6 +10,7 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.growthook.aos.R
 import com.growthook.aos.databinding.ActivityActionplanInsightBinding
+import com.growthook.aos.presentation.MainActivity
 import com.growthook.aos.presentation.insight.actionplan.ActionplanInsightViewModel.Event
 import com.growthook.aos.util.base.BaseActivity
 import com.growthook.aos.util.base.BaseAlertDialog
@@ -28,28 +29,54 @@ class ActionplanInsightActivity :
 
     private val viewModel by viewModels<ActionplanInsightViewModel>()
     private var seedId: Int = 0
+    private var previousView: String = ""
+    private var isSeedSelected = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        getSeedIdFromHome()
+        getIntentValue()
+        setVisibilityBtn()
         initActionplanAdapter()
         subscribe()
         foldInsightContent()
         clickeListeners()
     }
 
-    private fun getSeedIdFromHome() {
+    private fun getIntentValue() {
         seedId = intent.getIntExtra(SEED_ID, 0)
+        previousView = intent.getStringExtra(PRE_STATE) ?: "nulll"
         Timber.d("ActionplanInsightActivity seed id $seedId")
         viewModel.seedId = seedId
         viewModel.getSeedDetail()
         viewModel.getActionplans()
     }
 
+    private fun setVisibilityBtn() {
+        when (previousView) {
+            "AddActionplanActivity" -> {
+                binding.ivActionplanInsightClose.visibility = View.VISIBLE
+                binding.ivActionplanInsightBack.visibility = View.INVISIBLE
+            }
+        }
+    }
+
     private fun subscribe() {
         observeSeedDetail()
         observeActionplanData()
         observeEvent()
+    }
+
+    private fun clickInsightSeed() {
+        binding.ivActionplanInsightSeed.setOnClickListener {
+            isSeedSelected = !isSeedSelected
+            viewModel.changeSeedScrap(seedId)
+            if (isSeedSelected) {
+                binding.ivActionplanInsightSeed.setImageResource(R.drawable.ic_scrap_selected)
+                Toast.makeText(this, "씨앗이 스크랩 되었어요", Toast.LENGTH_SHORT).show()
+            } else {
+                binding.ivActionplanInsightSeed.setImageResource(R.drawable.ic_scrap_unselected)
+            }
+        }
     }
 
     private fun initActionplanAdapter() {
@@ -59,7 +86,6 @@ class ActionplanInsightActivity :
                 ::clickDeleteMenu,
                 ::clickCompleteBtn,
                 ::clickScrapActionplan,
-                ::isScraped,
             )
         binding.rcvActionplanInsight.adapter = _actionplanAdapter
     }
@@ -130,7 +156,7 @@ class ActionplanInsightActivity :
                 tvActionplanInsightChip.text = seed?.caveName
                 "D-${seed?.remainingDays}".also { tvActionplanInsightDday.text = it }
 
-                if (seed.content == null) {
+                if (seed.content.isNullOrEmpty()) {
                     clActionplanInsightMemoEmpty.visibility = View.VISIBLE
                     scvActionplanInsightContent.visibility = View.INVISIBLE
                 } else {
@@ -161,6 +187,17 @@ class ActionplanInsightActivity :
     private fun clickeListeners() {
         clickBackBtn()
         clickAddActionplan()
+        clickCloseBtn()
+        clickInsightSeed()
+    }
+
+    private fun clickCloseBtn() {
+        binding.ivActionplanInsightClose.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+            finish()
+        }
     }
 
     private fun clickBackBtn() {
@@ -169,8 +206,11 @@ class ActionplanInsightActivity :
         }
     }
 
-    private fun clickScrapActionplan(actionplanId: Int) {
-        viewModel.changeScrap(actionplanId)
+    private fun clickScrapActionplan(actionplanId: Int, isSeedSelected: Boolean) {
+        viewModel.changeActionplanScrap(actionplanId)
+        if (isSeedSelected) {
+            Toast.makeText(this, "액션이 스크랩 되었어요", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun clickAddActionplan() {
@@ -184,16 +224,6 @@ class ActionplanInsightActivity :
                 clickNoWritingBtn = {},
             ).show(supportFragmentManager, "add actionplan dialog")
         }
-    }
-
-    private fun isScraped(): Boolean {
-        var isScraped = false
-        viewModel.event.flowWithLifecycle(lifecycle).onEach { event ->
-            if (event == Event.ScrapSuccess) {
-                isScraped = true
-            }
-        }.launchIn(lifecycleScope)
-        return isScraped
     }
 
     private fun observeEvent() {
@@ -230,9 +260,9 @@ class ActionplanInsightActivity :
                         ).show(supportFragmentManager, "get thook dialog")
                 }
 
-                is Event.ScrapSuccess -> {
-                    Toast.makeText(this, "액션플랜 스크랩 완료!", Toast.LENGTH_SHORT).show()
-                }
+//                is Event.ScrapSuccess -> {
+//                    Toast.makeText(this, "액션플랜 스크랩 완료!", Toast.LENGTH_SHORT).show()
+//                }
 
                 else -> {}
             }
@@ -248,10 +278,12 @@ class ActionplanInsightActivity :
         const val DELETE_DIALOG = "delete dialog"
         private const val TAG = "tag"
         private const val SEED_ID = "seedId"
+        private const val PRE_STATE = "preState"
 
-        fun getIntent(context: Context, seedId: Int): Intent {
+        fun getIntent(context: Context, seedId: Int, preState: String): Intent {
             return Intent(context, ActionplanInsightActivity::class.java).apply {
                 putExtra(SEED_ID, seedId)
+                putExtra(PRE_STATE, preState)
             }
         }
     }

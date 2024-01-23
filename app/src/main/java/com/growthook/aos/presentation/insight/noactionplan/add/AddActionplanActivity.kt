@@ -142,7 +142,14 @@ class AddActionplanActivity :
         viewModel.event.observe(this) { event ->
             when (event) {
                 is Event.PostSuccess -> {
-                    startActivity(ActionplanInsightActivity.getIntent(this, seedId))
+                    startActivity(
+                        ActionplanInsightActivity.getIntent(
+                            this,
+                            seedId,
+                            "AddActionplanActivity",
+                        ),
+                    )
+                    finish()
                 }
 
                 is Event.PostFailed -> {

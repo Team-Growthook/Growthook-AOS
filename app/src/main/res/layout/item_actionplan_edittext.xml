@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="18dp"
         app:boxBackgroundColor="@color/Gray900"
+        style="@style/TextInputLayoutStyle"
         app:counterEnabled="true"
         app:counterMaxLength="40"
         app:endIconMode="clear_text"
