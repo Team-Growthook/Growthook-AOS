@@ -52,8 +52,7 @@ class InsightWriteNewActivity: BaseActivity<ActivityInsightWriteNewBinding>({
     private fun initMakeNewInsightWriteView() {
 
         seedId = intent.getIntExtra(NEW_SEED_ID , 0)
-        viewModel.seedId = seedId
-        viewModel.getNewSeedData()
+        viewModel.getNewSeedData(seedId)
 
         viewModel.newSeedData.observe(this) { seed ->
             with (binding) {

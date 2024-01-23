@@ -21,14 +21,11 @@ class InsightWriteNewViewModel @Inject constructor(
     private val _newSeedData = MutableLiveData<Seed>()
     val newSeedData: LiveData<Seed> = _newSeedData
 
-    var seedId: Int = 0
-
-    fun getNewSeedData() {
+    fun getNewSeedData(seedId: Int) {
         viewModelScope.launch {
             getSeedUseCase.invoke(seedId)
                 .onSuccess { seed ->
                     _newSeedData.value = seed
-                    Timber.d("서버 통신 성공 -> post new seed")
                 }
                 .onFailure { throwable ->
                     Timber.e("서버 통신 실패 -> ${throwable.message}")
