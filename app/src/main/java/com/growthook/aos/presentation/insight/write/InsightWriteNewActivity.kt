@@ -2,6 +2,7 @@ package com.growthook.aos.presentation.insight.write
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import com.growthook.aos.R
 import com.growthook.aos.databinding.ActivityInsightWriteNewBinding
@@ -18,6 +19,7 @@ class InsightWriteNewActivity : BaseActivity<ActivityInsightWriteNewBinding>({
     private val viewModel by viewModels<InsightWriteNewViewModel>()
     private lateinit var seedUrl: String
     private var seedId: Int = 0
+    private var isSeedSelected = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +30,7 @@ class InsightWriteNewActivity : BaseActivity<ActivityInsightWriteNewBinding>({
         clickBackBtn()
         initMakeNewInsightWriteView()
         clickCreateNewActionPlanBtn()
+        clickSeedScrap()
     }
 
     private fun initShowDialog() {
@@ -79,6 +82,19 @@ class InsightWriteNewActivity : BaseActivity<ActivityInsightWriteNewBinding>({
                 } else {
                     ivInsightWriteNewSeed.setImageResource(R.drawable.ic_scrap_unselected)
                 }
+            }
+        }
+    }
+
+    private fun clickSeedScrap() {
+        binding.ivInsightWriteNewSeed.setOnClickListener {
+            isSeedSelected = !isSeedSelected
+            viewModel.changeSeedScrap(seedId)
+            if (isSeedSelected) {
+                binding.ivInsightWriteNewSeed.setImageResource(R.drawable.ic_scrap_selected)
+                Toast.makeText(this, "씨앗 스크랩 완료", Toast.LENGTH_SHORT).show()
+            } else {
+                binding.ivInsightWriteNewSeed.setImageResource(R.drawable.ic_scrap_unselected)
             }
         }
     }
