@@ -154,7 +154,7 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
     private fun clickLock() {
         binding.ivCaveDetailIsLock.setOnClickListener {
             BaseAlertDialog.Builder()
-                .setCancelable(true)
+                .setCancelable(false)
                 .build(
                     type = BaseAlertDialog.DialogType.SINGLE_INTENDED,
                     title = "내 동굴에 친구를 초대해\n" +
