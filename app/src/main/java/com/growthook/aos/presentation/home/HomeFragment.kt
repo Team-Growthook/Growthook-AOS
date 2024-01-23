@@ -73,6 +73,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         observeNickName()
 
         observeInsights()
+
+        isInsightDelete()
     }
 
     private fun observeInsights() {
@@ -168,6 +170,18 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         viewModel.isMenuDismissed.observe(viewLifecycleOwner) {
             longTracker.clearSelection()
             binding.fabHomeAddInsight.visibility = View.VISIBLE
+        }
+    }
+
+    private fun isInsightDelete() {
+        viewModel.isDelete.observe(viewLifecycleOwner) { isDelete ->
+            if (isDelete) {
+                if (binding.chbHomeScrap.isChecked) {
+                    viewModel.getScrapedInsight()
+                } else {
+                    viewModel.getInsights()
+                }
+            }
         }
     }
 

@@ -63,6 +63,7 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
         clickAddSeed()
         observeInsights()
         setInsightTitle()
+        isInsightDelete()
     }
 
     override fun onResume() {
@@ -272,6 +273,18 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
         binding.fabCaveDetailAddInsight.setOnClickListener {
             val intent = Intent(this, InsightWriteActivity::class.java)
             startActivity(intent)
+        }
+    }
+
+    private fun isInsightDelete() {
+        viewModel.isSeedDelete.observe(this) { isDelete ->
+            if (isDelete) {
+                if (binding.chbCaveDetailScrap.isChecked) {
+                    viewModel.getScrapedInsights()
+                } else {
+                    viewModel.getInsights()
+                }
+            }
         }
     }
 

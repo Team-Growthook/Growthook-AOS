@@ -65,6 +65,7 @@ class CaveDetailSelectMenuBottomSheet() :
                         viewModel.isSeedDelete.observe(viewLifecycleOwner) { isDelete ->
                             if (isDelete) {
                                 Toast.makeText(context, "씨앗이 삭제되었어요", Toast.LENGTH_SHORT).show()
+                                dismiss()
                             }
                         }
                     },
