@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import com.growthook.aos.R
 import com.growthook.aos.databinding.ActivityNoActionplanInsightBinding
@@ -19,6 +20,7 @@ class NoActionplanInsightActivity :
     private val viewModel by viewModels<NoActionplanInsightViewModel>()
     private var seedId: Int = 0
     private lateinit var seedUrl: String
+    private var isSeedSelected = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,6 +73,20 @@ class NoActionplanInsightActivity :
         clickAddAction()
         clickBackBtn()
         clickUrl()
+        clickInsightSeed()
+    }
+
+    private fun clickInsightSeed() {
+        binding.ivNoactionInsightSeed.setOnClickListener {
+            isSeedSelected = !isSeedSelected
+            viewModel.changeSeedScrap(seedId)
+            if (isSeedSelected) {
+                binding.ivNoactionInsightSeed.setImageResource(R.drawable.ic_scrap_selected)
+                Toast.makeText(this, "씨앗 스크랩 완료", Toast.LENGTH_SHORT).show()
+            } else {
+                binding.ivNoactionInsightSeed.setImageResource(R.drawable.ic_scrap_unselected)
+            }
+        }
     }
 
     private fun clickMenu() {
@@ -105,6 +121,7 @@ class NoActionplanInsightActivity :
                 NoActionplanInsightViewModel.Event.DeleteSeedSuccess -> {
                     finish()
                 }
+
                 else -> {}
             }
         }
