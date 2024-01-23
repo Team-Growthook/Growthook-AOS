@@ -72,8 +72,10 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
     }
 
     private fun setInsightTitle() {
-        viewModel.unScrapedInsights.observe(this) {
-            binding.tvCaveDetailInsightTitle.text = "${it.size}개의 씨앗을 모았어요"
+        viewModel.unScrapedInsights.observe(this) { insights ->
+            if (insights.isNotEmpty()) {
+                binding.tvCaveDetailInsightTitle.text = "${insights.size}개의 씨앗을 모았어요"
+            }
         }
     }
 
@@ -108,11 +110,11 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
             insightAdapter.submitList(it)
         }
     }
+
     private fun observeListIsEmpty() {
         insightAdapter.registerAdapterDataObserver(
             EmptyDataObserver(
                 binding.rcvCaveDetailInsight,
-                binding.tvCaveDetailInsightTitle,
                 binding.tvCaveDetailEmptyInsight,
                 binding.ivCaveDetailEmptyInsight,
             ),

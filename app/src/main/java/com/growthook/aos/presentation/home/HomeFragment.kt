@@ -90,8 +90,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun setInsightTitle() {
-        viewModel.unScrapedInsights.observe(viewLifecycleOwner) {
-            binding.tvHomeInsightTitle.text = "${it.size}개의 씨앗을 모았어요"
+        viewModel.unScrapedInsights.observe(viewLifecycleOwner) { insights ->
+            if (insights.isNotEmpty()) {
+                binding.tvHomeInsightTitle.text = "${insights.size}개의 씨앗을 모았어요"
+            }
         }
     }
 
@@ -131,7 +133,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         insightAdapter.registerAdapterDataObserver(
             EmptyDataObserver(
                 binding.rcvHomeInsight,
-                binding.tvHomeInsightTitle,
                 binding.tvHomeEmptyInsight,
                 binding.ivHomeEmptyInsight,
             ),
