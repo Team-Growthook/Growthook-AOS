@@ -174,7 +174,7 @@
         android:paddingStart="18dp"
         android:paddingTop="14dp"
         android:paddingBottom="14dp"
-        android:text="스크랩"
+        android:text="스크랩만 보기"
         android:textAppearance="@style/detail3_reg"
         android:textColor="@color/sel_home_scrap"
         app:layout_constraintBottom_toTopOf="@id/rcv_home_insight"
