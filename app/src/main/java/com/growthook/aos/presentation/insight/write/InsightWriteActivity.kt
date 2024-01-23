@@ -6,11 +6,13 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.activity.viewModels
 import com.growthook.aos.databinding.ActivityInsightWriteBinding
+import com.growthook.aos.presentation.insight.write.InsightWriteNewActivity.Companion.NEW_SEED_ID
 import com.growthook.aos.util.base.BaseActivity
 import com.growthook.aos.util.extension.CommonTextWatcher
 import com.growthook.aos.util.extension.hideKeyboard
 import com.growthook.aos.util.selectcave.CaveSelect
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class InsightWriteActivity : BaseActivity<ActivityInsightWriteBinding>({
@@ -124,15 +126,22 @@ class InsightWriteActivity : BaseActivity<ActivityInsightWriteBinding>({
     }
 
     private fun clickInsightWriteBtn() {
-        val intent = Intent(this, InsightWriteNewActivity::class.java)
         binding.btnInsightWrite.setOnClickListener {
             viewModel.postNewSeed()
             viewModel.postSeedSuccess.observe(this) { isSuccess ->
                 if (isSuccess) {
-                    startActivity(intent)
-                    finish()
+                    sendNewInsightInfo()
                 }
             }
+        }
+    }
+
+    private fun sendNewInsightInfo() {
+        val intent = Intent(this, InsightWriteNewActivity::class.java)
+        viewModel.seedId.observe(this) {
+            intent.putExtra(NEW_SEED_ID, it)
+            startActivity(intent)
+            finish()
         }
     }
 

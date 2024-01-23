@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.growthook.aos.databinding.ActivityInsightWriteNewBinding
 import com.growthook.aos.util.base.BaseActivity
 import com.growthook.aos.util.base.BaseAlertDialog
+import timber.log.Timber
 
 class InsightWriteNewActivity: BaseActivity<ActivityInsightWriteNewBinding>({
     ActivityInsightWriteNewBinding.inflate(it)
@@ -16,6 +17,7 @@ class InsightWriteNewActivity: BaseActivity<ActivityInsightWriteNewBinding>({
 
         initShowDialog()
         clickBackBtn()
+        initMakeNewInsightWriteView()
     }
 
     private fun initShowDialog() {
@@ -39,6 +41,7 @@ class InsightWriteNewActivity: BaseActivity<ActivityInsightWriteNewBinding>({
 
     private fun initMakeNewInsightWriteView() {
         // TODO 씨앗 정보 뷰 서버통신 후 뷰 그리는 로직 추가
+        Timber.d("seedId -> ${intent.getIntExtra(NEW_SEED_ID , 0)}")
     }
 
     private fun clickCreateNewActionPlanBtn() {
@@ -51,5 +54,9 @@ class InsightWriteNewActivity: BaseActivity<ActivityInsightWriteNewBinding>({
         binding.btnInsightWriteClose.setOnClickListener {
             finish()
         }
+    }
+
+    companion object {
+        const val NEW_SEED_ID = "NEW_SEED_ID"
     }
 }
