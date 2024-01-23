@@ -7,7 +7,7 @@ import com.facebook.flipper.plugins.network.NetworkFlipperPlugin
 import com.growthook.aos.domain.repository.RefreshRepository
 import com.growthook.aos.domain.repository.TokenRepository
 import com.growthook.aos.domain.repository.UserRepository
-import com.growthook.aos.presentation.onboarding.LoginActivity
+import com.growthook.aos.presentation.onboarding.OnboardingActivity
 import com.growthook.aos.util.extension.isJsonArray
 import com.growthook.aos.util.extension.isJsonObject
 import com.jakewharton.processphoenix.ProcessPhoenix
@@ -129,7 +129,7 @@ object RetrofitModule {
                                 userRepository.setUserInfo("", 0)
                                 ProcessPhoenix.triggerRebirth(
                                     context,
-                                    LoginActivity.newInstance(context),
+                                    OnboardingActivity.newInstance(context),
                                 )
                             }
                         }
