@@ -25,7 +25,7 @@ class OnboardingActivity :
     }
 
     companion object {
-        fun newInstance(context: Context) = Intent(context, LoginActivity::class.java).apply {
+        fun newInstance(context: Context) = Intent(context, OnboardingActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
     }
