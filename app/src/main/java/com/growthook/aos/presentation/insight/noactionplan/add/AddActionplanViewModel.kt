@@ -59,9 +59,11 @@ class AddActionplanViewModel @Inject constructor(
     }
 
     fun addItem(item: String) {
-        val currentItems = _actionplanList.value.orEmpty().toMutableList()
-        currentItems.add(0, item)
-        _actionplanList.value = currentItems
+        if (!item.isNullOrBlank()) {
+            val currentItems = _actionplanList.value.orEmpty().toMutableList()
+            currentItems.add(0, item)
+            _actionplanList.value = currentItems
+        }
     }
 
     fun updateItem(position: Int, text: String) {

@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.growthook.aos.R
 import com.growthook.aos.databinding.FragmentInsightMenuBottomsheetBinding
-import com.growthook.aos.presentation.MainActivity
 import com.growthook.aos.presentation.insight.noactionplan.NoActionplanInsightViewModel.Event
 import com.growthook.aos.presentation.insight.noactionplan.model.SeedModifyIntent
 import com.growthook.aos.util.base.BaseAlertDialog
@@ -94,8 +93,6 @@ class InsightMenuBottomsheet :
                 isTipVisility = false,
                 negativeAction = {
                     viewModel.deleteSeed()
-                    val intent = Intent(requireActivity(), MainActivity::class.java)
-                    startActivity(intent)
                     dismiss()
                 },
                 positiveAction = {},
@@ -116,7 +113,6 @@ class InsightMenuBottomsheet :
 
     companion object {
         const val DELETE_DIALOG = "delete dialog"
-        private const val DUMMY_SEED = 113
         const val SEED_MODIFY_INTENT = "SEED_MODIFY_INTENT"
         const val CAVE_SELECT_DIALOG = "cave select dialog"
     }
