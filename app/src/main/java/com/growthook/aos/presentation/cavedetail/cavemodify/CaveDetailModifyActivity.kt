@@ -89,7 +89,7 @@ class CaveDetailModifyActivity :
         private const val CAVE_MODIFY_ID = "caveModify"
 
         fun getIntent(context: Context, caveModifyIntent: CaveModifyIntent): Intent {
-            return Intent(context, NoActionplanInsightActivity::class.java).apply {
+            return Intent(context, CaveDetailActivity::class.java).apply {
                 putExtra(CAVE_MODIFY_ID, caveModifyIntent)
             }
         }
