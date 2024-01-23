@@ -30,6 +30,7 @@ class ActionplanInsightActivity :
     private val viewModel by viewModels<ActionplanInsightViewModel>()
     private var seedId: Int = 0
     private var previousView: String = ""
+    private var isSeedSelected = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,6 +64,19 @@ class ActionplanInsightActivity :
         observeSeedDetail()
         observeActionplanData()
         observeEvent()
+    }
+
+    private fun clickInsightSeed() {
+        binding.ivActionplanInsightSeed.setOnClickListener {
+            isSeedSelected = !isSeedSelected
+            viewModel.changeSeedScrap(seedId)
+            if (isSeedSelected) {
+                binding.ivActionplanInsightSeed.setImageResource(R.drawable.ic_scrap_selected)
+                Toast.makeText(this, "씨앗 스크랩 완료", Toast.LENGTH_SHORT).show()
+            } else {
+                binding.ivActionplanInsightSeed.setImageResource(R.drawable.ic_scrap_unselected)
+            }
+        }
     }
 
     private fun initActionplanAdapter() {
@@ -175,6 +189,7 @@ class ActionplanInsightActivity :
         clickBackBtn()
         clickAddActionplan()
         clickCloseBtn()
+        clickInsightSeed()
     }
 
     private fun clickCloseBtn() {
