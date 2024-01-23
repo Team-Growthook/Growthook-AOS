@@ -7,6 +7,7 @@ import com.growthook.aos.data.model.response.ResponseDto
 import com.growthook.aos.data.model.response.ResponseGetCaveSeedsDto
 import com.growthook.aos.data.model.response.ResponseGetCavesDto
 import com.growthook.aos.data.model.response.ResponseGetDetailCaveDto
+import com.growthook.aos.data.model.response.ResponsePostCaveDto
 
 interface CaveDataSource {
     suspend fun deleteCave(caveId: Int): ResponseDto
@@ -17,5 +18,5 @@ interface CaveDataSource {
 
     suspend fun modifyCave(caveId: Int, request: RequestCaveModifyDto): ResponseDto
 
-    suspend fun postCave(memberId: Int, request: RequestCavePostDto): ResponseDataDto
+    suspend fun postCave(memberId: Int, request: RequestCavePostDto): ResponsePostCaveDto
 }

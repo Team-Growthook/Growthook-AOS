@@ -73,7 +73,7 @@ class CaveDetailViewModel @Inject constructor(
 
     fun getInsights() {
         viewModelScope.launch {
-            getCaveSeedsUseCase.invoke(memberId.value ?: 0).onSuccess { insights ->
+            getCaveSeedsUseCase.invoke(caveId.value).onSuccess { insights ->
                 _unScrapedInsights.value = insights
             }.onFailure {
                 Timber.e(it.message)
@@ -83,7 +83,7 @@ class CaveDetailViewModel @Inject constructor(
 
     fun getScrapedInsights() {
         viewModelScope.launch {
-            getCaveSeedsUseCase.invoke(memberId.value ?: 0).onSuccess { insights ->
+            getCaveSeedsUseCase.invoke(caveId.value).onSuccess { insights ->
                 _scrapedInsights.value = insights.filter { it.isScraped }
             }.onFailure {
                 Timber.e(it.message)
@@ -121,9 +121,9 @@ class CaveDetailViewModel @Inject constructor(
         }
     }
 
-    fun deleteSeed(caveId: Int) {
+    fun deleteSeed(seedId: Int) {
         viewModelScope.launch {
-            deleteSeedUseCase.invoke(caveId).onSuccess {
+            deleteSeedUseCase.invoke(seedId).onSuccess {
                 _isSeedDelete.value = true
             }.onFailure {
                 _isSeedDelete.value = false

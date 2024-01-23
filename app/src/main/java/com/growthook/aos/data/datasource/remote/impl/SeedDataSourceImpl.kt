@@ -5,12 +5,12 @@ import com.growthook.aos.data.model.request.RequestSeedModifyDto
 import com.growthook.aos.data.model.request.RequestSeedMoveDto
 import com.growthook.aos.data.model.request.RequestSeedPostDto
 import com.growthook.aos.data.model.response.ResponseAlarmDto
-import com.growthook.aos.data.model.response.ResponseDataDto
 import com.growthook.aos.data.model.response.ResponseDto
 import com.growthook.aos.data.model.response.ResponseGetCaveSeedsDto
 import com.growthook.aos.data.model.response.ResponseGetSeedDto
 import com.growthook.aos.data.model.response.ResponseGetSeedsDto
 import com.growthook.aos.data.model.response.ResponseMoveSeedDto
+import com.growthook.aos.data.model.response.ResponsePostSeedDto
 import com.growthook.aos.data.service.SeedService
 import javax.inject.Inject
 
@@ -22,7 +22,7 @@ class SeedDataSourceImpl @Inject constructor(private val apiService: SeedService
     override suspend fun moveSeed(seedId: Int, request: RequestSeedMoveDto): ResponseMoveSeedDto =
         apiService.moveSeed(seedId, request)
 
-    override suspend fun postSeed(caveId: Int, request: RequestSeedPostDto): ResponseDataDto =
+    override suspend fun postSeed(caveId: Int, request: RequestSeedPostDto): ResponsePostSeedDto =
         apiService.postSeed(caveId, request)
 
     override suspend fun getCaveSeeds(caveId: Int): ResponseGetCaveSeedsDto =
@@ -38,5 +38,6 @@ class SeedDataSourceImpl @Inject constructor(private val apiService: SeedService
 
     override suspend fun scrapSeed(seedId: Int): ResponseDto = apiService.scrapSeed(seedId)
 
-    override suspend fun modifySeed(seedId: Int, request: RequestSeedModifyDto): ResponseDto = apiService.modifySeed(seedId, request)
+    override suspend fun modifySeed(seedId: Int, request: RequestSeedModifyDto): ResponseDto =
+        apiService.modifySeed(seedId, request)
 }

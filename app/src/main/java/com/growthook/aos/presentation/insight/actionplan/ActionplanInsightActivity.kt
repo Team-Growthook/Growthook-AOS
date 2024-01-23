@@ -127,7 +127,7 @@ class ActionplanInsightActivity :
 
     private fun clickDeleteMenu(actionplanId: Int) {
         BaseAlertDialog.Builder()
-            .setCancelable(true)
+            .setCancelable(false)
             .build(
                 type = BaseAlertDialog.DialogType.LEFT_INTENDED,
                 title = "정말로 삭제할까요?",

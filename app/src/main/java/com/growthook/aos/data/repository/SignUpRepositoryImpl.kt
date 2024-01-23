@@ -18,7 +18,7 @@ class SignUpRepositoryImpl @Inject constructor(
             signUpDataSource.signUp(RequestPostAuthDto(socialPlatform, socialToken))
         }.fold(
             onSuccess = {
-                userRepository.setUserInfo(it.data.nickname, it.data.memberId, true)
+                userRepository.setUserInfo(it.data.nickname, it.data.memberId)
                 tokenRepository.setToken(it.data.accessToken, it.data.refreshToken)
                 Result.success(true)
             },

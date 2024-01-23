@@ -73,6 +73,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         observeNickName()
 
         observeInsights()
+
+        isInsightDelete()
     }
 
     private fun observeInsights() {
@@ -90,8 +92,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun setInsightTitle() {
-        viewModel.unScrapedInsights.observe(viewLifecycleOwner) {
-            binding.tvHomeInsightTitle.text = "${it.size}개의 씨앗을 모았어요"
+        viewModel.unScrapedInsights.observe(viewLifecycleOwner) { insights ->
+            if (insights.isNotEmpty()) {
+                binding.tvHomeInsightTitle.text = "${insights.size}개의 씨앗을 모았어요"
+            }
         }
     }
 
@@ -131,7 +135,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         insightAdapter.registerAdapterDataObserver(
             EmptyDataObserver(
                 binding.rcvHomeInsight,
-                binding.tvHomeInsightTitle,
                 binding.tvHomeEmptyInsight,
                 binding.ivHomeEmptyInsight,
             ),
@@ -167,6 +170,18 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         viewModel.isMenuDismissed.observe(viewLifecycleOwner) {
             longTracker.clearSelection()
             binding.fabHomeAddInsight.visibility = View.VISIBLE
+        }
+    }
+
+    private fun isInsightDelete() {
+        viewModel.isDelete.observe(viewLifecycleOwner) { isDelete ->
+            if (isDelete) {
+                if (binding.chbHomeScrap.isChecked) {
+                    viewModel.getScrapedInsight()
+                } else {
+                    viewModel.getInsights()
+                }
+            }
         }
     }
 

@@ -63,6 +63,7 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
         clickAddSeed()
         observeInsights()
         setInsightTitle()
+        isInsightDelete()
     }
 
     override fun onResume() {
@@ -72,8 +73,10 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
     }
 
     private fun setInsightTitle() {
-        viewModel.unScrapedInsights.observe(this) {
-            binding.tvCaveDetailInsightTitle.text = "${it.size}개의 씨앗을 모았어요"
+        viewModel.unScrapedInsights.observe(this) { insights ->
+            if (insights.isNotEmpty()) {
+                binding.tvCaveDetailInsightTitle.text = "${insights.size}개의 씨앗을 모았어요"
+            }
         }
     }
 
@@ -108,11 +111,11 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
             insightAdapter.submitList(it)
         }
     }
+
     private fun observeListIsEmpty() {
         insightAdapter.registerAdapterDataObserver(
             EmptyDataObserver(
                 binding.rcvCaveDetailInsight,
-                binding.tvCaveDetailInsightTitle,
                 binding.tvCaveDetailEmptyInsight,
                 binding.ivCaveDetailEmptyInsight,
             ),
@@ -154,7 +157,7 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
     private fun clickLock() {
         binding.ivCaveDetailIsLock.setOnClickListener {
             BaseAlertDialog.Builder()
-                .setCancelable(true)
+                .setCancelable(false)
                 .build(
                     type = BaseAlertDialog.DialogType.SINGLE_INTENDED,
                     title = "내 동굴에 친구를 초대해\n" +
@@ -270,6 +273,18 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
         binding.fabCaveDetailAddInsight.setOnClickListener {
             val intent = Intent(this, InsightWriteActivity::class.java)
             startActivity(intent)
+        }
+    }
+
+    private fun isInsightDelete() {
+        viewModel.isSeedDelete.observe(this) { isDelete ->
+            if (isDelete) {
+                if (binding.chbCaveDetailScrap.isChecked) {
+                    viewModel.getScrapedInsights()
+                } else {
+                    viewModel.getInsights()
+                }
+            }
         }
     }
 

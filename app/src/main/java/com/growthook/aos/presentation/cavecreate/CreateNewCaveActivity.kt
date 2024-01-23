@@ -68,6 +68,7 @@ class CreateNewCaveActivity : BaseActivity<ActivityCreateNewCaveBinding>({
                         negativeAction = {},
                         positiveAction = {},
                     ).show(supportFragmentManager, "delete dialog")
+                binding.switchOpen.isChecked = false
             } else {
                 //
             }
