@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.MotionEvent
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.growthook.aos.databinding.ActivitySeedModifyBinding
 import com.growthook.aos.domain.entity.SeedInfo
 import com.growthook.aos.presentation.insight.noactionplan.model.SeedModifyIntent
@@ -16,7 +17,7 @@ import com.growthook.aos.util.extension.getParcelable
 import com.growthook.aos.util.extension.hideKeyboard
 import com.growthook.aos.util.selectcave.CaveSelect
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SeedModifyActivity : BaseActivity<ActivitySeedModifyBinding>({
@@ -149,12 +150,19 @@ class SeedModifyActivity : BaseActivity<ActivitySeedModifyBinding>({
     private fun clickSeedModifyBtn() {
         binding.btnSeedModify.setOnClickListener {
             viewModel.modifySeed(
-                viewModel.seedInfo.value?.insight ?: "",
-                viewModel.seedInfo.value?.memo ?: "",
-                viewModel.seedInfo.value?.source ?: "",
-                viewModel.seedInfo.value?.url ?: "",
+                binding.edtSeedModifyInsight.text.toString(),
+                binding.edtSeedModifyMemo.text.toString(),
+                binding.edtSeedModifySource.text.toString(),
+                binding.edtSeedModifyUrl.text.toString(),
             )
-            viewModel.moveSeed()
+
+            lifecycleScope.launch {
+                viewModel.selectedCaveId.collect { caveId ->
+                    if (caveId != 0) {
+                        viewModel.moveSeed()
+                    }
+                }
+            }
 
             sendSeedModifyInfo()
         }
