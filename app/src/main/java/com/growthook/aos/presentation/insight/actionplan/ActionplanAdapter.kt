@@ -23,11 +23,6 @@ class ActionplanAdapter(
             onItemsTheSame = { old, new -> old.actionplanId == new.actionplanId },
         ),
     ) {
-    private var isSeedSelectedCallback: ((Int, Boolean) -> Unit)? = null
-
-    fun setSeedSelectedCallback(callback: ((Int, Boolean) -> Unit)?) {
-        isSeedSelectedCallback = callback
-    }
 
     inner class ActionplanViewHolder(
         private val binding: ItemActionplanBinding,
