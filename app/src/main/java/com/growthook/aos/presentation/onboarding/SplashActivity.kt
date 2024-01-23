@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import com.growthook.aos.databinding.ActivitySplashBinding
+import com.growthook.aos.presentation.MainActivity
 import com.growthook.aos.util.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,7 +20,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>({ ActivitySplashBindi
 
     private fun startActivity() {
         Handler(Looper.getMainLooper()).postDelayed({
-            val intent = Intent(this, OnboardingActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
         }, SPLASH_DELAY)
