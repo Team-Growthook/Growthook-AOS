@@ -41,6 +41,8 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
     private val insightAdapter
         get() = requireNotNull(_insightAdapter) { "adapter is null" }
 
+    private var remainThook = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCaveDetailBinding.inflate(layoutInflater)
@@ -57,6 +59,7 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
         setCaveDetail()
         setInsightAdapter()
         setNickName()
+        setThook()
         clickScrap()
 
         clickBackNavi()
@@ -211,7 +214,7 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
                             )
                         }
                     },
-                    remainThookText = viewModel.gatherdThook.value.toString(),
+                    remainThookText = remainThook.toString(),
                 ).show(supportFragmentManager, InsightMenuBottomsheet.DELETE_DIALOG)
         } else if (item.hasActionPlan) {
             startActivity(
@@ -229,6 +232,12 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
     private fun clickedScrap(seedId: Int) {
         viewModel.changeScrap(seedId)
         observeScrap()
+    }
+
+    private fun setThook() {
+        viewModel.gatherdThook.observe(this) { thookCount ->
+            remainThook = thookCount
+        }
     }
 
     private fun observeScrap() {
