@@ -43,6 +43,7 @@ class InsightMenuBottomsheet :
             dismiss()
             CaveSelect.Builder().build(
                 CaveSelect.CaveSelectType.YES_API,
+                toMoveSeedId = viewModel.seedId,
                 clickBtnAction = {
                     viewModel.seedId
                 },
