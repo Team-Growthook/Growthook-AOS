@@ -69,6 +69,7 @@ class DetailMyPageActivity :
                     },
                     positiveAction = {
                     },
+                    remainThookText = "",
                 ).show(supportFragmentManager, "delete account")
         }
     }

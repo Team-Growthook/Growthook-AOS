@@ -88,7 +88,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:text="00"
+            tools:text="00"
             app:layout_constraintBottom_toBottomOf="@id/iv_right_intended_remain_thook"
             app:layout_constraintStart_toEndOf="@id/iv_right_intended_remain_thook"
             app:layout_constraintTop_toTopOf="@id/iv_right_intended_remain_thook" />

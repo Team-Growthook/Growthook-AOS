@@ -50,6 +50,10 @@ class RightIntendedAlertDialog : BaseAlertDialog() {
         }
     }
 
+    override fun setRemainThookText() {
+        binding.tvRightIntendedRemainThookNumber.text = remainThookText
+    }
+
     private fun modifyTextColor(text: String, targetWord: String, color: Int): SpannableString {
         val spannable = SpannableString(text)
         val startIndex = text.indexOf(targetWord)

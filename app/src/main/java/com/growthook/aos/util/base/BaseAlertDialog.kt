@@ -19,6 +19,7 @@ abstract class BaseAlertDialog : DialogFragment() {
     protected var positiveText: String? = null
     protected var negativeText: String? = null
     protected var tipText: String? = null
+    protected var remainThookText: String? = null
     protected var isTipVisility: Boolean? = false
     protected var isRemainThookVisility: Boolean? = false
     protected var isBackgroundImageVisility: Boolean? = false
@@ -36,6 +37,7 @@ abstract class BaseAlertDialog : DialogFragment() {
         setNegativeText()
         setTipText()
         setTipVisility()
+        setRemainThookText()
         remainThookVisility()
         backgroundImageVisility()
         setPositiveClick { positiveAction(); dismiss() }
@@ -56,6 +58,7 @@ abstract class BaseAlertDialog : DialogFragment() {
     abstract fun setPositiveText()
     abstract fun setNegativeText()
     abstract fun setTipText()
+    abstract fun setRemainThookText()
     abstract fun setTipVisility()
     abstract fun remainThookVisility()
     abstract fun backgroundImageVisility()
@@ -74,6 +77,7 @@ abstract class BaseAlertDialog : DialogFragment() {
             positiveText: String,
             negativeText: String,
             tipText: String,
+            remainThookText: String,
             isTipVisility: Boolean,
             isRemainThookVisility: Boolean,
             isBackgroundImageVisility: Boolean,
@@ -87,6 +91,7 @@ abstract class BaseAlertDialog : DialogFragment() {
                 this.positiveText = positiveText
                 this.negativeText = negativeText
                 this.tipText = tipText
+                this.remainThookText = remainThookText
                 this.isTipVisility = isTipVisility
                 this.isRemainThookVisility = isRemainThookVisility
                 this.isBackgroundImageVisility = isBackgroundImageVisility

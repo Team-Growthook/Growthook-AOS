@@ -144,6 +144,7 @@ class ActionplanInsightActivity :
                 },
                 positiveAction = {
                 },
+                remainThookText = "",
             ).show(supportFragmentManager, DELETE_DIALOG)
     }
 
@@ -257,6 +258,7 @@ class ActionplanInsightActivity :
                             tipText = "",
                             negativeAction = {},
                             positiveAction = {},
+                            remainThookText = "",
                         ).show(supportFragmentManager, "get thook dialog")
                 }
 

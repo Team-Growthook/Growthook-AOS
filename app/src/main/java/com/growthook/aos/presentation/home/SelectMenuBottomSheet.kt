@@ -68,6 +68,7 @@ class SelectMenuBottomSheet() :
                         }
                     },
                     positiveAction = {},
+                    remainThookText = "",
                 ).show(parentFragmentManager, InsightMenuBottomsheet.DELETE_DIALOG)
         }
     }
