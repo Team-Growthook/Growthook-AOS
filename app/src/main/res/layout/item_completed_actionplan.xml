@@ -19,7 +19,7 @@
             android:id="@+id/iv_completed_actionplan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_scrap_unselected"
+            android:src="@drawable/ic_scrap_yes_action_selected"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -64,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:background="@drawable/rect_radius_5"
-                android:backgroundTint="@color/Gray600"
+                tools:backgroundTint="@color/Gray600"
                 android:paddingHorizontal="63dp"
                 android:paddingTop="8dp"
                 android:paddingBottom="12dp"
