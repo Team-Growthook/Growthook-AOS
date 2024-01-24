@@ -60,7 +60,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         setTitleText()
         setInsightAdapter()
         setAlertMessage()
-        setInsightTitle()
         clickScrap()
         setCaveAdapter()
 
@@ -78,8 +77,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun observeInsights() {
-        viewModel.scrapedInsights.observe(viewLifecycleOwner) {
-            insightAdapter.submitList(it)
+        viewModel.scrapedInsights.observe(viewLifecycleOwner) {insights ->
+            insightAdapter.submitList(insights)
+            if (insights.isNotEmpty()) {
+                binding.tvHomeInsightTitle.text = "${insights.size}개의 씨앗을 모았어요"
+            }
         }
         viewModel.unScrapedInsights.observe(viewLifecycleOwner) {
             insightAdapter.submitList(it)
@@ -89,14 +91,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     override fun onResume() {
         super.onResume()
         renewalData()
-    }
-
-    private fun setInsightTitle() {
-        viewModel.unScrapedInsights.observe(viewLifecycleOwner) { insights ->
-            if (insights.isNotEmpty()) {
-                binding.tvHomeInsightTitle.text = "${insights.size}개의 씨앗을 모았어요"
-            }
-        }
     }
 
     private fun clickAddCave() {
