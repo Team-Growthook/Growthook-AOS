@@ -106,6 +106,7 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
                 binding.tvCaveDetailInsightTitle.text = "${insights.size}개의 씨앗을 모았어요"
                 binding.chbCaveDetailScrap.isClickable = true
             } else {
+                binding.tvCaveDetailInsightTitle.text = ""
                 binding.chbCaveDetailScrap.isClickable = false
             }
         }
@@ -150,6 +151,11 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
 
         viewModel.isMenuDismissed.observe(this) {
             longTracker.clearSelection()
+            if (binding.chbCaveDetailScrap.isChecked) {
+                viewModel.getScrapedInsights()
+            } else {
+                viewModel.getInsights()
+            }
         }
     }
 
