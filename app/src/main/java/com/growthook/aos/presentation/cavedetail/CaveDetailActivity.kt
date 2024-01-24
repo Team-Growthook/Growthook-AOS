@@ -104,6 +104,7 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
             insightAdapter.submitList(insights)
             if (insights.isNotEmpty()) {
                 binding.tvCaveDetailInsightTitle.text = "${insights.size}개의 씨앗을 모았어요"
+                binding.chbCaveDetailScrap.isClickable = true
             } else {
                 binding.chbCaveDetailScrap.isClickable = false
             }
