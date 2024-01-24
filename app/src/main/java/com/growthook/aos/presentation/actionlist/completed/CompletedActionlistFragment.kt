@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.growthook.aos.R
 import com.growthook.aos.databinding.FragmentCompletedActionlistBinding
 import com.growthook.aos.presentation.actionlist.ReviewDetailActivity
 import com.growthook.aos.presentation.insight.actionplan.ActionplanInsightActivity
@@ -62,10 +63,15 @@ class CompletedActionlistFragment : BaseFragment<FragmentCompletedActionlistBind
     }
 
     private fun clickScrapBtn() {
-        binding.cbCompletedActionplanScrap.setOnCheckedChangeListener { button, isChecked ->
-            if (isChecked) {
+        binding.clCompletedActionplanScrap.setOnClickListener {
+            isScraped = !isScraped
+            if (isScraped) {
+                binding.ivCompletedActionlistScrap.setImageResource(R.drawable.ic_home_scrap_true)
+                binding.tvCompletedActionlistScrap.setTextColor(requireContext().getColor(R.color.Green200))
                 viewModel.getScrapedActionplan()
             } else {
+                binding.ivCompletedActionlistScrap.setImageResource(R.drawable.ic_home_scrap_false)
+                binding.tvCompletedActionlistScrap.setTextColor(requireContext().getColor(R.color.White000))
                 viewModel.getFinishedActionplans()
             }
         }
@@ -76,11 +82,11 @@ class CompletedActionlistFragment : BaseFragment<FragmentCompletedActionlistBind
             Timber.w("doingActionplan:: $doingActionplan")
             _completedActionlistAdapter?.submitList(doingActionplan)
         }.launchIn(lifecycleScope)
-
-        viewModel.scrapedActionplans.flowWithLifecycle(lifecycle).onEach { scrapedActionplan ->
-            Timber.w("scrapedActionplan:: $scrapedActionplan")
-            _completedActionlistAdapter?.submitList(scrapedActionplan)
-        }.launchIn(lifecycleScope)
+//
+//        viewModel.scrapedActionplans.flowWithLifecycle(lifecycle).onEach { scrapedActionplan ->
+//            Timber.w("scrapedActionplan:: $scrapedActionplan")
+//            _completedActionlistAdapter?.submitList(scrapedActionplan)
+//        }.launchIn(lifecycleScope)
     }
 
     private fun clickSeed(actionplanId: Int, isSeedSelected: Boolean) {

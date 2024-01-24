@@ -5,13 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.growthook.aos.R
 import com.growthook.aos.databinding.FragmentProceedingActionlistBinding
 import com.growthook.aos.presentation.actionlist.ActionlistFragment
 import com.growthook.aos.presentation.actionlist.proceeding.ProceedingActionlistViewModel.Event
+import com.growthook.aos.presentation.home.HomeViewModel
 import com.growthook.aos.presentation.insight.actionplan.ActionplanInsightActivity
 import com.growthook.aos.util.base.BaseAlertDialog
 import com.growthook.aos.util.base.BaseFragment
@@ -30,6 +33,7 @@ class ProceedingActionlistFragment(private val parentFragment: ActionlistFragmen
         get() = requireNotNull(_proceedingActionlistAdapter) { "proceedingActionlistAdapter is null" }
 
     private val viewModel by viewModels<ProceedingActionlistViewModel>()
+    private val homeViewModel: HomeViewModel by activityViewModels()
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -62,13 +66,30 @@ class ProceedingActionlistFragment(private val parentFragment: ActionlistFragmen
             Timber.w("doingActionplan:: $doingActionplan")
             _proceedingActionlistAdapter?.submitList(doingActionplan)
         }.launchIn(lifecycleScope)
+
+//        viewModel.scrapedActionplans.flowWithLifecycle(lifecycle).onEach { scrapedActionplans ->
+//            Timber.w("scrapedActionplans:: $scrapedActionplans")
+//            _proceedingActionlistAdapter?.submitList(scrapedActionplans)
+//        }.launchIn(lifecycleScope)
     }
 
     private fun clickScrapBtn() {
-        binding.cbProceedingActionplanScrap.setOnCheckedChangeListener { button, isChecked ->
-            if (isChecked) {
+//        binding.cbProceedingActionplanScrap.setOnCheckedChangeListener { button, isChecked ->
+//            if (isChecked) {
+//                viewModel.getScrapedActionplan()
+//            } else {
+//                viewModel.getDoingActionplans()
+//            }
+//        }
+        binding.clProceedingActionplanScrap.setOnClickListener {
+            isScraped = !isScraped
+            if (isScraped) {
+                binding.ivProceedingActionlistScrap.setImageResource(R.drawable.ic_home_scrap_true)
+                binding.tvProceedingActionlistScrap.setTextColor(requireContext().getColor(R.color.Green200))
                 viewModel.getScrapedActionplan()
             } else {
+                binding.ivProceedingActionlistScrap.setImageResource(R.drawable.ic_home_scrap_false)
+                binding.tvProceedingActionlistScrap.setTextColor(requireContext().getColor(R.color.White000))
                 viewModel.getDoingActionplans()
             }
         }

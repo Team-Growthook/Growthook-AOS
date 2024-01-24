@@ -6,26 +6,35 @@
     android:layout_height="match_parent"
     tools:context=".presentation.actionlist.completed.CompletedActionlistFragment">
 
-    <CheckBox
-        android:id="@+id/cb_completed_actionplan_scrap"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_completed_actionplan_scrap"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@null"
-        android:button="@null"
-        android:checked="false"
-        android:layout_marginTop="10dp"
-        android:drawableStart="@drawable/sel_home_scrap"
-        android:drawablePadding="4dp"
-        android:gravity="end|center"
-        android:includeFontPadding="false"
-        android:paddingHorizontal="18dp"
-        android:paddingVertical="14dp"
-        android:text="스크랩만 보기"
-        android:textAppearance="@style/detail3_reg"
-        android:textColor="@color/sel_home_scrap"
-        app:layout_constraintTop_toTopOf="parent"
+        android:paddingTop="25dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:useMaterialThemeColors="false" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_completed_actionlist_scrap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:src="@drawable/ic_home_scrap_false"
+            app:layout_constraintEnd_toStartOf="@id/tv_completed_actionlist_scrap"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_completed_actionlist_scrap"
+            style="@style/detail3_reg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="18dp"
+            android:text="스크랩만 보기"
+            app:layout_constraintBottom_toBottomOf="@id/iv_completed_actionlist_scrap"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_completed_actionlist_scrap" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.divider.MaterialDivider
         android:id="@+id/divider_completed_actionlist_top"
@@ -33,7 +42,8 @@
         android:layout_height="1dp"
         app:dividerColor="@color/Gray400"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cb_completed_actionplan_scrap" />
+        android:layout_marginTop="14dp"
+        app:layout_constraintTop_toBottomOf="@id/cl_completed_actionplan_scrap" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcv_completed_actionlist"
