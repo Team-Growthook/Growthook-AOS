@@ -34,6 +34,9 @@ class DetailMyPageViewModel @Inject constructor(
     private val isMemberDelete = MutableLiveData<Boolean>()
     private val isKakaoDeleteAccount = MutableLiveData(false)
 
+    private val _profileUrl = MutableLiveData<String?>()
+    val profileUrl: LiveData<String?> = _profileUrl
+
     private val memberId = MutableLiveData<Int>()
 
     val kakaoCallback: (Throwable?) -> Unit = { error ->
@@ -63,6 +66,7 @@ class DetailMyPageViewModel @Inject constructor(
         viewModelScope.launch {
             getProfileUseCase.invoke(memberId.value ?: 0).onSuccess { profile ->
                 _email.value = profile.email
+                _profileUrl.value = profile.profileUrl
             }.onFailure {
                 Timber.e(it.message)
             }
