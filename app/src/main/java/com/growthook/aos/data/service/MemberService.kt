@@ -20,7 +20,7 @@ interface MemberService {
     ): ResponseGetUsedThook
 
     @GET("api/v1/member/{memberId}/profile")
-    suspend fun getEmail(
+    suspend fun getProfile(
         @Path("memberId") memberId: Int,
     ): ResponseGetProfileDto
 

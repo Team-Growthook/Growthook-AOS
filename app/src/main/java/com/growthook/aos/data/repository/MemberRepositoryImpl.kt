@@ -1,6 +1,7 @@
 package com.growthook.aos.data.repository
 
 import com.growthook.aos.data.service.MemberService
+import com.growthook.aos.domain.entity.Profile
 import com.growthook.aos.domain.repository.MemberRepository
 import javax.inject.Inject
 
@@ -14,8 +15,8 @@ class MemberRepositoryImpl @Inject constructor(private val apiService: MemberSer
         apiService.getUsedThook(memberId).data.usedThook
     }
 
-    override suspend fun getEmail(memberId: Int): Result<String> = runCatching {
-        apiService.getEmail(memberId).data.email
+    override suspend fun getProfile(memberId: Int): Result<Profile> = runCatching {
+        apiService.getProfile(memberId).toProfile()
     }
 
     override suspend fun deleteMember(memberId: Int): Result<Unit> = runCatching {
