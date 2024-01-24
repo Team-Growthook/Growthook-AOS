@@ -63,7 +63,6 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
         clickMainMenu()
         clickAddSeed()
         observeInsights()
-        setInsightTitle()
         isInsightDelete()
         setProfileImage()
     }
@@ -72,14 +71,6 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
         super.onResume()
         setCaveDetail()
         viewModel.getInsights()
-    }
-
-    private fun setInsightTitle() {
-        viewModel.unScrapedInsights.observe(this) { insights ->
-            if (insights.isNotEmpty()) {
-                binding.tvCaveDetailInsightTitle.text = "${insights.size}개의 씨앗을 모았어요"
-            }
-        }
     }
 
     private fun setCaveDetail() {
@@ -106,11 +97,14 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
     }
 
     private fun observeInsights() {
-        viewModel.scrapedInsights.observe(this) {
-            insightAdapter.submitList(it)
+        viewModel.scrapedInsights.observe(this) { insights ->
+            insightAdapter.submitList(insights)
         }
-        viewModel.unScrapedInsights.observe(this) {
-            insightAdapter.submitList(it)
+        viewModel.unScrapedInsights.observe(this) { insights ->
+            insightAdapter.submitList(insights)
+            if (insights.isNotEmpty()) {
+                binding.tvCaveDetailInsightTitle.text = "${insights.size}개의 씨앗을 모았어요"
+            }
         }
     }
 
