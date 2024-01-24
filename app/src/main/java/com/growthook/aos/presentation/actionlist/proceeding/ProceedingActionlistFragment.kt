@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.growthook.aos.R
 import com.growthook.aos.databinding.FragmentProceedingActionlistBinding
 import com.growthook.aos.presentation.actionlist.ActionlistFragment
 import com.growthook.aos.presentation.actionlist.proceeding.ProceedingActionlistViewModel.Event
@@ -19,6 +19,7 @@ import com.growthook.aos.util.base.BaseWritingBottomSheet
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import timber.log.Timber
 
 @AndroidEntryPoint
 class ProceedingActionlistFragment(private val parentFragment: ActionlistFragment) :
@@ -46,27 +47,28 @@ class ProceedingActionlistFragment(private val parentFragment: ActionlistFragmen
 
     private fun initActionplanAdapter() {
         _proceedingActionlistAdapter =
-            ProceedingActionlistAdapter(::clickSeedDetail, ::clickCompleteBtn, ::clickScrapBtn)
+            ProceedingActionlistAdapter(
+                ::clickSeedDetail,
+                ::clickCompleteBtn,
+                ::clickScrapBtn,
+                ::clickSeed,
+            )
         binding.rcvProceedingActionlist.adapter = _proceedingActionlistAdapter
         binding.rcvProceedingActionlist.layoutManager = LinearLayoutManager(requireContext())
     }
 
     private fun observeActionplan() {
         viewModel.doingActionplans.flowWithLifecycle(lifecycle).onEach { doingActionplan ->
+            Timber.w("doingActionplan:: $doingActionplan")
             _proceedingActionlistAdapter?.submitList(doingActionplan)
         }.launchIn(lifecycleScope)
     }
 
     private fun clickScrapBtn() {
-        binding.clProceedingActionplanScrap.setOnClickListener {
-            isScraped = !isScraped
-            if (isScraped) {
-                binding.ivProceedingActionlistScrap.setImageResource(R.drawable.ic_home_scrap_true)
-                binding.tvProceedingActionlistScrap.setTextColor(requireContext().getColor(R.color.Green200))
+        binding.cbProceedingActionplanScrap.setOnCheckedChangeListener { button, isChecked ->
+            if (isChecked) {
                 viewModel.getScrapedActionplan()
             } else {
-                binding.ivProceedingActionlistScrap.setImageResource(R.drawable.ic_home_scrap_false)
-                binding.tvProceedingActionlistScrap.setTextColor(requireContext().getColor(R.color.White000))
                 viewModel.getDoingActionplans()
             }
         }
@@ -124,6 +126,13 @@ class ProceedingActionlistFragment(private val parentFragment: ActionlistFragmen
                 else -> {}
             }
         }.launchIn(lifecycleScope)
+    }
+
+    private fun clickSeed(actionplanId: Int, isSeedSelected: Boolean) {
+        viewModel.changeActionplanScrap(actionplanId)
+        if (isSeedSelected) {
+            Toast.makeText(requireContext(), "스크랩 완료!", Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onDestroyView() {

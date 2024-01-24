@@ -4,9 +4,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.growthook.aos.domain.entity.ActionlistDetail
-import com.growthook.aos.domain.usecase.ScrapSeedUseCase
 import com.growthook.aos.domain.usecase.actionplan.CompleteActionplanUseCase
 import com.growthook.aos.domain.usecase.actionplan.GetDoingActionplansUseCase
+import com.growthook.aos.domain.usecase.actionplan.ScrapActionplanUseCase
 import com.growthook.aos.domain.usecase.local.GetUserUseCase
 import com.growthook.aos.domain.usecase.review.PostReviewUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,13 +21,11 @@ class ProceedingActionlistViewModel @Inject constructor(
     private val getDoingActionplansUseCase: GetDoingActionplansUseCase,
     private val completeActionplanUseCase: CompleteActionplanUseCase,
     private val postReviewUseCase: PostReviewUseCase,
-    private val scrapSeedUseCase: ScrapSeedUseCase,
+    private val scrapActionplanUseCase: ScrapActionplanUseCase,
     private val getUserUseCase: GetUserUseCase,
 ) : ViewModel() {
     private val _doingActionplans = MutableStateFlow<List<ActionlistDetail>>(mutableListOf())
     val doingActionplans: MutableStateFlow<List<ActionlistDetail>> = _doingActionplans
-
-    private val scrapedActionplans = MutableLiveData<List<ActionlistDetail>>()
 
     private val _actionplanId = MutableStateFlow(-1)
     val actionplanId: MutableStateFlow<Int> = _actionplanId
@@ -40,6 +38,9 @@ class ProceedingActionlistViewModel @Inject constructor(
 
     private val memberId = MutableLiveData<Int>(0)
 
+    private val _scrapedActionplans = MutableStateFlow<List<ActionlistDetail>>(mutableListOf())
+    val scrapedActionplans: MutableStateFlow<List<ActionlistDetail>> = _scrapedActionplans
+
     init {
         viewModelScope.launch {
             memberId.value = getUserUseCase.invoke().memberId ?: 0
@@ -47,9 +48,29 @@ class ProceedingActionlistViewModel @Inject constructor(
         getDoingActionplans()
     }
 
+    fun changeActionplanScrap(actionplanId: Int) {
+        viewModelScope.launch {
+            scrapActionplanUseCase.invoke(actionplanId).onSuccess {
+                _event.value = Event.ScrapSuccess
+            }.onFailure {
+                _event.value = Event.Failed
+            }
+        }
+    }
+
     fun getScrapedActionplan() {
-        _doingActionplans.value = scrapedActionplans.value.orEmpty()
-        Timber.d("getScrapedActionplan() ${_doingActionplans.value}")
+        viewModelScope.launch {
+            getDoingActionplansUseCase.invoke(memberId.value ?: 0).onSuccess {
+                _event.value = Event.GetScrapedActionplanSuccess
+                _scrapedActionplans.value = it.filter { actionplan ->
+                    actionplan.isScraped
+                }
+                _doingActionplans.value = _scrapedActionplans.value
+            }.onFailure { throwable ->
+                Timber.e(throwable.message)
+                _event.value = Event.Failed
+            }
+        }
     }
 
     fun getDoingActionplans() {
@@ -57,9 +78,6 @@ class ProceedingActionlistViewModel @Inject constructor(
             getDoingActionplansUseCase.invoke(memberId.value ?: 0).onSuccess {
                 _doingActionplans.value = it
                 _event.value = Event.GetDoingActionplanSuccess
-                scrapedActionplans.value = it.filter { actionplan ->
-                    actionplan.isScraped
-                }
             }.onFailure { throwable ->
                 Timber.e(throwable.message)
                 _event.value = Event.Failed
@@ -93,6 +111,8 @@ class ProceedingActionlistViewModel @Inject constructor(
         object Default : Event
         object PostReviewSuccess : Event
         object GetDoingActionplanSuccess : Event
+        object GetScrapedActionplanSuccess : Event
+
         object PostCompletedActionplanSuccess : Event
         object ScrapSuccess : Event
 

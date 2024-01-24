@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.growthook.aos.R
 import com.growthook.aos.databinding.FragmentCompletedActionlistBinding
 import com.growthook.aos.presentation.actionlist.ReviewDetailActivity
 import com.growthook.aos.presentation.insight.actionplan.ActionplanInsightActivity
@@ -16,6 +16,7 @@ import com.growthook.aos.util.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import timber.log.Timber
 
 @AndroidEntryPoint
 class CompletedActionlistFragment : BaseFragment<FragmentCompletedActionlistBinding>() {
@@ -41,15 +42,9 @@ class CompletedActionlistFragment : BaseFragment<FragmentCompletedActionlistBind
 
     private fun initActionplanAdapter() {
         _completedActionlistAdapter =
-            CompletedActionlistAdapter(::clickSeedDetail, ::clickReviewDetail)
+            CompletedActionlistAdapter(::clickSeedDetail, ::clickReviewDetail, ::clickSeed)
         binding.rcvCompletedActionlist.adapter = _completedActionlistAdapter
         binding.rcvCompletedActionlist.layoutManager = LinearLayoutManager(requireContext())
-    }
-
-    private fun observeActionplan() {
-        viewModel.finishedActionplans.flowWithLifecycle(lifecycle).onEach { finishedActionplan ->
-            _completedActionlistAdapter?.submitList(finishedActionplan)
-        }.launchIn(lifecycleScope)
     }
 
     private fun clickSeedDetail(seedId: Int) {
@@ -67,17 +62,31 @@ class CompletedActionlistFragment : BaseFragment<FragmentCompletedActionlistBind
     }
 
     private fun clickScrapBtn() {
-        binding.clCompletedActionplanScrap.setOnClickListener {
-            isScraped = !isScraped
-            if (isScraped) {
-                binding.ivCompletedActionlistScrap.setImageResource(R.drawable.ic_home_scrap_true)
-                binding.tvCompletedActionlistScrap.setTextColor(requireContext().getColor(R.color.Green200))
+        binding.cbCompletedActionplanScrap.setOnCheckedChangeListener { button, isChecked ->
+            if (isChecked) {
                 viewModel.getScrapedActionplan()
             } else {
-                binding.ivCompletedActionlistScrap.setImageResource(R.drawable.ic_home_scrap_false)
-                binding.tvCompletedActionlistScrap.setTextColor(requireContext().getColor(R.color.White000))
                 viewModel.getFinishedActionplans()
             }
+        }
+    }
+
+    private fun observeActionplan() {
+        viewModel.finishedActionplans.flowWithLifecycle(lifecycle).onEach { doingActionplan ->
+            Timber.w("doingActionplan:: $doingActionplan")
+            _completedActionlistAdapter?.submitList(doingActionplan)
+        }.launchIn(lifecycleScope)
+
+        viewModel.scrapedActionplans.flowWithLifecycle(lifecycle).onEach { scrapedActionplan ->
+            Timber.w("scrapedActionplan:: $scrapedActionplan")
+            _completedActionlistAdapter?.submitList(scrapedActionplan)
+        }.launchIn(lifecycleScope)
+    }
+
+    private fun clickSeed(actionplanId: Int, isSeedSelected: Boolean) {
+        viewModel.changeActionplanScrap(actionplanId)
+        if (isSeedSelected) {
+            Toast.makeText(requireContext(), "스크랩 완료!", Toast.LENGTH_SHORT).show()
         }
     }
 

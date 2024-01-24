@@ -13,6 +13,7 @@ class ProceedingActionlistAdapter(
     private val clickSeedDetail: (Int) -> Unit,
     private val clickCompleted: (Int) -> Unit,
     private val clickScrap: () -> Unit,
+    private val clickSeed: (Int, Boolean) -> Unit,
 ) :
     ListAdapter<ActionlistDetail, ProceedingActionlistAdapter.ProceedingActionlistViewHolder>(
         ItemDiffCallback<ActionlistDetail>(
@@ -25,9 +26,11 @@ class ProceedingActionlistAdapter(
         private val clickSeedDetail: (Int) -> Unit,
         private val clickCompleted: (Int) -> Unit,
         private val clickScrap: () -> Unit,
+        private val clickSeed: (Int, Boolean) -> Unit,
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun onBind(data: ActionlistDetail) {
+            var isSeedSelected = data.isScraped
             with(binding) {
                 tvProceedingActionplanTitle.text = data.content
                 tvProceedingActionplanBtnRight.setOnClickListener {
@@ -40,6 +43,15 @@ class ProceedingActionlistAdapter(
                     ivProceedingActionplan.setImageResource(R.drawable.ic_scrap_selected)
                 } else {
                     ivProceedingActionplan.setImageResource(R.drawable.ic_scrap_unselected)
+                }
+                ivProceedingActionplan.setOnClickListener {
+                    isSeedSelected = !isSeedSelected
+                    clickSeed(data.actionplanId, isSeedSelected)
+                    if (isSeedSelected) {
+                        ivProceedingActionplan.setImageResource(R.drawable.ic_scrap_selected)
+                    } else {
+                        ivProceedingActionplan.setImageResource(R.drawable.ic_scrap_unselected)
+                    }
                 }
             }
         }
@@ -55,7 +67,13 @@ class ProceedingActionlistAdapter(
                 parent,
                 false,
             )
-        return ProceedingActionlistViewHolder(binding, clickSeedDetail, clickCompleted, clickScrap)
+        return ProceedingActionlistViewHolder(
+            binding,
+            clickSeedDetail,
+            clickCompleted,
+            clickScrap,
+            clickSeed,
+        )
     }
 
     override fun onBindViewHolder(holder: ProceedingActionlistViewHolder, position: Int) {

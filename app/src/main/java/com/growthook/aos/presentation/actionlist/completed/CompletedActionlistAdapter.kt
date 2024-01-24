@@ -29,9 +29,9 @@ class CompletedActionlistAdapter(
         private val clickSeed: (Int, Boolean) -> Unit,
     ) :
         RecyclerView.ViewHolder(binding.root) {
-        private var isSeedSelected = false
 
         fun onBind(data: ActionlistDetail) {
+            var isSeedSelected = data.isScraped
             with(binding) {
                 tvCompletedActionplanTitle.text = data.content
                 tvCompletedActionplanBtnLeft.setOnClickListener {
