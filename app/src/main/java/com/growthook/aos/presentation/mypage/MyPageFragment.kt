@@ -40,6 +40,12 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>() {
         setProfileImage()
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.getUsedThook()
+        viewModel.getGatherdThook()
+    }
+
     private fun setProfileImage() {
         viewModel.profileUrl.observe(viewLifecycleOwner) { imageUrl ->
             if (imageUrl != null) {
@@ -98,9 +104,5 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>() {
             )
             startActivity(intent)
         }
-    }
-
-    companion object {
-        fun newInstance() = MyPageFragment()
     }
 }
