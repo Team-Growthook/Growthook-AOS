@@ -24,6 +24,14 @@
         <item name="cornerSize">5dp</item>
     </style>
 
+    <style name="Radius2">
+        <item name="cornerSize">2dp</item>
+    </style>
+
+    <style name="Circle">
+        <item name="cornerSize">50%</item>
+    </style>
+
     <style name="TextInputLayoutStyle" parent="Widget.Material3.TextInputLayout.OutlinedBox">
         <item name="endIconDrawable">@drawable/ic_textinput_cancel</item>
         <item name="boxStrokeWidth">0.5dp</item>

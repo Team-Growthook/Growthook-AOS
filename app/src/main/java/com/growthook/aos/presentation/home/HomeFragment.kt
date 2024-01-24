@@ -60,7 +60,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         setTitleText()
         setInsightAdapter()
         setAlertMessage()
-        setInsightTitle()
         clickScrap()
         setCaveAdapter()
 
@@ -78,25 +77,22 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun observeInsights() {
-        viewModel.scrapedInsights.observe(viewLifecycleOwner) {
-            insightAdapter.submitList(it)
+        viewModel.scrapedInsights.observe(viewLifecycleOwner) { insights ->
+            insightAdapter.submitList(insights)
         }
-        viewModel.unScrapedInsights.observe(viewLifecycleOwner) {
-            insightAdapter.submitList(it)
+        viewModel.unScrapedInsights.observe(viewLifecycleOwner) { insights ->
+            insightAdapter.submitList(insights)
+            if (insights.isNotEmpty()) {
+                binding.tvHomeInsightTitle.text = "${insights.size}개의 씨앗을 모았어요"
+            } else {
+                binding.chbHomeScrap.isClickable = false
+            }
         }
     }
 
     override fun onResume() {
         super.onResume()
         renewalData()
-    }
-
-    private fun setInsightTitle() {
-        viewModel.unScrapedInsights.observe(viewLifecycleOwner) { insights ->
-            if (insights.isNotEmpty()) {
-                binding.tvHomeInsightTitle.text = "${insights.size}개의 씨앗을 모았어요"
-            }
-        }
     }
 
     private fun clickAddCave() {
@@ -119,6 +115,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private fun renewalData() {
         viewModel.getCaves()
         viewModel.getInsights()
+        viewModel.getGatherdThook()
     }
 
     private fun setInsightAdapter() {
@@ -214,11 +211,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                                     item.seedId,
                                 ),
                             )
+                            viewModel.getGatherdThook()
+                            viewModel.getAlertCount()
                         }
                     },
                 ).show(parentFragmentManager, InsightMenuBottomsheet.DELETE_DIALOG)
         } else if (item.hasActionPlan) {
-            startActivity(ActionplanInsightActivity.getIntent(requireContext(), item.seedId, "HomeFragment"))
+            startActivity(
+                ActionplanInsightActivity.getIntent(
+                    requireContext(),
+                    item.seedId,
+                    "HomeFragment",
+                ),
+            )
         } else {
             startActivity(NoActionplanInsightActivity.getIntent(requireContext(), item.seedId))
         }
@@ -243,9 +248,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         startActivity(CaveDetailActivity.getIntent(requireContext(), item.id))
     }
 
-    private fun clickedScrap(seedId: Int) {
-        viewModel.changeScrap(seedId)
+    private fun clickedScrap(seed: Insight) {
+        viewModel.changeScrap(seed.seedId)
         observeScrap()
+        notifyScrap(seed.isScraped)
     }
 
     private fun observeScrap() {
@@ -255,13 +261,18 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 if (isSuccess) {
                     if (binding.chbHomeScrap.isChecked) {
                         viewModel.getScrapedInsight()
-                        Toast.makeText(requireContext(), "스크랩 완료", Toast.LENGTH_SHORT).show()
                     } else {
                         viewModel.getInsights()
                     }
                 }
             },
         )
+    }
+
+    private fun notifyScrap(isScraped: Boolean) {
+        if (!isScraped) {
+            Toast.makeText(requireContext(), "스크랩 완료!", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun setAlertMessage() {

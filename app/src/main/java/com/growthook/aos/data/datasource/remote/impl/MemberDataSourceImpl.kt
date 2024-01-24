@@ -16,8 +16,8 @@ class MemberDataSourceImpl @Inject constructor(private val apiService: MemberSer
     override suspend fun getUsedThook(memberId: Int): ResponseGetUsedThook =
         apiService.getUsedThook(memberId)
 
-    override suspend fun getEmail(memberId: Int): ResponseGetProfileDto =
-        apiService.getEmail(memberId)
+    override suspend fun getProfile(memberId: Int): ResponseGetProfileDto =
+        apiService.getProfile(memberId)
 
     override suspend fun deleteMember(memberId: Int): ResponseDto =
         apiService.deleteMember(memberId)

@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.growthook.aos.domain.usecase.local.GetUserUseCase
 import com.growthook.aos.domain.usecase.local.PostUserUseCase
 import com.growthook.aos.domain.usecase.mypage.DeleteMemberUseCase
-import com.growthook.aos.domain.usecase.mypage.GetEmailUseCase
+import com.growthook.aos.domain.usecase.mypage.GetProfileUseCase
 import com.growthook.aos.util.callback.KakaoLogoutCallback
 import com.growthook.aos.util.extension.addSourceList
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,7 +20,7 @@ import javax.inject.Inject
 class DetailMyPageViewModel @Inject constructor(
     private val postUserUseCase: PostUserUseCase,
     private val getUserUseCase: GetUserUseCase,
-    private val getEmailUseCase: GetEmailUseCase,
+    private val getProfileUseCase: GetProfileUseCase,
     private val deleteMemberUseCase: DeleteMemberUseCase,
 ) :
     ViewModel() {
@@ -61,8 +61,8 @@ class DetailMyPageViewModel @Inject constructor(
 
     private fun getEmail() {
         viewModelScope.launch {
-            getEmailUseCase.invoke(memberId.value ?: 0).onSuccess { email ->
-                _email.value = email
+            getProfileUseCase.invoke(memberId.value ?: 0).onSuccess { profile ->
+                _email.value = profile.email
             }.onFailure {
                 Timber.e(it.message)
             }

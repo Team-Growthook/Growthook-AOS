@@ -11,7 +11,7 @@ interface MemberDataSource {
 
     suspend fun getUsedThook(memberId: Int): ResponseGetUsedThook
 
-    suspend fun getEmail(memberId: Int): ResponseGetProfileDto
+    suspend fun getProfile(memberId: Int): ResponseGetProfileDto
 
     suspend fun deleteMember(memberId: Int): ResponseDto
 }

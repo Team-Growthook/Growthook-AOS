@@ -20,7 +20,7 @@ import javax.annotation.Nullable
 
 class HomeInsightAdapter(
     private val selectedItem: (Insight) -> Unit,
-    private val clickScrap: (Int) -> Unit,
+    private val clickScrap: (Insight) -> Unit,
 ) :
     ListAdapter<Insight, RecyclerView.ViewHolder>(diffCallback) {
 
@@ -128,7 +128,7 @@ class HomeInsightAdapter(
                 binding.viewHomeInsightClick.visibility = View.VISIBLE
             }
             binding.btnHomeScrap.setOnClickListener {
-                clickScrap(item.seedId)
+                clickScrap(item)
             }
         }
 
@@ -173,7 +173,7 @@ class HomeInsightAdapter(
                 binding.viewHomeInsightClick.visibility = View.VISIBLE
             }
             binding.btnHomeScrap.setOnClickListener {
-                clickScrap(item.seedId)
+                clickScrap(item)
             }
         }
 
