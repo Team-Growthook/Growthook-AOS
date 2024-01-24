@@ -133,7 +133,10 @@ class AddActionplanActivity :
     private fun clickCompleteBtn() {
         binding.tvAddActionplanComplete.setOnClickListener {
             viewModel.actionplanList.value?.let { actionplans ->
-                viewModel.postActionplans(seedId, actionplans)
+                val actionplanList = actionplans.filter {
+                    it.isNotEmpty()
+                }
+                viewModel.postActionplans(seedId, actionplanList)
             }
         }
     }
