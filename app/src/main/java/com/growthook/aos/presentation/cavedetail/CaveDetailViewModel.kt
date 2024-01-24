@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.growthook.aos.domain.entity.CaveDetail
 import com.growthook.aos.domain.entity.Insight
 import com.growthook.aos.domain.usecase.DeleteSeedUseCase
+import com.growthook.aos.domain.usecase.GetGatherdThookUseCase
 import com.growthook.aos.domain.usecase.ScrapSeedUseCase
 import com.growthook.aos.domain.usecase.UnLockSeedUseCase
 import com.growthook.aos.domain.usecase.cavedetail.DeleteCaveUseCase
@@ -31,6 +32,7 @@ class CaveDetailViewModel @Inject constructor(
     private val scrapSeedUseCase: ScrapSeedUseCase,
     private val unLockSeedUseCase: UnLockSeedUseCase,
     private val getProfileUseCase: GetProfileUseCase,
+    private val getGatherdThookUseCase: GetGatherdThookUseCase,
 ) : ViewModel() {
 
     private val _scrapedInsights = MutableLiveData<List<Insight>>()
@@ -67,6 +69,9 @@ class CaveDetailViewModel @Inject constructor(
     val isMenuDismissed = MutableLiveData<Boolean>()
 
     val longClickInsight = MutableLiveData<Insight>()
+
+    private val _gatherdThook = MutableLiveData<Int>()
+    val gatherdThook: LiveData<Int> = _gatherdThook
 
     init {
         viewModelScope.launch {
@@ -151,6 +156,16 @@ class CaveDetailViewModel @Inject constructor(
         viewModelScope.launch {
             getProfileUseCase.invoke(memberId.value ?: 0).onSuccess { profile ->
                 _profileUrl.value = profile.profileUrl
+            }.onFailure {
+                Timber.e(it.message)
+            }
+        }
+    }
+
+    fun getGatherdThook() {
+        viewModelScope.launch {
+            getGatherdThookUseCase.invoke(memberId.value ?: 0).onSuccess { thookCount ->
+                _gatherdThook.value = thookCount
             }.onFailure {
                 Timber.e(it.message)
             }

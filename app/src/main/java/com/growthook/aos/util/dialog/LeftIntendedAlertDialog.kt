@@ -39,6 +39,9 @@ class LeftIntendedAlertDialog : BaseAlertDialog() {
     override fun setTipText() {
     }
 
+    override fun setRemainThookText() {
+    }
+
     override fun setTipVisility() {
     }
 
