@@ -84,6 +84,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             insightAdapter.submitList(insights)
             if (insights.isNotEmpty()) {
                 binding.tvHomeInsightTitle.text = "${insights.size}개의 씨앗을 모았어요"
+            } else {
+                binding.chbHomeScrap.isClickable = false
             }
         }
     }
