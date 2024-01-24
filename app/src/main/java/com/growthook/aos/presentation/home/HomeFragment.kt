@@ -77,14 +77,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun observeInsights() {
-        viewModel.scrapedInsights.observe(viewLifecycleOwner) {insights ->
+        viewModel.scrapedInsights.observe(viewLifecycleOwner) { insights ->
+            insightAdapter.submitList(insights)
+        }
+        viewModel.unScrapedInsights.observe(viewLifecycleOwner) { insights ->
             insightAdapter.submitList(insights)
             if (insights.isNotEmpty()) {
                 binding.tvHomeInsightTitle.text = "${insights.size}개의 씨앗을 모았어요"
             }
-        }
-        viewModel.unScrapedInsights.observe(viewLifecycleOwner) {
-            insightAdapter.submitList(it)
         }
     }
 
@@ -246,9 +246,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         startActivity(CaveDetailActivity.getIntent(requireContext(), item.id))
     }
 
-    private fun clickedScrap(seedId: Int) {
-        viewModel.changeScrap(seedId)
+    private fun clickedScrap(seed: Insight) {
+        viewModel.changeScrap(seed.seedId)
         observeScrap()
+        notifyScrap(seed.isScraped)
     }
 
     private fun observeScrap() {
@@ -258,13 +259,18 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 if (isSuccess) {
                     if (binding.chbHomeScrap.isChecked) {
                         viewModel.getScrapedInsight()
-                        Toast.makeText(requireContext(), "스크랩 완료", Toast.LENGTH_SHORT).show()
                     } else {
                         viewModel.getInsights()
                     }
                 }
             },
         )
+    }
+
+    private fun notifyScrap(isScraped: Boolean) {
+        if (!isScraped) {
+            Toast.makeText(requireContext(), "스크랩 완료!", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun setAlertMessage() {

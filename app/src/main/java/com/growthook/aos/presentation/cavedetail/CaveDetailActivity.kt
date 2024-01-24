@@ -213,15 +213,22 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
                     },
                 ).show(supportFragmentManager, InsightMenuBottomsheet.DELETE_DIALOG)
         } else if (item.hasActionPlan) {
-            startActivity(ActionplanInsightActivity.getIntent(this, item.seedId, "CaveDetailActivity"))
+            startActivity(
+                ActionplanInsightActivity.getIntent(
+                    this,
+                    item.seedId,
+                    "CaveDetailActivity",
+                ),
+            )
         } else {
             startActivity(NoActionplanInsightActivity.getIntent(this, item.seedId))
         }
     }
 
-    private fun clickedScrap(seedId: Int) {
-        viewModel.changeScrap(seedId)
+    private fun clickedScrap(seed: Insight) {
+        viewModel.changeScrap(seed.seedId)
         observeScrap()
+        notifyScrap(seed.isScraped)
     }
 
     private fun observeScrap() {
@@ -231,14 +238,18 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
                 if (isSuccess) {
                     if (binding.chbCaveDetailScrap.isChecked) {
                         viewModel.getScrapedInsights()
-                        Toast.makeText(this, "스크랩 완료", Toast.LENGTH_SHORT).show()
                     } else {
                         viewModel.getInsights()
-                        Toast.makeText(this, "스크랩 완료", Toast.LENGTH_SHORT).show()
                     }
                 }
             },
         )
+    }
+
+    private fun notifyScrap(isScraped: Boolean) {
+        if (!isScraped) {
+            Toast.makeText(this, "스크랩 완료!", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun setNickName() {
