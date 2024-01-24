@@ -59,8 +59,4 @@ class AddActionplanAdapter(
         onAddItem.invoke()
         notifyItemInserted(0)
     }
-
-    companion object {
-        const val TAG = "adapter"
-    }
 }
