@@ -20,6 +20,7 @@ import com.growthook.aos.presentation.insight.noactionplan.NoActionplanInsightAc
 import com.growthook.aos.presentation.insight.write.InsightWriteActivity
 import com.growthook.aos.util.EmptyDataObserver
 import com.growthook.aos.util.EventObserver
+import com.growthook.aos.util.GlideApp
 import com.growthook.aos.util.LinearLayoutManagerWrapper
 import com.growthook.aos.util.base.BaseActivity
 import com.growthook.aos.util.base.BaseAlertDialog
@@ -64,6 +65,7 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
         observeInsights()
         setInsightTitle()
         isInsightDelete()
+        setProfileImage()
     }
 
     override fun onResume() {
@@ -284,6 +286,14 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
                 } else {
                     viewModel.getInsights()
                 }
+            }
+        }
+    }
+
+    private fun setProfileImage() {
+        viewModel.profileUrl.observe(this) { imageUrl ->
+            if (imageUrl != null) {
+                GlideApp.with(this).load(imageUrl).into(binding.ivCaveDetailUser)
             }
         }
     }

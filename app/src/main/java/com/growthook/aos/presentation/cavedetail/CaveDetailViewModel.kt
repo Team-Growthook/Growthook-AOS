@@ -13,6 +13,7 @@ import com.growthook.aos.domain.usecase.cavedetail.DeleteCaveUseCase
 import com.growthook.aos.domain.usecase.cavedetail.GetCaveDetailUseCase
 import com.growthook.aos.domain.usecase.cavedetail.GetCaveSeedsUseCase
 import com.growthook.aos.domain.usecase.local.GetUserUseCase
+import com.growthook.aos.domain.usecase.mypage.GetProfileUseCase
 import com.growthook.aos.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -29,6 +30,7 @@ class CaveDetailViewModel @Inject constructor(
     private val getCaveSeedsUseCase: GetCaveSeedsUseCase,
     private val scrapSeedUseCase: ScrapSeedUseCase,
     private val unLockSeedUseCase: UnLockSeedUseCase,
+    private val getProfileUseCase: GetProfileUseCase,
 ) : ViewModel() {
 
     private val _scrapedInsights = MutableLiveData<List<Insight>>()
@@ -55,6 +57,9 @@ class CaveDetailViewModel @Inject constructor(
     private val _isUnlock = MutableLiveData<Boolean>()
     val isUnlock: LiveData<Boolean> = _isUnlock
 
+    private val _profileUrl = MutableLiveData<String?>()
+    val profileUrl: LiveData<String?> = _profileUrl
+
     private val memberId = MutableLiveData<Int>(0)
 
     val caveId = MutableStateFlow<Int>(0)
@@ -69,6 +74,7 @@ class CaveDetailViewModel @Inject constructor(
             memberId.value = getUserUseCase.invoke().memberId ?: 0
         }
         getInsights()
+        getProfileUrl()
     }
 
     fun getInsights() {
@@ -137,6 +143,16 @@ class CaveDetailViewModel @Inject constructor(
                 _isUnlock.value = true
             }.onFailure {
                 _isUnlock.value = false
+            }
+        }
+    }
+
+    fun getProfileUrl() {
+        viewModelScope.launch {
+            getProfileUseCase.invoke(memberId.value ?: 0).onSuccess { profile ->
+                _profileUrl.value = profile.profileUrl
+            }.onFailure {
+                Timber.e(it.message)
             }
         }
     }
