@@ -20,6 +20,7 @@ import com.growthook.aos.presentation.insight.noactionplan.NoActionplanInsightAc
 import com.growthook.aos.presentation.insight.write.InsightWriteActivity
 import com.growthook.aos.util.EmptyDataObserver
 import com.growthook.aos.util.EventObserver
+import com.growthook.aos.util.GlideApp
 import com.growthook.aos.util.LinearLayoutManagerWrapper
 import com.growthook.aos.util.base.BaseActivity
 import com.growthook.aos.util.base.BaseAlertDialog
@@ -66,22 +67,14 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
         clickMainMenu()
         clickAddSeed()
         observeInsights()
-        setInsightTitle()
         isInsightDelete()
+        setProfileImage()
     }
 
     override fun onResume() {
         super.onResume()
         setCaveDetail()
         viewModel.getInsights()
-    }
-
-    private fun setInsightTitle() {
-        viewModel.unScrapedInsights.observe(this) { insights ->
-            if (insights.isNotEmpty()) {
-                binding.tvCaveDetailInsightTitle.text = "${insights.size}개의 씨앗을 모았어요"
-            }
-        }
     }
 
     private fun setCaveDetail() {
@@ -108,11 +101,18 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
     }
 
     private fun observeInsights() {
-        viewModel.scrapedInsights.observe(this) {
-            insightAdapter.submitList(it)
+        viewModel.scrapedInsights.observe(this) { insights ->
+            insightAdapter.submitList(insights)
         }
-        viewModel.unScrapedInsights.observe(this) {
-            insightAdapter.submitList(it)
+        viewModel.unScrapedInsights.observe(this) { insights ->
+            insightAdapter.submitList(insights)
+            if (insights.isNotEmpty()) {
+                binding.tvCaveDetailInsightTitle.text = "${insights.size}개의 씨앗을 모았어요"
+                binding.chbCaveDetailScrap.isClickable = true
+            } else {
+                binding.tvCaveDetailInsightTitle.text = ""
+                binding.chbCaveDetailScrap.isClickable = false
+            }
         }
     }
 
@@ -155,6 +155,11 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
 
         viewModel.isMenuDismissed.observe(this) {
             longTracker.clearSelection()
+            if (binding.chbCaveDetailScrap.isChecked) {
+                viewModel.getScrapedInsights()
+            } else {
+                viewModel.getInsights()
+            }
         }
     }
 
@@ -229,9 +234,10 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
         }
     }
 
-    private fun clickedScrap(seedId: Int) {
-        viewModel.changeScrap(seedId)
+    private fun clickedScrap(seed: Insight) {
+        viewModel.changeScrap(seed.seedId)
         observeScrap()
+        notifyScrap(seed.isScraped)
     }
 
     private fun setThook() {
@@ -247,14 +253,18 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
                 if (isSuccess) {
                     if (binding.chbCaveDetailScrap.isChecked) {
                         viewModel.getScrapedInsights()
-                        Toast.makeText(this, "스크랩 완료", Toast.LENGTH_SHORT).show()
                     } else {
                         viewModel.getInsights()
-                        Toast.makeText(this, "스크랩 완료", Toast.LENGTH_SHORT).show()
                     }
                 }
             },
         )
+    }
+
+    private fun notifyScrap(isScraped: Boolean) {
+        if (!isScraped) {
+            Toast.makeText(this, "스크랩 완료!", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun setNickName() {
@@ -302,6 +312,14 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
                 } else {
                     viewModel.getInsights()
                 }
+            }
+        }
+    }
+
+    private fun setProfileImage() {
+        viewModel.profileUrl.observe(this) { imageUrl ->
+            if (imageUrl != null) {
+                GlideApp.with(this).load(imageUrl).into(binding.ivCaveDetailUser)
             }
         }
     }

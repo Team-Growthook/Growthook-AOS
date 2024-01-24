@@ -6,11 +6,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import com.growthook.aos.data.service.KakaoAuthService
 import com.growthook.aos.databinding.FragmentMypageBinding
 import com.growthook.aos.presentation.mypage.detailinfo.DetailMyPageActivity
 import com.growthook.aos.presentation.onboarding.OnboardingActivity
+import com.growthook.aos.util.GlideApp
 import com.growthook.aos.util.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -21,7 +22,7 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>() {
     @Inject
     lateinit var kakaoAuthService: KakaoAuthService
 
-    private val viewModel: MyPageViewModel by viewModels()
+    private val viewModel: MyPageViewModel by activityViewModels()
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -36,6 +37,15 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>() {
         clickDetailMyInfo()
         clickLogout()
         clickPolicy()
+        setProfileImage()
+    }
+
+    private fun setProfileImage() {
+        viewModel.profileUrl.observe(viewLifecycleOwner) { imageUrl ->
+            if (imageUrl != null) {
+                GlideApp.with(this).load(imageUrl).into(binding.ivMyPageUser)
+            }
+        }
     }
 
     private fun setNickName() {
@@ -88,5 +98,9 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>() {
             )
             startActivity(intent)
         }
+    }
+
+    companion object {
+        fun newInstance() = MyPageFragment()
     }
 }

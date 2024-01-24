@@ -85,12 +85,12 @@ class InsightWriteViewModel @Inject constructor(
     fun postNewSeed() {
         viewModelScope.launch {
             postSeedUseCase(
-                selectedCaveId.value ?: 50,
+                selectedCaveId.value ?: 0,
                 insight.value.toString(),
                 memo.value.toString(),
                 source.value.toString(),
                 url.value.toString(),
-                selectedGoalMonth.value ?: 1,
+                selectedGoalMonth.value ?: 0,
             ).onSuccess { response ->
                 _postSeedSuccess.value = true
                 _seedId.value = response

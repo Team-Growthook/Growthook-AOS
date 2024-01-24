@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.growthook.aos.domain.usecase.GetGatherdThookUseCase
 import com.growthook.aos.domain.usecase.local.GetUserUseCase
 import com.growthook.aos.domain.usecase.local.PostUserUseCase
+import com.growthook.aos.domain.usecase.mypage.GetProfileUseCase
 import com.growthook.aos.domain.usecase.mypage.GetUsedThookUseCase
 import com.growthook.aos.util.callback.KakaoLogoutCallback
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,6 +21,7 @@ class MyPageViewModel @Inject constructor(
     private val getUserUseCase: GetUserUseCase,
     private val getGatherdThookUseCase: GetGatherdThookUseCase,
     private val getUsedThookUseCase: GetUsedThookUseCase,
+    private val getProfileUseCase: GetProfileUseCase,
 ) : ViewModel() {
 
     private val _isLogoutSuccess = MutableLiveData<Boolean>()
@@ -33,6 +35,9 @@ class MyPageViewModel @Inject constructor(
 
     private val _usedThook = MutableLiveData<Int>()
     val usedThook: LiveData<Int> = _usedThook
+
+    private val _profileUrl = MutableLiveData<String?>()
+    val profileUrl: LiveData<String?> = _profileUrl
 
     private val memberId = MutableLiveData<Int>(0)
 
@@ -53,6 +58,7 @@ class MyPageViewModel @Inject constructor(
         }
         getGatherdThook()
         getUsedThook()
+        getProfileUrl()
     }
 
     fun getGatherdThook() {
@@ -69,6 +75,16 @@ class MyPageViewModel @Inject constructor(
         viewModelScope.launch {
             getUsedThookUseCase.invoke(memberId.value ?: 0).onSuccess { thookCount ->
                 _usedThook.value = thookCount
+            }.onFailure {
+                Timber.e(it.message)
+            }
+        }
+    }
+
+    fun getProfileUrl() {
+        viewModelScope.launch {
+            getProfileUseCase.invoke(memberId.value ?: 0).onSuccess { profile ->
+                _profileUrl.value = profile.profileUrl
             }.onFailure {
                 Timber.e(it.message)
             }

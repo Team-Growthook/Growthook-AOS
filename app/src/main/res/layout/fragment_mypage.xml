@@ -12,23 +12,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <View
-            android:id="@+id/view"
-            android:layout_width="79dp"
-            android:layout_height="82dp"
-            android:layout_marginTop="66dp"
-            android:background="@drawable/circle_fill_gray900"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
-
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_my_page_user"
-            android:layout_width="52dp"
-            android:layout_height="81dp"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:minWidth="80dp"
+            android:background="@drawable/circle_fill_gray900"
             android:layout_marginTop="67dp"
-            android:src="@drawable/img_bear"
+            android:scaleType="center"
+            app:shapeAppearanceOverlay="@style/Circle"
+            android:src="@drawable/ic_profile_default"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
