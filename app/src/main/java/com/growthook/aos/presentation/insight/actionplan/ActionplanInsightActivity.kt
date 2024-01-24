@@ -152,7 +152,6 @@ class ActionplanInsightActivity :
         viewModel.seedData.observe(this) { seed ->
             with(binding) {
                 tvActionplanInsightTitle.text = seed?.title
-                tvActionplanInsightContent.text = seed?.content
                 tvActionplanInsightDate.text = seed?.date
                 tvActionplanInsightChip.text = seed?.caveName
                 "D-${seed?.remainingDays}".also { tvActionplanInsightDday.text = it }
@@ -162,6 +161,7 @@ class ActionplanInsightActivity :
                     scvActionplanInsightContent.visibility = View.INVISIBLE
                 } else {
                     clActionplanInsightMemoEmpty.visibility = View.GONE
+                    tvActionplanInsightContent.text = seed?.content
                     scvActionplanInsightContent.visibility = View.VISIBLE
                 }
 

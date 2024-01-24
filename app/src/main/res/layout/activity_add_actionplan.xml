@@ -186,6 +186,38 @@
                 app:layout_constraintStart_toEndOf="@id/divider_add_actionplan_first"
                 app:layout_constraintTop_toTopOf="@id/divider_add_actionplan_first" />
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_add_actionplan_memo_empty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_add_actionplan_date">
+
+                <ImageView
+                    android:id="@+id/iv_add_actionplan_empty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:src="@drawable/ic_empty_memo"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    style="@style/detail1_reg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="작성된 메모가 없어요"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_add_actionplan_empty"
+                    android:textColor="@color/Gray200" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
             <ScrollView
                 android:id="@+id/scv_add_actionplan_content"
                 android:layout_width="match_parent"

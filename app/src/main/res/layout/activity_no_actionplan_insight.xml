@@ -77,9 +77,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="8dp"
-            tools:src="@drawable/ic_scrap_unselected"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_scrap_unselected" />
 
         <TextView
             android:id="@+id/tv_noaction_insight_title"
@@ -87,10 +87,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            tools:text="야식에 불닭과 만두의 조합 좋다"
             android:textColor="@color/White000"
             app:layout_constraintStart_toStartOf="@id/tv_noaction_insight_chip"
-            app:layout_constraintTop_toBottomOf="@id/tv_noaction_insight_chip" />
+            app:layout_constraintTop_toBottomOf="@id/tv_noaction_insight_chip"
+            tools:text="야식에 불닭과 만두의 조합 좋다" />
 
         <TextView
             android:id="@+id/tv_noaction_insight_date"
@@ -98,10 +98,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            tools:text="2023.11.08"
             android:textColor="@color/Gray200"
             app:layout_constraintStart_toStartOf="@id/tv_noaction_insight_title"
-            app:layout_constraintTop_toBottomOf="@id/tv_noaction_insight_title" />
+            app:layout_constraintTop_toBottomOf="@id/tv_noaction_insight_title"
+            tools:text="2023.11.08" />
 
         <com.google.android.material.divider.MaterialDivider
             android:id="@+id/divider_noaction_insight_first"
@@ -119,11 +119,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            tools:text="D-21"
             android:textColor="@color/Red200"
             app:layout_constraintBottom_toBottomOf="@id/divider_noaction_insight_first"
             app:layout_constraintStart_toEndOf="@id/divider_noaction_insight_first"
-            app:layout_constraintTop_toTopOf="@id/divider_noaction_insight_first" />
+            app:layout_constraintTop_toTopOf="@id/divider_noaction_insight_first"
+            tools:text="D-21" />
 
         <com.google.android.material.divider.MaterialDivider
             android:id="@+id/divider_noaction_insight_second"
@@ -144,15 +144,50 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/divider_noaction_insight_second">
 
-            <TextView
-                android:id="@+id/tv_noaction_insight_content"
-                style="@style/body3_reg"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_noaction_insight_memo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="앱잼 합숙 기간 새벽에 먹으면 더욱 효과적으로 행복할 수 있다.ferergfergregergfergreg"
-                android:textColor="@color/White000"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/tv_noaction_insight_memo"
+                    style="@style/body3_reg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/White000"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="앱잼 합숙 기간 새벽에 먹으면 더욱 효과적으로 행복할 수 있다.ferergfergregergfergreg" />
+
+                <ImageView
+                    android:id="@+id/iv_noaction_insight_empty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:src="@drawable/ic_empty_memo"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_noaction_insight_empty"
+                    style="@style/detail1_reg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="작성된 메모가 없어요"
+                    android:textColor="@color/Gray200"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_noaction_insight_empty" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_noaction_insight_content_chip"
@@ -164,17 +199,17 @@
                 android:paddingHorizontal="8dp"
                 android:paddingVertical="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_noaction_insight_content">
+                app:layout_constraintTop_toBottomOf="@id/cl_noaction_insight_memo">
 
                 <TextView
                     android:id="@+id/tv_noaction_insight_content_chip_title"
                     style="@style/detail2_bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="쑥쑥이 블로그"
                     android:textColor="@color/Gray200"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="쑥쑥이 블로그" />
 
                 <com.google.android.material.divider.MaterialDivider
                     android:id="@+id/divider_noaction_insight_third"

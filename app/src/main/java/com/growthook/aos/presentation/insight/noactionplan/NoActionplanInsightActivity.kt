@@ -34,7 +34,7 @@ class NoActionplanInsightActivity :
         seedId = intent.getIntExtra(SEED_ID, 0)
         viewModel.seedId = seedId
         Timber.d("인사이트 id $seedId")
-        viewModel.getSeedDetail()
+        viewModel.getSeedDetail(seedId)
     }
 
     private fun observeSeedDetail() {
@@ -42,7 +42,16 @@ class NoActionplanInsightActivity :
             Timber.d("seed data:: $seed")
             with(binding) {
                 tvNoactionInsightTitle.text = seed?.title
-                tvNoactionInsightContent.text = seed?.content
+                if (seed.content.isNullOrEmpty()) {
+                    tvNoactionInsightMemo.visibility = View.GONE
+                    ivNoactionInsightEmpty.visibility = View.VISIBLE
+                    tvNoactionInsightEmpty.visibility = View.VISIBLE
+                } else {
+                    tvNoactionInsightMemo.text = seed.content
+                    tvNoactionInsightMemo.visibility = View.VISIBLE
+                    ivNoactionInsightEmpty.visibility = View.GONE
+                    tvNoactionInsightEmpty.visibility = View.GONE
+                }
                 tvNoactionInsightDate.text = seed?.date
                 tvNoactionInsightChip.text = seed?.caveName
                 tvNoactionInsightContentChipTitle.text = seed?.source
