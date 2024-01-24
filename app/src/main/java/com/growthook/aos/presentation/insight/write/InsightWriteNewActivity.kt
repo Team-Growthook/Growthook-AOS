@@ -1,13 +1,25 @@
 package com.growthook.aos.presentation.insight.write
 
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
+import androidx.activity.viewModels
+import com.growthook.aos.R
 import com.growthook.aos.databinding.ActivityInsightWriteNewBinding
+import com.growthook.aos.presentation.insight.noactionplan.add.AddActionplanActivity
 import com.growthook.aos.util.base.BaseActivity
 import com.growthook.aos.util.base.BaseAlertDialog
+import dagger.hilt.android.AndroidEntryPoint
 
-class InsightWriteNewActivity: BaseActivity<ActivityInsightWriteNewBinding>({
+@AndroidEntryPoint
+class InsightWriteNewActivity : BaseActivity<ActivityInsightWriteNewBinding>({
     ActivityInsightWriteNewBinding.inflate(it)
 }) {
+
+    private val viewModel by viewModels<InsightWriteNewViewModel>()
+    private lateinit var seedUrl: String
+    private var seedId: Int = 0
+    private var isSeedSelected = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -16,6 +28,9 @@ class InsightWriteNewActivity: BaseActivity<ActivityInsightWriteNewBinding>({
 
         initShowDialog()
         clickBackBtn()
+        initMakeNewInsightWriteView()
+        clickCreateNewActionPlanBtn()
+        clickSeedScrap()
     }
 
     private fun initShowDialog() {
@@ -38,12 +53,55 @@ class InsightWriteNewActivity: BaseActivity<ActivityInsightWriteNewBinding>({
     }
 
     private fun initMakeNewInsightWriteView() {
-        // TODO 씨앗 정보 뷰 서버통신 후 뷰 그리는 로직 추가
+
+        seedId = intent.getIntExtra(NEW_SEED_ID, 0)
+        viewModel.getNewSeedData(seedId)
+
+        viewModel.newSeedData.observe(this) { seed ->
+            with(binding) {
+                tvInsightWriteNewChip.text = seed.caveName
+                tvInsightWriteNewTitle.text = seed.title
+                tvInsightWriteNewContent.text = seed.content
+                tvInsightWriteNewDate.text = seed.date
+                tvInsightWriteNewContentChipTitle.text = seed.source
+
+                seedUrl = seed?.url.toString()
+
+                if (seedUrl.length >= 35) {
+                    "${seedUrl.take(35)}...".also { tvInsightWriteNewUrl.text = it }
+                } else if (seedUrl.isNullOrEmpty()) {
+                    dividerInsightWriteNewThird.visibility = View.GONE
+                    tvInsightWriteNewUrl.visibility = View.GONE
+                } else {
+                    tvInsightWriteNewUrl.text = seedUrl
+                }
+                "D-${seed?.remainingDays}".also { tvInsightWriteNewDday.text = it }
+
+                if (seed?.isScraped == true) {
+                    ivInsightWriteNewSeed.setImageResource(R.drawable.ic_scrap_selected)
+                } else {
+                    ivInsightWriteNewSeed.setImageResource(R.drawable.ic_scrap_unselected)
+                }
+            }
+        }
+    }
+
+    private fun clickSeedScrap() {
+        binding.ivInsightWriteNewSeed.setOnClickListener {
+            isSeedSelected = !isSeedSelected
+            viewModel.changeSeedScrap(seedId)
+            if (isSeedSelected) {
+                binding.ivInsightWriteNewSeed.setImageResource(R.drawable.ic_scrap_selected)
+                Toast.makeText(this, "씨앗 스크랩 완료", Toast.LENGTH_SHORT).show()
+            } else {
+                binding.ivInsightWriteNewSeed.setImageResource(R.drawable.ic_scrap_unselected)
+            }
+        }
     }
 
     private fun clickCreateNewActionPlanBtn() {
         binding.btnInsightWriteNewActionplan.setOnClickListener {
-            // TODO 액션플랜 생성 뷰로 넘어가는 로직 추가
+            startActivity(AddActionplanActivity.getIntent(this, seedId))
         }
     }
 
@@ -51,5 +109,9 @@ class InsightWriteNewActivity: BaseActivity<ActivityInsightWriteNewBinding>({
         binding.btnInsightWriteClose.setOnClickListener {
             finish()
         }
+    }
+
+    companion object {
+        const val NEW_SEED_ID = "NEW_SEED_ID"
     }
 }

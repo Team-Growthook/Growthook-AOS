@@ -43,6 +43,10 @@ class InsightWriteViewModel @Inject constructor(
     val postSeedSuccess: LiveData<Boolean>
         get() = _postSeedSuccess
 
+    private val _seedId: MutableLiveData<Int> = MutableLiveData()
+    val seedId: LiveData<Int>
+        get() = _seedId
+
     fun setInsight(insight: String) {
         _insight.value = insight
     }
@@ -87,8 +91,9 @@ class InsightWriteViewModel @Inject constructor(
                 source.value.toString(),
                 url.value.toString(),
                 selectedGoalMonth.value ?: 1,
-            ).onSuccess {
+            ).onSuccess { response ->
                 _postSeedSuccess.value = true
+               _seedId.value = response
             }.onFailure {
                 _postSeedSuccess.value = false
                 Timber.d("InsightWrite: ${it.message}")
