@@ -84,7 +84,7 @@ class HomeViewModel @Inject constructor(
         getActionplanPercent()
     }
 
-    private fun getAlertCount() {
+    fun getAlertCount() {
         viewModelScope.launch {
             getSeedAlarmUseCase.invoke(memberId.value ?: 0).onSuccess { seedCount ->
                 _alertAmount.value = seedCount

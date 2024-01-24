@@ -119,6 +119,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private fun renewalData() {
         viewModel.getCaves()
         viewModel.getInsights()
+        viewModel.getGatherdThook()
     }
 
     private fun setInsightAdapter() {
@@ -214,11 +215,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                                     item.seedId,
                                 ),
                             )
+                            viewModel.getGatherdThook()
+                            viewModel.getAlertCount()
                         }
                     },
                 ).show(parentFragmentManager, InsightMenuBottomsheet.DELETE_DIALOG)
         } else if (item.hasActionPlan) {
-            startActivity(ActionplanInsightActivity.getIntent(requireContext(), item.seedId, "HomeFragment"))
+            startActivity(
+                ActionplanInsightActivity.getIntent(
+                    requireContext(),
+                    item.seedId,
+                    "HomeFragment",
+                ),
+            )
         } else {
             startActivity(NoActionplanInsightActivity.getIntent(requireContext(), item.seedId))
         }
