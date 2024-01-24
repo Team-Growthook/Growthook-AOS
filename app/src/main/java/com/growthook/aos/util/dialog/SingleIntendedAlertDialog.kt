@@ -39,6 +39,9 @@ class SingleIntendedAlertDialog : BaseAlertDialog() {
         binding.tvSingleIntendedTip.text = tipText
     }
 
+    override fun setRemainThookText() {
+    }
+
     override fun setTipVisility() {
         if (isTipVisility == true) {
             binding.tvSingleIntendedTip.visibility = View.VISIBLE

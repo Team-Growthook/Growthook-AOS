@@ -1,6 +1,5 @@
 package com.growthook.aos.presentation.insight.noactionplan
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -96,6 +95,7 @@ class InsightMenuBottomsheet :
                     dismiss()
                 },
                 positiveAction = {},
+                remainThookText = "",
             ).show(parentFragmentManager, DELETE_DIALOG)
     }
 

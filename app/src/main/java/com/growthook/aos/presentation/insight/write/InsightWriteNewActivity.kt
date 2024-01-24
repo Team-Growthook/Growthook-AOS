@@ -48,12 +48,12 @@ class InsightWriteNewActivity : BaseActivity<ActivityInsightWriteNewBinding>({
                 isRemainThookVisility = false,
                 isTipVisility = true,
                 negativeAction = {},
-                positiveAction = {}
+                positiveAction = {},
+                remainThookText = "",
             ).show(supportFragmentManager, "show dialog")
     }
 
     private fun initMakeNewInsightWriteView() {
-
         seedId = intent.getIntExtra(NEW_SEED_ID, 0)
         viewModel.getNewSeedData(seedId)
 

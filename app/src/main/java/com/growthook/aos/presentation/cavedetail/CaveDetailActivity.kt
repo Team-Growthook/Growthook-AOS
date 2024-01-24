@@ -53,6 +53,7 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
         val caveId = intent.getIntExtra(CAVE_ID, 0)
         viewModel.caveId.value = caveId
         viewModel.getInsights()
+        viewModel.getGatherdThook()
         setCaveDetail()
         setInsightAdapter()
         setNickName()
@@ -174,6 +175,7 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
                     },
                     positiveAction = {
                     },
+                    remainThookText = "",
                 ).show(supportFragmentManager, InsightMenuBottomsheet.DELETE_DIALOG)
         }
     }
@@ -209,9 +211,16 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
                             )
                         }
                     },
+                    remainThookText = viewModel.gatherdThook.value.toString(),
                 ).show(supportFragmentManager, InsightMenuBottomsheet.DELETE_DIALOG)
         } else if (item.hasActionPlan) {
-            startActivity(ActionplanInsightActivity.getIntent(this, item.seedId, "CaveDetailActivity"))
+            startActivity(
+                ActionplanInsightActivity.getIntent(
+                    this,
+                    item.seedId,
+                    "CaveDetailActivity",
+                ),
+            )
         } else {
             startActivity(NoActionplanInsightActivity.getIntent(this, item.seedId))
         }

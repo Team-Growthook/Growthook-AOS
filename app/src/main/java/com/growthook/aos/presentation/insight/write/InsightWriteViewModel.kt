@@ -93,7 +93,7 @@ class InsightWriteViewModel @Inject constructor(
                 selectedGoalMonth.value ?: 1,
             ).onSuccess { response ->
                 _postSeedSuccess.value = true
-               _seedId.value = response
+                _seedId.value = response
             }.onFailure {
                 _postSeedSuccess.value = false
                 Timber.d("InsightWrite: ${it.message}")

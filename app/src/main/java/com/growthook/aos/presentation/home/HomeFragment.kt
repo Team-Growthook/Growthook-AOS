@@ -49,6 +49,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private val insightAdapter
         get() = requireNotNull(_insightAdapter) { "adapter is null" }
 
+    private var remainThook = 0
+
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -58,6 +60,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         setTitleText()
+        setThook()
         setInsightAdapter()
         setAlertMessage()
         setInsightTitle()
@@ -69,7 +72,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
         clickAddCave()
         clickAddSeedBtn()
-        setThook()
         observeNickName()
 
         observeInsights()
@@ -216,9 +218,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                             )
                         }
                     },
+                    remainThookText = remainThook.toString(),
                 ).show(parentFragmentManager, InsightMenuBottomsheet.DELETE_DIALOG)
         } else if (item.hasActionPlan) {
-            startActivity(ActionplanInsightActivity.getIntent(requireContext(), item.seedId, "HomeFragment"))
+            startActivity(
+                ActionplanInsightActivity.getIntent(
+                    requireContext(),
+                    item.seedId,
+                    "HomeFragment",
+                ),
+            )
         } else {
             startActivity(NoActionplanInsightActivity.getIntent(requireContext(), item.seedId))
         }
@@ -325,6 +334,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private fun setThook() {
         viewModel.gatherdThook.observe(viewLifecycleOwner) { thookCount ->
+            remainThook = thookCount
             binding.tvHomeGathredThook.text = thookCount.toString()
         }
     }
