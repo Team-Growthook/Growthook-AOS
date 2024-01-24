@@ -9,11 +9,12 @@ import com.growthook.aos.R
 import com.growthook.aos.databinding.ItemCompletedActionplanBinding
 import com.growthook.aos.domain.entity.ActionlistDetail
 import com.growthook.aos.util.extension.ItemDiffCallback
+import timber.log.Timber
 
 class CompletedActionlistAdapter(
     private val clickSeedDetail: (Int) -> Unit,
     private val clickReviewDetail: (Int) -> Unit,
-
+    private val clickSeed: (Int, Boolean) -> Unit,
 ) :
     ListAdapter<ActionlistDetail, CompletedActionlistAdapter.CompletedActionlistViewHolder>(
         ItemDiffCallback<ActionlistDetail>(
@@ -25,8 +26,11 @@ class CompletedActionlistAdapter(
         private val binding: ItemCompletedActionplanBinding,
         private val clickSeedDetail: (Int) -> Unit,
         private val clickReviewDetail: (Int) -> Unit,
+        private val clickSeed: (Int, Boolean) -> Unit,
     ) :
         RecyclerView.ViewHolder(binding.root) {
+        private var isSeedSelected = false
+
         fun onBind(data: ActionlistDetail) {
             with(binding) {
                 tvCompletedActionplanTitle.text = data.content
@@ -48,12 +52,7 @@ class CompletedActionlistAdapter(
                             R.color.White000,
                         ),
                     )
-                    tvCompletedActionplanBtnRight.setBackgroundColor(
-                        ContextCompat.getColor(
-                            itemView.context,
-                            R.color.Gray600,
-                        ),
-                    )
+                    tvCompletedActionplanBtnRight.setBackgroundResource(R.drawable.rect_gray600_fill_5)
                     tvCompletedActionplanBtnRight.isClickable = true
                 } else {
                     tvCompletedActionplanBtnRight.setTextColor(
@@ -62,13 +61,18 @@ class CompletedActionlistAdapter(
                             R.color.Gray300,
                         ),
                     )
-                    tvCompletedActionplanBtnRight.setBackgroundColor(
-                        ContextCompat.getColor(
-                            itemView.context,
-                            R.color.Gray500,
-                        ),
-                    )
+                    tvCompletedActionplanBtnRight.setBackgroundResource(R.drawable.rect_gray500_fill_5)
                     tvCompletedActionplanBtnRight.isClickable = false
+                }
+                ivCompletedActionplan.setOnClickListener {
+                    isSeedSelected = !isSeedSelected
+                    clickSeed(data.actionplanId, isSeedSelected)
+                    Timber.w("ivCompletedActionplan::: $isSeedSelected")
+                    if (isSeedSelected) {
+                        ivCompletedActionplan.setImageResource(R.drawable.ic_scrap_selected)
+                    } else {
+                        ivCompletedActionplan.setImageResource(R.drawable.ic_scrap_unselected)
+                    }
                 }
             }
         }
@@ -84,7 +88,7 @@ class CompletedActionlistAdapter(
                 parent,
                 false,
             )
-        return CompletedActionlistViewHolder(binding, clickSeedDetail, clickReviewDetail)
+        return CompletedActionlistViewHolder(binding, clickSeedDetail, clickReviewDetail, clickSeed)
     }
 
     override fun onBindViewHolder(holder: CompletedActionlistViewHolder, position: Int) {
