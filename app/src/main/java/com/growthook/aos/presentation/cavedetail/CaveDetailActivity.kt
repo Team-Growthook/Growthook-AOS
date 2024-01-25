@@ -297,8 +297,6 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
 
     private fun clickBackNavi() {
         binding.tbCaveDetail.setNavigationOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
             finish()
         }
     }
