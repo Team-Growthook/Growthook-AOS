@@ -13,6 +13,7 @@ import com.growthook.aos.databinding.FragmentSelectMenuBottomsheetBinding
 import com.growthook.aos.presentation.insight.noactionplan.InsightMenuBottomsheet
 import com.growthook.aos.util.base.BaseAlertDialog
 import com.growthook.aos.util.base.BaseBottomSheetFragment
+import com.growthook.aos.util.extension.setOnSingleClickListener
 import com.growthook.aos.util.selectcave.CaveSelect
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -37,7 +38,7 @@ class CaveDetailSelectMenuBottomSheet() :
     }
 
     private fun clickMoveBtn() {
-        binding.btnHomeSelectMove.setOnClickListener {
+        binding.btnHomeSelectMove.setOnSingleClickListener {
             CaveSelect.Builder().build(
                 CaveSelect.CaveSelectType.YES_API,
                 viewModel.longClickInsight.value?.seedId ?: 1,

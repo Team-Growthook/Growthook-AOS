@@ -8,6 +8,7 @@ import com.growthook.aos.R
 import com.growthook.aos.databinding.ItemProceedingActionplanBinding
 import com.growthook.aos.domain.entity.ActionlistDetail
 import com.growthook.aos.util.extension.ItemDiffCallback
+import com.growthook.aos.util.extension.setOnSingleClickListener
 
 class ProceedingActionlistAdapter(
     private val clickSeedDetail: (Int) -> Unit,
@@ -33,10 +34,10 @@ class ProceedingActionlistAdapter(
             var isSeedSelected = data.isScraped
             with(binding) {
                 tvProceedingActionplanTitle.text = data.content
-                tvProceedingActionplanBtnRight.setOnClickListener {
+                tvProceedingActionplanBtnRight.setOnSingleClickListener {
                     clickCompleted(data.actionplanId)
                 }
-                tvProceedingActionplanBtnLeft.setOnClickListener {
+                tvProceedingActionplanBtnLeft.setOnSingleClickListener {
                     clickSeedDetail(data.seedId)
                 }
                 if (data.isScraped) {
@@ -44,7 +45,7 @@ class ProceedingActionlistAdapter(
                 } else {
                     ivProceedingActionplan.setImageResource(R.drawable.ic_scrap_unselected)
                 }
-                ivProceedingActionplan.setOnClickListener {
+                ivProceedingActionplan.setOnSingleClickListener {
                     isSeedSelected = !isSeedSelected
                     clickSeed(data.actionplanId, isSeedSelected)
                     if (isSeedSelected) {

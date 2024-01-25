@@ -14,6 +14,7 @@ import com.growthook.aos.databinding.ActivityAddActionplanBinding
 import com.growthook.aos.presentation.insight.actionplan.ActionplanInsightActivity
 import com.growthook.aos.presentation.insight.noactionplan.add.AddActionplanViewModel.Event
 import com.growthook.aos.util.base.BaseActivity
+import com.growthook.aos.util.extension.setOnSingleClickListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -131,13 +132,13 @@ class AddActionplanActivity :
     }
 
     private fun clickPlusBtn() {
-        binding.ivAddActionplanPlus.setOnClickListener {
+        binding.ivAddActionplanPlus.setOnSingleClickListener {
             _addActionplanAdapter?.addItem("")
         }
     }
 
     private fun clickCompleteBtn() {
-        binding.tvAddActionplanComplete.setOnClickListener {
+        binding.tvAddActionplanComplete.setOnSingleClickListener {
             viewModel.actionplanList.value?.let { actionplans ->
                 val actionplanList = actionplans.filter {
                     it.isNotEmpty()
