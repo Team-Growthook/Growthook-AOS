@@ -41,6 +41,11 @@ class CompletedActionlistFragment : BaseFragment<FragmentCompletedActionlistBind
         clickScrapBtn()
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.getFinishedActionplans()
+    }
+
     private fun initActionplanAdapter() {
         _completedActionlistAdapter =
             CompletedActionlistAdapter(::clickSeedDetail, ::clickReviewDetail, ::clickSeed)
@@ -82,11 +87,6 @@ class CompletedActionlistFragment : BaseFragment<FragmentCompletedActionlistBind
             Timber.w("doingActionplan:: $doingActionplan")
             _completedActionlistAdapter?.submitList(doingActionplan)
         }.launchIn(lifecycleScope)
-//
-//        viewModel.scrapedActionplans.flowWithLifecycle(lifecycle).onEach { scrapedActionplan ->
-//            Timber.w("scrapedActionplan:: $scrapedActionplan")
-//            _completedActionlistAdapter?.submitList(scrapedActionplan)
-//        }.launchIn(lifecycleScope)
     }
 
     private fun clickSeed(actionplanId: Int, isSeedSelected: Boolean) {

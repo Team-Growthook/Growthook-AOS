@@ -49,6 +49,11 @@ class ProceedingActionlistFragment(private val parentFragment: ActionlistFragmen
         clickScrapBtn()
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.getDoingActionplans()
+    }
+
     private fun initActionplanAdapter() {
         _proceedingActionlistAdapter =
             ProceedingActionlistAdapter(
@@ -66,21 +71,9 @@ class ProceedingActionlistFragment(private val parentFragment: ActionlistFragmen
             Timber.w("doingActionplan:: $doingActionplan")
             _proceedingActionlistAdapter?.submitList(doingActionplan)
         }.launchIn(lifecycleScope)
-
-//        viewModel.scrapedActionplans.flowWithLifecycle(lifecycle).onEach { scrapedActionplans ->
-//            Timber.w("scrapedActionplans:: $scrapedActionplans")
-//            _proceedingActionlistAdapter?.submitList(scrapedActionplans)
-//        }.launchIn(lifecycleScope)
     }
 
     private fun clickScrapBtn() {
-//        binding.cbProceedingActionplanScrap.setOnCheckedChangeListener { button, isChecked ->
-//            if (isChecked) {
-//                viewModel.getScrapedActionplan()
-//            } else {
-//                viewModel.getDoingActionplans()
-//            }
-//        }
         binding.clProceedingActionplanScrap.setOnClickListener {
             isScraped = !isScraped
             if (isScraped) {
