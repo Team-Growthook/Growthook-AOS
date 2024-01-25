@@ -51,6 +51,11 @@ class YesApiCaveSelectBottomSheet : CaveSelect() {
                             }
                         }
                     }
+                    viewModel.caves.value?.let { caves ->
+                        if (caves.isEmpty()) {
+                            dismiss()
+                        }
+                    }
                 }
             }
         }

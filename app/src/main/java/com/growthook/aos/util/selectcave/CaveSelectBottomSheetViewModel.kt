@@ -40,7 +40,7 @@ class CaveSelectBottomSheetViewModel @Inject constructor(
     fun getCaves() {
         viewModelScope.launch {
             getCavesUseCase(memberId.value ?: 0).onSuccess { caves ->
-                _caves.value = caves
+                _caves.value = listOf()
             }
         }
     }
