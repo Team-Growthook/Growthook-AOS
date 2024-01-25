@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.growthook.aos.domain.usecase.cavedetail.PostCaveUseCase
 import com.growthook.aos.domain.usecase.local.GetUserUseCase
+import com.growthook.aos.domain.usecase.mypage.GetProfileUseCase
 import com.growthook.aos.util.extension.addSourceList
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -17,6 +18,7 @@ import javax.inject.Inject
 class CreateNewCaveViewModel @Inject constructor(
     private val getUserUseCase: GetUserUseCase,
     private val postCaveUseCase: PostCaveUseCase,
+    private val getProfileUseCase: GetProfileUseCase,
 ) : ViewModel() {
 
     private val _caveName = MutableLiveData<String>()
@@ -35,12 +37,16 @@ class CreateNewCaveViewModel @Inject constructor(
     val postCaveSuccess: LiveData<Boolean>
         get() = _postCaveSuccess
 
+    private val _profileUrl = MutableLiveData<String?>()
+    val profileUrl: LiveData<String?> = _profileUrl
+
     fun getNickName() {
         viewModelScope.launch {
             getUserUseCase.invoke().name.let { nickName ->
                 _nickName.value = nickName
             }
         }
+        getProfileUrl()
     }
 
     fun getCaveName(name: String) {
@@ -69,6 +75,16 @@ class CreateNewCaveViewModel @Inject constructor(
             }.onFailure {
                 _postCaveSuccess.value = false
                 Timber.d("CreateNewCave: ${it.message}")
+            }
+        }
+    }
+
+    private fun getProfileUrl() {
+        viewModelScope.launch {
+            getProfileUseCase.invoke(getUserUseCase.invoke().memberId ?: 0).onSuccess { profile ->
+                _profileUrl.value = profile.profileUrl
+            }.onFailure {
+                Timber.e(it.message)
             }
         }
     }

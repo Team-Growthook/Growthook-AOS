@@ -5,8 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import com.growthook.aos.databinding.ActivitySeeNewCaveBinding
-import com.growthook.aos.presentation.insight.noactionplan.NoActionplanInsightActivity
 import com.growthook.aos.presentation.model.NewCaveIntent
+import com.growthook.aos.util.GlideApp
 import com.growthook.aos.util.base.BaseActivity
 import com.growthook.aos.util.extension.getParcelable
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,6 +25,7 @@ class SeeNewCaveActivity : BaseActivity<ActivitySeeNewCaveBinding>({
 
         initSetNewCaveView()
         initClickCloseBtn()
+        setProfileImage()
     }
 
     private fun initSetNewCaveView() {
@@ -51,6 +52,14 @@ class SeeNewCaveActivity : BaseActivity<ActivitySeeNewCaveBinding>({
     private fun initClickCloseBtn() {
         binding.btnCaveClose.setOnClickListener {
             finish()
+        }
+    }
+
+    private fun setProfileImage() {
+        viewModel.profileUrl.observe(this) { imageUrl ->
+            if (imageUrl != null) {
+                GlideApp.with(this).load(imageUrl).into(binding.ivSeeCaveUserImg)
+            }
         }
     }
 
