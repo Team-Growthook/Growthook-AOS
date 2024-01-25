@@ -202,27 +202,33 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     negativeAction = {
                     },
                     positiveAction = {
-                        viewModel.unLockSeed(item.seedId)
-                        viewModel.isUnlock.observe(viewLifecycleOwner) {
-                            Toast.makeText(context, "잠금이 영구적으로 해제되었어요!", Toast.LENGTH_SHORT).show()
-                            if (!item.hasActionPlan) {
-                                startActivity(
-                                    ActionplanInsightActivity.getIntent(
-                                        requireContext(),
-                                        item.seedId,
-                                        "HomeFragment",
-                                    ),
-                                )
-                            } else {
-                                startActivity(
-                                    NoActionplanInsightActivity.getIntent(
-                                        requireContext(),
-                                        item.seedId,
-                                    ),
-                                )
+                        val thookCount = viewModel.gatherdThook.value ?:0
+                        if (thookCount <= 0) {
+                            Toast.makeText(requireContext(), "쑥이 없어 잠금을 해제할 수 없어요", Toast.LENGTH_SHORT).show()
+                        } else {
+                            viewModel.unLockSeed(item.seedId)
+                            viewModel.isUnlock.observe(viewLifecycleOwner) {
+                                Toast.makeText(context, "잠금이 영구적으로 해제되었어요!", Toast.LENGTH_SHORT)
+                                    .show()
+                                if (item.hasActionPlan) {
+                                    startActivity(
+                                        ActionplanInsightActivity.getIntent(
+                                            requireContext(),
+                                            item.seedId,
+                                            "HomeFragment",
+                                        ),
+                                    )
+                                } else {
+                                    startActivity(
+                                        NoActionplanInsightActivity.getIntent(
+                                            requireContext(),
+                                            item.seedId,
+                                        ),
+                                    )
+                                }
+                                viewModel.getGatherdThook()
+                                viewModel.getAlertCount()
                             }
-                            viewModel.getGatherdThook()
-                            viewModel.getAlertCount()
                         }
                     },
                     remainThookText = viewModel.gatherdThook.value.toString(),
