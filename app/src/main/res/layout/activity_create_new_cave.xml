@@ -90,7 +90,8 @@
                     android:textColorHint="@color/Gray300"
                     android:textAppearance="@style/body3_reg"
                     android:includeFontPadding="false"
-                    android:inputType="text"/>
+                    android:inputType="text"
+                    android:maxLength="7"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -132,7 +133,8 @@
                     android:textColorHint="@color/Gray300"
                     android:textAppearance="@style/body3_reg"
                     android:includeFontPadding="false"
-                    android:inputType="text"/>
+                    android:inputType="text"
+                    android:maxLength="20"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
