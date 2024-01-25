@@ -33,8 +33,8 @@ class ActionplanAdapter(
     ) :
         RecyclerView.ViewHolder(binding.root) {
         private var isItemSelected = false
-        private var isSeedSelected = false
         fun onBind(data: Actionplan) {
+            var isSeedSelected = data.isScraped
             with(binding) {
                 tvActionplanTitle.text = data.content
                 ivActionplanMenu.setOnClickListener {
