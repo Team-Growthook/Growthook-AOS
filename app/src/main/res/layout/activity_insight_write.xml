@@ -112,7 +112,8 @@
                     android:textColor="@color/White000"
                     android:textColorHint="@color/Gray300"
                     android:includeFontPadding="false"
-                    android:inputType="text"/>
+                    android:inputType="text"
+                    android:maxLength="30"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -154,7 +155,8 @@
                     android:inputType="text"
                     android:textAppearance="@style/body3_reg"
                     android:textColor="@color/White000"
-                    android:textColorHint="@color/Gray300" />
+                    android:textColorHint="@color/Gray300"
+                    android:maxLength="300"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -266,7 +268,8 @@
                     android:textAppearance="@style/body3_reg"
                     android:includeFontPadding="false"
                     android:inputType="text"
-                    android:gravity="center_vertical"/>
+                    android:gravity="center_vertical"
+                    android:maxLength="20"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
