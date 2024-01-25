@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.growthook.aos.R
 import com.growthook.aos.databinding.FragmentCompletedActionlistBinding
 import com.growthook.aos.presentation.actionlist.ReviewDetailActivity
+import com.growthook.aos.presentation.home.HomeViewModel
 import com.growthook.aos.presentation.insight.actionplan.ActionplanInsightActivity
 import com.growthook.aos.util.base.BaseFragment
 import com.growthook.aos.util.extension.setOnSingleClickListener
@@ -28,6 +30,7 @@ class CompletedActionlistFragment : BaseFragment<FragmentCompletedActionlistBind
         get() = requireNotNull(_completedActionlistAdapter) { "completedActionlistAdapter is null" }
 
     private val viewModel by viewModels<CompletedActionlistViewModel>()
+    private val homeViewModel: HomeViewModel by activityViewModels()
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -37,14 +40,10 @@ class CompletedActionlistFragment : BaseFragment<FragmentCompletedActionlistBind
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        homeViewModel.getActionplanPercent()
         initActionplanAdapter()
         observeActionplan()
         clickScrapBtn()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.getFinishedActionplans()
     }
 
     private fun initActionplanAdapter() {

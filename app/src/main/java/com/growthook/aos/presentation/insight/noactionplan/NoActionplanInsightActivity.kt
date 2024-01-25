@@ -2,7 +2,6 @@ package com.growthook.aos.presentation.insight.noactionplan
 
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -44,16 +43,7 @@ class NoActionplanInsightActivity :
             Timber.d("seed data:: $seed")
             with(binding) {
                 tvNoactionInsightTitle.text = seed?.title
-                if (seed.content.isNullOrEmpty()) {
-                    tvNoactionInsightMemo.visibility = View.GONE
-                    ivNoactionInsightEmpty.visibility = View.VISIBLE
-                    tvNoactionInsightEmpty.visibility = View.VISIBLE
-                } else {
-                    tvNoactionInsightMemo.text = seed.content
-                    tvNoactionInsightMemo.visibility = View.VISIBLE
-                    ivNoactionInsightEmpty.visibility = View.GONE
-                    tvNoactionInsightEmpty.visibility = View.GONE
-                }
+                tvNoactionInsightMemo.text = seed.content
                 tvNoactionInsightDate.text = seed?.date
                 tvNoactionInsightChip.text = seed?.caveName
                 tvNoactionInsightContentChipTitle.text = seed?.source
