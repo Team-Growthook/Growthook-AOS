@@ -174,7 +174,7 @@
         android:background="@drawable/sel_create_new_storage_btn"
         android:enabled="false"
         android:text="@string/storage_btn"
-        android:textColor="@color/Gray300"
+        android:textColor="@color/sel_cave_create_btn"
         android:textAppearance="@style/body1_bold"
         android:includeFontPadding="false"
         android:paddingHorizontal="12dp"/>
