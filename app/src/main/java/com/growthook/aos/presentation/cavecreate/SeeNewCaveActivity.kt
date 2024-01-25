@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import com.growthook.aos.databinding.ActivitySeeNewCaveBinding
+import com.growthook.aos.presentation.insight.write.InsightWriteActivity
 import com.growthook.aos.presentation.model.NewCaveIntent
 import com.growthook.aos.util.GlideApp
 import com.growthook.aos.util.base.BaseActivity
@@ -27,6 +28,7 @@ class SeeNewCaveActivity : BaseActivity<ActivitySeeNewCaveBinding>({
         initClickCloseBtn()
         setProfileImage()
         setChbClickable()
+        clickAddSeedBtn()
     }
 
     private fun initSetNewCaveView() {
@@ -66,6 +68,13 @@ class SeeNewCaveActivity : BaseActivity<ActivitySeeNewCaveBinding>({
 
     private fun setChbClickable() {
         binding.chbSeeCaveScrap.isClickable = false
+    }
+
+    private fun clickAddSeedBtn() {
+        binding.btnSeeCaveMakeSeed.setOnClickListener {
+            val intent = Intent(this, InsightWriteActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     companion object {
