@@ -50,15 +50,18 @@
             app:layout_constraintTop_toBottomOf="@id/tv_see_cave_title"
             app:layout_constraintStart_toStartOf="parent"/>
 
-        <ImageView
+
+
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_see_cave_user_img"
             android:layout_width="0dp"
             android:layout_height="20dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/img_bear"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_profile_default"
             android:layout_marginTop="16dp"
             android:layout_marginStart="18dp"
             app:layout_constraintDimensionRatio="1"
+            app:shapeAppearanceOverlay="@style/Radius2"
             app:layout_constraintTop_toBottomOf="@id/tv_see_cave_sub_title"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -73,7 +76,7 @@
             app:layout_constraintStart_toEndOf="@id/iv_see_cave_user_img"
             android:includeFontPadding="false"
             android:layout_marginTop="17dp"
-            android:layout_marginStart="10dp"/>
+            android:layout_marginStart="8dp"/>
 
         <ImageView
             android:layout_width="wrap_content"

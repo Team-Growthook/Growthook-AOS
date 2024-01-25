@@ -97,7 +97,7 @@ class HomeInsightAdapter(
                 binding.btnHomeScrap.setImageResource(R.drawable.ic_scrap_unselected)
             }
             binding.tvHomeInsightTitle.text = item.name
-            binding.tvHomeInsightLock.text = "${item.remainingDays}일 후 잠금"
+            binding.tvHomeInsightLock.text = "잠금"
             binding.root.setOnClickListener {
                 selectedItem(item)
             }
@@ -112,8 +112,13 @@ class HomeInsightAdapter(
             } else {
                 binding.btnHomeScrap.setImageResource(R.drawable.ic_scrap_unselected)
             }
+            if (item.remainingDays <= 0) {
+                binding.tvHomeInsightLock.text = "잠금 해제 완료!"
+            } else {
+                binding.tvHomeInsightLock.text = "${item.remainingDays}일 후 잠금"
+            }
+
             binding.tvHomeInsightTitle.text = item.name
-            binding.tvHomeInsightLock.text = "${item.remainingDays}일 후 잠금"
             binding.root.setOnLongClickListener {
                 selectionLongTracker.select(itemPosition.toLong())
                 binding.viewHomeInsightClick.visibility = View.VISIBLE
@@ -156,8 +161,14 @@ class HomeInsightAdapter(
             } else {
                 binding.btnHomeScrap.setImageResource(R.drawable.ic_scrap_unselected)
             }
+
+            if (item.remainingDays <= 0) {
+                binding.tvHomeInsightLock.text = "잠금 해제 완료!"
+            } else {
+                binding.tvHomeInsightLock.text = "${item.remainingDays}일 후 잠금"
+            }
+
             binding.tvHomeInsightTitle.text = item.name
-            binding.tvHomeInsightLock.text = "${item.remainingDays}일 후 잠금"
             binding.root.setOnLongClickListener {
                 binding.viewHomeInsightClick.visibility = View.VISIBLE
                 selectionLongTracker.select(itemPosition.toLong())

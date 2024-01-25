@@ -210,13 +210,25 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
                     positiveAction = {
                         viewModel.unLockSeed(item.seedId)
                         viewModel.isUnlock.observe(this) {
-                            Toast.makeText(this, "잠금이 영구적으로 해제되었어요!", Toast.LENGTH_SHORT).show()
-                            startActivity(
-                                NoActionplanInsightActivity.getIntent(
-                                    this,
-                                    item.seedId,
-                                ),
-                            )
+                            Toast.makeText(this, "잠금이 영구적으로 해제되었어요!", Toast.LENGTH_SHORT)
+                                .show()
+                            if (item.hasActionPlan) {
+                                startActivity(
+                                    ActionplanInsightActivity.getIntent(
+                                        this,
+                                        item.seedId,
+                                        "CaveDetailActivity",
+                                    ),
+                                )
+                            } else {
+                                startActivity(
+                                    NoActionplanInsightActivity.getIntent(
+                                        this,
+                                        item.seedId,
+                                    ),
+                                )
+                            }
+                            viewModel.getGatherdThook()
                         }
                     },
                     remainThookText = remainThook.toString(),
@@ -285,8 +297,6 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
 
     private fun clickBackNavi() {
         binding.tbCaveDetail.setNavigationOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
             finish()
         }
     }
