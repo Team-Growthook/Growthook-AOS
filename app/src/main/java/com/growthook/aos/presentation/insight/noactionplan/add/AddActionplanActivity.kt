@@ -50,11 +50,17 @@ class AddActionplanActivity :
             Timber.d("seed data:: $seed")
             with(binding) {
                 tvAddActionplanTitle.text = seed?.title
-                tvAddActionplanContent.text = seed?.content
                 tvAddActionplanDate.text = seed?.date
                 tvAddActionplanChip.text = seed?.caveName
-
                 "D-${seed?.remainingDays}".also { tvAddActionplanDday.text = it }
+                if (seed?.content.isNullOrEmpty()) {
+                    clAddActionplanMemoEmpty.visibility = View.VISIBLE
+                    scvAddActionplanContent.visibility = View.INVISIBLE
+                } else {
+                    clAddActionplanMemoEmpty.visibility = View.GONE
+                    tvAddActionplanContent.text = seed?.content
+                    scvAddActionplanContent.visibility = View.VISIBLE
+                }
 
                 if (seed?.isScraped == true) {
                     ivAddActionplanSeed.setImageResource(R.drawable.ic_scrap_selected)

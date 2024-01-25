@@ -18,9 +18,10 @@ import timber.log.Timber
 class NoActionplanInsightActivity :
     BaseActivity<ActivityNoActionplanInsightBinding>({ ActivityNoActionplanInsightBinding.inflate(it) }) {
     private val viewModel by viewModels<NoActionplanInsightViewModel>()
+    private val bottomSheetDialog = InsightMenuBottomsheet()
     private var seedId: Int = 0
     private lateinit var seedUrl: String
-    private var isSeedSelected = false
+    private var isSeedScraped = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +35,7 @@ class NoActionplanInsightActivity :
         seedId = intent.getIntExtra(SEED_ID, 0)
         viewModel.seedId = seedId
         Timber.d("인사이트 id $seedId")
-        viewModel.getSeedDetail()
+        viewModel.getSeedDetail(seedId)
     }
 
     private fun observeSeedDetail() {
@@ -42,7 +43,16 @@ class NoActionplanInsightActivity :
             Timber.d("seed data:: $seed")
             with(binding) {
                 tvNoactionInsightTitle.text = seed?.title
-                tvNoactionInsightContent.text = seed?.content
+                if (seed.content.isNullOrEmpty()) {
+                    tvNoactionInsightMemo.visibility = View.GONE
+                    ivNoactionInsightEmpty.visibility = View.VISIBLE
+                    tvNoactionInsightEmpty.visibility = View.VISIBLE
+                } else {
+                    tvNoactionInsightMemo.text = seed.content
+                    tvNoactionInsightMemo.visibility = View.VISIBLE
+                    ivNoactionInsightEmpty.visibility = View.GONE
+                    tvNoactionInsightEmpty.visibility = View.GONE
+                }
                 tvNoactionInsightDate.text = seed?.date
                 tvNoactionInsightChip.text = seed?.caveName
                 tvNoactionInsightContentChipTitle.text = seed?.source
@@ -57,11 +67,18 @@ class NoActionplanInsightActivity :
                 } else {
                     tvNoactionInsightUrl.text = seedUrl
                 }
-                "D-${seed?.remainingDays}".also { tvNoactionInsightDday.text = it }
+
+                if (seed.remainingDays < 0) {
+                    dividerNoactionInsightFirst.visibility = View.GONE
+                } else {
+                    "D-${seed.remainingDays}".also { tvNoactionInsightDday.text = it }
+                }
 
                 if (seed?.isScraped == true) {
+                    isSeedScraped = true
                     ivNoactionInsightSeed.setImageResource(R.drawable.ic_scrap_selected)
                 } else {
+                    isSeedScraped = false
                     ivNoactionInsightSeed.setImageResource(R.drawable.ic_scrap_unselected)
                 }
             }
@@ -77,11 +94,11 @@ class NoActionplanInsightActivity :
 
     private fun clickInsightSeed() {
         binding.ivNoactionInsightSeed.setOnClickListener {
-            isSeedSelected = !isSeedSelected
+            isSeedScraped = !isSeedScraped
             viewModel.changeSeedScrap(seedId)
-            if (isSeedSelected) {
+            if (isSeedScraped) {
                 binding.ivNoactionInsightSeed.setImageResource(R.drawable.ic_scrap_selected)
-                Toast.makeText(this, "씨앗 스크랩 완료", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "씨앗이 스크랩 되었어요", Toast.LENGTH_SHORT).show()
             } else {
                 binding.ivNoactionInsightSeed.setImageResource(R.drawable.ic_scrap_unselected)
             }
@@ -90,7 +107,6 @@ class NoActionplanInsightActivity :
 
     private fun clickMenu() {
         binding.ivNoactionInsightToolbarMenu.setOnClickListener {
-            val bottomSheetDialog = InsightMenuBottomsheet()
             bottomSheetDialog.show(supportFragmentManager, "show")
         }
     }

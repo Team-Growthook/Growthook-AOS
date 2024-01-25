@@ -30,7 +30,7 @@ class ActionplanInsightActivity :
     private val viewModel by viewModels<ActionplanInsightViewModel>()
     private var seedId: Int = 0
     private var previousView: String = ""
-    private var isSeedSelected = false
+    private var isSeedScraped = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,9 +68,9 @@ class ActionplanInsightActivity :
 
     private fun clickInsightSeed() {
         binding.ivActionplanInsightSeed.setOnClickListener {
-            isSeedSelected = !isSeedSelected
+            isSeedScraped = !isSeedScraped
             viewModel.changeSeedScrap(seedId)
-            if (isSeedSelected) {
+            if (isSeedScraped) {
                 binding.ivActionplanInsightSeed.setImageResource(R.drawable.ic_scrap_selected)
                 Toast.makeText(this, "씨앗이 스크랩 되었어요", Toast.LENGTH_SHORT).show()
             } else {
@@ -152,23 +152,30 @@ class ActionplanInsightActivity :
         viewModel.seedData.observe(this) { seed ->
             with(binding) {
                 tvActionplanInsightTitle.text = seed?.title
-                tvActionplanInsightContent.text = seed?.content
                 tvActionplanInsightDate.text = seed?.date
                 tvActionplanInsightChip.text = seed?.caveName
-                "D-${seed?.remainingDays}".also { tvActionplanInsightDday.text = it }
 
                 if (seed.content.isNullOrEmpty()) {
                     clActionplanInsightMemoEmpty.visibility = View.VISIBLE
                     scvActionplanInsightContent.visibility = View.INVISIBLE
                 } else {
                     clActionplanInsightMemoEmpty.visibility = View.GONE
+                    tvActionplanInsightContent.text = seed?.content
                     scvActionplanInsightContent.visibility = View.VISIBLE
                 }
 
                 if (seed.isScraped) {
+                    isSeedScraped = true
                     ivActionplanInsightSeed.setImageResource(R.drawable.ic_scrap_selected)
                 } else {
+                    isSeedScraped = false
                     ivActionplanInsightSeed.setImageResource(R.drawable.ic_scrap_unselected)
+                }
+
+                if (seed.remainingDays < 0) {
+                    dividerActionplanInsightFirst.visibility = View.GONE
+                } else {
+                    "D-${seed?.remainingDays}".also { tvActionplanInsightDday.text = it }
                 }
             }
         }

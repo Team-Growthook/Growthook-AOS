@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.growthook.aos.domain.entity.Cave
 import com.growthook.aos.domain.entity.Seed
+import com.growthook.aos.domain.entity.SeedInfo
 import com.growthook.aos.domain.usecase.DeleteSeedUseCase
 import com.growthook.aos.domain.usecase.GetCavesUseCase
 import com.growthook.aos.domain.usecase.MoveSeedUseCase
@@ -15,6 +16,7 @@ import com.growthook.aos.domain.usecase.local.GetUserUseCase
 import com.growthook.aos.domain.usecase.seeddetail.GetSeedUseCase
 import com.growthook.aos.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -48,6 +50,12 @@ class NoActionplanInsightViewModel @Inject constructor(
 
     private val memberId = MutableLiveData<Int>(0)
 
+    private val _seedInfo = MutableLiveData<SeedInfo>()
+    val seedInfo: LiveData<SeedInfo>
+        get() = _seedInfo
+
+    val selectedCaveId = MutableStateFlow<Int>(0)
+
     // TODO util Event 네이밍 수정
     private val _isScrapedSuccess = MutableLiveData<com.growthook.aos.util.Event<Boolean>>()
     val isScrapedSuccess: LiveData<com.growthook.aos.util.Event<Boolean>> = _isScrapedSuccess
@@ -68,7 +76,7 @@ class NoActionplanInsightViewModel @Inject constructor(
         }
     }
 
-    fun getSeedDetail() {
+    fun getSeedDetail(seedId: Int) {
         viewModelScope.launch {
             getSeedUseCase.invoke(seedId)
                 .onSuccess { seed ->
@@ -104,9 +112,20 @@ class NoActionplanInsightViewModel @Inject constructor(
         }
     }
 
+    fun moveSeed() {
+        viewModelScope.launch {
+            moveSeedUseCase.invoke(_seedInfo.value?.seedId ?: 0, selectedCaveId.value).onSuccess {
+                _event.value = Event.MoveSeedSuccess
+            }.onFailure {
+                _event.value = Event.Failed
+            }
+        }
+    }
+
     sealed interface Event {
         object GetSeedSuccess : Event
         object DeleteSeedSuccess : Event
+        object MoveSeedSuccess : Event
 
         object Failed : Event
     }
