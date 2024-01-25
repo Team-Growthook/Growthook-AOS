@@ -26,6 +26,7 @@ class SeeNewCaveActivity : BaseActivity<ActivitySeeNewCaveBinding>({
         initSetNewCaveView()
         initClickCloseBtn()
         setProfileImage()
+        setChbClickable()
     }
 
     private fun initSetNewCaveView() {
@@ -61,6 +62,10 @@ class SeeNewCaveActivity : BaseActivity<ActivitySeeNewCaveBinding>({
                 GlideApp.with(this).load(imageUrl).into(binding.ivSeeCaveUserImg)
             }
         }
+    }
+
+    private fun setChbClickable() {
+        binding.chbSeeCaveScrap.isClickable = false
     }
 
     companion object {
