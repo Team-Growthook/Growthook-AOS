@@ -18,6 +18,7 @@ import timber.log.Timber
 class NoActionplanInsightActivity :
     BaseActivity<ActivityNoActionplanInsightBinding>({ ActivityNoActionplanInsightBinding.inflate(it) }) {
     private val viewModel by viewModels<NoActionplanInsightViewModel>()
+    private val bottomSheetDialog = InsightMenuBottomsheet()
     private var seedId: Int = 0
     private lateinit var seedUrl: String
     private var isSeedSelected = false
@@ -100,7 +101,6 @@ class NoActionplanInsightActivity :
 
     private fun clickMenu() {
         binding.ivNoactionInsightToolbarMenu.setOnClickListener {
-            val bottomSheetDialog = InsightMenuBottomsheet()
             bottomSheetDialog.show(supportFragmentManager, "show")
         }
     }
