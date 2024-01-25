@@ -98,7 +98,6 @@ class ProceedingActionlistFragment(private val parentFragment: ActionlistFragmen
             },
             clickNoWritingBtn = {
                 viewModel.completeActionplan(actionplanId)
-                parentFragment.moveToCompletedActionTab()
             },
         ).show(parentFragmentManager, "review complete dialog")
     }
@@ -116,7 +115,7 @@ class ProceedingActionlistFragment(private val parentFragment: ActionlistFragmen
     private fun observeEvent() {
         viewModel.event.flowWithLifecycle(lifecycle).onEach { event ->
             when (event) {
-                is Event.PostReviewSuccess -> {
+                is Event.PostCompletedActionplanSuccess -> {
                     BaseAlertDialog.Builder()
                         .setCancelable(false)
                         .build(
