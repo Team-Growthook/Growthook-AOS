@@ -81,7 +81,6 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             memberId.value = getUserUseCase.invoke().memberId ?: 0
         }
-
         getAlertCount()
         getInsights()
         setNickName()

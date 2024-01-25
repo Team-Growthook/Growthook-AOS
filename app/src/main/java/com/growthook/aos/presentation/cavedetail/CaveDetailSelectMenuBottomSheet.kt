@@ -70,6 +70,7 @@ class CaveDetailSelectMenuBottomSheet() :
                         }
                     },
                     positiveAction = {},
+                    remainThookText = "",
                 ).show(parentFragmentManager, InsightMenuBottomsheet.DELETE_DIALOG)
         }
     }

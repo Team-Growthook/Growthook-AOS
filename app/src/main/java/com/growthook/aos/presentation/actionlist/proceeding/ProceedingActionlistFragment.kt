@@ -141,6 +141,7 @@ class ProceedingActionlistFragment(private val parentFragment: ActionlistFragmen
                             positiveAction = {
                                 parentFragment.moveToCompletedActionTab()
                             },
+                            remainThookText = "",
                         ).show(parentFragmentManager, "get thook dialog")
                 }
 
