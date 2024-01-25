@@ -250,7 +250,7 @@ class ActionplanInsightActivity :
                     Toast.makeText(this, "액션이 삭제되었어요", Toast.LENGTH_SHORT).show()
                 }
 
-                is Event.PostReviewSuccess -> {
+                is Event.PostCompletedActionplanSuccess -> {
                     BaseAlertDialog.Builder()
                         .setCancelable(false)
                         .build(
@@ -269,10 +269,6 @@ class ActionplanInsightActivity :
                             remainThookText = "",
                         ).show(supportFragmentManager, "get thook dialog")
                 }
-
-//                is Event.ScrapSuccess -> {
-//                    Toast.makeText(this, "액션플랜 스크랩 완료!", Toast.LENGTH_SHORT).show()
-//                }
 
                 else -> {}
             }

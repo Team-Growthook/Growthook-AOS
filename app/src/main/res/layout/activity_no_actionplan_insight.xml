@@ -140,66 +140,31 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="22dp"
-            android:layout_marginTop="20dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/divider_noaction_insight_second">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_noaction_insight_memo"
+            <TextView
+                android:id="@+id/tv_noaction_insight_memo"
+                style="@style/body3_reg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingTop="20dp"
+                android:textColor="@color/White000"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <TextView
-                    android:id="@+id/tv_noaction_insight_memo"
-                    style="@style/body3_reg"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/White000"
-                    android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="앱잼 합숙 기간 새벽에 먹으면 더욱 효과적으로 행복할 수 있다.ferergfergregergfergreg" />
-
-                <ImageView
-                    android:id="@+id/iv_noaction_insight_empty"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:src="@drawable/ic_empty_memo"
-                    android:visibility="visible"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tv_noaction_insight_empty"
-                    style="@style/detail1_reg"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="작성된 메모가 없어요"
-                    android:textColor="@color/Gray200"
-                    android:visibility="visible"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/iv_noaction_insight_empty" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_noaction_insight_content_chip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="16dp"
                 android:background="@drawable/rect_radius_5"
                 android:backgroundTint="@color/Gray500"
                 android:paddingHorizontal="8dp"
                 android:paddingVertical="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cl_noaction_insight_memo">
+                app:layout_constraintTop_toBottomOf="@id/tv_noaction_insight_memo">
 
                 <TextView
                     android:id="@+id/tv_noaction_insight_content_chip_title"
@@ -227,7 +192,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="https://www.ssookssook.com"
+                    tools:text="https://www.ssookssook.com"
                     android:textColor="@color/Gray200"
                     app:layout_constraintBottom_toBottomOf="@id/tv_noaction_insight_content_chip_title"
                     app:layout_constraintStart_toEndOf="@id/divider_noaction_insight_third"
