@@ -21,7 +21,7 @@ class NoActionplanInsightActivity :
     private val bottomSheetDialog = InsightMenuBottomsheet()
     private var seedId: Int = 0
     private lateinit var seedUrl: String
-    private var isSeedSelected = false
+    private var isSeedScraped = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,8 +70,10 @@ class NoActionplanInsightActivity :
                 "D-${seed?.remainingDays}".also { tvNoactionInsightDday.text = it }
 
                 if (seed?.isScraped == true) {
+                    isSeedScraped = true
                     ivNoactionInsightSeed.setImageResource(R.drawable.ic_scrap_selected)
                 } else {
+                    isSeedScraped = false
                     ivNoactionInsightSeed.setImageResource(R.drawable.ic_scrap_unselected)
                 }
             }
@@ -88,11 +90,11 @@ class NoActionplanInsightActivity :
 
     private fun clickInsightSeed() {
         binding.ivNoactionInsightSeed.setOnClickListener {
-            isSeedSelected = !isSeedSelected
+            isSeedScraped = !isSeedScraped
             viewModel.changeSeedScrap(seedId)
-            if (isSeedSelected) {
+            if (isSeedScraped) {
                 binding.ivNoactionInsightSeed.setImageResource(R.drawable.ic_scrap_selected)
-                Toast.makeText(this, "씨앗 스크랩 완료", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "씨앗이 스크랩 되었어요", Toast.LENGTH_SHORT).show()
             } else {
                 binding.ivNoactionInsightSeed.setImageResource(R.drawable.ic_scrap_unselected)
             }
