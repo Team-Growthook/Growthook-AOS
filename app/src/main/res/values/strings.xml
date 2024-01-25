@@ -24,7 +24,7 @@
     <string name="insight_write_goal">1개월</string>
     <string name="tv_insight_write_goal_content">씨앗을 저장할 기간을 설정해주세요.</string>
     <string name="insight_write_warning">주의!</string>
-    <string name="insight_write_warning_content">해당 기간 이후에는 씨앗이 잠금 처리 되어 볼 수 없게 돼요.\n잠기기 전에 액션플랜으로 설정하거나, 달성을 통해 획득한 쑥으로 잠금을 해제할 수 있어요.</string>
+    <string name="insight_write_warning_content">해당 기간 이후에는 씨앗이 잠금 처리 되어 볼 수 없게 돼요.\n액션 플랜 달성을 통해 획득한 쑥으로 잠금을 해제할 수 있어요.</string>
     <string name="insight_write_cave_select">선택</string>
     <string name="see_storage_title">동굴이름임다</string>
     <string name="see_storage_sub_title">동굴 설명자리에요. 글자수는 어쩌고까지</string>

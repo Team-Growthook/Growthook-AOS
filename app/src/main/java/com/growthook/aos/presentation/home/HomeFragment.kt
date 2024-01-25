@@ -49,8 +49,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private val insightAdapter
         get() = requireNotNull(_insightAdapter) { "adapter is null" }
 
-    private var remainThook = 0
-
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -204,20 +202,36 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     negativeAction = {
                     },
                     positiveAction = {
-                        viewModel.unLockSeed(item.seedId)
-                        viewModel.isUnlock.observe(viewLifecycleOwner) {
-                            Toast.makeText(context, "잠금이 영구적으로 해제되었어요!", Toast.LENGTH_SHORT).show()
-                            startActivity(
-                                NoActionplanInsightActivity.getIntent(
-                                    requireContext(),
-                                    item.seedId,
-                                ),
-                            )
-                            viewModel.getGatherdThook()
-                            viewModel.getAlertCount()
+                        val thookCount = viewModel.gatherdThook.value ?:0
+                        if (thookCount <= 0) {
+                            Toast.makeText(requireContext(), "쑥이 없어 잠금을 해제할 수 없어요", Toast.LENGTH_SHORT).show()
+                        } else {
+                            viewModel.unLockSeed(item.seedId)
+                            viewModel.isUnlock.observe(viewLifecycleOwner) {
+                                Toast.makeText(context, "잠금이 영구적으로 해제되었어요!", Toast.LENGTH_SHORT)
+                                    .show()
+                                if (item.hasActionPlan) {
+                                    startActivity(
+                                        ActionplanInsightActivity.getIntent(
+                                            requireContext(),
+                                            item.seedId,
+                                            "HomeFragment",
+                                        ),
+                                    )
+                                } else {
+                                    startActivity(
+                                        NoActionplanInsightActivity.getIntent(
+                                            requireContext(),
+                                            item.seedId,
+                                        ),
+                                    )
+                                }
+                                viewModel.getGatherdThook()
+                                viewModel.getAlertCount()
+                            }
                         }
                     },
-                    remainThookText = remainThook.toString(),
+                    remainThookText = viewModel.gatherdThook.value.toString(),
                 ).show(parentFragmentManager, InsightMenuBottomsheet.DELETE_DIALOG)
         } else if (item.hasActionPlan) {
             startActivity(
@@ -339,7 +353,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private fun setThook() {
         viewModel.gatherdThook.observe(viewLifecycleOwner) { thookCount ->
-            remainThook = thookCount
             binding.tvHomeGathredThook.text = thookCount.toString()
         }
     }

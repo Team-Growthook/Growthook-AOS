@@ -12,6 +12,7 @@ import com.growthook.aos.databinding.FragmentMypageBinding
 import com.growthook.aos.presentation.mypage.detailinfo.DetailMyPageActivity
 import com.growthook.aos.presentation.onboarding.OnboardingActivity
 import com.growthook.aos.util.GlideApp
+import com.growthook.aos.util.base.BaseAlertDialog
 import com.growthook.aos.util.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -40,6 +41,12 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>() {
         setProfileImage()
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.getUsedThook()
+        viewModel.getGatherdThook()
+    }
+
     private fun setProfileImage() {
         viewModel.profileUrl.observe(viewLifecycleOwner) { imageUrl ->
             if (imageUrl != null) {
@@ -63,8 +70,27 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>() {
 
     private fun clickLogout() {
         binding.btnMyPageLogout.setOnClickListener {
-            kakaoAuthService.kakaoLogout(viewModel.kakaoLogoutCallback)
-            observeLogoutSuccess()
+            BaseAlertDialog.Builder()
+                .setCancelable(false)
+                .build(
+                    type = BaseAlertDialog.DialogType.LEFT_INTENDED,
+                    title = "로그아웃 하시겠습니까?",
+                    description = "",
+                    positiveText = "취소",
+                    negativeText = "로그아웃",
+                    tipText = "",
+                    isBackgroundImageVisility = false,
+                    isDescriptionVisility = false,
+                    isRemainThookVisility = false,
+                    isTipVisility = false,
+                    negativeAction = {
+                        kakaoAuthService.kakaoLogout(viewModel.kakaoLogoutCallback)
+                        observeLogoutSuccess()
+                    },
+                    positiveAction = {
+                    },
+                    remainThookText = "",
+                ).show(parentFragmentManager, "logout")
         }
     }
 
@@ -98,9 +124,5 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>() {
             )
             startActivity(intent)
         }
-    }
-
-    companion object {
-        fun newInstance() = MyPageFragment()
     }
 }

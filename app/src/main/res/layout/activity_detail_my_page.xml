@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -27,27 +26,21 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <View
-        android:id="@+id/view"
-        android:layout_width="79dp"
-        android:layout_height="82dp"
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_detail_my_page_user"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="21dp"
         android:background="@drawable/circle_fill_gray900"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tb_my_page_detail" />
-
-
-    <ImageView
-        android:id="@+id/iv_detail_my_page_user"
-        android:layout_width="52dp"
-        android:layout_height="81dp"
-        android:layout_marginTop="21dp"
-        android:src="@drawable/img_bear"
+        android:minWidth="80dp"
+        android:scaleType="center"
+        android:src="@drawable/ic_profile_default"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tb_my_page_detail" />
+        app:layout_constraintTop_toBottomOf="@id/tb_my_page_detail"
+        app:shapeAppearanceOverlay="@style/Circle" />
 
     <TextView
         style="@style/head4"
@@ -61,18 +54,18 @@
 
     <TextView
         android:id="@+id/tv_detail_my_page_nickname"
+        style="@style/body3_bold"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_detail_my_page_user"
+        android:layout_marginHorizontal="18dp"
         android:layout_marginTop="67dp"
-        android:text="djkfdjfks"
-        android:paddingTop="21dp"
-        style="@style/body3_bold"
-        android:paddingBottom="6dp"
         android:background="@drawable/rect_gray200_botline_bot1"
-        android:layout_marginHorizontal="18dp"/>
+        android:paddingTop="21dp"
+        android:paddingBottom="6dp"
+        android:text="djkfdjfks"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_detail_my_page_user" />
 
     <TextView
         style="@style/head4"
@@ -86,18 +79,18 @@
 
     <TextView
         android:id="@+id/tv_detail_my_page_email"
+        style="@style/body3_bold"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_detail_my_page_nickname"
+        android:layout_marginHorizontal="18dp"
         android:layout_marginTop="67dp"
-        android:text="djkfdjfks"
-        android:paddingTop="21dp"
-        style="@style/body3_bold"
-        android:paddingBottom="6dp"
         android:background="@drawable/rect_gray200_botline_bot1"
-        android:layout_marginHorizontal="18dp"/>
+        android:paddingTop="21dp"
+        android:paddingBottom="6dp"
+        android:text="djkfdjfks"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_detail_my_page_nickname" />
 
     <TextView
         android:id="@+id/tv_detail_my_page_delete_account"

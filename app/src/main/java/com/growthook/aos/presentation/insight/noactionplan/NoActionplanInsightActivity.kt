@@ -89,7 +89,6 @@ class NoActionplanInsightActivity :
         clickMenu()
         clickAddAction()
         clickBackBtn()
-        clickUrl()
         clickInsightSeed()
     }
 
@@ -121,13 +120,6 @@ class NoActionplanInsightActivity :
     private fun clickAddAction() {
         binding.btnNoactionInsight.setOnClickListener {
             startActivity(AddActionplanActivity.getIntent(this, seedId))
-        }
-    }
-
-    private fun clickUrl() {
-        binding.tvNoactionInsightUrl.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(seedUrl))
-            startActivity(intent)
         }
     }
 
