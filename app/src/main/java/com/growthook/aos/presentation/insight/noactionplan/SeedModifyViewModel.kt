@@ -37,6 +37,12 @@ class SeedModifyViewModel @Inject constructor(
     val urlModify: LiveData<String>
         get() = _urlModify
 
+    val originCave = MutableLiveData<String>()
+
+    private val _caveModify: MutableLiveData<String> = MutableLiveData()
+    val caveModify: LiveData<String>
+        get() = _caveModify
+
     val selectedCaveId = MutableStateFlow<Int>(0)
 
     val checkSeedModifyBtnEnabled = MediatorLiveData<Boolean>().apply {
@@ -45,6 +51,7 @@ class SeedModifyViewModel @Inject constructor(
             memoModify,
             sourceModify,
             urlModify,
+            caveModify
         ) { checkSeedModifyEnabled() }
     }
 
@@ -76,11 +83,16 @@ class SeedModifyViewModel @Inject constructor(
         _urlModify.value = url
     }
 
+    fun setCaveModify(cave: String) {
+        _caveModify.value = cave
+    }
+
     private fun checkSeedModifyEnabled(): Boolean =
         insightModify.value != seedInfo.value?.insight ||
-            memoModify.value != seedInfo.value?.memo ||
-            sourceModify.value != seedInfo.value?.source ||
-            urlModify.value != seedInfo.value?.url
+                memoModify.value != seedInfo.value?.memo ||
+                sourceModify.value != seedInfo.value?.source ||
+                urlModify.value != seedInfo.value?.url ||
+                caveModify.value != originCave.value
 
     private fun checkIsModifySuccess(): Boolean {
         return if (selectedCaveId.value != 0) {

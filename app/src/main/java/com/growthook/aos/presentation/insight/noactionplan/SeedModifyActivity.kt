@@ -74,6 +74,8 @@ class SeedModifyActivity : BaseActivity<ActivitySeedModifyBinding>({
                 setMemoModify(seedInfo.memo ?: "")
                 setSourceModify(seedInfo.source)
                 setUrlModify(seedInfo.url ?: "")
+                originCave.value = seedInfo.cave
+                setCaveModify(seedInfo.cave)
             }
         }
     }
@@ -143,6 +145,7 @@ class SeedModifyActivity : BaseActivity<ActivitySeedModifyBinding>({
                 clickBtnAction = { cave ->
                     viewModel.selectedCaveId.value = cave.id
                     binding.tvSeedModifyCaveSelected.text = cave.name
+                    viewModel.setCaveModify(cave.name)
                 },
             ).show(supportFragmentManager, InsightWriteActivity.TAG_BOTTOM_SHEET)
         }
