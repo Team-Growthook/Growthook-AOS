@@ -28,6 +28,7 @@ import com.growthook.aos.util.EventObserver
 import com.growthook.aos.util.LinearLayoutManagerWrapper
 import com.growthook.aos.util.base.BaseAlertDialog
 import com.growthook.aos.util.base.BaseFragment
+import com.growthook.aos.util.extension.setOnSingleClickListener
 import com.skydoves.balloon.Balloon
 import com.skydoves.balloon.BalloonSizeSpec
 import dagger.hilt.android.AndroidEntryPoint
@@ -96,7 +97,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun clickAddCave() {
-        binding.ivHomeAddCave.setOnClickListener {
+        binding.ivHomeAddCave.setOnSingleClickListener {
             val intent = Intent(requireActivity(), CreateNewCaveActivity::class.java)
             startActivity(intent)
         }
@@ -319,14 +320,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         viewModel.alertAmount.observe(viewLifecycleOwner) { alertAmount ->
             if (alertAmount == 0) {
                 binding.ibHomeAlert.setImageResource(R.drawable.ic_home_no_alert)
-                binding.ibHomeAlert.setOnClickListener {
+                binding.ibHomeAlert.setOnSingleClickListener {
                     noAlertBalloon.showAlignBottom(it)
                     noAlertBalloon.dismiss()
                 }
             } else if (alertAmount >= 1) {
                 insightCountView.text = "${alertAmount}개"
                 binding.ibHomeAlert.setImageResource(R.drawable.ic_home_yes_alert)
-                binding.ibHomeAlert.setOnClickListener {
+                binding.ibHomeAlert.setOnSingleClickListener {
                     yesAlertBalloon.showAlignBottom(it)
                     yesAlertBalloon.dismiss()
                 }
@@ -346,7 +347,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private fun clickAddSeedBtn() {
         val intent = Intent(requireActivity(), InsightWriteActivity::class.java)
-        binding.fabHomeAddInsight.setOnClickListener {
+        binding.fabHomeAddInsight.setOnSingleClickListener {
             startActivity(intent)
         }
     }

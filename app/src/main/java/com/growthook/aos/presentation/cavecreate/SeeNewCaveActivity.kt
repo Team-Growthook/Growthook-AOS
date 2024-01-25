@@ -10,6 +10,7 @@ import com.growthook.aos.presentation.model.NewCaveIntent
 import com.growthook.aos.util.GlideApp
 import com.growthook.aos.util.base.BaseActivity
 import com.growthook.aos.util.extension.getParcelable
+import com.growthook.aos.util.extension.setOnSingleClickListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -71,7 +72,7 @@ class SeeNewCaveActivity : BaseActivity<ActivitySeeNewCaveBinding>({
     }
 
     private fun clickAddSeedBtn() {
-        binding.btnSeeCaveMakeSeed.setOnClickListener {
+        binding.btnSeeCaveMakeSeed.setOnSingleClickListener {
             val intent = Intent(this, InsightWriteActivity::class.java)
             startActivity(intent)
         }

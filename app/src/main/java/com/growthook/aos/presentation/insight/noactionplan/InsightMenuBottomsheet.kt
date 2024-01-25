@@ -12,6 +12,7 @@ import com.growthook.aos.presentation.insight.noactionplan.NoActionplanInsightVi
 import com.growthook.aos.presentation.insight.noactionplan.model.SeedModifyIntent
 import com.growthook.aos.util.base.BaseAlertDialog
 import com.growthook.aos.util.base.BaseBottomSheetFragment
+import com.growthook.aos.util.extension.setOnSingleClickListener
 import com.growthook.aos.util.selectcave.CaveSelect
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -59,7 +60,7 @@ class InsightMenuBottomsheet :
     }
 
     private fun clickModifyMenu() {
-        binding.clInsightMenuModify.setOnClickListener {
+        binding.clInsightMenuModify.setOnSingleClickListener {
             viewModel.seedData.observe(viewLifecycleOwner) { seed ->
                 val modifyIntent = SeedModifyIntent(
                     viewModel.seedId,

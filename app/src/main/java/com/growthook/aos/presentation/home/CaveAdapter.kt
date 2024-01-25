@@ -8,6 +8,7 @@ import com.growthook.aos.R
 import com.growthook.aos.databinding.ItemHomeCaveBinding
 import com.growthook.aos.domain.entity.Cave
 import com.growthook.aos.util.extension.ItemDiffCallback
+import com.growthook.aos.util.extension.setOnSingleClickListener
 
 class CaveAdapter(private val selectedItem: (Cave) -> Unit) :
     ListAdapter<Cave, CaveAdapter.CaveViewHolder>(diffCallback) {
@@ -37,7 +38,7 @@ class CaveAdapter(private val selectedItem: (Cave) -> Unit) :
         fun onBind(item: Cave) {
             binding.tvHomeCaveTitle.text = item.name
 
-            binding.root.setOnClickListener {
+            binding.root.setOnSingleClickListener {
                 selectedItem(item)
             }
 

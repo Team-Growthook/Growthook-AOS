@@ -10,6 +10,7 @@ import com.growthook.aos.presentation.insight.write.InsightWriteNewActivity.Comp
 import com.growthook.aos.util.base.BaseActivity
 import com.growthook.aos.util.extension.CommonTextWatcher
 import com.growthook.aos.util.extension.hideKeyboard
+import com.growthook.aos.util.extension.setOnSingleClickListener
 import com.growthook.aos.util.selectcave.CaveSelect
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -68,7 +69,7 @@ class InsightWriteActivity : BaseActivity<ActivityInsightWriteBinding>({
     }
 
     private fun initSetSelectCaveBottomSheet() {
-        binding.layoutInsightWriteCave.setOnClickListener {
+        binding.layoutInsightWriteCave.setOnSingleClickListener {
             binding.layoutInsightWriteCave.requestFocusFromTouch()
             CaveSelect.Builder().build(
                 CaveSelect.CaveSelectType.NO_API,
@@ -93,7 +94,7 @@ class InsightWriteActivity : BaseActivity<ActivityInsightWriteBinding>({
 
         goalSelectBottomSheet = InsightWriteGoalSelectBottomSheetFragment()
 
-        binding.layoutInsightWriteGoal.setOnClickListener {
+        binding.layoutInsightWriteGoal.setOnSingleClickListener {
             goalSelectBottomSheet.setOnGoalSelectedListener(object :
                 InsightWriteGoalSelectBottomSheetFragment.OnGoalSelectedListener {
                 override fun onGoalSelected(goalMonth: Int) {
@@ -131,7 +132,7 @@ class InsightWriteActivity : BaseActivity<ActivityInsightWriteBinding>({
     }
 
     private fun clickInsightWriteBtn() {
-        binding.btnInsightWrite.setOnClickListener {
+        binding.btnInsightWrite.setOnSingleClickListener {
             viewModel.postNewSeed()
             viewModel.postSeedSuccess.observe(this) { isSuccess ->
                 if (isSuccess) {

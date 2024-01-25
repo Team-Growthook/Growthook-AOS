@@ -15,6 +15,7 @@ import com.growthook.aos.presentation.insight.actionplan.ActionplanInsightViewMo
 import com.growthook.aos.util.base.BaseActivity
 import com.growthook.aos.util.base.BaseAlertDialog
 import com.growthook.aos.util.base.BaseWritingBottomSheet
+import com.growthook.aos.util.extension.setOnSingleClickListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -200,7 +201,7 @@ class ActionplanInsightActivity :
     }
 
     private fun clickCloseBtn() {
-        binding.ivActionplanInsightClose.setOnClickListener {
+        binding.ivActionplanInsightClose.setOnSingleClickListener {
             val intent = Intent(this, MainActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
@@ -222,7 +223,7 @@ class ActionplanInsightActivity :
     }
 
     private fun clickAddActionplan() {
-        binding.btnActionplanInsightAdd.setOnClickListener {
+        binding.btnActionplanInsightAdd.setOnSingleClickListener {
             BaseWritingBottomSheet.Builder().build(
                 type = BaseWritingBottomSheet.WritingType.SMALL,
                 title = "액션 플랜 추가",

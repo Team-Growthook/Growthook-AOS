@@ -14,6 +14,7 @@ import com.growthook.aos.presentation.onboarding.OnboardingActivity
 import com.growthook.aos.util.GlideApp
 import com.growthook.aos.util.base.BaseAlertDialog
 import com.growthook.aos.util.base.BaseFragment
+import com.growthook.aos.util.extension.setOnSingleClickListener
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -62,7 +63,7 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>() {
     }
 
     private fun clickDetailMyInfo() {
-        binding.btnMyPageMyInfo.setOnClickListener {
+        binding.btnMyPageMyInfo.setOnSingleClickListener {
             val intent = Intent(requireActivity(), DetailMyPageActivity::class.java)
             startActivity(intent)
         }

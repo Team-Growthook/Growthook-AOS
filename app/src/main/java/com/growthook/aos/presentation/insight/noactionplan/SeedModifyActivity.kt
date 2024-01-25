@@ -15,6 +15,7 @@ import com.growthook.aos.util.base.BaseActivity
 import com.growthook.aos.util.extension.CommonTextWatcher
 import com.growthook.aos.util.extension.getParcelable
 import com.growthook.aos.util.extension.hideKeyboard
+import com.growthook.aos.util.extension.setOnSingleClickListener
 import com.growthook.aos.util.selectcave.CaveSelect
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -148,7 +149,7 @@ class SeedModifyActivity : BaseActivity<ActivitySeedModifyBinding>({
     }
 
     private fun clickSeedModifyBtn() {
-        binding.btnSeedModify.setOnClickListener {
+        binding.btnSeedModify.setOnSingleClickListener {
             viewModel.modifySeed(
                 binding.edtSeedModifyInsight.text.toString(),
                 binding.edtSeedModifyMemo.text.toString(),
