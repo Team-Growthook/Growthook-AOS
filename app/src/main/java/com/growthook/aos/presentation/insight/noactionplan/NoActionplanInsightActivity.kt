@@ -67,7 +67,12 @@ class NoActionplanInsightActivity :
                 } else {
                     tvNoactionInsightUrl.text = seedUrl
                 }
-                "D-${seed?.remainingDays}".also { tvNoactionInsightDday.text = it }
+
+                if (seed.remainingDays < 0) {
+                    dividerNoactionInsightFirst.visibility = View.GONE
+                } else {
+                    "D-${seed.remainingDays}".also { tvNoactionInsightDday.text = it }
+                }
 
                 if (seed?.isScraped == true) {
                     isSeedScraped = true
