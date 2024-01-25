@@ -205,12 +205,22 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                         viewModel.unLockSeed(item.seedId)
                         viewModel.isUnlock.observe(viewLifecycleOwner) {
                             Toast.makeText(context, "잠금이 영구적으로 해제되었어요!", Toast.LENGTH_SHORT).show()
-                            startActivity(
-                                NoActionplanInsightActivity.getIntent(
-                                    requireContext(),
-                                    item.seedId,
-                                ),
-                            )
+                            if (!item.hasActionPlan) {
+                                startActivity(
+                                    ActionplanInsightActivity.getIntent(
+                                        requireContext(),
+                                        item.seedId,
+                                        "HomeFragment",
+                                    ),
+                                )
+                            } else {
+                                startActivity(
+                                    NoActionplanInsightActivity.getIntent(
+                                        requireContext(),
+                                        item.seedId,
+                                    ),
+                                )
+                            }
                             viewModel.getGatherdThook()
                             viewModel.getAlertCount()
                         }
