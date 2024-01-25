@@ -9,6 +9,7 @@ import com.growthook.aos.R
 import com.growthook.aos.databinding.ItemCompletedActionplanBinding
 import com.growthook.aos.domain.entity.ActionlistDetail
 import com.growthook.aos.util.extension.ItemDiffCallback
+import com.growthook.aos.util.extension.setOnSingleClickListener
 import timber.log.Timber
 
 class CompletedActionlistAdapter(
@@ -34,10 +35,10 @@ class CompletedActionlistAdapter(
             var isSeedSelected = data.isScraped
             with(binding) {
                 tvCompletedActionplanTitle.text = data.content
-                tvCompletedActionplanBtnLeft.setOnClickListener {
+                tvCompletedActionplanBtnLeft.setOnSingleClickListener {
                     clickSeedDetail(data.seedId)
                 }
-                tvCompletedActionplanBtnRight.setOnClickListener {
+                tvCompletedActionplanBtnRight.setOnSingleClickListener {
                     clickReviewDetail(data.actionplanId)
                 }
                 if (data.isScraped) {

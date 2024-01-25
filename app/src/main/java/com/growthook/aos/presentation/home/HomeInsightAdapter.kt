@@ -15,6 +15,7 @@ import com.growthook.aos.databinding.ItemHomeInsightNoActionBinding
 import com.growthook.aos.databinding.ItemHomeInsightYesActionBinding
 import com.growthook.aos.domain.entity.Insight
 import com.growthook.aos.util.extension.ItemDiffCallback
+import com.growthook.aos.util.extension.setOnSingleClickListener
 import timber.log.Timber
 import javax.annotation.Nullable
 
@@ -98,7 +99,7 @@ class HomeInsightAdapter(
             }
             binding.tvHomeInsightTitle.text = item.name
             binding.tvHomeInsightLock.text = "잠금"
-            binding.root.setOnClickListener {
+            binding.root.setOnSingleClickListener {
                 selectedItem(item)
             }
         }
@@ -124,7 +125,7 @@ class HomeInsightAdapter(
                 binding.viewHomeInsightClick.visibility = View.VISIBLE
                 true
             }
-            binding.root.setOnClickListener {
+            binding.root.setOnSingleClickListener {
                 selectedItem(item)
             }
             if (!selectionLongTracker.isSelected(itemPosition.toLong())) {
@@ -175,7 +176,7 @@ class HomeInsightAdapter(
                 Timber.d("선택된 아이템 ${selectionLongTracker.selection}")
                 true
             }
-            binding.root.setOnClickListener {
+            binding.root.setOnSingleClickListener {
                 selectedItem(item)
             }
             if (!selectionLongTracker.isSelected(itemPosition.toLong())) {

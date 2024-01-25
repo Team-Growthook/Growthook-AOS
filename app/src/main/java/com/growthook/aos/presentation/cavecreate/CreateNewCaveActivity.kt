@@ -10,6 +10,7 @@ import com.growthook.aos.util.base.BaseActivity
 import com.growthook.aos.util.base.BaseAlertDialog
 import com.growthook.aos.util.extension.CommonTextWatcher
 import com.growthook.aos.util.extension.hideKeyboard
+import com.growthook.aos.util.extension.setOnSingleClickListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -103,7 +104,7 @@ class CreateNewCaveActivity : BaseActivity<ActivityCreateNewCaveBinding>({
     }
 
     private fun clickCreateCaveBtn() {
-        binding.btnCaveCreate.setOnClickListener {
+        binding.btnCaveCreate.setOnSingleClickListener {
             postNewCave()
         }
     }

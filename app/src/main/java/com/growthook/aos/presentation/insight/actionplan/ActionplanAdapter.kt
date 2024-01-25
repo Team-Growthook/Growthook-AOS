@@ -10,6 +10,7 @@ import com.growthook.aos.R
 import com.growthook.aos.databinding.ItemActionplanBinding
 import com.growthook.aos.domain.entity.Actionplan
 import com.growthook.aos.util.extension.ItemDiffCallback
+import com.growthook.aos.util.extension.setOnSingleClickListener
 
 class ActionplanAdapter(
     private val clickModify: (Int) -> Unit,
@@ -53,7 +54,7 @@ class ActionplanAdapter(
                     clActionplanMenu.visibility = View.INVISIBLE
                     clickDelete(data.actionplanId)
                 }
-                tvActionplanCompleteBtn.setOnClickListener {
+                tvActionplanCompleteBtn.setOnSingleClickListener {
                     clickComplete(data.actionplanId)
                 }
                 if (data.isScraped) {

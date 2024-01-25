@@ -19,6 +19,7 @@ import com.growthook.aos.presentation.insight.actionplan.ActionplanInsightActivi
 import com.growthook.aos.util.base.BaseAlertDialog
 import com.growthook.aos.util.base.BaseFragment
 import com.growthook.aos.util.base.BaseWritingBottomSheet
+import com.growthook.aos.util.extension.setOnSingleClickListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -74,7 +75,7 @@ class ProceedingActionlistFragment(private val parentFragment: ActionlistFragmen
     }
 
     private fun clickScrapBtn() {
-        binding.clProceedingActionplanScrap.setOnClickListener {
+        binding.clProceedingActionplanScrap.setOnSingleClickListener {
             isScraped = !isScraped
             if (isScraped) {
                 binding.ivProceedingActionlistScrap.setImageResource(R.drawable.ic_home_scrap_true)

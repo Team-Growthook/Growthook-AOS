@@ -10,6 +10,7 @@ import com.growthook.aos.databinding.FragmentCaveModifySelectBottomsheetBinding
 import com.growthook.aos.presentation.cavedetail.cavemodify.CaveDetailModifyActivity
 import com.growthook.aos.presentation.model.CaveModifyIntent
 import com.growthook.aos.util.base.BaseBottomSheetFragment
+import com.growthook.aos.util.extension.setOnSingleClickListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -37,7 +38,7 @@ class CaveModifySelectBottomSheet :
     }
 
     private fun clickModify() {
-        binding.btnCaveDetailModify.setOnClickListener {
+        binding.btnCaveDetailModify.setOnSingleClickListener {
             val caveModifyIntent = CaveModifyIntent(
                 viewModel.caveId.value,
                 viewModel.caveDetail.value?.caveName ?: "",

@@ -13,6 +13,7 @@ import com.growthook.aos.util.base.BaseActivity
 import com.growthook.aos.util.extension.CommonTextWatcher
 import com.growthook.aos.util.extension.getParcelable
 import com.growthook.aos.util.extension.hideKeyboard
+import com.growthook.aos.util.extension.setOnSingleClickListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -63,7 +64,7 @@ class CaveDetailModifyActivity :
 
     private fun clickFinishBtn() {
         with(binding) {
-            btnCaveModify.setOnClickListener {
+            btnCaveModify.setOnSingleClickListener {
                 viewModel.modifyCave(
                     edtCaveModifyName.text.toString(),
                     edtCaveModifyDesc.text.toString(),
