@@ -24,6 +24,7 @@ import com.growthook.aos.util.GlideApp
 import com.growthook.aos.util.LinearLayoutManagerWrapper
 import com.growthook.aos.util.base.BaseActivity
 import com.growthook.aos.util.base.BaseAlertDialog
+import com.growthook.aos.util.extension.setOnSingleClickListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -302,13 +303,13 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
     }
 
     private fun clickMainMenu() {
-        binding.ibCaveDetailMainmenu.setOnClickListener {
+        binding.ibCaveDetailMainmenu.setOnSingleClickListener {
             modifySelectBottomSheet.show(supportFragmentManager, "show2")
         }
     }
 
     private fun clickAddSeed() {
-        binding.fabCaveDetailAddInsight.setOnClickListener {
+        binding.fabCaveDetailAddInsight.setOnSingleClickListener {
             val intent = Intent(this, InsightWriteActivity::class.java)
             startActivity(intent)
         }

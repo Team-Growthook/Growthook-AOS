@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import com.growthook.aos.data.service.KakaoAuthService
 import com.growthook.aos.databinding.ActivityDetailMyPageBinding
-import com.growthook.aos.presentation.onboarding.LoginActivity
+import com.growthook.aos.presentation.onboarding.OnboardingActivity
 import com.growthook.aos.util.GlideApp
 import com.growthook.aos.util.base.BaseActivity
 import com.growthook.aos.util.base.BaseAlertDialog
@@ -94,7 +94,7 @@ class DetailMyPageActivity :
         viewModel.isDeleteSuccess.observe(this) { isSuccess ->
             if (isSuccess) {
                 val intent =
-                    Intent(this, LoginActivity::class.java)
+                    Intent(this, OnboardingActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
             }

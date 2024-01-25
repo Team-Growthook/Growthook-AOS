@@ -10,6 +10,7 @@ import com.growthook.aos.R
 import com.growthook.aos.databinding.ActivityNoActionplanInsightBinding
 import com.growthook.aos.presentation.insight.noactionplan.add.AddActionplanActivity
 import com.growthook.aos.util.base.BaseActivity
+import com.growthook.aos.util.extension.setOnSingleClickListener
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -96,7 +97,7 @@ class NoActionplanInsightActivity :
     }
 
     private fun clickMenu() {
-        binding.ivNoactionInsightToolbarMenu.setOnClickListener {
+        binding.ivNoactionInsightToolbarMenu.setOnSingleClickListener {
             bottomSheetDialog.show(supportFragmentManager, "show")
         }
     }
@@ -108,7 +109,7 @@ class NoActionplanInsightActivity :
     }
 
     private fun clickAddAction() {
-        binding.btnNoactionInsight.setOnClickListener {
+        binding.btnNoactionInsight.setOnSingleClickListener {
             startActivity(AddActionplanActivity.getIntent(this, seedId))
         }
     }

@@ -9,6 +9,7 @@ import com.growthook.aos.databinding.ActivityInsightWriteNewBinding
 import com.growthook.aos.presentation.insight.noactionplan.add.AddActionplanActivity
 import com.growthook.aos.util.base.BaseActivity
 import com.growthook.aos.util.base.BaseAlertDialog
+import com.growthook.aos.util.extension.setOnSingleClickListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -100,7 +101,7 @@ class InsightWriteNewActivity : BaseActivity<ActivityInsightWriteNewBinding>({
     }
 
     private fun clickCreateNewActionPlanBtn() {
-        binding.btnInsightWriteNewActionplan.setOnClickListener {
+        binding.btnInsightWriteNewActionplan.setOnSingleClickListener {
             startActivity(AddActionplanActivity.getIntent(this, seedId))
         }
     }
