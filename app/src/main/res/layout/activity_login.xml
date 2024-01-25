@@ -38,12 +38,22 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.635" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_login_kakao"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginBottom="24dp"
-        android:background="@drawable/img_onboarding_kakao_login"
+        android:background="@drawable/rect_radius_5"
+        android:includeFontPadding="false"
+        android:paddingVertical="12dp"
+        android:paddingHorizontal="30dp"
+        android:text="카카오로 시작하기"
+        android:textAppearance="@style/body1_bold"
+        android:textColor="#191919"
+        app:backgroundTint="#FEE500"
+        app:icon="@drawable/ic_kakao_icon"
+        app:iconTint="#191919"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
