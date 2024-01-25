@@ -38,6 +38,7 @@ abstract class BaseAlertDialog : DialogFragment() {
         setTipText()
         setTipVisility()
         setRemainThookText()
+        descriptionVisility()
         remainThookVisility()
         backgroundImageVisility()
         setPositiveClick { positiveAction(); dismiss() }
