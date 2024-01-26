@@ -118,10 +118,34 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>() {
     }
 
     private fun clickPolicy() {
+        binding.btnMyPageInstructions.setOnSingleClickListener {
+            val intent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("https://www.notion.so/a6ac706599224bbbb9f7a6b449c1a02f?pvs=4"),
+            )
+            startActivity(intent)
+        }
+
+        binding.btnMyPageNotice.setOnClickListener {
+            val intent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("https://www.notion.so/9bba9068c49e42d98e0d9b5bd59674c9?pvs=4"),
+            )
+            startActivity(intent)
+        }
+
+        binding.btnMyPageFaq.setOnClickListener {
+            val intent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("https://www.notion.so/6cdc4f9f7f38490084a89da1bfa083ab?pvs=4"),
+            )
+            startActivity(intent)
+        }
+
         binding.btnMyPagePolicy.setOnClickListener {
             val intent = Intent(
                 Intent.ACTION_VIEW,
-                Uri.parse("https://groovy-need-069.notion.site/9edc8ab432d34da682b9320f9bc6fd31"),
+                Uri.parse("https://www.notion.so/9edc8ab432d34da682b9320f9bc6fd31?pvs=4"),
             )
             startActivity(intent)
         }
