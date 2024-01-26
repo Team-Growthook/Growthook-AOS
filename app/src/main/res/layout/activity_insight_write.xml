@@ -112,7 +112,8 @@
                     android:textColor="@color/White000"
                     android:textColorHint="@color/Gray300"
                     android:includeFontPadding="false"
-                    android:inputType="text"/>
+                    android:inputType="text"
+                    android:maxLength="30"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -133,7 +134,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="18dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="8dp"
                 app:boxBackgroundColor="@color/Gray900"
                 app:counterEnabled="true"
                 app:counterMaxLength="300"
@@ -154,7 +155,8 @@
                     android:inputType="text"
                     android:textAppearance="@style/body3_reg"
                     android:textColor="@color/White000"
-                    android:textColorHint="@color/Gray300" />
+                    android:textColorHint="@color/Gray300"
+                    android:maxLength="300"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -246,7 +248,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="18dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_insight_write_source"
@@ -266,7 +268,8 @@
                     android:textAppearance="@style/body3_reg"
                     android:includeFontPadding="false"
                     android:inputType="text"
-                    android:gravity="center_vertical"/>
+                    android:gravity="center_vertical"
+                    android:maxLength="20"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 

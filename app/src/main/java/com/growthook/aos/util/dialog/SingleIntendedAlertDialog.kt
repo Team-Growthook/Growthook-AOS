@@ -1,9 +1,13 @@
 package com.growthook.aos.util.dialog
 
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import com.growthook.aos.R
 import com.growthook.aos.databinding.DialogSingleIntendedBinding
 import com.growthook.aos.util.base.BaseAlertDialog
 
@@ -36,7 +40,27 @@ class SingleIntendedAlertDialog : BaseAlertDialog() {
     }
 
     override fun setTipText() {
-        binding.tvSingleIntendedTip.text = tipText
+        binding.tvSingleIntendedTip.apply {
+            text = modifyTextColor(
+                tipText.toString(),
+                "Tip.",
+                ContextCompat.getColor(requireContext(), R.color.MainGreen400),
+            )
+        }
+    }
+
+    private fun modifyTextColor(text: String, targetWord: String, color: Int): SpannableString {
+        val spannable = SpannableString(text)
+        val startIndex = text.indexOf(targetWord)
+        if (startIndex != -1) {
+            spannable.setSpan(
+                ForegroundColorSpan(color),
+                startIndex,
+                startIndex + targetWord.length,
+                0,
+            )
+        }
+        return spannable
     }
 
     override fun setRemainThookText() {
