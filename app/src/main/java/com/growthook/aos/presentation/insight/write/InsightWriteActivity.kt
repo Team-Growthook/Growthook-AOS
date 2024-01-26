@@ -98,7 +98,7 @@ class InsightWriteActivity : BaseActivity<ActivityInsightWriteBinding>({
             goalSelectBottomSheet.setOnGoalSelectedListener(object :
                 InsightWriteGoalSelectBottomSheetFragment.OnGoalSelectedListener {
                 override fun onGoalSelected(goalMonth: Int) {
-                    setGoalMonth(1)
+                    setGoalMonth(goalMonth)
                 }
             })
             goalSelectBottomSheet.show(supportFragmentManager, TAG_BOTTOM_SHEET)
