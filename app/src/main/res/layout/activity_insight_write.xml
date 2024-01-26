@@ -13,53 +13,43 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <ImageButton
+            android:id="@+id/btn_insight_write_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_back"
+            android:background="@android:color/transparent"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="8dp"/>
 
-            <ImageButton
-                android:id="@+id/btn_insight_write_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_back"
-                android:background="@android:color/transparent"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="8dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+        <TextView
+            android:id="@+id/tv_insight_write_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/insight_write_title"
+            android:textAppearance="@style/body1_reg"
+            android:layout_marginTop="32dp"
+            android:layout_gravity="center"
+            android:includeFontPadding="false"
+            android:layout_marginStart="69dp"
+            android:layout_marginEnd="69dp"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tv_insight_write_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/insight_write_title"
-                android:textAppearance="@style/body1_reg"
-                android:layout_marginTop="32dp"
-                android:includeFontPadding="false"
-                android:layout_marginStart="69dp"
-                android:layout_marginEnd="69dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toEndOf="@id/btn_insight_write_back"
-                app:layout_constraintEnd_toStartOf="@id/btn_insight_write"/>
-
-            <TextView
-                android:id="@+id/btn_insight_write"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="등록"
-                android:textAppearance="@style/body1_bold"
-                android:textColor="@drawable/sel_insight_write_btn_color"
-                android:clickable="true"
-                android:enabled="false"
-                android:includeFontPadding="false"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="7dp"
-                android:paddingHorizontal="8dp"
-                android:paddingVertical="12dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/btn_insight_write"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="등록"
+            android:textAppearance="@style/body1_bold"
+            android:textColor="@drawable/sel_insight_write_btn_color"
+            android:clickable="true"
+            android:enabled="false"
+            android:layout_gravity="end"
+            android:includeFontPadding="false"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="7dp"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="12dp" />
 
     </Toolbar>
 
