@@ -152,7 +152,7 @@
                     android:gravity="start"
                     android:hint="@string/insight_write_memo"
                     android:includeFontPadding="false"
-                    android:inputType="text"
+                    android:inputType="textMultiLine"
                     android:textAppearance="@style/body3_reg"
                     android:textColor="@color/White000"
                     android:textColorHint="@color/Gray300"
