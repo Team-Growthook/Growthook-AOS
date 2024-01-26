@@ -91,12 +91,14 @@
         <TextView
             android:id="@+id/tv_actionplan_insight_title"
             style="@style/body2_bold"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             tools:text="야식에 불닭과 만두의 조합 좋다"
             android:textColor="@color/White000"
-            app:layout_constraintStart_toStartOf="@id/tv_actionplan_insight_chip"
+            android:layout_marginHorizontal="18dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_actionplan_insight_chip" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
