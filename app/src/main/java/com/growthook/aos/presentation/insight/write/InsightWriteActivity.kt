@@ -90,14 +90,15 @@ class InsightWriteActivity : BaseActivity<ActivityInsightWriteBinding>({
     }
 
     private fun initSetSelectGoalBottomSheet() {
+        setGoalMonth(1)
+
         goalSelectBottomSheet = InsightWriteGoalSelectBottomSheetFragment()
 
         binding.layoutInsightWriteGoal.setOnSingleClickListener {
             goalSelectBottomSheet.setOnGoalSelectedListener(object :
                 InsightWriteGoalSelectBottomSheetFragment.OnGoalSelectedListener {
                 override fun onGoalSelected(goalMonth: Int) {
-                    setSelectedGoalEditText(goalMonth)
-                    viewModel.setSelectedGoalMonth(goalMonth)
+                    setGoalMonth(1)
                 }
             })
             goalSelectBottomSheet.show(supportFragmentManager, TAG_BOTTOM_SHEET)
@@ -110,6 +111,11 @@ class InsightWriteActivity : BaseActivity<ActivityInsightWriteBinding>({
             tvInsightWriteGoalSelected.visibility = View.VISIBLE
             tvInsightWriteGoalSelected.text = goalMonth.toString() + DISPLAY_GOAL_MONTH
         }
+    }
+
+    private fun setGoalMonth(goalMonth: Int) {
+        setSelectedGoalEditText(goalMonth)
+        viewModel.setSelectedGoalMonth(goalMonth)
     }
 
     private fun initSetBtnEnabled() {

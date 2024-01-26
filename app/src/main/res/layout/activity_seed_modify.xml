@@ -30,7 +30,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/seed_modify_title"
-            android:textAppearance="@style/body1_reg"/>
+            android:textAppearance="@style/body1_reg"
+            android:layout_marginTop="32dp"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_seed_modify"
@@ -38,6 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="8dp"
             android:background="@android:color/transparent"
             android:minWidth="0dp"
@@ -136,7 +138,7 @@
                     android:gravity="start"
                     android:hint="@string/insight_write_memo"
                     android:includeFontPadding="false"
-                    android:inputType="text"
+                    android:inputType="textMultiLine"
                     android:textAppearance="@style/body3_reg"
                     android:textColor="@color/White000"
                     android:textColorHint="@color/Gray300" />
