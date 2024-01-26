@@ -43,12 +43,17 @@ class NoActionplanInsightActivity :
             Timber.d("seed data:: $seed")
             with(binding) {
                 tvNoactionInsightTitle.text = seed?.title
-                tvNoactionInsightMemo.text = seed.content
                 tvNoactionInsightDate.text = seed?.date
                 tvNoactionInsightChip.text = seed?.caveName
                 tvNoactionInsightContentChipTitle.text = seed?.source
 
                 seedUrl = seed?.url.toString()
+
+                if (seed.content.isNullOrEmpty()) {
+                    tvNoactionInsightMemo.visibility = View.GONE
+                } else {
+                    tvNoactionInsightMemo.text = seed.content
+                }
 
                 if (seedUrl.length >= 35) {
                     "${seedUrl.take(35)}...".also { tvNoactionInsightUrl.text = it }

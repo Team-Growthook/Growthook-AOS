@@ -173,7 +173,7 @@ class ActionplanInsightActivity :
                     ivActionplanInsightSeed.setImageResource(R.drawable.ic_scrap_unselected)
                 }
 
-                if (seed.remainingDays < 0) {
+                if (seed.remainingDays <= 0) {
                     dividerActionplanInsightFirst.visibility = View.GONE
                 } else {
                     "D-${seed?.remainingDays}".also { tvActionplanInsightDday.text = it }
