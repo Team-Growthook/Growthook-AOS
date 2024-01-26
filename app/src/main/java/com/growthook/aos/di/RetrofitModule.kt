@@ -114,7 +114,7 @@ object RetrofitModule {
             var response = chain.proceed(builder.build())
 
             when (response.code) {
-                BAD_REQUEST, EXPIRED_TOKEN -> {
+                EXPIRED_TOKEN -> {
                     runBlocking {
                         refreshRepository.getRefreshToken().onSuccess { token ->
                             response = chain.proceed(
