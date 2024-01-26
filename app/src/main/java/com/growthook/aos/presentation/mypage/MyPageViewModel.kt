@@ -36,8 +36,8 @@ class MyPageViewModel @Inject constructor(
     private val _usedThook = MutableLiveData<Int>()
     val usedThook: LiveData<Int> = _usedThook
 
-    private val _profileUrl = MutableLiveData<String?>()
-    val profileUrl: LiveData<String?> = _profileUrl
+    // private val _profileUrl = MutableLiveData<String?>()
+    // val profileUrl: LiveData<String?> = _profileUrl
 
     private val memberId = MutableLiveData<Int>(0)
 
@@ -58,7 +58,7 @@ class MyPageViewModel @Inject constructor(
         }
         getGatherdThook()
         getUsedThook()
-        getProfileUrl()
+        // getProfileUrl()
     }
 
     fun getGatherdThook() {
@@ -81,7 +81,7 @@ class MyPageViewModel @Inject constructor(
         }
     }
 
-    fun getProfileUrl() {
+    /*fun getProfileUrl() {
         viewModelScope.launch {
             getProfileUseCase.invoke(memberId.value ?: 0).onSuccess { profile ->
                 _profileUrl.value = profile.profileUrl
@@ -89,5 +89,5 @@ class MyPageViewModel @Inject constructor(
                 Timber.e(it.message)
             }
         }
-    }
+    }*/
 }

@@ -11,7 +11,6 @@ import com.growthook.aos.data.service.KakaoAuthService
 import com.growthook.aos.databinding.FragmentMypageBinding
 import com.growthook.aos.presentation.mypage.detailinfo.DetailMyPageActivity
 import com.growthook.aos.presentation.onboarding.OnboardingActivity
-import com.growthook.aos.util.GlideApp
 import com.growthook.aos.util.base.BaseAlertDialog
 import com.growthook.aos.util.base.BaseFragment
 import com.growthook.aos.util.extension.setOnSingleClickListener
@@ -39,7 +38,7 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>() {
         clickDetailMyInfo()
         clickLogout()
         clickPolicy()
-        setProfileImage()
+        // setProfileImage()
     }
 
     override fun onResume() {
@@ -48,13 +47,13 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>() {
         viewModel.getGatherdThook()
     }
 
-    private fun setProfileImage() {
+    /*private fun setProfileImage() {
         viewModel.profileUrl.observe(viewLifecycleOwner) { imageUrl ->
             if (imageUrl != null) {
                 GlideApp.with(this).load(imageUrl).into(binding.ivMyPageUser)
             }
         }
-    }
+    }*/
 
     private fun setNickName() {
         viewModel.nickName.observe(viewLifecycleOwner) {
