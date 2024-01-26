@@ -160,7 +160,7 @@
                 android:id="@+id/cl_noaction_insight_content_chip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/rect_radius_5"
                 android:backgroundTint="@color/Gray500"
                 android:paddingHorizontal="8dp"
