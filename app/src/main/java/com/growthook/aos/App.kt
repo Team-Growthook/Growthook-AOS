@@ -32,7 +32,7 @@ class App : Application() {
         initFlipper()
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
-        Amplitude(Configuration(AMPLITUDE_APP_KEY, applicationContext))
+        amplitude = Amplitude(Configuration(AMPLITUDE_APP_KEY, applicationContext))
     }
 
     private fun initFlipper() {
@@ -43,6 +43,22 @@ class App : Application() {
                 addPlugin(InspectorFlipperPlugin(this@App, DescriptorMapping.withDefaults()))
                 addPlugin(flipperNetworkPlugin)
             }.start()
+        }
+    }
+
+    companion object {
+        var amplitude: Amplitude? = null
+
+        fun trackEvent(eventName: String, properties: Map<String, String>? = null) {
+
+            if (properties == null) {
+                amplitude?.track(eventName)
+                Timber.d("amplitude")
+                Timber.d("amplitude device -> ${amplitude?.getDeviceId()} & usessionId -> ${amplitude?.sessionId}")
+            } else {
+                amplitude?.track(eventName, properties)
+                Timber.d("amplitude properties")
+            }
         }
     }
 }
