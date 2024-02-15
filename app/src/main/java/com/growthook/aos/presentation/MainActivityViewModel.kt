@@ -16,12 +16,15 @@ class MainActivityViewModel @Inject constructor(private val getUserUseCase: GetU
     private val _isAlreadyLogin = MutableLiveData<Boolean>()
     val isAlreadyLogin: LiveData<Boolean> get() = _isAlreadyLogin
 
+    val memberId = MutableLiveData<Int>(0)
+
     init {
         checkIsAlreadyLogin()
     }
 
     private fun checkIsAlreadyLogin() = viewModelScope.launch {
         var userInfo = getUserUseCase.invoke()
+        memberId.value = getUserUseCase.invoke().memberId ?: 0
         _isAlreadyLogin.value = !userInfo.name.isNullOrBlank()
     }
 }

@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import com.growthook.aos.App
 import com.growthook.aos.R
 import com.growthook.aos.databinding.ActivityMainBinding
 import com.growthook.aos.presentation.actionlist.ActionlistFragment
@@ -35,8 +36,14 @@ class MainActivity : AppCompatActivity() {
         binding.bnvHome.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.menu_home -> navigateTo<HomeFragment>()
-                R.id.menu_planlist -> navigateTo<ActionlistFragment>()
-                R.id.menu_mypage -> navigateTo<MyPageFragment>()
+                R.id.menu_planlist -> {
+                    navigateTo<ActionlistFragment>()
+                     App.trackEvent("${viewModel.memberId.value} + 액션리스트 이동")
+                }
+                R.id.menu_mypage -> {
+                    navigateTo<MyPageFragment>()
+                    App.trackEvent("${viewModel.memberId.value} + 마이페이지 이동")
+                }
             }
             true
         }

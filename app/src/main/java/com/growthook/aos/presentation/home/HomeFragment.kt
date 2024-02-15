@@ -12,6 +12,7 @@ import androidx.recyclerview.selection.SelectionPredicates
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StableIdKeyProvider
 import androidx.recyclerview.selection.StorageStrategy
+import com.growthook.aos.App
 import com.growthook.aos.R
 import com.growthook.aos.databinding.FragmentHomeBinding
 import com.growthook.aos.domain.entity.Cave
@@ -99,6 +100,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private fun clickAddCave() {
         binding.ivHomeAddCave.setOnSingleClickListener {
             val intent = Intent(requireActivity(), CreateNewCaveActivity::class.java)
+            App.trackEvent("${viewModel.memberId.value} + 동굴 짓기")
             startActivity(intent)
         }
     }
@@ -348,6 +350,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private fun clickAddSeedBtn() {
         val intent = Intent(requireActivity(), InsightWriteActivity::class.java)
         binding.fabHomeAddInsight.setOnSingleClickListener {
+            App.trackEvent("${viewModel.memberId.value} + 씨앗 심기")
             startActivity(intent)
         }
     }
