@@ -69,6 +69,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onUserLeaveHint() {
+        super.onUserLeaveHint()
+        App.trackEvent("${viewModel.memberId.value} + 나가기")
+    }
+
     override fun onDestroy() {
         App.trackEvent("${viewModel.memberId.value} + 나가기")
         super.onDestroy()
