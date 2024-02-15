@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import com.growthook.aos.App
-import com.growthook.aos.ForcedTerminationService
 import com.growthook.aos.R
 import com.growthook.aos.databinding.ActivityMainBinding
 import com.growthook.aos.presentation.actionlist.ActionlistFragment
@@ -28,8 +27,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         initBottomNavigation()
         isAlreadyLogin()
-
-        startService(Intent(this, ForcedTerminationService::class.java))
     }
 
     private fun initBottomNavigation() {
@@ -61,6 +58,8 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }
+
+            USER_ID = viewModel.memberId.value ?: 0
         }
     }
 
@@ -71,8 +70,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        super.onDestroy()
-
         App.trackEvent("${viewModel.memberId.value} + 나가기")
+        super.onDestroy()
+    }
+
+    companion object {
+        var USER_ID = 0
     }
 }
