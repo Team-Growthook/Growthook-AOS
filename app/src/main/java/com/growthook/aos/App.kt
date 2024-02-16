@@ -2,12 +2,15 @@ package com.growthook.aos
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
+import com.amplitude.android.Amplitude
+import com.amplitude.android.Configuration
 import com.facebook.flipper.android.AndroidFlipperClient
 import com.facebook.flipper.android.utils.FlipperUtils
 import com.facebook.flipper.plugins.inspector.DescriptorMapping
 import com.facebook.flipper.plugins.inspector.InspectorFlipperPlugin
 import com.facebook.flipper.plugins.network.NetworkFlipperPlugin
 import com.facebook.soloader.SoLoader
+import com.growthook.aos.BuildConfig.AMPLITUDE_APP_KEY
 import com.growthook.aos.BuildConfig.NATIVE_APP_KEY
 import com.kakao.sdk.common.KakaoSdk
 import com.kakao.sdk.common.util.Utility
@@ -28,6 +31,8 @@ class App : Application() {
         Timber.d("키 해시: ${Utility.getKeyHash(this)}")
         initFlipper()
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
+        amplitude = Amplitude(Configuration(AMPLITUDE_APP_KEY, applicationContext))
     }
 
     private fun initFlipper() {
@@ -38,6 +43,19 @@ class App : Application() {
                 addPlugin(InspectorFlipperPlugin(this@App, DescriptorMapping.withDefaults()))
                 addPlugin(flipperNetworkPlugin)
             }.start()
+        }
+    }
+
+    companion object {
+        var amplitude: Amplitude? = null
+
+        fun trackEvent(eventName: String, properties: Map<String, String>? = null) {
+
+            if (properties == null) {
+                amplitude?.track(eventName)
+            } else {
+                amplitude?.track(eventName, properties)
+            }
         }
     }
 }

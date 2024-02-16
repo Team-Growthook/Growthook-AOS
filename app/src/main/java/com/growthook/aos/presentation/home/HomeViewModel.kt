@@ -68,7 +68,7 @@ class HomeViewModel @Inject constructor(
     private val _unScrapedInsights = MutableLiveData<List<Insight>>()
     val unScrapedInsights: LiveData<List<Insight>> = _unScrapedInsights
 
-    private val memberId = MutableLiveData<Int>(0)
+    val memberId = MutableLiveData<Int>(0)
 
     val isMenuDismissed = MutableLiveData<Boolean>()
 
