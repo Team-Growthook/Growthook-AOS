@@ -53,11 +53,8 @@ class App : Application() {
 
             if (properties == null) {
                 amplitude?.track(eventName)
-                Timber.d("amplitude")
-                Timber.d("amplitude device -> ${amplitude?.getDeviceId()} & usessionId -> ${amplitude?.sessionId}")
             } else {
                 amplitude?.track(eventName, properties)
-                Timber.d("amplitude properties")
             }
         }
     }

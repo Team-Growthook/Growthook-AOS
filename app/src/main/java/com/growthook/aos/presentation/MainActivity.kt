@@ -15,6 +15,7 @@ import com.growthook.aos.presentation.home.HomeFragment
 import com.growthook.aos.presentation.mypage.MyPageFragment
 import com.growthook.aos.presentation.onboarding.OnboardingActivity
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -78,13 +79,14 @@ class MainActivity : AppCompatActivity() {
 
         if (USER_ID != 0) {
             App.trackEvent("${viewModel.memberId.value} + 나가기")
+            Timber.d("amplitude 나가기 leave")
         }
     }
 
     override fun onDestroy() {
-//        App.trackEvent("${viewModel.memberId.value} + 나가기")
         if (USER_ID != 0) {
             App.trackEvent("${viewModel.memberId.value} + 나가기")
+            Timber.d("amplitude 나가기 destroy")
         }
         super.onDestroy()
     }

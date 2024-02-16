@@ -1,5 +1,6 @@
 package com.growthook.aos.presentation.actionlist.proceeding
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -109,7 +110,7 @@ class ProceedingActionlistFragment(private val parentFragment: ActionlistFragmen
                 requireContext(),
                 seedId,
                 "ProceedingActionlistFragment",
-            ),
+            ).addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION),
         )
     }
 

@@ -1,5 +1,6 @@
 package com.growthook.aos.presentation.actionlist.completed
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -59,12 +60,13 @@ class CompletedActionlistFragment : BaseFragment<FragmentCompletedActionlistBind
                 requireContext(),
                 seedId,
                 "CompletedActionlistFragment",
-            ),
+            ).addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION),
         )
     }
 
     private fun clickReviewDetail(actionplanId: Int) {
-        startActivity(ReviewDetailActivity.getIntent(requireContext(), actionplanId))
+        startActivity(ReviewDetailActivity.getIntent(requireContext(), actionplanId)
+            .addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION))
     }
 
     private fun clickScrapBtn() {

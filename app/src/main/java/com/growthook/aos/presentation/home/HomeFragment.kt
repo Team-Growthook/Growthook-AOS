@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.compose.ui.res.integerArrayResource
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.selection.SelectionPredicates
 import androidx.recyclerview.selection.SelectionTracker
@@ -100,6 +101,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private fun clickAddCave() {
         binding.ivHomeAddCave.setOnSingleClickListener {
             val intent = Intent(requireActivity(), CreateNewCaveActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION)
             App.trackEvent("${viewModel.memberId.value} + 동굴 짓기")
             startActivity(intent)
         }
@@ -219,14 +221,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                                             requireContext(),
                                             item.seedId,
                                             "HomeFragment",
-                                        ),
+                                        ).addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION),
                                     )
                                 } else {
                                     startActivity(
                                         NoActionplanInsightActivity.getIntent(
                                             requireContext(),
                                             item.seedId,
-                                        ),
+                                        ).addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION),
                                     )
                                 }
                                 viewModel.getGatherdThook()
@@ -242,10 +244,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     requireContext(),
                     item.seedId,
                     "HomeFragment",
-                ),
+                ).addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION),
             )
         } else {
-            startActivity(NoActionplanInsightActivity.getIntent(requireContext(), item.seedId))
+            startActivity(NoActionplanInsightActivity.getIntent(requireContext(), item.seedId)
+                .addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION))
         }
     }
 
@@ -265,7 +268,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun clickedCave(item: Cave) {
-        startActivity(CaveDetailActivity.getIntent(requireContext(), item.id))
+        startActivity(CaveDetailActivity.getIntent(requireContext(), item.id)
+            .addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION))
     }
 
     private fun clickedScrap(seed: Insight) {
@@ -350,6 +354,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private fun clickAddSeedBtn() {
         val intent = Intent(requireActivity(), InsightWriteActivity::class.java)
         binding.fabHomeAddInsight.setOnSingleClickListener {
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION)
             App.trackEvent("${viewModel.memberId.value} + 씨앗 심기")
             startActivity(intent)
         }
