@@ -60,6 +60,10 @@ class MainActivity : AppCompatActivity() {
             }
 
             USER_ID = viewModel.memberId.value ?: 0
+
+            if (USER_ID != 0) {
+                App.trackEvent("$USER_ID + 앱 실행")
+            }
         }
     }
 
@@ -71,11 +75,17 @@ class MainActivity : AppCompatActivity() {
 
     override fun onUserLeaveHint() {
         super.onUserLeaveHint()
-        App.trackEvent("${viewModel.memberId.value} + 나가기")
+
+        if (USER_ID != 0) {
+            App.trackEvent("${viewModel.memberId.value} + 나가기")
+        }
     }
 
     override fun onDestroy() {
-        App.trackEvent("${viewModel.memberId.value} + 나가기")
+//        App.trackEvent("${viewModel.memberId.value} + 나가기")
+        if (USER_ID != 0) {
+            App.trackEvent("${viewModel.memberId.value} + 나가기")
+        }
         super.onDestroy()
     }
 
