@@ -2,8 +2,6 @@ package com.growthook.aos.di
 
 import android.content.Context
 import android.util.Log
-import com.facebook.flipper.plugins.network.FlipperOkhttpInterceptor
-import com.facebook.flipper.plugins.network.NetworkFlipperPlugin
 import com.growthook.aos.domain.repository.RefreshRepository
 import com.growthook.aos.domain.repository.TokenRepository
 import com.growthook.aos.domain.repository.UserRepository
@@ -47,20 +45,12 @@ object RetrofitModule {
     @GrowthookRetrofit
     fun provideOkHttpClient(
         loggingInterceptor: HttpLoggingInterceptor,
-        networkFlipperPlugin: NetworkFlipperPlugin,
         @GrowthookRetrofit tokenInterceptor: Interceptor,
     ): OkHttpClient =
         OkHttpClient.Builder().apply {
             addInterceptor(loggingInterceptor)
             addInterceptor(tokenInterceptor)
-            addNetworkInterceptor(FlipperOkhttpInterceptor(networkFlipperPlugin))
         }.build()
-
-    @Singleton
-    @Provides
-    fun provideNetworkFlipper(): NetworkFlipperPlugin {
-        return NetworkFlipperPlugin()
-    }
 
     @Provides
     @Singleton
