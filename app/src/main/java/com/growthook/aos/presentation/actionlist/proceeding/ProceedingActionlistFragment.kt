@@ -92,7 +92,7 @@ class ProceedingActionlistFragment(private val parentFragment: ActionlistFragmen
     private fun clickCompleteBtn(actionplanId: Int) {
         BaseWritingBottomSheet.Builder().build(
             type = BaseWritingBottomSheet.WritingType.LARGE,
-            title = "리뷰 작성",
+            title = "느낀점",
             clickSaveBtn = {
                 viewModel.postReview(actionplanId, it)
                 viewModel.completeActionplan(actionplanId)

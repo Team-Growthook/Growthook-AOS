@@ -80,7 +80,7 @@ class ActionplanAdapter(
                     )
                     tvActionplanCompleteBtn.setBackgroundResource(R.drawable.rect_gray600_fill_4)
                     tvActionplanCompleteBtn.isClickable = false
-                    tvActionplanCompleteBtn.text = "달성완료"
+                    tvActionplanCompleteBtn.text = "수확완료"
                 } else {
                     tvActionplanCompleteBtn.setTextColor(
                         ContextCompat.getColor(
@@ -90,7 +90,7 @@ class ActionplanAdapter(
                     )
                     tvActionplanCompleteBtn.setBackgroundResource(R.drawable.rect_green400_fill_4)
                     tvActionplanCompleteBtn.isClickable = true
-                    tvActionplanCompleteBtn.text = "완료하기"
+                    tvActionplanCompleteBtn.text = "수확하기"
                 }
             }
         }

@@ -305,7 +305,7 @@
         android:layout_marginHorizontal="18dp"
         android:layout_marginBottom="18dp"
         android:background="@drawable/rect_green400_fill_5"
-        android:text="액션 더하기"
+        android:text="할 일 더하기"
         android:textColor="@color/White000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

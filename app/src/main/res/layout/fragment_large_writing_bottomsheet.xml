@@ -41,6 +41,7 @@
         app:boxBackgroundMode="outline"
         app:counterEnabled="true"
         app:counterMaxLength="300"
+        android:hint="할 일을 달성하며 어떤 것을 느꼈는지 작성해보세요"
         app:counterTextAppearance="@style/CounterTextAppearance"
         app:endIconMode="none"
         app:layout_constraintBottom_toTopOf="@id/btn_large_writing_save"
