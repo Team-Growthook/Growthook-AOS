@@ -100,8 +100,9 @@ class ActionplanInsightActivity :
 
     private fun clickCompleteBtn(actionplanId: Int) {
         BaseWritingBottomSheet.Builder().build(
-            type = BaseWritingBottomSheet.WritingType.LARGE,
+            type = BaseWritingBottomSheet.WritingType.SMALL,
             title = "느낀점",
+            hint = "액션 플랜을 달성하며 어떤 것을 느꼈는지 작성해보\n세요",
             clickSaveBtn = {
                 viewModel.postReview(actionplanId, it)
                 viewModel.completeActionplan(actionplanId)
@@ -118,6 +119,7 @@ class ActionplanInsightActivity :
         BaseWritingBottomSheet.Builder().build(
             type = BaseWritingBottomSheet.WritingType.SMALL,
             title = "할 일 수정",
+            hint = "구체적인 계획을 설정해보세요",
             clickSaveBtn = {
                 viewModel.modifyActionplan(actionplanId, it)
             },
@@ -227,6 +229,7 @@ class ActionplanInsightActivity :
             BaseWritingBottomSheet.Builder().build(
                 type = BaseWritingBottomSheet.WritingType.SMALL,
                 title = "할 일 더하기",
+                hint = "구체적인 계획을 설정해보세요",
                 clickSaveBtn = {
                     viewModel.postActionplan(seedId, it)
                 },
