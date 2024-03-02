@@ -30,7 +30,7 @@
             style="@style/body1_reg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="액션 만들기"
+            android:text="할 일 적기"
             app:layout_constraintBottom_toBottomOf="@id/iv_add_actionplan_back"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
