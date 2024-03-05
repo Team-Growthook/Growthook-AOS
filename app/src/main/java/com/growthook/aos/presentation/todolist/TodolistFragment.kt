@@ -1,4 +1,4 @@
-package com.growthook.aos.presentation.actionlist
+package com.growthook.aos.presentation.todolist
 
 import android.os.Bundle
 import android.util.Log
@@ -11,12 +11,12 @@ import androidx.fragment.app.commit
 import com.google.android.material.tabs.TabLayout
 import com.growthook.aos.R
 import com.growthook.aos.databinding.FragmentActionlistBinding
-import com.growthook.aos.presentation.actionlist.completed.CompletedActionlistFragment
-import com.growthook.aos.presentation.actionlist.proceeding.ProceedingActionlistFragment
 import com.growthook.aos.presentation.home.HomeViewModel
+import com.growthook.aos.presentation.todolist.completed.CompletedActionlistFragment
+import com.growthook.aos.presentation.todolist.proceeding.ProceedingActionlistFragment
 import com.growthook.aos.util.base.BaseFragment
 
-class ActionlistFragment : BaseFragment<FragmentActionlistBinding>() {
+class TodolistFragment : BaseFragment<FragmentActionlistBinding>() {
     private val viewModel: HomeViewModel by activityViewModels()
 
     override fun getFragmentBinding(
@@ -46,7 +46,7 @@ class ActionlistFragment : BaseFragment<FragmentActionlistBinding>() {
 
     private fun initItem() {
         parentFragmentManager.commit {
-            replace(R.id.fcv_actionlist_main, ProceedingActionlistFragment(this@ActionlistFragment))
+            replace(R.id.fcv_actionlist_main, ProceedingActionlistFragment(this@TodolistFragment))
         }
     }
 
@@ -59,9 +59,9 @@ class ActionlistFragment : BaseFragment<FragmentActionlistBinding>() {
         binding.tlActionlistMain.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 val fragment: Fragment = when (tab.position) {
-                    0 -> ProceedingActionlistFragment(this@ActionlistFragment)
+                    0 -> ProceedingActionlistFragment(this@TodolistFragment)
                     1 -> CompletedActionlistFragment()
-                    else -> ProceedingActionlistFragment(this@ActionlistFragment)
+                    else -> ProceedingActionlistFragment(this@TodolistFragment)
                 }
                 parentFragmentManager.commit {
                     replace(R.id.fcv_actionlist_main, fragment)

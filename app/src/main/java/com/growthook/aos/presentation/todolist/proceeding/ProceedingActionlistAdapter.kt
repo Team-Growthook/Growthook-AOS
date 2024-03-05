@@ -1,4 +1,4 @@
-package com.growthook.aos.presentation.actionlist.proceeding
+package com.growthook.aos.presentation.todolist.proceeding
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

@@ -1,4 +1,4 @@
-package com.growthook.aos.presentation.actionlist.completed
+package com.growthook.aos.presentation.todolist.completed
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

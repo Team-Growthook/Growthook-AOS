@@ -1,4 +1,4 @@
-package com.growthook.aos.presentation.actionlist.proceeding
+package com.growthook.aos.presentation.todolist.proceeding
 
 import android.content.Intent
 import android.os.Bundle
@@ -13,10 +13,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.growthook.aos.R
 import com.growthook.aos.databinding.FragmentProceedingActionlistBinding
-import com.growthook.aos.presentation.actionlist.ActionlistFragment
-import com.growthook.aos.presentation.actionlist.proceeding.ProceedingActionlistViewModel.Event
 import com.growthook.aos.presentation.home.HomeViewModel
 import com.growthook.aos.presentation.insight.actionplan.ActionplanInsightActivity
+import com.growthook.aos.presentation.todolist.TodolistFragment
+import com.growthook.aos.presentation.todolist.proceeding.ProceedingActionlistViewModel.Event
 import com.growthook.aos.util.base.BaseAlertDialog
 import com.growthook.aos.util.base.BaseFragment
 import com.growthook.aos.util.base.BaseWritingBottomSheet
@@ -27,7 +27,7 @@ import kotlinx.coroutines.flow.onEach
 import timber.log.Timber
 
 @AndroidEntryPoint
-class ProceedingActionlistFragment(private val parentFragment: ActionlistFragment) :
+class ProceedingActionlistFragment(private val parentFragment: TodolistFragment) :
     BaseFragment<FragmentProceedingActionlistBinding>() {
     private var isScraped = false
     private var _proceedingActionlistAdapter: ProceedingActionlistAdapter? = null
