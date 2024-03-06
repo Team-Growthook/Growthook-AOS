@@ -59,8 +59,6 @@
             android:layout_height="10dp"
             android:layout_marginStart="3dp"
             android:layout_marginTop="7dp"
-            android:indeterminate="false"
-            android:progress="20"
             android:progressDrawable="@drawable/linear_progrss_bar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

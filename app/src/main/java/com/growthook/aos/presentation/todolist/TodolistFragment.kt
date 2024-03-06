@@ -41,6 +41,12 @@ class TodolistFragment : BaseFragment<FragmentTodolistBinding>() {
     private fun observeActionplanPercent() {
         viewModel.actionplanPercent.observe(viewLifecycleOwner) { percent ->
             binding.tvTodolistPercent.text = "$percent% 달성!"
+            binding.pgbTodolistMain.progress = percent
+            Log.d(
+                "percent!!",
+                "binding.pgbTodolistMain.progress:: ${binding.pgbTodolistMain.progress}",
+            )
+            Log.d("percent!!", "percent:: $percent")
         }
     }
 
