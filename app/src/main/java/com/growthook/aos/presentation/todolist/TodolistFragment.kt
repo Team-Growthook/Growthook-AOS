@@ -10,19 +10,19 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
 import com.google.android.material.tabs.TabLayout
 import com.growthook.aos.R
-import com.growthook.aos.databinding.FragmentActionlistBinding
+import com.growthook.aos.databinding.FragmentTodolistBinding
 import com.growthook.aos.presentation.home.HomeViewModel
 import com.growthook.aos.presentation.todolist.completed.CompletedActionlistFragment
 import com.growthook.aos.presentation.todolist.proceeding.ProceedingActionlistFragment
 import com.growthook.aos.util.base.BaseFragment
 
-class TodolistFragment : BaseFragment<FragmentActionlistBinding>() {
+class TodolistFragment : BaseFragment<FragmentTodolistBinding>() {
     private val viewModel: HomeViewModel by activityViewModels()
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
-    ): FragmentActionlistBinding = FragmentActionlistBinding.inflate(inflater, container, false)
+    ): FragmentTodolistBinding = FragmentTodolistBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -34,13 +34,13 @@ class TodolistFragment : BaseFragment<FragmentActionlistBinding>() {
 
     private fun observeNickname() {
         viewModel.nickname.observe(viewLifecycleOwner) { nickName ->
-            binding.tvActionlistTitle.text = "${nickName}님의 액션"
+            binding.tvTodolistTitle.text = "${nickName}님의 액션"
         }
     }
 
     private fun observeActionplanPercent() {
         viewModel.actionplanPercent.observe(viewLifecycleOwner) { percent ->
-            binding.tvActionlisTPercent.text = "$percent% 달성!"
+            binding.tvTodolistPercent.text = "$percent% 달성!"
         }
     }
 
@@ -51,12 +51,12 @@ class TodolistFragment : BaseFragment<FragmentActionlistBinding>() {
     }
 
     fun moveToCompletedActionTab() {
-        val tab: TabLayout.Tab? = binding.tlActionlistMain.getTabAt(1)
+        val tab: TabLayout.Tab? = binding.tlTodolistMain.getTabAt(1)
         tab?.select()
     }
 
     private fun clickTabItem() {
-        binding.tlActionlistMain.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        binding.tlTodolistMain.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 val fragment: Fragment = when (tab.position) {
                     0 -> ProceedingActionlistFragment(this@TodolistFragment)
