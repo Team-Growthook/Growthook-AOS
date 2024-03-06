@@ -1,10 +1,9 @@
-package com.growthook.aos.presentation.actionlist
+package com.growthook.aos.presentation.todolist
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.fragment.app.viewModels
 import com.growthook.aos.R
 import com.growthook.aos.databinding.ActivityReviewDetailBinding
 import com.growthook.aos.util.base.BaseActivity
