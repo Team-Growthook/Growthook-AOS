@@ -15,6 +15,7 @@ import com.growthook.aos.databinding.FragmentProceedingActionlistBinding
 import com.growthook.aos.presentation.insight.actionplan.ActionplanInsightActivity
 import com.growthook.aos.presentation.todolist.TodolistFragment
 import com.growthook.aos.presentation.todolist.proceeding.ProceedingActionlistViewModel.Event
+import com.growthook.aos.util.EmptyDataObserver
 import com.growthook.aos.util.base.BaseAlertDialog
 import com.growthook.aos.util.base.BaseFragment
 import com.growthook.aos.util.base.BaseWritingBottomSheet
@@ -43,6 +44,7 @@ class ProceedingActionlistFragment(private val parentFragment: TodolistFragment)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initActionplanAdapter()
+        setEmptyView()
         observeActionplan()
         observeEvent()
         clickScrapBtn()
@@ -70,6 +72,16 @@ class ProceedingActionlistFragment(private val parentFragment: TodolistFragment)
             Timber.w("doingActionplan:: $doingActionplan")
             _proceedingActionlistAdapter?.submitList(doingActionplan)
         }.launchIn(lifecycleScope)
+    }
+
+    private fun setEmptyView() {
+        _proceedingActionlistAdapter?.registerAdapterDataObserver(
+            EmptyDataObserver(
+                binding.rcvProceedingActionlist,
+                binding.ivProceedingEmptyTodo,
+                binding.tvProceedingEmptyTodo,
+            ),
+        )
     }
 
     private fun clickScrapBtn() {
