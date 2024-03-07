@@ -1,11 +1,11 @@
 package com.growthook.aos.data.service
 
-import com.growthook.aos.data.model.request.RequestActionplanModifyDto
-import com.growthook.aos.data.model.request.RequestActionplanPostDto
-import com.growthook.aos.data.model.response.ResponseActionlistDto
-import com.growthook.aos.data.model.response.ResponseDataDto
-import com.growthook.aos.data.model.response.ResponseDto
-import com.growthook.aos.data.model.response.ResponseGetActionplanDto
+import com.growthook.aos.data.model.remote.request.RequestActionplanModifyDto
+import com.growthook.aos.data.model.remote.request.RequestActionplanPostDto
+import com.growthook.aos.data.model.remote.response.ResponseActionlistDto
+import com.growthook.aos.data.model.remote.response.ResponseDataDto
+import com.growthook.aos.data.model.remote.response.ResponseDto
+import com.growthook.aos.data.model.remote.response.ResponseGetActionplanDto
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET

@@ -1,6 +1,6 @@
 package com.growthook.aos.data.service
 
-import com.growthook.aos.data.model.response.ResponseRefreshTokenDto
+import com.growthook.aos.data.model.remote.response.ResponseRefreshTokenDto
 import retrofit2.http.GET
 
 interface RefreshService {

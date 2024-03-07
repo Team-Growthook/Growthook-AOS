@@ -1,9 +1,9 @@
 package com.growthook.aos.data.datasource.remote
 
-import com.growthook.aos.data.model.response.ResponseDto
-import com.growthook.aos.data.model.response.ResponseGatheredThookDto
-import com.growthook.aos.data.model.response.ResponseGetProfileDto
-import com.growthook.aos.data.model.response.ResponseGetUsedThook
+import com.growthook.aos.data.model.remote.response.ResponseDto
+import com.growthook.aos.data.model.remote.response.ResponseGatheredThookDto
+import com.growthook.aos.data.model.remote.response.ResponseGetProfileDto
+import com.growthook.aos.data.model.remote.response.ResponseGetUsedThook
 
 interface MemberDataSource {
 
