@@ -1,4 +1,4 @@
-package com.growthook.aos.presentation.actionlist.completed
+package com.growthook.aos.presentation.todolist.completed
 
 import android.content.Intent
 import android.os.Bundle
@@ -13,11 +13,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.growthook.aos.R
 import com.growthook.aos.databinding.FragmentCompletedActionlistBinding
-import com.growthook.aos.presentation.actionlist.ReviewDetailActivity
 import com.growthook.aos.presentation.home.HomeViewModel
 import com.growthook.aos.presentation.insight.actionplan.ActionplanInsightActivity
+import com.growthook.aos.presentation.todolist.ReviewDetailActivity
 import com.growthook.aos.util.base.BaseFragment
-import com.growthook.aos.util.extension.setOnSingleClickListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -65,8 +64,10 @@ class CompletedActionlistFragment : BaseFragment<FragmentCompletedActionlistBind
     }
 
     private fun clickReviewDetail(actionplanId: Int) {
-        startActivity(ReviewDetailActivity.getIntent(requireContext(), actionplanId)
-            .addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION))
+        startActivity(
+            ReviewDetailActivity.getIntent(requireContext(), actionplanId)
+                .addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION),
+        )
     }
 
     private fun clickScrapBtn() {

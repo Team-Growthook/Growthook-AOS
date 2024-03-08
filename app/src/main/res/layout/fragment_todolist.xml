@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.actionlist.ActionlistFragment">
+    tools:context=".presentation.todolist.TodolistFragment">
 
     <TextView
-        android:id="@+id/tv_actionlist_title"
+        android:id="@+id/tv_todolist_title"
         style="@style/head1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -15,52 +15,67 @@
         android:layout_marginTop="37dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="EON님의 액션" />
+        tools:text="EON님의 할일" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_actionplan_thook"
+    <ImageView
+        android:id="@+id/iv_todolist_main"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/rect_green600_fill_6"
-        android:paddingHorizontal="8dp"
-        android:paddingVertical="5dp"
-        app:layout_constraintStart_toStartOf="@id/tv_actionlist_title"
-        app:layout_constraintTop_toBottomOf="@id/tv_actionlist_title">
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="18dp"
+        android:src="@drawable/ic_progress_seed"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/iv_actionplan_thook"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_thook"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/Green100" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_todo_thook"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="18dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/rect_gray900_border_green600_fill_5"
+        android:paddingHorizontal="18dp"
+        android:paddingVertical="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_todolist_title">
 
         <TextView
-            android:id="@+id/tv_actionlisT_percent"
-            style="@style/detail1_bold"
+            android:id="@+id/tv_todolist_percent"
+            style="@style/head3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="3dp"
             android:text="00% 달성!"
-            android:textColor="@color/Green100"
-            app:layout_constraintBottom_toBottomOf="@id/iv_actionplan_thook"
-            app:layout_constraintStart_toEndOf="@id/iv_actionplan_thook"
-            app:layout_constraintTop_toTopOf="@id/iv_actionplan_thook" />
+            android:textColor="@color/White000"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/pgb_todolist_main"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="7dp"
+            android:progressDrawable="@drawable/linear_progrss_bar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_todolist_percent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tl_actionlist_main"
+        android:id="@+id/tl_todolist_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         app:tabIndicatorFullWidth="true"
         android:background="@drawable/shape_actionlist_tab"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cl_actionplan_thook"
+        app:layout_constraintTop_toBottomOf="@id/cl_todo_thook"
         app:tabIndicatorColor="@color/MainGreen400"
         app:tabRippleColor="@android:color/transparent"
         app:tabSelectedTextColor="@color/MainGreen400"
@@ -79,14 +94,16 @@
 
     </com.google.android.material.tabs.TabLayout>
 
+
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fcv_actionlist_main"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tl_actionlist_main"
+        app:layout_constraintTop_toBottomOf="@id/tl_todolist_main"
         tools:layout="@layout/fragment_proceeding_actionlist" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

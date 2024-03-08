@@ -10,10 +10,10 @@ import androidx.fragment.app.replace
 import com.growthook.aos.App
 import com.growthook.aos.R
 import com.growthook.aos.databinding.ActivityMainBinding
-import com.growthook.aos.presentation.actionlist.ActionlistFragment
 import com.growthook.aos.presentation.home.HomeFragment
 import com.growthook.aos.presentation.mypage.MyPageFragment
 import com.growthook.aos.presentation.onboarding.OnboardingActivity
+import com.growthook.aos.presentation.todolist.TodolistFragment
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -38,9 +38,10 @@ class MainActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.menu_home -> navigateTo<HomeFragment>()
                 R.id.menu_planlist -> {
-                    navigateTo<ActionlistFragment>()
-                     App.trackEvent("${viewModel.memberId.value} + 액션리스트 이동")
+                    navigateTo<TodolistFragment>()
+                    App.trackEvent("${viewModel.memberId.value} + 액션리스트 이동")
                 }
+
                 R.id.menu_mypage -> {
                     navigateTo<MyPageFragment>()
                     App.trackEvent("${viewModel.memberId.value} + 마이페이지 이동")
