@@ -131,6 +131,10 @@ dependencies {
 
     // amplitude
     implementation 'com.amplitude:analytics-android:1.14.0'
+
+    // room
+    implementation "androidx.room:room-runtime:2.6.1"
+    implementation "androidx.room:room-paging:2.6.1"
 }
 kapt {
     correctErrorTypes true
