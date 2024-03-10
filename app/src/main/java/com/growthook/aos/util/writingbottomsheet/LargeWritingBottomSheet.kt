@@ -53,6 +53,10 @@ class LargeWritingBottomSheet : BaseWritingBottomSheet() {
         binding.tvLargeWritingTitle.text = title
     }
 
+    override fun setHint() {
+        binding.edtLargeWriting.hint = hint
+    }
+
     override fun setClickNoWrite(action: () -> Unit) {
         binding.btnLargeWritingNoWrite.setOnClickListener {
             action()

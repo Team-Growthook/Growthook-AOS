@@ -24,6 +24,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField "String", "NATIVE_APP_KEY", properties["native.app.key"]
         buildConfigField "String", "GROWTHOOK_BASE_URL", properties["growthook.base.url"]
+        buildConfigField "String", "AMPLITUDE_APP_KEY", properties["amplitude.api.key"]
 
         manifestPlaceholders["NATIVE_APP_KEY"] =
                 properties.getProperty("native.app.key.no.quotes")
@@ -122,6 +123,8 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.13.0'
     kapt 'com.github.bumptech.glide:compiler:4.13.0'
 
+    // amplitude
+    implementation 'com.amplitude:analytics-android:1.14.0'
 }
 kapt {
     correctErrorTypes true

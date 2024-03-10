@@ -84,7 +84,7 @@ class InsightMenuBottomsheet :
             .build(
                 type = BaseAlertDialog.DialogType.LEFT_INTENDED,
                 title = "정말로 삭제할까요?",
-                description = "삭제한 인사이트는 다시 복구할 수 없으니\n신중하게 결정해 주세요!",
+                description = "삭제한 씨앗은 다시 복구할 수 없으니\n신중하게 결정해 주세요!",
                 positiveText = "유지하기",
                 negativeText = "삭제하기",
                 tipText = "",

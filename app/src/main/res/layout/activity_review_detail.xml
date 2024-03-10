@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.actionlist.ReviewDetailActivity">
+    tools:context=".presentation.todolist.ReviewDetailActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_review_detail_toolbar"
@@ -28,7 +28,7 @@
             style="@style/body1_reg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="리뷰 조회"
+            android:text="느낀점"
             app:layout_constraintBottom_toBottomOf="@id/iv_review_detail_back"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

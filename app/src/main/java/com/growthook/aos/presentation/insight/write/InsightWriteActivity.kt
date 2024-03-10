@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
 import androidx.activity.viewModels
+import com.growthook.aos.App
 import com.growthook.aos.databinding.ActivityInsightWriteBinding
+import com.growthook.aos.presentation.MainActivity.Companion.USER_ID
 import com.growthook.aos.presentation.insight.write.InsightWriteNewActivity.Companion.NEW_SEED_ID
 import com.growthook.aos.util.base.BaseActivity
 import com.growthook.aos.util.extension.CommonTextWatcher
@@ -146,6 +148,7 @@ class InsightWriteActivity : BaseActivity<ActivityInsightWriteBinding>({
         val intent = Intent(this, InsightWriteNewActivity::class.java)
         viewModel.seedId.observe(this) {
             intent.putExtra(NEW_SEED_ID, it)
+            App.trackEvent("$USER_ID + 등록하기")
             startActivity(intent)
             finish()
         }
@@ -153,6 +156,7 @@ class InsightWriteActivity : BaseActivity<ActivityInsightWriteBinding>({
 
     private fun clickBackBtn() {
         binding.btnInsightWriteBack.setOnClickListener {
+            App.trackEvent("$USER_ID + 메인으로 나가기")
             finish()
         }
     }

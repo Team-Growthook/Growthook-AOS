@@ -100,8 +100,9 @@ class ActionplanInsightActivity :
 
     private fun clickCompleteBtn(actionplanId: Int) {
         BaseWritingBottomSheet.Builder().build(
-            type = BaseWritingBottomSheet.WritingType.LARGE,
-            title = "리뷰 작성",
+            type = BaseWritingBottomSheet.WritingType.SMALL,
+            title = "느낀점",
+            hint = "액션 플랜을 달성하며 어떤 것을 느꼈는지 작성해보\n세요",
             clickSaveBtn = {
                 viewModel.postReview(actionplanId, it)
                 viewModel.completeActionplan(actionplanId)
@@ -117,7 +118,8 @@ class ActionplanInsightActivity :
     private fun clickModifyMenu(actionplanId: Int) {
         BaseWritingBottomSheet.Builder().build(
             type = BaseWritingBottomSheet.WritingType.SMALL,
-            title = "액션플랜 수정",
+            title = "할 일 수정",
+            hint = "구체적인 계획을 설정해보세요",
             clickSaveBtn = {
                 viewModel.modifyActionplan(actionplanId, it)
             },
@@ -132,7 +134,7 @@ class ActionplanInsightActivity :
             .build(
                 type = BaseAlertDialog.DialogType.LEFT_INTENDED,
                 title = "정말로 삭제할까요?",
-                description = "삭제한 인사이트는 다시 복구할 수 없으니\n" + "신중하게 결정해 주세요!",
+                description = "삭제한 할 일은 다시 복구할 수 없으니\n" + "신중하게 결정해 주세요!",
                 positiveText = "유지하기",
                 negativeText = "삭제하기",
                 tipText = "",
@@ -226,7 +228,8 @@ class ActionplanInsightActivity :
         binding.btnActionplanInsightAdd.setOnSingleClickListener {
             BaseWritingBottomSheet.Builder().build(
                 type = BaseWritingBottomSheet.WritingType.SMALL,
-                title = "액션 플랜 추가",
+                title = "할 일 더하기",
+                hint = "구체적인 계획을 설정해보세요",
                 clickSaveBtn = {
                     viewModel.postActionplan(seedId, it)
                 },
@@ -239,15 +242,15 @@ class ActionplanInsightActivity :
         viewModel.event.flowWithLifecycle(lifecycle).onEach { event ->
             when (event) {
                 is Event.PostActionplanSuccess -> {
-                    Toast.makeText(this, "액션을 만들었어요!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "할 일을 계획했어요!", Toast.LENGTH_SHORT).show()
                 }
 
                 is Event.ModifySuccess -> {
-                    Toast.makeText(this, "액션이 수정되었어요", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "할 일이 수정되었어요", Toast.LENGTH_SHORT).show()
                 }
 
                 is Event.DeleteSuccess -> {
-                    Toast.makeText(this, "액션이 삭제되었어요", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "할 일이 삭제되었어요", Toast.LENGTH_SHORT).show()
                 }
 
                 is Event.PostCompletedActionplanSuccess -> {

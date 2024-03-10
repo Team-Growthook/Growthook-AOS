@@ -65,6 +65,17 @@ class SmallWritingBottomSheet : BaseWritingBottomSheet() {
         binding.tvSmallWritingTitle.text = title
     }
 
+    override fun setHint() {
+        binding.tlSmallWriting.hint = hint
+        binding.edtSmallWriting.setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus) {
+                binding.tlSmallWriting.hint = null
+            } else {
+                binding.tlSmallWriting.hint = hint
+            }
+        }
+    }
+
     override fun setClickNoWrite(action: () -> Unit) {
     }
 }
