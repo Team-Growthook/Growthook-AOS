@@ -41,7 +41,6 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>() {
         clickDetailMyInfo()
         clickLogout()
         clickPolicy()
-        // setProfileImage()
     }
 
     override fun onResume() {
@@ -49,14 +48,6 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>() {
         viewModel.getUsedThook()
         viewModel.getGatherdThook()
     }
-
-    /*private fun setProfileImage() {
-        viewModel.profileUrl.observe(viewLifecycleOwner) { imageUrl ->
-            if (imageUrl != null) {
-                GlideApp.with(this).load(imageUrl).into(binding.ivMyPageUser)
-            }
-        }
-    }*/
 
     private fun setNickName() {
         viewModel.nickName.observe(viewLifecycleOwner) {

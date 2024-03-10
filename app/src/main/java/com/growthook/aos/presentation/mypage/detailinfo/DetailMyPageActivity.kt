@@ -27,16 +27,7 @@ class DetailMyPageActivity :
         setEmail()
         clickBackNavi()
         clickDeleteAccount()
-        // setProfileImage()
     }
-
-//    private fun setProfileImage() {
-//        viewModel.profileUrl.observe(this) { imageUrl ->
-//            if (imageUrl != null) {
-//                GlideApp.with(this).load(imageUrl).into(binding.ivDetailMyPageUser)
-//            }
-//        }
-//    }
 
     private fun setNickName() {
         viewModel.nickName.observe(this) {

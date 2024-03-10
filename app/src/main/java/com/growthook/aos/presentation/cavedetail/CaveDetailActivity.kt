@@ -67,7 +67,6 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
         clickAddSeed()
         observeInsights()
         isInsightDelete()
-        // setProfileImage()
     }
 
     override fun onResume() {
@@ -324,14 +323,6 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
             }
         }
     }
-
-    /*private fun setProfileImage() {
-        viewModel.profileUrl.observe(this) { imageUrl ->
-            if (imageUrl != null) {
-                GlideApp.with(this).load(imageUrl).into(binding.ivCaveDetailUser)
-            }
-        }
-    }*/
 
     override fun onDestroy() {
         _insightAdapter = null

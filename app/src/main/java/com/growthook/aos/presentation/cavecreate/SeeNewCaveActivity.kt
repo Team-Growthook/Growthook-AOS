@@ -26,7 +26,6 @@ class SeeNewCaveActivity : BaseActivity<ActivitySeeNewCaveBinding>({
 
         initSetNewCaveView()
         initClickCloseBtn()
-        // setProfileImage()
         setChbClickable()
         clickAddSeedBtn()
     }
@@ -57,14 +56,6 @@ class SeeNewCaveActivity : BaseActivity<ActivitySeeNewCaveBinding>({
             finish()
         }
     }
-
-    /*private fun setProfileImage() {
-        viewModel.profileUrl.observe(this) { imageUrl ->
-            if (imageUrl != null) {
-                GlideApp.with(this).load(imageUrl).into(binding.ivSeeCaveUserImg)
-            }
-        }
-    }*/
 
     private fun setChbClickable() {
         binding.chbSeeCaveScrap.isClickable = false
