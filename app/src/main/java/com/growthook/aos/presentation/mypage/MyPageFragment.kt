@@ -9,10 +9,8 @@ import android.view.ViewGroup
 import androidx.compose.ui.res.integerArrayResource
 import androidx.fragment.app.activityViewModels
 import com.growthook.aos.App
-import com.growthook.aos.App
 import com.growthook.aos.data.service.KakaoAuthService
 import com.growthook.aos.databinding.FragmentMypageBinding
-import com.growthook.aos.presentation.MainActivity
 import com.growthook.aos.presentation.MainActivity
 import com.growthook.aos.presentation.MainActivity.Companion.USER_ID
 import com.growthook.aos.presentation.mypage.detailinfo.DetailMyPageActivity
@@ -45,7 +43,7 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>() {
         clickDetailMyInfo()
         clickLogout()
         clickPolicy()
-        setProfileImage()
+        // setProfileImage()
     }
 
     override fun onResume() {
