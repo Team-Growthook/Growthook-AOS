@@ -31,7 +31,10 @@ class SeedRepositoryImpl @Inject constructor(private val seedDataSource: SeedDat
         url: String,
         goalMonth: Int,
     ): Result<Int> = runCatching {
-        seedDataSource.postSeed(caveId, RequestSeedPostDto(insight, memo, source, url, goalMonth)).data.seedId
+        seedDataSource.postSeed(
+            caveId,
+            RequestSeedPostDto(insight, memo, source, url, goalMonth),
+        ).data.seedId
     }
 
     override suspend fun getCaveSeeds(caveId: Int): Result<List<Insight>> = runCatching {
@@ -59,7 +62,7 @@ class SeedRepositoryImpl @Inject constructor(private val seedDataSource: SeedDat
         insight: String,
         memo: String,
         source: String,
-        url: String
+        url: String,
     ): Result<Unit> = runCatching {
         seedDataSource.modifySeed(seedId, RequestSeedModifyDto(insight, memo, source, url))
     }

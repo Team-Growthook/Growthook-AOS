@@ -10,5 +10,5 @@ data class RequestCavePostDto(
     @SerialName("introduction")
     val introduction: String,
     @SerialName("isShared")
-    val isShared: Boolean
+    val isShared: Boolean,
 )

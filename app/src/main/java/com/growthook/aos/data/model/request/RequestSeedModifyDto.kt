@@ -12,5 +12,5 @@ data class RequestSeedModifyDto(
     @SerialName("source")
     val source: String,
     @SerialName("url")
-    val url: String
+    val url: String,
 )

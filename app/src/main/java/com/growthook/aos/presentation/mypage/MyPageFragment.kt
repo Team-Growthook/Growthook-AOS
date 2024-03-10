@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.ui.res.integerArrayResource
 import androidx.fragment.app.activityViewModels
 import com.growthook.aos.App
 import com.growthook.aos.data.service.KakaoAuthService
@@ -15,7 +14,6 @@ import com.growthook.aos.presentation.MainActivity
 import com.growthook.aos.presentation.MainActivity.Companion.USER_ID
 import com.growthook.aos.presentation.mypage.detailinfo.DetailMyPageActivity
 import com.growthook.aos.presentation.onboarding.OnboardingActivity
-import com.growthook.aos.util.GlideApp
 import com.growthook.aos.util.base.BaseAlertDialog
 import com.growthook.aos.util.base.BaseFragment
 import com.growthook.aos.util.extension.setOnSingleClickListener
@@ -163,8 +161,8 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>() {
         binding.btnMyPagePolicy.setOnClickListener {
             val intent = Intent(
                 Intent.ACTION_VIEW,
-                //Uri.parse("https://groovy-need-069.notion.site/9edc8ab432d34da682b9320f9bc6fd31"),
-                Uri.parse("https://www.notion.so/9edc8ab432d34da682b9320f9bc6fd31?pvs=4")
+                // Uri.parse("https://groovy-need-069.notion.site/9edc8ab432d34da682b9320f9bc6fd31"),
+                Uri.parse("https://www.notion.so/9edc8ab432d34da682b9320f9bc6fd31?pvs=4"),
             )
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION)
             App.trackEvent("$USER_ID + 약관 및 정책 보기")
