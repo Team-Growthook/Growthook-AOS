@@ -59,8 +59,8 @@ class CaveDetailViewModel @Inject constructor(
     private val _isUnlock = MutableLiveData<Boolean>()
     val isUnlock: LiveData<Boolean> = _isUnlock
 
-    private val _profileUrl = MutableLiveData<String?>()
-    val profileUrl: LiveData<String?> = _profileUrl
+    /*private val _profileUrl = MutableLiveData<String?>()
+    val profileUrl: LiveData<String?> = _profileUrl*/
 
     private val memberId = MutableLiveData<Int>(0)
 
@@ -79,7 +79,7 @@ class CaveDetailViewModel @Inject constructor(
             memberId.value = getUserUseCase.invoke().memberId ?: 0
         }
         getInsights()
-        getProfileUrl()
+        // getProfileUrl()
     }
 
     fun getInsights() {
@@ -152,7 +152,7 @@ class CaveDetailViewModel @Inject constructor(
         }
     }
 
-    fun getProfileUrl() {
+    /*fun getProfileUrl() {
         viewModelScope.launch {
             getProfileUseCase.invoke(memberId.value ?: 0).onSuccess { profile ->
                 _profileUrl.value = profile.profileUrl
@@ -160,7 +160,7 @@ class CaveDetailViewModel @Inject constructor(
                 Timber.e(it.message)
             }
         }
-    }
+    }*/
 
     fun getGatherdThook() {
         viewModelScope.launch {

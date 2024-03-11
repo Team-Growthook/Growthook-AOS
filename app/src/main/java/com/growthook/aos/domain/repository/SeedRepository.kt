@@ -34,6 +34,6 @@ interface SeedRepository {
         insight: String,
         memo: String,
         source: String,
-        url: String
+        url: String,
     ): Result<Unit>
 }

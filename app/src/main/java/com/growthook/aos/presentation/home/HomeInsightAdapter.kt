@@ -42,10 +42,10 @@ class HomeInsightAdapter(
     override fun getItemViewType(position: Int): Int {
         when {
             currentList[position].isLocked -> return LOCK
-            currentList[position].hasActionPlan -> return YES_ACTION
+            currentList[position].remainingDays <= 0 -> return ALREADY_LOCKED
         }
 
-        return NO_ACTION
+        return NOT_YET_LOCKED
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -59,14 +59,14 @@ class HomeInsightAdapter(
                 return LockedInsightViewHolder(binding)
             }
 
-            YES_ACTION -> {
+            ALREADY_LOCKED -> {
                 val binding: ItemHomeInsightYesActionBinding =
                     ItemHomeInsightYesActionBinding.inflate(
                         LayoutInflater.from(parent.context),
                         parent,
                         false,
                     )
-                return YesActionViewHolder(binding)
+                return AlreadyLockedViewHolder(binding)
             }
         }
 
@@ -75,7 +75,7 @@ class HomeInsightAdapter(
             parent,
             false,
         )
-        return NoActionViewHolder(binding)
+        return NotYetLockedViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -84,8 +84,8 @@ class HomeInsightAdapter(
                 holder.onBind(currentList[position], position)
             }
 
-            is YesActionViewHolder -> holder.onBind(currentList[position], position)
-            is NoActionViewHolder -> holder.onBind(currentList[position], position)
+            is AlreadyLockedViewHolder -> holder.onBind(currentList[position], position)
+            is NotYetLockedViewHolder -> holder.onBind(currentList[position], position)
         }
     }
 
@@ -105,7 +105,7 @@ class HomeInsightAdapter(
         }
     }
 
-    inner class YesActionViewHolder(private val binding: ItemHomeInsightYesActionBinding) :
+    inner class AlreadyLockedViewHolder(private val binding: ItemHomeInsightYesActionBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun onBind(item: Insight, itemPosition: Int) {
             if (item.isScraped) {
@@ -113,11 +113,8 @@ class HomeInsightAdapter(
             } else {
                 binding.btnHomeScrap.setImageResource(R.drawable.ic_scrap_unselected)
             }
-            if (item.remainingDays <= 0) {
-                binding.tvHomeInsightLock.text = "잠금 해제 완료!"
-            } else {
-                binding.tvHomeInsightLock.text = "${item.remainingDays}일 후 잠금"
-            }
+
+            binding.tvHomeInsightLock.text = "잠금 해제 완료!"
 
             binding.tvHomeInsightTitle.text = item.name
             binding.root.setOnLongClickListener {
@@ -154,7 +151,7 @@ class HomeInsightAdapter(
         }
     }
 
-    inner class NoActionViewHolder(private val binding: ItemHomeInsightNoActionBinding) :
+    inner class NotYetLockedViewHolder(private val binding: ItemHomeInsightNoActionBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun onBind(item: Insight, itemPosition: Int) {
             if (item.isScraped) {
@@ -163,11 +160,7 @@ class HomeInsightAdapter(
                 binding.btnHomeScrap.setImageResource(R.drawable.ic_scrap_unselected)
             }
 
-            if (item.remainingDays <= 0) {
-                binding.tvHomeInsightLock.text = "잠금 해제 완료!"
-            } else {
-                binding.tvHomeInsightLock.text = "${item.remainingDays}일 후 잠금"
-            }
+            binding.tvHomeInsightLock.text = "${item.remainingDays}일 후 잠금"
 
             binding.tvHomeInsightTitle.text = item.name
             binding.root.setOnLongClickListener {
@@ -212,8 +205,8 @@ class HomeInsightAdapter(
 
             if (view != null) {
                 return when (val viewHolder = recyclerView.getChildViewHolder(view)) {
-                    is YesActionViewHolder -> viewHolder.getItemDetails(viewHolder)
-                    is NoActionViewHolder -> viewHolder.getItemDetails(viewHolder)
+                    is AlreadyLockedViewHolder -> viewHolder.getItemDetails(viewHolder)
+                    is NotYetLockedViewHolder -> viewHolder.getItemDetails(viewHolder)
                     else -> null
                 }
             }
@@ -233,8 +226,8 @@ class HomeInsightAdapter(
     companion object {
 
         private const val LOCK = 0
-        private const val NO_ACTION = 1
-        private const val YES_ACTION = 2
+        private const val NOT_YET_LOCKED = 1
+        private const val ALREADY_LOCKED = 2
 
         private val diffCallback =
             ItemDiffCallback<Insight>(

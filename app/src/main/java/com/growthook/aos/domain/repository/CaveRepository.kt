@@ -2,7 +2,6 @@ package com.growthook.aos.domain.repository
 
 import com.growthook.aos.domain.entity.Cave
 import com.growthook.aos.domain.entity.CaveDetail
-import com.growthook.aos.domain.entity.Insight
 
 interface CaveRepository {
 

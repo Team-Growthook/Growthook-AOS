@@ -51,7 +51,7 @@ class SeedModifyViewModel @Inject constructor(
             memoModify,
             sourceModify,
             urlModify,
-            caveModify
+            caveModify,
         ) { checkSeedModifyEnabled() }
     }
 
@@ -89,10 +89,10 @@ class SeedModifyViewModel @Inject constructor(
 
     private fun checkSeedModifyEnabled(): Boolean =
         insightModify.value != seedInfo.value?.insight ||
-                memoModify.value != seedInfo.value?.memo ||
-                sourceModify.value != seedInfo.value?.source ||
-                urlModify.value != seedInfo.value?.url ||
-                caveModify.value != originCave.value
+            memoModify.value != seedInfo.value?.memo ||
+            sourceModify.value != seedInfo.value?.source ||
+            urlModify.value != seedInfo.value?.url ||
+            caveModify.value != originCave.value
 
     private fun checkIsModifySuccess(): Boolean {
         return if (selectedCaveId.value != 0) {

@@ -6,5 +6,5 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class NewCaveIntent(
     val name: String = "",
-    val introduction: String = ""
+    val introduction: String = "",
 ) : Parcelable

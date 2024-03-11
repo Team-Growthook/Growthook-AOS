@@ -6,7 +6,6 @@ import androidx.activity.viewModels
 import com.growthook.aos.data.service.KakaoAuthService
 import com.growthook.aos.databinding.ActivityDetailMyPageBinding
 import com.growthook.aos.presentation.onboarding.OnboardingActivity
-import com.growthook.aos.util.GlideApp
 import com.growthook.aos.util.base.BaseActivity
 import com.growthook.aos.util.base.BaseAlertDialog
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,15 +27,6 @@ class DetailMyPageActivity :
         setEmail()
         clickBackNavi()
         clickDeleteAccount()
-        setProfileImage()
-    }
-
-    private fun setProfileImage() {
-        viewModel.profileUrl.observe(this) { imageUrl ->
-            if (imageUrl != null) {
-                GlideApp.with(this).load(imageUrl).into(binding.ivDetailMyPageUser)
-            }
-        }
     }
 
     private fun setNickName() {

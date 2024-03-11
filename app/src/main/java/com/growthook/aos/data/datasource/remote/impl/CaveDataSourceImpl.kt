@@ -3,9 +3,7 @@ package com.growthook.aos.data.datasource.remote.impl
 import com.growthook.aos.data.datasource.remote.CaveDataSource
 import com.growthook.aos.data.model.request.RequestCaveModifyDto
 import com.growthook.aos.data.model.request.RequestCavePostDto
-import com.growthook.aos.data.model.response.ResponseDataDto
 import com.growthook.aos.data.model.response.ResponseDto
-import com.growthook.aos.data.model.response.ResponseGetCaveSeedsDto
 import com.growthook.aos.data.model.response.ResponseGetCavesDto
 import com.growthook.aos.data.model.response.ResponseGetDetailCaveDto
 import com.growthook.aos.data.model.response.ResponsePostCaveDto

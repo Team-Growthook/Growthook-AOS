@@ -1,7 +1,5 @@
 package com.growthook.aos.di
 
-import com.facebook.flipper.plugins.network.FlipperOkhttpInterceptor
-import com.facebook.flipper.plugins.network.NetworkFlipperPlugin
 import com.growthook.aos.BuildConfig
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
@@ -27,12 +25,10 @@ object SignUpRetrofitModule {
     fun provideLoginOkHttpClient(
         loggingInterceptor: HttpLoggingInterceptor,
         @SignUpRetrofit tokenInterceptor: Interceptor,
-        networkFlipperPlugin: NetworkFlipperPlugin,
     ): OkHttpClient =
         OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
             .addInterceptor(tokenInterceptor)
-            .addNetworkInterceptor(FlipperOkhttpInterceptor(networkFlipperPlugin))
             .build()
 
     @Singleton

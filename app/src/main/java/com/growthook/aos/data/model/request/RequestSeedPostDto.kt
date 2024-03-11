@@ -14,5 +14,5 @@ data class RequestSeedPostDto(
     @SerialName("url")
     val url: String,
     @SerialName("goalMonth")
-    val goalMonth: Int
+    val goalMonth: Int,
 )

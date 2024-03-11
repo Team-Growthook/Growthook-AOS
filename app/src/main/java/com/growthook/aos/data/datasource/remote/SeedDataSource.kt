@@ -4,7 +4,6 @@ import com.growthook.aos.data.model.request.RequestSeedModifyDto
 import com.growthook.aos.data.model.request.RequestSeedMoveDto
 import com.growthook.aos.data.model.request.RequestSeedPostDto
 import com.growthook.aos.data.model.response.ResponseAlarmDto
-import com.growthook.aos.data.model.response.ResponseDataDto
 import com.growthook.aos.data.model.response.ResponseDto
 import com.growthook.aos.data.model.response.ResponseGetCaveSeedsDto
 import com.growthook.aos.data.model.response.ResponseGetSeedDto

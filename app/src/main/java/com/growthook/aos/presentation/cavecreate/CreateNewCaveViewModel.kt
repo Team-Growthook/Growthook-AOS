@@ -37,8 +37,8 @@ class CreateNewCaveViewModel @Inject constructor(
     val postCaveSuccess: LiveData<Boolean>
         get() = _postCaveSuccess
 
-    private val _profileUrl = MutableLiveData<String?>()
-    val profileUrl: LiveData<String?> = _profileUrl
+    /*private val _profileUrl = MutableLiveData<String?>()
+    val profileUrl: LiveData<String?> = _profileUrl*/
 
     fun getNickName() {
         viewModelScope.launch {
@@ -46,7 +46,7 @@ class CreateNewCaveViewModel @Inject constructor(
                 _nickName.value = nickName
             }
         }
-        getProfileUrl()
+        // getProfileUrl()
     }
 
     fun getCaveName(name: String) {
@@ -79,7 +79,7 @@ class CreateNewCaveViewModel @Inject constructor(
         }
     }
 
-    private fun getProfileUrl() {
+    /*private fun getProfileUrl() {
         viewModelScope.launch {
             getProfileUseCase.invoke(getUserUseCase.invoke().memberId ?: 0).onSuccess { profile ->
                 _profileUrl.value = profile.profileUrl
@@ -87,5 +87,5 @@ class CreateNewCaveViewModel @Inject constructor(
                 Timber.e(it.message)
             }
         }
-    }
+    }*/
 }
