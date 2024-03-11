@@ -41,6 +41,9 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>() {
         clickDetailMyInfo()
         clickLogout()
         clickPolicy()
+        clickInstruction()
+        clickFAQ()
+        clickNotice()
     }
 
     override fun onResume() {
@@ -152,7 +155,6 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>() {
         binding.btnMyPagePolicy.setOnClickListener {
             val intent = Intent(
                 Intent.ACTION_VIEW,
-                // Uri.parse("https://groovy-need-069.notion.site/9edc8ab432d34da682b9320f9bc6fd31"),
                 Uri.parse("https://www.notion.so/9edc8ab432d34da682b9320f9bc6fd31?pvs=4"),
             )
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION)
