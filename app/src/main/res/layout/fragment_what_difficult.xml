@@ -176,7 +176,7 @@
         android:enabled="false"
         android:includeFontPadding="false"
         android:padding="12dp"
-        android:text="시작하기"
+        android:text="어떻게 해결하나요?"
         android:textAppearance="@style/body1_bold"
         android:textColor="@color/sel_text"
         app:backgroundTint="@color/sel_btn"
