@@ -96,7 +96,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
         android:layout_marginTop="30dp"
-        android:text="오른쪽의 +를 눌러 동굴을 추가해보세요!"
+        android:text="오른쪽의 +를 눌러 동굴을 지어보세요!"
         android:textAppearance="@style/detail1_reg"
         android:textColor="@color/Gray200"
         app:layout_constraintStart_toStartOf="parent"

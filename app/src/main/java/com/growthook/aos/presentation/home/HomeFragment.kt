@@ -197,7 +197,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                         "쑥 1개를 사용합니다.",
                     positiveText = "사용하기",
                     negativeText = "포기하기",
-                    tipText = "Tip. 인사이트 ‘계획하기’를 통해 액션 플랜을 설정하고,\n" +
+                    tipText = "Tip. 씨앗에서 할 일을 기록하고,\n" +
                         "이를 달성하면 새로운 쑥을 얻을 수 있어요!",
                     isBackgroundImageVisility = false,
                     isDescriptionVisility = true,
@@ -210,7 +210,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                         if (thookCount <= 0) {
                             Toast.makeText(
                                 requireContext(),
-                                "쑥이 없어 잠금을 해제할 수 없어요",
+                                "잠금 해제를 위해서는 쑥이 필요해요 :(",
                                 Toast.LENGTH_SHORT,
                             ).show()
                         } else {
