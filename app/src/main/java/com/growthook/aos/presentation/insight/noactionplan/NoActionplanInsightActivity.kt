@@ -23,6 +23,7 @@ class NoActionplanInsightActivity :
     private val viewModel by viewModels<NoActionplanInsightViewModel>()
     private val bottomSheetDialog = InsightMenuBottomsheet()
     private var seedId: Int = 0
+    private lateinit var seedSource: String
     private lateinit var seedUrl: String
     private var isSeedScraped = false
 
@@ -50,6 +51,7 @@ class NoActionplanInsightActivity :
                 tvNoactionInsightChip.text = seed?.caveName
                 tvNoactionInsightContentChipTitle.text = seed?.source
 
+                seedSource = seed?.source.toString()
                 seedUrl = seed?.url.toString()
 
                 if (seed.content.isNullOrEmpty()) {
@@ -58,13 +60,24 @@ class NoActionplanInsightActivity :
                     tvNoactionInsightMemo.text = seed.content
                 }
 
-                if (seedUrl.length >= 35) {
-                    "${seedUrl.take(35)}...".also { tvNoactionInsightUrl.text = it }
-                } else if (seedUrl.isNullOrEmpty()) {
-                    dividerNoactionInsightThird.visibility = View.GONE
-                    tvNoactionInsightUrl.visibility = View.GONE
+                if (seedSource == "null" && seedUrl.isNullOrEmpty()) {
+                    clNoactionInsightContentChip.visibility = View.GONE
                 } else {
-                    tvNoactionInsightUrl.text = seedUrl
+                    if (seedSource == "null") {
+                        dividerNoactionInsightThird.visibility = View.GONE
+                        tvNoactionInsightContentChipTitle.visibility = View.GONE
+                    } else {
+                        tvNoactionInsightContentChipTitle.text = seedSource
+                    }
+
+                    if (seedUrl.length >= 35) {
+                        "${seedUrl.take(35)}...".also { tvNoactionInsightUrl.text = it }
+                    } else if (seedUrl.isNullOrEmpty()) {
+                        dividerNoactionInsightThird.visibility = View.GONE
+                        tvNoactionInsightUrl.visibility = View.GONE
+                    } else {
+                        tvNoactionInsightUrl.text = seedUrl
+                    }
                 }
 
                 if (seed.remainingDays < 0) {

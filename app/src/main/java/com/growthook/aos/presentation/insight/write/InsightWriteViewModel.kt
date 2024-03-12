@@ -71,7 +71,6 @@ class InsightWriteViewModel @Inject constructor(
         addSourceList(
             insight,
             selectedCaveId,
-//            source,
             selectedGoalMonth,
         ) { checkInsightWriteEnabled() }
     }
@@ -79,7 +78,6 @@ class InsightWriteViewModel @Inject constructor(
     private fun checkInsightWriteEnabled(): Boolean =
         !insight.value.isNullOrBlank() &&
             !(selectedCaveId.value == null) &&
-//            !source.value.isNullOrBlank() &&
             !(selectedGoalMonth.value == null)
 
     fun postNewSeed() {
