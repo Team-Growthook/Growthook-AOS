@@ -18,7 +18,7 @@
     <string name="tv_insight_write_cave">동굴</string>
     <string name="edt_insight_write_cave">어떤 동굴에 저장할까요?</string>
     <string name="tv_insight_write_url">출처</string>
-    <string name="insight_write_url">출처의 정보를 입력해주세요</string>
+    <string name="insight_write_url">출처의 정보를 입력해주세요(선택)</string>
     <string name="insight_write_url_choice">URL을 붙여넣어주세요(선택)</string>
     <string name="tv_insight_write_goal">목표 기간</string>
     <string name="insight_write_goal">1개월</string>
