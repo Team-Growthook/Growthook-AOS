@@ -291,6 +291,18 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <LinearLayout
+                android:id="@+id/layout_url_error"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/rect_red200_line_05"
+                android:visibility="invisible"
+                app:layout_constraintTop_toTopOf="@id/layout_insight_write_url"
+                app:layout_constraintBottom_toBottomOf="@id/layout_insight_write_url"
+                app:layout_constraintStart_toStartOf="@id/layout_insight_write_url"
+                app:layout_constraintEnd_toEndOf="@id/layout_insight_write_url"
+                android:orientation="horizontal" />
+
             <TextView
                 android:id="@+id/tv_insight_write_url_error"
                 android:layout_width="wrap_content"

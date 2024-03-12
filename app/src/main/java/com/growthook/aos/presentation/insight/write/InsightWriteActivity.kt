@@ -6,6 +6,7 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.activity.viewModels
 import com.growthook.aos.App
+import com.growthook.aos.R
 import com.growthook.aos.databinding.ActivityInsightWriteBinding
 import com.growthook.aos.presentation.MainActivity.Companion.USER_ID
 import com.growthook.aos.presentation.insight.write.InsightWriteNewActivity.Companion.NEW_SEED_ID
@@ -63,8 +64,12 @@ class InsightWriteActivity : BaseActivity<ActivityInsightWriteBinding>({
 
             if (!viewModel.isUrlValid(edtUrl.toString())) {
                 binding.tvInsightWriteUrlError.visibility = View.VISIBLE
+                binding.layoutUrlError.visibility = View.VISIBLE
+                binding.edtInsightWriteUrl.setTextColor(getColor(R.color.Red200))
             } else {
                 binding.tvInsightWriteUrlError.visibility = View.INVISIBLE
+                binding.layoutUrlError.visibility = View.INVISIBLE
+                binding.edtInsightWriteUrl.setTextColor(getColor(R.color.White000))
             }
         })
 
