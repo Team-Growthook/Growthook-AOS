@@ -1,7 +1,10 @@
 package com.growthook.aos.presentation.insight.write
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.webkit.URLUtil
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.growthook.aos.R
@@ -98,6 +101,19 @@ class InsightWriteNewActivity : BaseActivity<ActivityInsightWriteNewBinding>({
                     ivInsightWriteNewSeed.setImageResource(R.drawable.ic_scrap_unselected)
                 }
             }
+
+            moveURL()
+        }
+    }
+
+    private fun moveURL() {
+        binding.tvInsightWriteNewUrl.setOnClickListener {
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(URLUtil.guessUrl(seedUrl))
+                )
+            )
         }
     }
 

@@ -4,9 +4,11 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.webkit.URLUtil
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.growthook.aos.R
@@ -102,7 +104,7 @@ class NoActionplanInsightActivity :
         clickAddAction()
         clickBackBtn()
         clickInsightSeed()
-        copyUrl()
+        moveUrl()
     }
 
     private fun clickInsightSeed() {
@@ -148,14 +150,22 @@ class NoActionplanInsightActivity :
         }
     }
 
-    private fun copyUrl() {
-        binding.clNoactionInsightContentChip.setOnClickListener {
-            val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-            val clip: ClipData = ClipData.newPlainText("seedUrl", seedUrl)
-            clipboard.setPrimaryClip(clip)
-            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2) {
-                Toast.makeText(this, "링크를 복사했어요", Toast.LENGTH_SHORT).show()
-            }
+    private fun moveUrl() {
+//        binding.clNoactionInsightContentChip.setOnClickListener {
+//            val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+//            val clip: ClipData = ClipData.newPlainText("seedUrl", seedUrl)
+//            clipboard.setPrimaryClip(clip)
+//            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2) {
+//                Toast.makeText(this, "링크를 복사했어요", Toast.LENGTH_SHORT).show()
+//            }
+//        }
+        binding.tvNoactionInsightUrl.setOnClickListener {
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(URLUtil.guessUrl(seedUrl))
+                )
+            )
         }
     }
 
