@@ -54,21 +54,42 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    <androidx.appcompat.widget.AppCompatButton
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/btn_home_select_cave"
-        style="@style/body1_bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/rect_green400_fill_5"
         android:layout_marginHorizontal="18dp"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="18dp"
-        android:background="@drawable/rect_green400_fill_5"
-        android:text="새 동굴 짓기"
-        android:textColor="@color/White000"
+        android:paddingVertical="13dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cl_home_cave_select_main" />
+        app:layout_constraintTop_toBottomOf="@id/cl_home_cave_select_main">
 
+        <ImageView
+            android:id="@+id/btn_home_select_cave_circle_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_circle_plus"
+            android:layout_marginEnd="4dp"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_home_select_cave_tv"
+            app:layout_constraintTop_toTopOf="@id/btn_home_select_cave_tv"
+            app:layout_constraintBottom_toBottomOf="@id/btn_home_select_cave_tv"/>
+
+        <TextView
+            android:id="@+id/btn_home_select_cave_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="새 동굴 짓기"
+            android:textColor="@color/White000"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_home_select_cave_circle_btn"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

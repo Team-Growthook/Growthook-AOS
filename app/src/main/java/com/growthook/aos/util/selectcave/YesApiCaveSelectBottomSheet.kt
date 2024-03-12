@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.selection.SelectionPredicates
@@ -68,8 +69,12 @@ class YesApiCaveSelectBottomSheet : CaveSelect() {
     private fun setAdapter() {
         _adapter = CaveSelectAdapter()
         viewModel.getCaves()
-        viewModel.caves.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
+        viewModel.caves.observe(viewLifecycleOwner) { caves ->
+            adapter.submitList(caves)
+            if (caves.isNotEmpty()) {
+                binding.btnHomeSelectCaveTv.text = "선택"
+                binding.btnHomeSelectCaveCircleBtn.isVisible = false
+            }
         }
         binding.rcvHomeSelectCave.adapter = adapter
 
