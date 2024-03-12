@@ -291,6 +291,20 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <TextView
+                android:id="@+id/tv_insight_write_url_error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/insight_write_url_error"
+                android:textColor="@color/Red200"
+                android:textAppearance="@style/detail1_reg"
+                android:includeFontPadding="false"
+                android:visibility="invisible"
+                android:layout_marginTop="4dp"
+                android:layout_marginStart="4dp"
+                app:layout_constraintTop_toBottomOf="@id/layout_insight_write_url"
+                app:layout_constraintStart_toStartOf="@id/layout_insight_write_url"/>
+
             <com.google.android.material.divider.MaterialDivider
                 android:id="@+id/divider_insight_write"
                 android:layout_width="match_parent"
@@ -299,7 +313,7 @@
                 android:layout_marginTop="24dp"
                 app:dividerColor="@color/Gray400"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/layout_insight_write_url" />
+                app:layout_constraintTop_toBottomOf="@id/tv_insight_write_url_error" />
 
             <TextView
                 android:id="@+id/tv_insight_write_goal"

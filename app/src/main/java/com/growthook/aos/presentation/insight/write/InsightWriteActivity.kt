@@ -60,6 +60,12 @@ class InsightWriteActivity : BaseActivity<ActivityInsightWriteBinding>({
         })
         val urlTextWatcher = CommonTextWatcher(afterChanged = { edtUrl ->
             viewModel.setUrl(edtUrl.toString())
+
+            if (!viewModel.isUrlValid(edtUrl.toString())) {
+                binding.tvInsightWriteUrlError.visibility = View.VISIBLE
+            } else {
+                binding.tvInsightWriteUrlError.visibility = View.INVISIBLE
+            }
         })
 
         with(binding) {
