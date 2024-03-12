@@ -1,5 +1,6 @@
 package com.growthook.aos.util.selectcave
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StableIdKeyProvider
 import androidx.recyclerview.selection.StorageStrategy
 import com.growthook.aos.databinding.FragmentCaveSelectBottomsheetBinding
+import com.growthook.aos.presentation.cavecreate.CreateNewCaveActivity
 import com.growthook.aos.util.EmptyDataObserver
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -46,6 +48,8 @@ class NoApiCaveSelectBottomSheet : CaveSelect() {
                     }
                     viewModel.caves.value?.let { caves ->
                         if (caves.isEmpty()) {
+                            val intent = Intent(requireActivity(), CreateNewCaveActivity::class.java)
+                            startActivity(intent)
                             dismiss()
                         }
                     }
