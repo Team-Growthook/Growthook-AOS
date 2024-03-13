@@ -16,11 +16,11 @@ import com.growthook.aos.databinding.FragmentCompletedActionlistBinding
 import com.growthook.aos.presentation.insight.actionplan.ActionplanInsightActivity
 import com.growthook.aos.presentation.todolist.ReviewDetailActivity
 import com.growthook.aos.presentation.todolist.TodolistViewModel
+import com.growthook.aos.util.EmptyDataObserver
 import com.growthook.aos.util.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import timber.log.Timber
 
 @AndroidEntryPoint
 class CompletedActionlistFragment : BaseFragment<FragmentCompletedActionlistBinding>() {
@@ -42,7 +42,8 @@ class CompletedActionlistFragment : BaseFragment<FragmentCompletedActionlistBind
         super.onViewCreated(view, savedInstanceState)
         getDoneTodoList()
         initActionplanAdapter()
-        observeActionplan()
+        setEmptyView()
+        subscribe()
         clickScrapBtn()
     }
 
@@ -78,24 +79,50 @@ class CompletedActionlistFragment : BaseFragment<FragmentCompletedActionlistBind
         binding.clCompletedActionplanScrap.setOnClickListener {
             isScraped = !isScraped
             if (isScraped) {
-                binding.ivCompletedActionlistScrap.setImageResource(R.drawable.ic_home_scrap_true)
-                binding.tvCompletedActionlistScrap.setTextColor(requireContext().getColor(R.color.Green200))
-                todoViewModel.filterState.value = SCRAPED
-                todoViewModel.getFinishedActionplans()
+                setScrapedTodo()
             } else {
-                binding.ivCompletedActionlistScrap.setImageResource(R.drawable.ic_home_scrap_false)
-                binding.tvCompletedActionlistScrap.setTextColor(requireContext().getColor(R.color.White000))
-                todoViewModel.filterState.value = ALL
-                todoViewModel.getFinishedActionplans()
+                setUnScrapedTodo()
             }
         }
     }
 
+    private fun setScrapedTodo() {
+        binding.ivCompletedActionlistScrap.setImageResource(R.drawable.ic_home_scrap_true)
+        binding.tvCompletedActionlistScrap.setTextColor(requireContext().getColor(R.color.Green200))
+        todoViewModel.filterState.value = SCRAPED
+    }
+
+    private fun setUnScrapedTodo() {
+        binding.ivCompletedActionlistScrap.setImageResource(R.drawable.ic_home_scrap_false)
+        binding.tvCompletedActionlistScrap.setTextColor(requireContext().getColor(R.color.White000))
+        todoViewModel.filterState.value = ALL
+    }
+
+    private fun subscribe() {
+        observeActionplan()
+        observeFilterState()
+    }
+
     private fun observeActionplan() {
         todoViewModel.finishedActionplans.flowWithLifecycle(lifecycle).onEach { todo ->
-            Timber.w("done todo:: $todo")
             _completedActionlistAdapter?.submitList(todo)
         }.launchIn(lifecycleScope)
+    }
+
+    private fun observeFilterState() {
+        todoViewModel.filterState.observe(viewLifecycleOwner) {
+            todoViewModel.getFinishedActionplans()
+        }
+    }
+
+    private fun setEmptyView() {
+        _completedActionlistAdapter?.registerAdapterDataObserver(
+            EmptyDataObserver(
+                binding.rcvCompletedActionlist,
+                binding.ivCompletedEmptyTodo,
+                binding.tvCompletedEmptyTodo,
+            ),
+        )
     }
 
     private fun clickSeed(actionplanId: Int, isSeedSelected: Boolean) {

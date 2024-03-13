@@ -59,4 +59,28 @@
         tools:itemCount="6"
         tools:listitem="@layout/item_completed_actionplan" />
 
+    <ImageView
+        android:id="@+id/iv_completed_empty_todo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_empty_insight"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/tv_completed_empty_todo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="아직 수확한 쑥이 없어요"
+        android:textColor="@color/Gray200"
+        app:layout_constraintEnd_toEndOf="@id/iv_completed_empty_todo"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="@id/iv_completed_empty_todo"
+        app:layout_constraintTop_toBottomOf="@id/iv_completed_empty_todo" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
