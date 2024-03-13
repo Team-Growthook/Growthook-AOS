@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -14,7 +15,9 @@ import com.growthook.aos.R
 import com.growthook.aos.databinding.FragmentProceedingActionlistBinding
 import com.growthook.aos.presentation.insight.actionplan.ActionplanInsightActivity
 import com.growthook.aos.presentation.todolist.TodolistFragment
+import com.growthook.aos.presentation.todolist.TodolistViewModel
 import com.growthook.aos.presentation.todolist.proceeding.ProceedingActionlistViewModel.Event
+import com.growthook.aos.util.EmptyDataObserver
 import com.growthook.aos.util.base.BaseAlertDialog
 import com.growthook.aos.util.base.BaseFragment
 import com.growthook.aos.util.base.BaseWritingBottomSheet
@@ -22,7 +25,6 @@ import com.growthook.aos.util.extension.setOnSingleClickListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import timber.log.Timber
 
 @AndroidEntryPoint
 class ProceedingActionlistFragment(private val parentFragment: TodolistFragment) :
@@ -33,6 +35,7 @@ class ProceedingActionlistFragment(private val parentFragment: TodolistFragment)
         get() = requireNotNull(_proceedingActionlistAdapter) { "proceedingActionlistAdapter is null" }
 
     private val viewModel by viewModels<ProceedingActionlistViewModel>()
+    private val todoViewModel: TodolistViewModel by activityViewModels()
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -42,15 +45,15 @@ class ProceedingActionlistFragment(private val parentFragment: TodolistFragment)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        getDoingTodoList()
         initActionplanAdapter()
-        observeActionplan()
-        observeEvent()
+        subscribe()
+        setEmptyView()
         clickScrapBtn()
     }
 
-    override fun onResume() {
-        super.onResume()
-        viewModel.getDoingActionplans()
+    private fun getDoingTodoList() {
+        todoViewModel.getDoingActionplans()
     }
 
     private fun initActionplanAdapter() {
@@ -65,26 +68,55 @@ class ProceedingActionlistFragment(private val parentFragment: TodolistFragment)
         binding.rcvProceedingActionlist.layoutManager = LinearLayoutManager(requireContext())
     }
 
+    private fun subscribe() {
+        observeFilterState()
+        observeActionplan()
+        observeEvent()
+    }
+
+    private fun observeFilterState() {
+        todoViewModel.filterState.observe(viewLifecycleOwner) {
+            todoViewModel.getDoingActionplans()
+        }
+    }
+
     private fun observeActionplan() {
-        viewModel.doingActionplans.flowWithLifecycle(lifecycle).onEach { doingActionplan ->
-            Timber.w("doingActionplan:: $doingActionplan")
+        todoViewModel.doingActionplans.flowWithLifecycle(lifecycle).onEach { doingActionplan ->
             _proceedingActionlistAdapter?.submitList(doingActionplan)
         }.launchIn(lifecycleScope)
+    }
+
+    private fun setEmptyView() {
+        _proceedingActionlistAdapter?.registerAdapterDataObserver(
+            EmptyDataObserver(
+                binding.rcvProceedingActionlist,
+                binding.ivProceedingEmptyTodo,
+                binding.tvProceedingEmptyTodo,
+            ),
+        )
     }
 
     private fun clickScrapBtn() {
         binding.clProceedingActionplanScrap.setOnSingleClickListener {
             isScraped = !isScraped
             if (isScraped) {
-                binding.ivProceedingActionlistScrap.setImageResource(R.drawable.ic_home_scrap_true)
-                binding.tvProceedingActionlistScrap.setTextColor(requireContext().getColor(R.color.Green200))
-                viewModel.getScrapedActionplan()
+                setScrapedTodo()
             } else {
-                binding.ivProceedingActionlistScrap.setImageResource(R.drawable.ic_home_scrap_false)
-                binding.tvProceedingActionlistScrap.setTextColor(requireContext().getColor(R.color.White000))
-                viewModel.getDoingActionplans()
+                setUnScrapedTodo()
             }
         }
+    }
+
+    private fun setScrapedTodo() {
+        binding.ivProceedingActionlistScrap.setImageResource(R.drawable.ic_home_scrap_true)
+        binding.tvProceedingActionlistScrap.setTextColor(requireContext().getColor(R.color.Green200))
+        todoViewModel.filterState.value = SCRAPED
+    }
+
+    private fun setUnScrapedTodo() {
+        binding.ivProceedingActionlistScrap.setImageResource(R.drawable.ic_home_scrap_false)
+        binding.tvProceedingActionlistScrap.setTextColor(requireContext().getColor(R.color.Gray100))
+        todoViewModel.filterState.value = ALL
     }
 
     private fun clickCompleteBtn(actionplanId: Int) {
@@ -152,5 +184,10 @@ class ProceedingActionlistFragment(private val parentFragment: TodolistFragment)
     override fun onDestroyView() {
         _proceedingActionlistAdapter = null
         super.onDestroyView()
+    }
+
+    companion object {
+        const val SCRAPED = "scraped"
+        const val ALL = "all"
     }
 }

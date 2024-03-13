@@ -1,7 +1,7 @@
 package com.growthook.aos.data.datasource.remote
 
-import com.growthook.aos.data.model.request.RequestPostAuthDto
-import com.growthook.aos.data.model.response.ResponsePostAuthDto
+import com.growthook.aos.data.model.remote.request.RequestPostAuthDto
+import com.growthook.aos.data.model.remote.response.ResponsePostAuthDto
 
 interface SignUpDataSource {
 

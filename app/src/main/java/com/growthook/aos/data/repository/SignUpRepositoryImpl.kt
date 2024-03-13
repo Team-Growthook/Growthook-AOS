@@ -1,7 +1,7 @@
 package com.growthook.aos.data.repository
 
 import com.growthook.aos.data.datasource.remote.SignUpDataSource
-import com.growthook.aos.data.model.request.RequestPostAuthDto
+import com.growthook.aos.data.model.remote.request.RequestPostAuthDto
 import com.growthook.aos.domain.repository.SignUpRepository
 import com.growthook.aos.domain.repository.TokenRepository
 import com.growthook.aos.domain.repository.UserRepository
@@ -15,7 +15,12 @@ class SignUpRepositoryImpl @Inject constructor(
 ) : SignUpRepository {
     override suspend fun signUp(socialPlatform: String, socialToken: String): Result<Boolean> =
         runCatching {
-            signUpDataSource.signUp(RequestPostAuthDto(socialPlatform, socialToken))
+            signUpDataSource.signUp(
+                RequestPostAuthDto(
+                    socialPlatform,
+                    socialToken,
+                ),
+            )
         }.fold(
             onSuccess = {
                 userRepository.setUserInfo(it.data.nickname, it.data.memberId)

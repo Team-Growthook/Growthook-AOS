@@ -13,14 +13,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.growthook.aos.R
 import com.growthook.aos.databinding.FragmentCompletedActionlistBinding
-import com.growthook.aos.presentation.home.HomeViewModel
 import com.growthook.aos.presentation.insight.actionplan.ActionplanInsightActivity
 import com.growthook.aos.presentation.todolist.ReviewDetailActivity
+import com.growthook.aos.presentation.todolist.TodolistViewModel
+import com.growthook.aos.util.EmptyDataObserver
 import com.growthook.aos.util.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import timber.log.Timber
 
 @AndroidEntryPoint
 class CompletedActionlistFragment : BaseFragment<FragmentCompletedActionlistBinding>() {
@@ -30,7 +30,7 @@ class CompletedActionlistFragment : BaseFragment<FragmentCompletedActionlistBind
         get() = requireNotNull(_completedActionlistAdapter) { "completedActionlistAdapter is null" }
 
     private val viewModel by viewModels<CompletedActionlistViewModel>()
-    private val homeViewModel: HomeViewModel by activityViewModels()
+    private val todoViewModel by activityViewModels<TodolistViewModel>()
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -40,10 +40,15 @@ class CompletedActionlistFragment : BaseFragment<FragmentCompletedActionlistBind
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        homeViewModel.getActionplanPercent()
+        getDoneTodoList()
         initActionplanAdapter()
-        observeActionplan()
+        subscribe()
+        setEmptyView()
         clickScrapBtn()
+    }
+
+    private fun getDoneTodoList() {
+        todoViewModel.getFinishedActionplans()
     }
 
     private fun initActionplanAdapter() {
@@ -74,22 +79,50 @@ class CompletedActionlistFragment : BaseFragment<FragmentCompletedActionlistBind
         binding.clCompletedActionplanScrap.setOnClickListener {
             isScraped = !isScraped
             if (isScraped) {
-                binding.ivCompletedActionlistScrap.setImageResource(R.drawable.ic_home_scrap_true)
-                binding.tvCompletedActionlistScrap.setTextColor(requireContext().getColor(R.color.Green200))
-                viewModel.getScrapedActionplan()
+                setScrapedTodo()
             } else {
-                binding.ivCompletedActionlistScrap.setImageResource(R.drawable.ic_home_scrap_false)
-                binding.tvCompletedActionlistScrap.setTextColor(requireContext().getColor(R.color.White000))
-                viewModel.getFinishedActionplans()
+                setUnScrapedTodo()
             }
         }
     }
 
+    private fun setScrapedTodo() {
+        binding.ivCompletedActionlistScrap.setImageResource(R.drawable.ic_home_scrap_true)
+        binding.tvCompletedActionlistScrap.setTextColor(requireContext().getColor(R.color.Green200))
+        todoViewModel.filterState.value = SCRAPED
+    }
+
+    private fun setUnScrapedTodo() {
+        binding.ivCompletedActionlistScrap.setImageResource(R.drawable.ic_home_scrap_false)
+        binding.tvCompletedActionlistScrap.setTextColor(requireContext().getColor(R.color.Gray100))
+        todoViewModel.filterState.value = ALL
+    }
+
+    private fun subscribe() {
+        observeActionplan()
+        observeFilterState()
+    }
+
     private fun observeActionplan() {
-        viewModel.finishedActionplans.flowWithLifecycle(lifecycle).onEach { doingActionplan ->
-            Timber.w("doingActionplan:: $doingActionplan")
-            _completedActionlistAdapter?.submitList(doingActionplan)
+        todoViewModel.finishedActionplans.flowWithLifecycle(lifecycle).onEach { todo ->
+            _completedActionlistAdapter?.submitList(todo)
         }.launchIn(lifecycleScope)
+    }
+
+    private fun observeFilterState() {
+        todoViewModel.filterState.observe(viewLifecycleOwner) {
+            todoViewModel.getFinishedActionplans()
+        }
+    }
+
+    private fun setEmptyView() {
+        _completedActionlistAdapter?.registerAdapterDataObserver(
+            EmptyDataObserver(
+                binding.rcvCompletedActionlist,
+                binding.ivCompletedEmptyTodo,
+                binding.tvCompletedEmptyTodo,
+            ),
+        )
     }
 
     private fun clickSeed(actionplanId: Int, isSeedSelected: Boolean) {
@@ -102,5 +135,10 @@ class CompletedActionlistFragment : BaseFragment<FragmentCompletedActionlistBind
     override fun onDestroyView() {
         _completedActionlistAdapter = null
         super.onDestroyView()
+    }
+
+    companion object {
+        const val SCRAPED = "scraped"
+        const val ALL = "all"
     }
 }

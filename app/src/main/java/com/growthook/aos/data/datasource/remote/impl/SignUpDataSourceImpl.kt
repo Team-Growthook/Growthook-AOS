@@ -1,8 +1,8 @@
 package com.growthook.aos.data.datasource.remote.impl
 
 import com.growthook.aos.data.datasource.remote.SignUpDataSource
-import com.growthook.aos.data.model.request.RequestPostAuthDto
-import com.growthook.aos.data.model.response.ResponsePostAuthDto
+import com.growthook.aos.data.model.remote.request.RequestPostAuthDto
+import com.growthook.aos.data.model.remote.response.ResponsePostAuthDto
 import com.growthook.aos.data.service.SignUpService
 import javax.inject.Inject
 

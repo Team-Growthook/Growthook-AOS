@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.growthook.aos.domain.entity.ActionlistDetail
 import com.growthook.aos.domain.entity.Cave
 import com.growthook.aos.domain.entity.Insight
 import com.growthook.aos.domain.usecase.DeleteSeedUseCase
@@ -13,14 +12,11 @@ import com.growthook.aos.domain.usecase.GetCavesUseCase
 import com.growthook.aos.domain.usecase.GetGatherdThookUseCase
 import com.growthook.aos.domain.usecase.ScrapSeedUseCase
 import com.growthook.aos.domain.usecase.UnLockSeedUseCase
-import com.growthook.aos.domain.usecase.actionplan.GetActionplanPercentUseCase
-import com.growthook.aos.domain.usecase.actionplan.GetDoingActionplansUseCase
 import com.growthook.aos.domain.usecase.home.GetSeedAlarmUseCase
 import com.growthook.aos.domain.usecase.home.GetSeedsUseCase
 import com.growthook.aos.domain.usecase.local.GetUserUseCase
 import com.growthook.aos.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -35,12 +31,8 @@ class HomeViewModel @Inject constructor(
     private val scrapSeedUseCase: ScrapSeedUseCase,
     private val unLockSeedUseCase: UnLockSeedUseCase,
     private val getGatherdThookUseCase: GetGatherdThookUseCase,
-    private val getGetActionplanPercentUseCase: GetActionplanPercentUseCase,
-    private val getDoingActionplansUseCase: GetDoingActionplansUseCase,
-) : ViewModel() {
-    private val _doingActionplans = MutableStateFlow<List<ActionlistDetail>>(mutableListOf())
-    val doingActionplans: MutableStateFlow<List<ActionlistDetail>> = _doingActionplans
 
+) : ViewModel() {
     private val _nickName = MutableLiveData<String>()
     val nickname: LiveData<String> = _nickName
 
@@ -86,18 +78,6 @@ class HomeViewModel @Inject constructor(
         setNickName()
         getCaves()
         getGatherdThook()
-        getActionplanPercent()
-        getDoingActionplans()
-    }
-
-    fun getDoingActionplans() {
-        viewModelScope.launch {
-            getDoingActionplansUseCase.invoke(memberId.value ?: 0).onSuccess {
-                _doingActionplans.value = it
-            }.onFailure { throwable ->
-                Timber.e(throwable.message)
-            }
-        }
     }
 
     fun getAlertCount() {
@@ -181,16 +161,6 @@ class HomeViewModel @Inject constructor(
                 _gatherdThook.value = thookCount
             }.onFailure {
                 Timber.e(it.message)
-            }
-        }
-    }
-
-    fun getActionplanPercent() {
-        viewModelScope.launch {
-            getGetActionplanPercentUseCase.invoke(memberId.value ?: 0).onSuccess {
-                _actionplanPercent.value = it
-            }.onFailure { throwable ->
-                Timber.e(throwable.message)
             }
         }
     }
