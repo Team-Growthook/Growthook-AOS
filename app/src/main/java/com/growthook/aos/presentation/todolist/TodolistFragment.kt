@@ -41,7 +41,7 @@ class TodolistFragment : BaseFragment<FragmentTodolistBinding>() {
 
     private fun observeNickname() {
         viewModel.nickname.observe(viewLifecycleOwner) { nickName ->
-            binding.tvTodolistTitle.text = "${nickName}님의 액션"
+            binding.tvTodolistTitle.text = "${nickName}님의 할 일"
         }
     }
 
