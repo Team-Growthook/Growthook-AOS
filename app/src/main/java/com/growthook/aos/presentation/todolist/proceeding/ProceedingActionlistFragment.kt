@@ -117,7 +117,7 @@ class ProceedingActionlistFragment(private val parentFragment: TodolistFragment)
 
     private fun setUnScrapedTodo() {
         binding.ivProceedingActionlistScrap.setImageResource(R.drawable.ic_home_scrap_false)
-        binding.tvProceedingActionlistScrap.setTextColor(requireContext().getColor(R.color.White000))
+        binding.tvProceedingActionlistScrap.setTextColor(requireContext().getColor(R.color.Gray100))
         todoViewModel.filterState.value = ALL
     }
 

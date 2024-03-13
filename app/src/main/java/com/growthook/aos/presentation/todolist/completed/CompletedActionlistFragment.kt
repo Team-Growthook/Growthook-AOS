@@ -94,7 +94,7 @@ class CompletedActionlistFragment : BaseFragment<FragmentCompletedActionlistBind
 
     private fun setUnScrapedTodo() {
         binding.ivCompletedActionlistScrap.setImageResource(R.drawable.ic_home_scrap_false)
-        binding.tvCompletedActionlistScrap.setTextColor(requireContext().getColor(R.color.White000))
+        binding.tvCompletedActionlistScrap.setTextColor(requireContext().getColor(R.color.Gray100))
         todoViewModel.filterState.value = ALL
     }
 
