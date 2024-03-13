@@ -42,8 +42,8 @@ class CompletedActionlistFragment : BaseFragment<FragmentCompletedActionlistBind
         super.onViewCreated(view, savedInstanceState)
         getDoneTodoList()
         initActionplanAdapter()
-        setEmptyView()
         subscribe()
+        setEmptyView()
         clickScrapBtn()
     }
 

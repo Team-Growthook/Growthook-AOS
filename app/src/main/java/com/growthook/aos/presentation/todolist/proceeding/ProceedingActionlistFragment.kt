@@ -47,8 +47,8 @@ class ProceedingActionlistFragment(private val parentFragment: TodolistFragment)
         super.onViewCreated(view, savedInstanceState)
         getDoingTodoList()
         initActionplanAdapter()
-        setEmptyView()
         subscribe()
+        setEmptyView()
         clickScrapBtn()
     }
 
@@ -101,10 +101,8 @@ class ProceedingActionlistFragment(private val parentFragment: TodolistFragment)
             isScraped = !isScraped
             if (isScraped) {
                 setScrapedTodo()
-                todoViewModel.getDoingActionplans()
             } else {
                 setUnScrapedTodo()
-                todoViewModel.getDoingActionplans()
             }
         }
     }
