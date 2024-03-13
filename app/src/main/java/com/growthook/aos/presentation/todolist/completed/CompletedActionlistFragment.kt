@@ -13,9 +13,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.growthook.aos.R
 import com.growthook.aos.databinding.FragmentCompletedActionlistBinding
-import com.growthook.aos.presentation.home.HomeViewModel
 import com.growthook.aos.presentation.insight.actionplan.ActionplanInsightActivity
 import com.growthook.aos.presentation.todolist.ReviewDetailActivity
+import com.growthook.aos.presentation.todolist.TodolistViewModel
 import com.growthook.aos.util.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
@@ -30,7 +30,7 @@ class CompletedActionlistFragment : BaseFragment<FragmentCompletedActionlistBind
         get() = requireNotNull(_completedActionlistAdapter) { "completedActionlistAdapter is null" }
 
     private val viewModel by viewModels<CompletedActionlistViewModel>()
-    private val homeViewModel: HomeViewModel by activityViewModels()
+    private val todoViewModel by activityViewModels<TodolistViewModel>()
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -40,10 +40,14 @@ class CompletedActionlistFragment : BaseFragment<FragmentCompletedActionlistBind
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        homeViewModel.getActionplanPercent()
+        getDoneTodoList()
         initActionplanAdapter()
         observeActionplan()
         clickScrapBtn()
+    }
+
+    private fun getDoneTodoList() {
+        todoViewModel.getFinishedActionplans()
     }
 
     private fun initActionplanAdapter() {
@@ -76,19 +80,21 @@ class CompletedActionlistFragment : BaseFragment<FragmentCompletedActionlistBind
             if (isScraped) {
                 binding.ivCompletedActionlistScrap.setImageResource(R.drawable.ic_home_scrap_true)
                 binding.tvCompletedActionlistScrap.setTextColor(requireContext().getColor(R.color.Green200))
-                viewModel.getScrapedActionplan()
+                todoViewModel.filterState.value = SCRAPED
+                todoViewModel.getFinishedActionplans()
             } else {
                 binding.ivCompletedActionlistScrap.setImageResource(R.drawable.ic_home_scrap_false)
                 binding.tvCompletedActionlistScrap.setTextColor(requireContext().getColor(R.color.White000))
-                viewModel.getFinishedActionplans()
+                todoViewModel.filterState.value = ALL
+                todoViewModel.getFinishedActionplans()
             }
         }
     }
 
     private fun observeActionplan() {
-        viewModel.finishedActionplans.flowWithLifecycle(lifecycle).onEach { doingActionplan ->
-            Timber.w("doingActionplan:: $doingActionplan")
-            _completedActionlistAdapter?.submitList(doingActionplan)
+        todoViewModel.finishedActionplans.flowWithLifecycle(lifecycle).onEach { todo ->
+            Timber.w("done todo:: $todo")
+            _completedActionlistAdapter?.submitList(todo)
         }.launchIn(lifecycleScope)
     }
 
@@ -102,5 +108,10 @@ class CompletedActionlistFragment : BaseFragment<FragmentCompletedActionlistBind
     override fun onDestroyView() {
         _completedActionlistAdapter = null
         super.onDestroyView()
+    }
+
+    companion object {
+        const val SCRAPED = "scraped"
+        const val ALL = "all"
     }
 }

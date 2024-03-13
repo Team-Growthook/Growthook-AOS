@@ -44,7 +44,6 @@ class ProceedingActionlistViewModel @Inject constructor(
         viewModelScope.launch {
             memberId.value = getUserUseCase.invoke().memberId ?: 0
         }
-        getDoingActionplans()
     }
 
     fun changeActionplanScrap(actionplanId: Int) {
@@ -52,33 +51,6 @@ class ProceedingActionlistViewModel @Inject constructor(
             scrapActionplanUseCase.invoke(actionplanId).onSuccess {
                 _event.value = Event.ScrapSuccess
             }.onFailure {
-                _event.value = Event.Failed
-            }
-        }
-    }
-
-    fun getScrapedActionplan() {
-        viewModelScope.launch {
-            getDoingActionplansUseCase.invoke(memberId.value ?: 0).onSuccess {
-                _event.value = Event.GetScrapedActionplanSuccess
-                _scrapedActionplans.value = it.filter { actionplan ->
-                    actionplan.isScraped
-                }
-                _doingActionplans.value = _scrapedActionplans.value
-            }.onFailure { throwable ->
-                Timber.e(throwable.message)
-                _event.value = Event.Failed
-            }
-        }
-    }
-
-    fun getDoingActionplans() {
-        viewModelScope.launch {
-            getDoingActionplansUseCase.invoke(memberId.value ?: 0).onSuccess {
-                _doingActionplans.value = it
-                _event.value = Event.GetDoingActionplanSuccess
-            }.onFailure { throwable ->
-                Timber.e(throwable.message)
                 _event.value = Event.Failed
             }
         }
@@ -109,7 +81,6 @@ class ProceedingActionlistViewModel @Inject constructor(
     sealed interface Event {
         object Default : Event
         object PostReviewSuccess : Event
-        object GetDoingActionplanSuccess : Event
         object GetScrapedActionplanSuccess : Event
 
         object PostCompletedActionplanSuccess : Event
