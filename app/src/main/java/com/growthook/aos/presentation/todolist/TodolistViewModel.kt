@@ -57,9 +57,8 @@ class TodolistViewModel @Inject constructor(
                     } else {
                         result.toDoingTodo().filter { it.isScraped }
                     }
-                    _event.value = Event.GetDoingTodoSuccess
                 } else {
-                    _event.value = Event.Empty
+                    _event.value = Event.FailedGetDoingTodo
                 }
             }
         }
@@ -75,9 +74,8 @@ class TodolistViewModel @Inject constructor(
                     } else {
                         result.toDoneTodo().filter { it.isScraped }
                     }
-                    _event.value = Event.GetDoingTodoSuccess
                 } else {
-                    _event.value = Event.Empty
+                    _event.value = Event.FailedGetFinishedTodo
                 }
             }
         }
@@ -97,14 +95,9 @@ class TodolistViewModel @Inject constructor(
 
     sealed interface Event {
         object Empty : Event
-        object GetDoingTodoSuccess : Event
-        object GetFinishedTodoSuccess : Event
-        object GetScrapedActionplanSuccess : Event
-        object GetPercentSuccess : Event
         object FailedGetDoingTodo : Event
         object FailedGetFinishedTodo : Event
         object FailedGetPercent : Event
-        object FailedGetScrapedTodo : Event
     }
 
     companion object {

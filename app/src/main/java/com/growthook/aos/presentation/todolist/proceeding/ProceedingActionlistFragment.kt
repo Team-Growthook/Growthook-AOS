@@ -2,7 +2,6 @@ package com.growthook.aos.presentation.todolist.proceeding
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,9 +47,8 @@ class ProceedingActionlistFragment(private val parentFragment: TodolistFragment)
         super.onViewCreated(view, savedInstanceState)
         getDoingTodoList()
         initActionplanAdapter()
-        observeActionplan()
         setEmptyView()
-        observeEvent()
+        subscribe()
         clickScrapBtn()
     }
 
@@ -70,9 +68,20 @@ class ProceedingActionlistFragment(private val parentFragment: TodolistFragment)
         binding.rcvProceedingActionlist.layoutManager = LinearLayoutManager(requireContext())
     }
 
+    private fun subscribe() {
+        observeFilterState()
+        observeActionplan()
+        observeEvent()
+    }
+
+    private fun observeFilterState() {
+        todoViewModel.filterState.observe(viewLifecycleOwner) {
+            todoViewModel.getDoingActionplans()
+        }
+    }
+
     private fun observeActionplan() {
         todoViewModel.doingActionplans.flowWithLifecycle(lifecycle).onEach { doingActionplan ->
-            Log.d("dododo", "observeActionplan() doingActionplans:: $doingActionplan")
             _proceedingActionlistAdapter?.submitList(doingActionplan)
         }.launchIn(lifecycleScope)
     }
@@ -91,17 +100,25 @@ class ProceedingActionlistFragment(private val parentFragment: TodolistFragment)
         binding.clProceedingActionplanScrap.setOnSingleClickListener {
             isScraped = !isScraped
             if (isScraped) {
-                binding.ivProceedingActionlistScrap.setImageResource(R.drawable.ic_home_scrap_true)
-                binding.tvProceedingActionlistScrap.setTextColor(requireContext().getColor(R.color.Green200))
-                todoViewModel.filterState.value = SCRAPED
+                setScrapedTodo()
                 todoViewModel.getDoingActionplans()
             } else {
-                binding.ivProceedingActionlistScrap.setImageResource(R.drawable.ic_home_scrap_false)
-                binding.tvProceedingActionlistScrap.setTextColor(requireContext().getColor(R.color.White000))
-                todoViewModel.filterState.value = ALL
+                setUnScrapedTodo()
                 todoViewModel.getDoingActionplans()
             }
         }
+    }
+
+    private fun setScrapedTodo() {
+        binding.ivProceedingActionlistScrap.setImageResource(R.drawable.ic_home_scrap_true)
+        binding.tvProceedingActionlistScrap.setTextColor(requireContext().getColor(R.color.Green200))
+        todoViewModel.filterState.value = SCRAPED
+    }
+
+    private fun setUnScrapedTodo() {
+        binding.ivProceedingActionlistScrap.setImageResource(R.drawable.ic_home_scrap_false)
+        binding.tvProceedingActionlistScrap.setTextColor(requireContext().getColor(R.color.White000))
+        todoViewModel.filterState.value = ALL
     }
 
     private fun clickCompleteBtn(actionplanId: Int) {
