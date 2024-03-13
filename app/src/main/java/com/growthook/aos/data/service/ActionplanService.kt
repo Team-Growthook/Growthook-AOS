@@ -6,6 +6,7 @@ import com.growthook.aos.data.model.remote.response.ResponseActionlistDto
 import com.growthook.aos.data.model.remote.response.ResponseDataDto
 import com.growthook.aos.data.model.remote.response.ResponseDto
 import com.growthook.aos.data.model.remote.response.ResponseGetActionplanDto
+import com.growthook.aos.data.model.remote.response.ResponseGetDoingTodo
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -28,7 +29,7 @@ interface ActionplanService {
     @GET("api/v1/member/{memberId}/doing")
     suspend fun getDoingActionplans(
         @Path("memberId") memberId: Int,
-    ): ResponseActionlistDto
+    ): ResponseGetDoingTodo
 
     @GET("api/v1/member/{memberId}/finished")
     suspend fun getFinishedActionplans(
