@@ -1,7 +1,10 @@
 package com.growthook.aos.presentation.insight.write
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.webkit.URLUtil
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.growthook.aos.R
@@ -18,6 +21,7 @@ class InsightWriteNewActivity : BaseActivity<ActivityInsightWriteNewBinding>({
 }) {
 
     private val viewModel by viewModels<InsightWriteNewViewModel>()
+    private lateinit var seedSource: String
     private lateinit var seedUrl: String
     private var seedId: Int = 0
     private var isSeedSelected = false
@@ -64,18 +68,31 @@ class InsightWriteNewActivity : BaseActivity<ActivityInsightWriteNewBinding>({
                 tvInsightWriteNewTitle.text = seed.title
                 tvInsightWriteNewContent.text = seed.content
                 tvInsightWriteNewDate.text = seed.date
-                tvInsightWriteNewContentChipTitle.text = seed.source
 
+                seedSource = seed?.source.toString()
                 seedUrl = seed?.url.toString()
 
-                if (seedUrl.length >= 35) {
-                    "${seedUrl.take(35)}...".also { tvInsightWriteNewUrl.text = it }
-                } else if (seedUrl.isNullOrEmpty()) {
-                    dividerInsightWriteNewThird.visibility = View.GONE
-                    tvInsightWriteNewUrl.visibility = View.GONE
+
+                if (seedSource == "null" && seedUrl.isNullOrEmpty()) {
+                    clInsightWriteNewContentChip.visibility = View.GONE
                 } else {
-                    tvInsightWriteNewUrl.text = seedUrl
+                    if (seedSource == "null") {
+                        dividerInsightWriteNewThird.visibility = View.GONE
+                        tvInsightWriteNewContentChipTitle.visibility = View.GONE
+                    } else {
+                        tvInsightWriteNewContentChipTitle.text = seedSource
+                    }
+
+                    if (seedUrl.length >= 35) {
+                        "${seedUrl.take(35)}...".also { tvInsightWriteNewUrl.text = it }
+                    } else if (seedUrl.isNullOrEmpty()) {
+                        dividerInsightWriteNewThird.visibility = View.GONE
+                        tvInsightWriteNewUrl.visibility = View.GONE
+                    } else {
+                        tvInsightWriteNewUrl.text = seedUrl
+                    }
                 }
+
                 "D-${seed?.remainingDays}".also { tvInsightWriteNewDday.text = it }
 
                 if (seed?.isScraped == true) {
@@ -84,6 +101,19 @@ class InsightWriteNewActivity : BaseActivity<ActivityInsightWriteNewBinding>({
                     ivInsightWriteNewSeed.setImageResource(R.drawable.ic_scrap_unselected)
                 }
             }
+
+            moveURL()
+        }
+    }
+
+    private fun moveURL() {
+        binding.tvInsightWriteNewUrl.setOnClickListener {
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(URLUtil.guessUrl(seedUrl))
+                )
+            )
         }
     }
 
