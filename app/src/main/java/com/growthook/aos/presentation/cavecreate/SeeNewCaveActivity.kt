@@ -5,9 +5,11 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import com.growthook.aos.databinding.ActivitySeeNewCaveBinding
+import com.growthook.aos.presentation.insight.noactionplan.InsightMenuBottomsheet
 import com.growthook.aos.presentation.insight.write.InsightWriteActivity
 import com.growthook.aos.presentation.model.NewCaveIntent
 import com.growthook.aos.util.base.BaseActivity
+import com.growthook.aos.util.base.BaseAlertDialog
 import com.growthook.aos.util.extension.getParcelable
 import com.growthook.aos.util.extension.setOnSingleClickListener
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,6 +29,7 @@ class SeeNewCaveActivity : BaseActivity<ActivitySeeNewCaveBinding>({
         initSetNewCaveView()
         initClickCloseBtn()
         setChbClickable()
+        clickIsLockBtn()
         clickAddSeedBtn()
     }
 
@@ -59,6 +62,31 @@ class SeeNewCaveActivity : BaseActivity<ActivitySeeNewCaveBinding>({
 
     private fun setChbClickable() {
         binding.chbSeeCaveScrap.isClickable = false
+    }
+
+    private fun clickIsLockBtn() {
+        binding.ivSeeCaveIsLockBtn.setOnClickListener {
+            BaseAlertDialog.Builder()
+                .setCancelable(false)
+                .build(
+                    type = BaseAlertDialog.DialogType.SINGLE_INTENDED,
+                    title = "내 동굴에 친구를 초대해\n" +
+                            "인사이트를 공유해요!",
+                    description = "해당 기능은 추후 업데이트 예정이에요 :)",
+                    positiveText = "확인",
+                    negativeText = "",
+                    tipText = "",
+                    isBackgroundImageVisility = false,
+                    isDescriptionVisility = true,
+                    isRemainThookVisility = false,
+                    isTipVisility = false,
+                    negativeAction = {
+                    },
+                    positiveAction = {
+                    },
+                    remainThookText = "",
+                ).show(supportFragmentManager, InsightMenuBottomsheet.DELETE_DIALOG)
+        }
     }
 
     private fun clickAddSeedBtn() {
