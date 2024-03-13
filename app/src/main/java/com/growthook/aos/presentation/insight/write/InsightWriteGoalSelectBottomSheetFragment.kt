@@ -24,7 +24,7 @@ class InsightWriteGoalSelectBottomSheetFragment :
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?
+        container: ViewGroup?,
     ): FragmentInsightWriteGoalSelectBottomsheetBinding =
         FragmentInsightWriteGoalSelectBottomsheetBinding.inflate(inflater, container, false)
 
@@ -37,12 +37,14 @@ class InsightWriteGoalSelectBottomSheetFragment :
     private fun initSetGoalMonthPicker() {
         val goalPicker = binding.pickerInsightGoalMonth
 
-        with (goalPicker) {
+        with(goalPicker) {
             wrapSelectorWheel = false
             descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
             minValue = 1
             maxValue = 12
-            displayedValues = (goalPicker.minValue..goalPicker.maxValue).map { it.toString() + "개월" }.toTypedArray()
+            displayedValues =
+                (goalPicker.minValue..goalPicker.maxValue).map { it.toString() + "개월" }
+                    .toTypedArray()
         }
         clickGoalMonthBtn()
     }

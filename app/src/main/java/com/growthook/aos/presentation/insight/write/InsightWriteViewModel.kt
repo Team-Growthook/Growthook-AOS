@@ -1,5 +1,6 @@
 package com.growthook.aos.presentation.insight.write
 
+import android.webkit.URLUtil
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,6 +11,7 @@ import com.growthook.aos.util.extension.addSourceList
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import java.util.regex.Pattern
 import javax.inject.Inject
 
 @HiltViewModel
@@ -63,6 +65,12 @@ class InsightWriteViewModel @Inject constructor(
         _url.value = urlChoice
     }
 
+    fun isUrlValid(url: String): Boolean {
+        val urlMatcher = URL_VALID.matcher(url)
+        return url.isNullOrBlank() || urlMatcher.matches()
+//        return url.isNullOrBlank() || URLUtil.isValidUrl(url)
+    }
+
     fun setSelectedGoalMonth(goalMonth: Int) {
         _selectedGoalMonth.value = goalMonth
     }
@@ -71,7 +79,6 @@ class InsightWriteViewModel @Inject constructor(
         addSourceList(
             insight,
             selectedCaveId,
-            source,
             selectedGoalMonth,
         ) { checkInsightWriteEnabled() }
     }
@@ -79,7 +86,6 @@ class InsightWriteViewModel @Inject constructor(
     private fun checkInsightWriteEnabled(): Boolean =
         !insight.value.isNullOrBlank() &&
             !(selectedCaveId.value == null) &&
-            !source.value.isNullOrBlank() &&
             !(selectedGoalMonth.value == null)
 
     fun postNewSeed() {
@@ -99,5 +105,9 @@ class InsightWriteViewModel @Inject constructor(
                 Timber.d("InsightWrite: ${it.message}")
             }
         }
+    }
+
+    companion object {
+        val URL_VALID: Pattern = android.util.Patterns.WEB_URL
     }
 }

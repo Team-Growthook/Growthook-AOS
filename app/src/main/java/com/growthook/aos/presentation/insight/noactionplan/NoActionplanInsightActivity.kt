@@ -4,9 +4,11 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.webkit.URLUtil
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.growthook.aos.R
@@ -23,6 +25,7 @@ class NoActionplanInsightActivity :
     private val viewModel by viewModels<NoActionplanInsightViewModel>()
     private val bottomSheetDialog = InsightMenuBottomsheet()
     private var seedId: Int = 0
+    private lateinit var seedSource: String
     private lateinit var seedUrl: String
     private var isSeedScraped = false
 
@@ -50,6 +53,7 @@ class NoActionplanInsightActivity :
                 tvNoactionInsightChip.text = seed?.caveName
                 tvNoactionInsightContentChipTitle.text = seed?.source
 
+                seedSource = seed?.source.toString()
                 seedUrl = seed?.url.toString()
 
                 if (seed.content.isNullOrEmpty()) {
@@ -58,13 +62,24 @@ class NoActionplanInsightActivity :
                     tvNoactionInsightMemo.text = seed.content
                 }
 
-                if (seedUrl.length >= 35) {
-                    "${seedUrl.take(35)}...".also { tvNoactionInsightUrl.text = it }
-                } else if (seedUrl.isNullOrEmpty()) {
-                    dividerNoactionInsightThird.visibility = View.GONE
-                    tvNoactionInsightUrl.visibility = View.GONE
+                if (seedSource == "null" && seedUrl.isNullOrEmpty()) {
+                    clNoactionInsightContentChip.visibility = View.GONE
                 } else {
-                    tvNoactionInsightUrl.text = seedUrl
+                    if (seedSource == "null") {
+                        dividerNoactionInsightThird.visibility = View.GONE
+                        tvNoactionInsightContentChipTitle.visibility = View.GONE
+                    } else {
+                        tvNoactionInsightContentChipTitle.text = seedSource
+                    }
+
+                    if (seedUrl.length >= 35) {
+                        "${seedUrl.take(35)}...".also { tvNoactionInsightUrl.text = it }
+                    } else if (seedUrl.isNullOrEmpty()) {
+                        dividerNoactionInsightThird.visibility = View.GONE
+                        tvNoactionInsightUrl.visibility = View.GONE
+                    } else {
+                        tvNoactionInsightUrl.text = seedUrl
+                    }
                 }
 
                 if (seed.remainingDays < 0) {
@@ -89,7 +104,7 @@ class NoActionplanInsightActivity :
         clickAddAction()
         clickBackBtn()
         clickInsightSeed()
-        copyUrl()
+        moveUrl()
     }
 
     private fun clickInsightSeed() {
@@ -135,14 +150,22 @@ class NoActionplanInsightActivity :
         }
     }
 
-    private fun copyUrl() {
-        binding.clNoactionInsightContentChip.setOnClickListener {
-            val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-            val clip: ClipData = ClipData.newPlainText("seedUrl", seedUrl)
-            clipboard.setPrimaryClip(clip)
-            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2) {
-                Toast.makeText(this, "링크를 복사했어요", Toast.LENGTH_SHORT).show()
-            }
+    private fun moveUrl() {
+//        binding.clNoactionInsightContentChip.setOnClickListener {
+//            val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+//            val clip: ClipData = ClipData.newPlainText("seedUrl", seedUrl)
+//            clipboard.setPrimaryClip(clip)
+//            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2) {
+//                Toast.makeText(this, "링크를 복사했어요", Toast.LENGTH_SHORT).show()
+//            }
+//        }
+        binding.tvNoactionInsightUrl.setOnClickListener {
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(URLUtil.guessUrl(seedUrl))
+                )
+            )
         }
     }
 

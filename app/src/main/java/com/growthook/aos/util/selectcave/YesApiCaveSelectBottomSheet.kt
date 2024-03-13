@@ -1,10 +1,12 @@
 package com.growthook.aos.util.selectcave
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.selection.SelectionPredicates
@@ -12,6 +14,7 @@ import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StableIdKeyProvider
 import androidx.recyclerview.selection.StorageStrategy
 import com.growthook.aos.databinding.FragmentCaveSelectBottomsheetBinding
+import com.growthook.aos.presentation.cavecreate.CreateNewCaveActivity
 import com.growthook.aos.util.EmptyDataObserver
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -53,6 +56,8 @@ class YesApiCaveSelectBottomSheet : CaveSelect() {
                     }
                     viewModel.caves.value?.let { caves ->
                         if (caves.isEmpty()) {
+                            val intent = Intent(requireActivity(), CreateNewCaveActivity::class.java)
+                            startActivity(intent)
                             dismiss()
                         }
                     }
@@ -64,8 +69,12 @@ class YesApiCaveSelectBottomSheet : CaveSelect() {
     private fun setAdapter() {
         _adapter = CaveSelectAdapter()
         viewModel.getCaves()
-        viewModel.caves.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
+        viewModel.caves.observe(viewLifecycleOwner) { caves ->
+            adapter.submitList(caves)
+            if (caves.isNotEmpty()) {
+                binding.btnHomeSelectCaveTv.text = "선택"
+                binding.btnHomeSelectCaveCircleBtn.isVisible = false
+            }
         }
         binding.rcvHomeSelectCave.adapter = adapter
 

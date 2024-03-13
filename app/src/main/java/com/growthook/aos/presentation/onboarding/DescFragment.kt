@@ -11,7 +11,6 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.growthook.aos.databinding.FragmentDescBinding
 import com.growthook.aos.util.base.BaseFragment
-import kotlin.io.path.fileVisitor
 
 class DescFragment : BaseFragment<FragmentDescBinding>() {
 

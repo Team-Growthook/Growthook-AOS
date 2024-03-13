@@ -172,9 +172,11 @@
                     android:layout_width="1dp"
                     android:layout_height="12dp"
                     android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     app:dividerColor="@color/Gray300"
                     app:layout_constraintBottom_toBottomOf="@id/tv_insight_write_new_content_chip_title"
                     app:layout_constraintStart_toEndOf="@id/tv_insight_write_new_content_chip_title"
+                    app:layout_constraintEnd_toStartOf="@id/tv_insight_write_new_url"
                     app:layout_constraintTop_toTopOf="@id/tv_insight_write_new_content_chip_title" />
 
                 <TextView
@@ -182,12 +184,11 @@
                     style="@style/detail2_reg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
                     android:text="https://www.ssookssook.com"
                     android:textColor="@color/Gray200"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_insight_write_new_content_chip_title"
-                    app:layout_constraintStart_toEndOf="@id/divider_insight_write_new_third"
-                    app:layout_constraintTop_toTopOf="@id/tv_insight_write_new_content_chip_title" />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

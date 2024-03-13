@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
-import androidx.compose.ui.res.integerArrayResource
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.selection.SelectionPredicates
 import androidx.recyclerview.selection.SelectionTracker
@@ -198,7 +197,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                         "쑥 1개를 사용합니다.",
                     positiveText = "사용하기",
                     negativeText = "포기하기",
-                    tipText = "Tip. 인사이트 ‘계획하기’를 통해 액션 플랜을 설정하고,\n" +
+                    tipText = "Tip. 씨앗에서 할 일을 기록하고,\n" +
                         "이를 달성하면 새로운 쑥을 얻을 수 있어요!",
                     isBackgroundImageVisility = false,
                     isDescriptionVisility = true,
@@ -207,9 +206,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     negativeAction = {
                     },
                     positiveAction = {
-                        val thookCount = viewModel.gatherdThook.value ?:0
+                        val thookCount = viewModel.gatherdThook.value ?: 0
                         if (thookCount <= 0) {
-                            Toast.makeText(requireContext(), "쑥이 없어 잠금을 해제할 수 없어요", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                requireContext(),
+                                "잠금 해제를 위해서는 쑥이 필요해요 :(",
+                                Toast.LENGTH_SHORT,
+                            ).show()
                         } else {
                             viewModel.unLockSeed(item.seedId)
                             viewModel.isUnlock.observe(viewLifecycleOwner) {
@@ -247,8 +250,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 ).addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION),
             )
         } else {
-            startActivity(NoActionplanInsightActivity.getIntent(requireContext(), item.seedId)
-                .addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION))
+            startActivity(
+                NoActionplanInsightActivity.getIntent(requireContext(), item.seedId)
+                    .addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION),
+            )
         }
     }
 
@@ -268,8 +273,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun clickedCave(item: Cave) {
-        startActivity(CaveDetailActivity.getIntent(requireContext(), item.id)
-            .addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION))
+        startActivity(
+            CaveDetailActivity.getIntent(requireContext(), item.id)
+                .addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION),
+        )
     }
 
     private fun clickedScrap(seed: Insight) {

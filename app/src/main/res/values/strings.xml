@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Growthook-AOS</string>
+    <string name="app_name">그로쑥</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="storage_title">새 동굴 파기</string>
@@ -18,7 +18,7 @@
     <string name="tv_insight_write_cave">동굴</string>
     <string name="edt_insight_write_cave">어떤 동굴에 저장할까요?</string>
     <string name="tv_insight_write_url">출처</string>
-    <string name="insight_write_url">출처의 정보를 입력해주세요</string>
+    <string name="insight_write_url">출처의 정보를 입력해주세요(선택)</string>
     <string name="insight_write_url_choice">URL을 붙여넣어주세요(선택)</string>
     <string name="tv_insight_write_goal">목표 기간</string>
     <string name="insight_write_goal">1개월</string>
@@ -37,4 +37,5 @@
     <string name="seed_modify_btn">완료</string>
     <string name="seed_modify_url_choice">URL을 입력해주세요 (선택)</string>
     <string name="btn_insight_write_new_text">액션 만들기</string>
+    <string name="insight_write_url_error">유효하지 않은 URL이에요</string>
 </resources>

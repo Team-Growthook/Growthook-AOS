@@ -12,7 +12,6 @@ import androidx.recyclerview.selection.StableIdKeyProvider
 import androidx.recyclerview.selection.StorageStrategy
 import com.growthook.aos.databinding.ActivityCaveDetailBinding
 import com.growthook.aos.domain.entity.Insight
-import com.growthook.aos.presentation.MainActivity
 import com.growthook.aos.presentation.home.HomeInsightAdapter
 import com.growthook.aos.presentation.insight.actionplan.ActionplanInsightActivity
 import com.growthook.aos.presentation.insight.noactionplan.InsightMenuBottomsheet
@@ -20,7 +19,6 @@ import com.growthook.aos.presentation.insight.noactionplan.NoActionplanInsightAc
 import com.growthook.aos.presentation.insight.write.InsightWriteActivity
 import com.growthook.aos.util.EmptyDataObserver
 import com.growthook.aos.util.EventObserver
-import com.growthook.aos.util.GlideApp
 import com.growthook.aos.util.LinearLayoutManagerWrapper
 import com.growthook.aos.util.base.BaseActivity
 import com.growthook.aos.util.base.BaseAlertDialog
@@ -69,7 +67,6 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
         clickAddSeed()
         observeInsights()
         isInsightDelete()
-        setProfileImage()
     }
 
     override fun onResume() {
@@ -200,7 +197,7 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
                         "쑥 1개를 사용합니다.",
                     positiveText = "사용하기",
                     negativeText = "포기하기",
-                    tipText = "Tip. 인사이트 ‘계획하기’를 통해 액션 플랜을 설정하고,\n" +
+                    tipText = "Tip. 씨앗에서 할 일을 기록하고,\n" +
                         "이를 달성하면 새로운 쑥을 얻을 수 있어요!",
                     isBackgroundImageVisility = false,
                     isDescriptionVisility = true,
@@ -211,7 +208,7 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
                     positiveAction = {
                         viewModel.unLockSeed(item.seedId)
                         viewModel.isUnlock.observe(this) {
-                            Toast.makeText(this, "잠금이 영구적으로 해제되었어요!", Toast.LENGTH_SHORT)
+                            Toast.makeText(this, "잠금 해제를 위해서는 쑥이 필요해요 :(", Toast.LENGTH_SHORT)
                                 .show()
                             if (item.hasActionPlan) {
                                 startActivity(
@@ -323,14 +320,6 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
                 } else {
                     viewModel.getInsights()
                 }
-            }
-        }
-    }
-
-    private fun setProfileImage() {
-        viewModel.profileUrl.observe(this) { imageUrl ->
-            if (imageUrl != null) {
-                GlideApp.with(this).load(imageUrl).into(binding.ivCaveDetailUser)
             }
         }
     }
