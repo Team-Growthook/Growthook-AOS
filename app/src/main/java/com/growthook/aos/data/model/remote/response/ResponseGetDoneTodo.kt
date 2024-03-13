@@ -5,7 +5,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ResponseActionlistDto(
+data class ResponseGetDoneTodo(
     @SerialName("status")
     val status: Int,
     @SerialName("success")
@@ -13,10 +13,10 @@ data class ResponseActionlistDto(
     @SerialName("message")
     val message: String,
     @SerialName("data")
-    val data: List<com.growthook.aos.data.model.remote.response.ResponseActionlistDto.Actionlist>,
+    val data: List<DoneTodo>,
 ) {
     @Serializable
-    data class Actionlist(
+    data class DoneTodo(
         @SerialName("actionPlanId")
         val actionPlanId: Int,
         @SerialName("content")
@@ -29,13 +29,13 @@ data class ResponseActionlistDto(
         val hasReview: Boolean,
     )
 
-    fun toActionlist() = data.map { actionplan ->
+    fun toDoneTodo() = data.map { todo ->
         ActionlistDetail(
-            actionplan.actionPlanId,
-            actionplan.content,
-            actionplan.isScraped,
-            actionplan.seedId,
-            actionplan.hasReview,
+            todo.actionPlanId,
+            todo.content,
+            todo.isScraped,
+            todo.seedId,
+            todo.hasReview,
         )
     }
 }

@@ -4,11 +4,11 @@ import com.growthook.aos.data.datasource.remote.ActionplanDataSource
 import com.growthook.aos.data.model.remote.request.RequestActionplanModifyDto
 import com.growthook.aos.data.model.remote.request.RequestActionplanPostDto
 import com.growthook.aos.data.model.remote.response.ApiResult
-import com.growthook.aos.data.model.remote.response.ResponseActionlistDto
 import com.growthook.aos.data.model.remote.response.ResponseDataDto
 import com.growthook.aos.data.model.remote.response.ResponseDto
 import com.growthook.aos.data.model.remote.response.ResponseGetActionplanDto
 import com.growthook.aos.data.model.remote.response.ResponseGetDoingTodo
+import com.growthook.aos.data.model.remote.response.ResponseGetDoneTodo
 import com.growthook.aos.data.model.remote.response.safeFlow
 import com.growthook.aos.data.service.ActionplanService
 import kotlinx.coroutines.flow.Flow
@@ -32,8 +32,10 @@ class ActionplanDataSourceImpl @Inject constructor(
             apiService.getDoingActionplans(memberId)
         }
 
-    override suspend fun getFinishedActionplans(memberId: Int): ResponseActionlistDto =
-        apiService.getFinishedActionplans(memberId)
+    override suspend fun getFinishedActionplans(memberId: Int): Flow<ApiResult<ResponseGetDoneTodo>> =
+        safeFlow {
+            apiService.getFinishedActionplans(memberId)
+        }
 
     override suspend fun getActionplanPercent(memberId: Int): ResponseDataDto =
         apiService.getActionplanPercent(memberId)

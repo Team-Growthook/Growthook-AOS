@@ -5,7 +5,7 @@ import com.growthook.aos.data.model.remote.request.RequestActionplanModifyDto
 import com.growthook.aos.data.model.remote.request.RequestActionplanPostDto
 import com.growthook.aos.data.model.remote.response.ApiResult
 import com.growthook.aos.data.model.remote.response.ResponseGetDoingTodo
-import com.growthook.aos.domain.entity.ActionlistDetail
+import com.growthook.aos.data.model.remote.response.ResponseGetDoneTodo
 import com.growthook.aos.domain.entity.Actionplan
 import com.growthook.aos.domain.repository.ActionplanRepository
 import kotlinx.coroutines.flow.Flow
@@ -25,12 +25,11 @@ class ActionplanRepositoryImpl @Inject constructor(private val actionplanDataSou
             )
         }
 
-    override suspend fun getDoingActionplans(memberId: Int): Flow<ApiResult<ResponseGetDoingTodo>> = actionplanDataSource.getDoingActionplans(memberId)
+    override suspend fun getDoingActionplans(memberId: Int): Flow<ApiResult<ResponseGetDoingTodo>> =
+        actionplanDataSource.getDoingActionplans(memberId)
 
-    override suspend fun getFinishedActionplans(memberId: Int): Result<List<ActionlistDetail>> =
-        runCatching {
-            actionplanDataSource.getFinishedActionplans(memberId).toActionlist()
-        }
+    override suspend fun getFinishedActionplans(memberId: Int): Flow<ApiResult<ResponseGetDoneTodo>> =
+        actionplanDataSource.getFinishedActionplans(memberId)
 
     override suspend fun completeActionplan(actionplanId: Int): Result<Unit> =
         runCatching {

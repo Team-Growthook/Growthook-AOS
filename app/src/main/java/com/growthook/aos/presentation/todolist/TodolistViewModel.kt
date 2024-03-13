@@ -67,12 +67,18 @@ class TodolistViewModel @Inject constructor(
 
     fun getFinishedActionplans() {
         viewModelScope.launch {
-            getFinishedActionplansUseCase.invoke(memberId.value ?: 0).onSuccess {
-                _finishedActionplans.value = it
-                _event.value = Event.GetFinishedTodoSuccess
-            }.onFailure { throwable ->
-                Timber.e(throwable.message)
-                _event.value = Event.Empty
+            getFinishedActionplansUseCase.invoke(memberId.value ?: 0).collect { apiResult ->
+                val result = receiveApiResult(apiResult)
+                if (result != null) {
+                    _finishedActionplans.value = if (filterState.value == ALL) {
+                        result.toDoneTodo()
+                    } else {
+                        result.toDoneTodo().filter { it.isScraped }
+                    }
+                    _event.value = Event.GetDoingTodoSuccess
+                } else {
+                    _event.value = Event.Empty
+                }
             }
         }
     }
