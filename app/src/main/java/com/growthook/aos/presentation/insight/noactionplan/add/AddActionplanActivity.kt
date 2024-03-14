@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -14,6 +15,7 @@ import com.growthook.aos.databinding.ActivityAddActionplanBinding
 import com.growthook.aos.presentation.insight.actionplan.ActionplanInsightActivity
 import com.growthook.aos.presentation.insight.noactionplan.add.AddActionplanViewModel.Event
 import com.growthook.aos.util.base.BaseActivity
+import com.growthook.aos.util.extension.hideKeyboard
 import com.growthook.aos.util.extension.setOnSingleClickListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
@@ -37,6 +39,11 @@ class AddActionplanActivity :
         initEditTextAdapter()
         subscribe()
         clickListeners()
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        this.currentFocus?.let { hideKeyboard(it) }
+        return super.dispatchTouchEvent(ev)
     }
 
     private fun getSeedIdFromSeedDetail() {
