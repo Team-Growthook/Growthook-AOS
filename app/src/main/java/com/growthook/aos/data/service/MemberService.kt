@@ -1,9 +1,9 @@
 package com.growthook.aos.data.service
 
-import com.growthook.aos.data.model.response.ResponseDto
-import com.growthook.aos.data.model.response.ResponseGatheredThookDto
-import com.growthook.aos.data.model.response.ResponseGetProfileDto
-import com.growthook.aos.data.model.response.ResponseGetUsedThook
+import com.growthook.aos.data.model.remote.response.ResponseDto
+import com.growthook.aos.data.model.remote.response.ResponseGatheredThookDto
+import com.growthook.aos.data.model.remote.response.ResponseGetProfileDto
+import com.growthook.aos.data.model.remote.response.ResponseGetUsedThook
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Path

@@ -1,16 +1,22 @@
 package com.growthook.aos.data.datasource.remote.impl
 
 import com.growthook.aos.data.datasource.remote.ActionplanDataSource
-import com.growthook.aos.data.model.request.RequestActionplanModifyDto
-import com.growthook.aos.data.model.request.RequestActionplanPostDto
-import com.growthook.aos.data.model.response.ResponseActionlistDto
-import com.growthook.aos.data.model.response.ResponseDataDto
-import com.growthook.aos.data.model.response.ResponseDto
-import com.growthook.aos.data.model.response.ResponseGetActionplanDto
+import com.growthook.aos.data.model.remote.request.RequestActionplanModifyDto
+import com.growthook.aos.data.model.remote.request.RequestActionplanPostDto
+import com.growthook.aos.data.model.remote.response.ApiResult
+import com.growthook.aos.data.model.remote.response.ResponseDataDto
+import com.growthook.aos.data.model.remote.response.ResponseDto
+import com.growthook.aos.data.model.remote.response.ResponseGetActionplanDto
+import com.growthook.aos.data.model.remote.response.ResponseGetDoingTodo
+import com.growthook.aos.data.model.remote.response.ResponseGetDoneTodo
+import com.growthook.aos.data.model.remote.response.safeFlow
 import com.growthook.aos.data.service.ActionplanService
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class ActionplanDataSourceImpl @Inject constructor(private val apiService: ActionplanService) :
+class ActionplanDataSourceImpl @Inject constructor(
+    private val apiService: ActionplanService,
+) :
     ActionplanDataSource {
     override suspend fun getActionplans(seedId: Int): ResponseGetActionplanDto =
         apiService.getActionplans(seedId)
@@ -21,11 +27,15 @@ class ActionplanDataSourceImpl @Inject constructor(private val apiService: Actio
     ): ResponseDto =
         apiService.postActionplans(seedId, request)
 
-    override suspend fun getDoingActionplans(memberId: Int): ResponseActionlistDto =
-        apiService.getDoingActionplans(memberId)
+    override suspend fun getDoingActionplans(memberId: Int): Flow<ApiResult<ResponseGetDoingTodo>> =
+        safeFlow {
+            apiService.getDoingActionplans(memberId)
+        }
 
-    override suspend fun getFinishedActionplans(memberId: Int): ResponseActionlistDto =
-        apiService.getFinishedActionplans(memberId)
+    override suspend fun getFinishedActionplans(memberId: Int): Flow<ApiResult<ResponseGetDoneTodo>> =
+        safeFlow {
+            apiService.getFinishedActionplans(memberId)
+        }
 
     override suspend fun getActionplanPercent(memberId: Int): ResponseDataDto =
         apiService.getActionplanPercent(memberId)

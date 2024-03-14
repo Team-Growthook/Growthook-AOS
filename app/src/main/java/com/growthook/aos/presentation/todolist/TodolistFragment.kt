@@ -1,13 +1,13 @@
 package com.growthook.aos.presentation.todolist
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
+import androidx.fragment.app.viewModels
 import com.google.android.material.tabs.TabLayout
 import com.growthook.aos.R
 import com.growthook.aos.databinding.FragmentTodolistBinding
@@ -15,9 +15,12 @@ import com.growthook.aos.presentation.home.HomeViewModel
 import com.growthook.aos.presentation.todolist.completed.CompletedActionlistFragment
 import com.growthook.aos.presentation.todolist.proceeding.ProceedingActionlistFragment
 import com.growthook.aos.util.base.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class TodolistFragment : BaseFragment<FragmentTodolistBinding>() {
     private val viewModel: HomeViewModel by activityViewModels()
+    private val todolistViewModel by viewModels<TodolistViewModel>()
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -26,27 +29,26 @@ class TodolistFragment : BaseFragment<FragmentTodolistBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        observeNickname()
-        observeActionplanPercent()
+        subscribe()
         initItem()
         clickTabItem()
     }
 
+    private fun subscribe() {
+        observeNickname()
+        observeActionplanPercent()
+    }
+
     private fun observeNickname() {
         viewModel.nickname.observe(viewLifecycleOwner) { nickName ->
-            binding.tvTodolistTitle.text = "${nickName}님의 액션"
+            binding.tvTodolistTitle.text = "${nickName}님의 할 일"
         }
     }
 
     private fun observeActionplanPercent() {
-        viewModel.actionplanPercent.observe(viewLifecycleOwner) { percent ->
+        todolistViewModel.actionplanPercent.observe(viewLifecycleOwner) { percent ->
             binding.tvTodolistPercent.text = "$percent% 달성!"
             binding.pgbTodolistMain.progress = percent
-            Log.d(
-                "percent!!",
-                "binding.pgbTodolistMain.progress:: ${binding.pgbTodolistMain.progress}",
-            )
-            Log.d("percent!!", "percent:: $percent")
         }
     }
 
@@ -72,7 +74,6 @@ class TodolistFragment : BaseFragment<FragmentTodolistBinding>() {
                 parentFragmentManager.commit {
                     replace(R.id.fcv_actionlist_main, fragment)
                 }
-                Log.d("actionlist", "tab.position:: ${tab.position}")
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {}

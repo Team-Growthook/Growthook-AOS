@@ -1,15 +1,15 @@
 package com.growthook.aos.data.datasource.remote
 
-import com.growthook.aos.data.model.request.RequestSeedModifyDto
-import com.growthook.aos.data.model.request.RequestSeedMoveDto
-import com.growthook.aos.data.model.request.RequestSeedPostDto
-import com.growthook.aos.data.model.response.ResponseAlarmDto
-import com.growthook.aos.data.model.response.ResponseDto
-import com.growthook.aos.data.model.response.ResponseGetCaveSeedsDto
-import com.growthook.aos.data.model.response.ResponseGetSeedDto
-import com.growthook.aos.data.model.response.ResponseGetSeedsDto
-import com.growthook.aos.data.model.response.ResponseMoveSeedDto
-import com.growthook.aos.data.model.response.ResponsePostSeedDto
+import com.growthook.aos.data.model.remote.request.RequestSeedModifyDto
+import com.growthook.aos.data.model.remote.request.RequestSeedMoveDto
+import com.growthook.aos.data.model.remote.request.RequestSeedPostDto
+import com.growthook.aos.data.model.remote.response.ResponseAlarmDto
+import com.growthook.aos.data.model.remote.response.ResponseDto
+import com.growthook.aos.data.model.remote.response.ResponseGetCaveSeedsDto
+import com.growthook.aos.data.model.remote.response.ResponseGetSeedDto
+import com.growthook.aos.data.model.remote.response.ResponseGetSeedsDto
+import com.growthook.aos.data.model.remote.response.ResponseMoveSeedDto
+import com.growthook.aos.data.model.remote.response.ResponsePostSeedDto
 
 interface SeedDataSource {
 
@@ -30,5 +30,8 @@ interface SeedDataSource {
 
     suspend fun scrapSeed(seedId: Int): ResponseDto
 
-    suspend fun modifySeed(seedId: Int, request: RequestSeedModifyDto): ResponseDto
+    suspend fun modifySeed(
+        seedId: Int,
+        request: RequestSeedModifyDto,
+    ): ResponseDto
 }

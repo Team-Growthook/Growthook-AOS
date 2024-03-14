@@ -1,11 +1,12 @@
 package com.growthook.aos.data.service
 
-import com.growthook.aos.data.model.request.RequestActionplanModifyDto
-import com.growthook.aos.data.model.request.RequestActionplanPostDto
-import com.growthook.aos.data.model.response.ResponseActionlistDto
-import com.growthook.aos.data.model.response.ResponseDataDto
-import com.growthook.aos.data.model.response.ResponseDto
-import com.growthook.aos.data.model.response.ResponseGetActionplanDto
+import com.growthook.aos.data.model.remote.request.RequestActionplanModifyDto
+import com.growthook.aos.data.model.remote.request.RequestActionplanPostDto
+import com.growthook.aos.data.model.remote.response.ResponseDataDto
+import com.growthook.aos.data.model.remote.response.ResponseDto
+import com.growthook.aos.data.model.remote.response.ResponseGetActionplanDto
+import com.growthook.aos.data.model.remote.response.ResponseGetDoingTodo
+import com.growthook.aos.data.model.remote.response.ResponseGetDoneTodo
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -28,12 +29,12 @@ interface ActionplanService {
     @GET("api/v1/member/{memberId}/doing")
     suspend fun getDoingActionplans(
         @Path("memberId") memberId: Int,
-    ): ResponseActionlistDto
+    ): ResponseGetDoingTodo
 
     @GET("api/v1/member/{memberId}/finished")
     suspend fun getFinishedActionplans(
         @Path("memberId") memberId: Int,
-    ): ResponseActionlistDto
+    ): ResponseGetDoneTodo
 
     @GET("api/v1/member/{memberId}/actionplan/percent")
     suspend fun getActionplanPercent(

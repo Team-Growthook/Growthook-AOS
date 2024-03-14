@@ -1,9 +1,9 @@
 package com.growthook.aos.data.repository
 
 import com.growthook.aos.data.datasource.remote.SeedDataSource
-import com.growthook.aos.data.model.request.RequestSeedModifyDto
-import com.growthook.aos.data.model.request.RequestSeedMoveDto
-import com.growthook.aos.data.model.request.RequestSeedPostDto
+import com.growthook.aos.data.model.remote.request.RequestSeedModifyDto
+import com.growthook.aos.data.model.remote.request.RequestSeedMoveDto
+import com.growthook.aos.data.model.remote.request.RequestSeedPostDto
 import com.growthook.aos.domain.entity.Insight
 import com.growthook.aos.domain.entity.Seed
 import com.growthook.aos.domain.repository.SeedRepository
@@ -20,7 +20,10 @@ class SeedRepositoryImpl @Inject constructor(private val seedDataSource: SeedDat
     }
 
     override suspend fun moveSeed(seedId: Int, toMoveCaveId: Int): Result<Unit> = runCatching {
-        seedDataSource.moveSeed(seedId, RequestSeedMoveDto(toMoveCaveId))
+        seedDataSource.moveSeed(
+            seedId,
+            RequestSeedMoveDto(toMoveCaveId),
+        )
     }
 
     override suspend fun postSeed(
@@ -33,7 +36,13 @@ class SeedRepositoryImpl @Inject constructor(private val seedDataSource: SeedDat
     ): Result<Int> = runCatching {
         seedDataSource.postSeed(
             caveId,
-            RequestSeedPostDto(insight, memo, source, url, goalMonth),
+            RequestSeedPostDto(
+                insight,
+                memo,
+                source,
+                url,
+                goalMonth,
+            ),
         ).data.seedId
     }
 
@@ -64,6 +73,14 @@ class SeedRepositoryImpl @Inject constructor(private val seedDataSource: SeedDat
         source: String,
         url: String,
     ): Result<Unit> = runCatching {
-        seedDataSource.modifySeed(seedId, RequestSeedModifyDto(insight, memo, source, url))
+        seedDataSource.modifySeed(
+            seedId,
+            RequestSeedModifyDto(
+                insight,
+                memo,
+                source,
+                url,
+            ),
+        )
     }
 }
