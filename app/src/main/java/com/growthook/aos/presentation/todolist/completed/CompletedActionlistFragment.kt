@@ -46,6 +46,10 @@ class CompletedActionlistFragment : BaseFragment<FragmentCompletedActionlistBind
         setEmptyView()
         clickScrapBtn()
     }
+    override fun onResume() {
+        super.onResume()
+        todoViewModel.getFinishedActionplans()
+    }
 
     private fun getDoneTodoList() {
         todoViewModel.getFinishedActionplans()
