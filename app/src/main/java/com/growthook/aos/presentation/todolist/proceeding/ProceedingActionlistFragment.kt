@@ -35,7 +35,7 @@ class ProceedingActionlistFragment(private val parentFragment: TodolistFragment)
         get() = requireNotNull(_proceedingActionlistAdapter) { "proceedingActionlistAdapter is null" }
 
     private val viewModel by viewModels<ProceedingActionlistViewModel>()
-    private val todoViewModel: TodolistViewModel by activityViewModels()
+    private val todoViewModel by activityViewModels<TodolistViewModel>()
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -50,6 +50,11 @@ class ProceedingActionlistFragment(private val parentFragment: TodolistFragment)
         subscribe()
         setEmptyView()
         clickScrapBtn()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        todoViewModel.getDoingActionplans()
     }
 
     private fun getDoingTodoList() {
