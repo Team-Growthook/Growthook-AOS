@@ -206,27 +206,30 @@ class CaveDetailActivity : BaseActivity<ActivityCaveDetailBinding>({
                     negativeAction = {
                     },
                     positiveAction = {
-                        viewModel.unLockSeed(item.seedId)
-                        viewModel.isUnlock.observe(this) {
+                        if (remainThook <= 0) {
                             Toast.makeText(this, "잠금 해제를 위해서는 쑥이 필요해요 :(", Toast.LENGTH_SHORT)
                                 .show()
-                            if (item.hasActionPlan) {
-                                startActivity(
-                                    ActionplanInsightActivity.getIntent(
-                                        this,
-                                        item.seedId,
-                                        "CaveDetailActivity",
-                                    ),
-                                )
-                            } else {
-                                startActivity(
-                                    NoActionplanInsightActivity.getIntent(
-                                        this,
-                                        item.seedId,
-                                    ),
-                                )
+                        } else {
+                            viewModel.unLockSeed(item.seedId)
+                            viewModel.isUnlock.observe(this) {
+                                if (item.hasActionPlan) {
+                                    startActivity(
+                                        ActionplanInsightActivity.getIntent(
+                                            this,
+                                            item.seedId,
+                                            "CaveDetailActivity",
+                                        ),
+                                    )
+                                } else {
+                                    startActivity(
+                                        NoActionplanInsightActivity.getIntent(
+                                            this,
+                                            item.seedId,
+                                        ),
+                                    )
+                                }
+                                viewModel.getGatherdThook()
                             }
-                            viewModel.getGatherdThook()
                         }
                     },
                     remainThookText = remainThook.toString(),
