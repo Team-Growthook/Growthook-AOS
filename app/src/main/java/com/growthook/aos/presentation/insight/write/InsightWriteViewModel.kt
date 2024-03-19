@@ -80,13 +80,14 @@ class InsightWriteViewModel @Inject constructor(
             insight,
             selectedCaveId,
             selectedGoalMonth,
+            url
         ) { checkInsightWriteEnabled() }
     }
 
     private fun checkInsightWriteEnabled(): Boolean =
         !insight.value.isNullOrBlank() &&
             !(selectedCaveId.value == null) &&
-            !(selectedGoalMonth.value == null)
+            !(selectedGoalMonth.value == null) && isUrlValid(url.value.toString())
 
     fun postNewSeed() {
         viewModelScope.launch {
