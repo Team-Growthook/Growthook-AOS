@@ -11,14 +11,14 @@ class DescAdapter : RecyclerView.Adapter<DescAdapter.DescViewHolder>() {
 
     val itemList: List<Explain> = listOf(
         Explain(
-            "씨앗 심기",
-            "내가 얻은 일상 속 영감, 인사이트를\n" +
-                "한 줄로 표현해요.",
+            "동굴 짓기",
+            "나만의 인사이트를 보관할 동굴을 만들어요.",
             R.drawable.ic_onboarding_desc1,
         ),
         Explain(
-            "동굴 짓기",
-            "나만의 인사이트를 보관할 동굴을 만들어요.",
+            "씨앗 심기",
+            "내가 얻은 일상 속 영감, 인사이트를\n" +
+                "한 줄로 표현해요.",
             R.drawable.ic_onboarding_desc2,
         ),
         Explain("할 일 계획하기", "인사이트를 바탕으로 앞으로의 할 일을 기록해요.", R.drawable.ic_onboarding_desc3),
