@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
-import androidx.fragment.app.viewModels
 import com.google.android.material.tabs.TabLayout
 import com.growthook.aos.R
 import com.growthook.aos.databinding.FragmentTodolistBinding
@@ -20,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class TodolistFragment : BaseFragment<FragmentTodolistBinding>() {
     private val viewModel: HomeViewModel by activityViewModels()
-    private val todolistViewModel by viewModels<TodolistViewModel>()
+    private val todolistViewModel by activityViewModels<TodolistViewModel>()
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,

@@ -80,7 +80,7 @@ class TodolistViewModel @Inject constructor(
         }
     }
 
-    private fun getActionplanPercent() {
+    fun getActionplanPercent() {
         viewModelScope.launch {
             getGetActionplanPercentUseCase.invoke(memberId.value ?: 0).onSuccess {
                 _actionplanPercent.value = it

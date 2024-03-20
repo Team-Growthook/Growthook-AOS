@@ -54,7 +54,14 @@ class LargeWritingBottomSheet : BaseWritingBottomSheet() {
     }
 
     override fun setHint() {
-        binding.edtLargeWriting.hint = hint
+        binding.tlLargeWriting.hint = hint
+        binding.edtLargeWriting.setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus) {
+                binding.tlLargeWriting.hint = null
+            } else {
+                binding.tlLargeWriting.hint = hint
+            }
+        }
     }
 
     override fun setClickNoWrite(action: () -> Unit) {

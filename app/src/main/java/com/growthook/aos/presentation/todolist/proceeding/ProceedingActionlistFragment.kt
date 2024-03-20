@@ -126,7 +126,7 @@ class ProceedingActionlistFragment(private val parentFragment: TodolistFragment)
 
     private fun clickCompleteBtn(actionplanId: Int) {
         BaseWritingBottomSheet.Builder().build(
-            type = BaseWritingBottomSheet.WritingType.SMALL,
+            type = BaseWritingBottomSheet.WritingType.LARGE,
             title = "느낀점 작성",
             hint = "할 일을 달성하며 어떤 것을 느꼈는지 작성해보세요",
             clickSaveBtn = {
