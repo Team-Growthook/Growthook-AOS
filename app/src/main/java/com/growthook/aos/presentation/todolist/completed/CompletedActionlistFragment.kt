@@ -40,6 +40,7 @@ class CompletedActionlistFragment : BaseFragment<FragmentCompletedActionlistBind
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        todoViewModel.getActionplanPercent()
         getDoneTodoList()
         initActionplanAdapter()
         subscribe()
@@ -49,6 +50,7 @@ class CompletedActionlistFragment : BaseFragment<FragmentCompletedActionlistBind
     override fun onResume() {
         super.onResume()
         todoViewModel.getFinishedActionplans()
+        todoViewModel.getActionplanPercent()
     }
 
     private fun getDoneTodoList() {
