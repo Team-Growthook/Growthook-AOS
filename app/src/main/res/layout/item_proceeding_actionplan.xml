@@ -45,7 +45,7 @@
             <TextView
                 android:id="@+id/tv_proceeding_actionplan_btn_left"
                 style="@style/detail1_bold"
-                android:layout_width="180dp"
+                android:layout_width="170dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/rect_radius_5"
                 android:backgroundTint="@color/Gray500"
@@ -62,7 +62,7 @@
             <TextView
                 android:id="@+id/tv_proceeding_actionplan_btn_right"
                 style="@style/detail1_bold"
-                android:layout_width="180dp"
+                android:layout_width="170dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:background="@drawable/rect_radius_5"
