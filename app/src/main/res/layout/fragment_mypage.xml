@@ -236,7 +236,7 @@
             android:layout_height="0dp"
             android:background="@drawable/rect_gray600_botline_bot1"
             android:gravity="start|center"
-            android:text="버전 정보 1.0.0"
+            android:text="버전 정보 1.0.1"
             android:textAppearance="@style/body2_bold"
             app:backgroundTint="@null"
             app:layout_constraintDimensionRatio="360:60"
