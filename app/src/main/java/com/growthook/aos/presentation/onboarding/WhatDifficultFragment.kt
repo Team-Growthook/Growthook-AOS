@@ -1,5 +1,6 @@
 package com.growthook.aos.presentation.onboarding
 
+import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -88,9 +89,11 @@ class WhatDifficultFragment : BaseFragment<FragmentWhatDifficultBinding>() {
         if (click) {
             text.setTextColor(requireContext().getColor(R.color.Green200))
             cl.setBackgroundResource(R.drawable.rect_gray500_line_10)
+            text.setTypeface(null, Typeface.BOLD)
         } else {
             text.setTextColor(requireContext().getColor(R.color.White000))
             cl.setBackgroundResource(R.drawable.rect_gray400_fill_10)
+            text.setTypeface(null, Typeface.NORMAL)
         }
     }
 
