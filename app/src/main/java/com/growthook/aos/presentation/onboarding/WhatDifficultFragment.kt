@@ -1,5 +1,6 @@
 package com.growthook.aos.presentation.onboarding
 
+import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -43,7 +44,7 @@ class WhatDifficultFragment : BaseFragment<FragmentWhatDifficultBinding>() {
         binding.clWhatDifficultForget.setOnClickListener {
             viewModel.changeForget()
         }
-        viewModel.forget.observe(this) {
+        viewModel.forget.observe(viewLifecycleOwner) {
             with(binding) {
                 changeColor(it, tvWhatDifficultForget, clWhatDifficultForget)
             }
@@ -54,7 +55,7 @@ class WhatDifficultFragment : BaseFragment<FragmentWhatDifficultBinding>() {
         binding.clWhatDifficultNotFind.setOnClickListener {
             viewModel.changeNotFind()
         }
-        viewModel.notFind.observe(this) {
+        viewModel.notFind.observe(viewLifecycleOwner) {
             with(binding) {
                 changeColor(it, tvWhatDifficultNotFind, clWhatDifficultNotFind)
             }
@@ -65,7 +66,7 @@ class WhatDifficultFragment : BaseFragment<FragmentWhatDifficultBinding>() {
         binding.clWhatDifficultNotPractice.setOnClickListener {
             viewModel.changeNotPractice()
         }
-        viewModel.notPractice.observe(this) {
+        viewModel.notPractice.observe(viewLifecycleOwner) {
             with(binding) {
                 changeColor(it, tvWhatDifficultNotPractice, clWhatDifficultNotPractice)
             }
@@ -77,7 +78,7 @@ class WhatDifficultFragment : BaseFragment<FragmentWhatDifficultBinding>() {
             viewModel.changeNotGrow()
         }
 
-        viewModel.notGrow.observe(this) {
+        viewModel.notGrow.observe(viewLifecycleOwner) {
             with(binding) {
                 changeColor(it, tvWhatDifficultNotGrow, clWhatDifficultNotGrow)
             }
@@ -88,9 +89,11 @@ class WhatDifficultFragment : BaseFragment<FragmentWhatDifficultBinding>() {
         if (click) {
             text.setTextColor(requireContext().getColor(R.color.Green200))
             cl.setBackgroundResource(R.drawable.rect_gray500_line_10)
+            text.setTypeface(null, Typeface.BOLD)
         } else {
             text.setTextColor(requireContext().getColor(R.color.White000))
             cl.setBackgroundResource(R.drawable.rect_gray400_fill_10)
+            text.setTypeface(null, Typeface.NORMAL)
         }
     }
 
