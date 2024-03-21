@@ -52,11 +52,13 @@
             android:id="@+id/edt_large_writing"
             android:layout_width="match_parent"
             android:layout_height="170dp"
-            android:layout_margin="0dp"
             android:cursorVisible="true"
             android:gravity="top"
+            android:paddingEnd="5dp"
+            android:hint="할 일을 달성하며 어떤 것을 느꼈는지 작성해보세요"
             android:inputType="textMultiLine"
             android:maxLength="300"
+            android:scrollbars="vertical"
             android:textColor="@color/White000" />
 
     </com.google.android.material.textfield.TextInputLayout>

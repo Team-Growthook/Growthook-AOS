@@ -53,7 +53,7 @@ class CompletedActionlistAdapter(
                             R.color.White000,
                         ),
                     )
-                    tvCompletedActionplanBtnRight.setBackgroundResource(R.drawable.rect_gray600_fill_5)
+                    tvCompletedActionplanBtnRight.setBackgroundResource(R.drawable.rect_gray500_fill_5)
                     tvCompletedActionplanBtnRight.isClickable = true
                 } else {
                     tvCompletedActionplanBtnRight.setTextColor(
@@ -62,7 +62,7 @@ class CompletedActionlistAdapter(
                             R.color.Gray300,
                         ),
                     )
-                    tvCompletedActionplanBtnRight.setBackgroundResource(R.drawable.rect_gray500_fill_5)
+                    tvCompletedActionplanBtnRight.setBackgroundResource(R.drawable.rect_gray600_fill_5)
                     tvCompletedActionplanBtnRight.isClickable = false
                 }
                 ivCompletedActionplan.setOnClickListener {

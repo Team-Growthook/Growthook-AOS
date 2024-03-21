@@ -62,14 +62,13 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edt_small_writing"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="68dp"
                     android:layout_margin="0dp"
                     android:cursorVisible="true"
                     android:gravity="top"
+                    android:scrollbars="vertical"
                     android:inputType="textMultiLine"
                     android:maxLength="30"
-                    android:minLines="5"
-                    android:maxLines="2"
                     android:textColor="@color/White000" />
 
             </com.google.android.material.textfield.TextInputLayout>
