@@ -43,7 +43,7 @@ class WhatDifficultFragment : BaseFragment<FragmentWhatDifficultBinding>() {
         binding.clWhatDifficultForget.setOnClickListener {
             viewModel.changeForget()
         }
-        viewModel.forget.observe(this) {
+        viewModel.forget.observe(viewLifecycleOwner) {
             with(binding) {
                 changeColor(it, tvWhatDifficultForget, clWhatDifficultForget)
             }
@@ -54,7 +54,7 @@ class WhatDifficultFragment : BaseFragment<FragmentWhatDifficultBinding>() {
         binding.clWhatDifficultNotFind.setOnClickListener {
             viewModel.changeNotFind()
         }
-        viewModel.notFind.observe(this) {
+        viewModel.notFind.observe(viewLifecycleOwner) {
             with(binding) {
                 changeColor(it, tvWhatDifficultNotFind, clWhatDifficultNotFind)
             }
@@ -65,7 +65,7 @@ class WhatDifficultFragment : BaseFragment<FragmentWhatDifficultBinding>() {
         binding.clWhatDifficultNotPractice.setOnClickListener {
             viewModel.changeNotPractice()
         }
-        viewModel.notPractice.observe(this) {
+        viewModel.notPractice.observe(viewLifecycleOwner) {
             with(binding) {
                 changeColor(it, tvWhatDifficultNotPractice, clWhatDifficultNotPractice)
             }
@@ -77,7 +77,7 @@ class WhatDifficultFragment : BaseFragment<FragmentWhatDifficultBinding>() {
             viewModel.changeNotGrow()
         }
 
-        viewModel.notGrow.observe(this) {
+        viewModel.notGrow.observe(viewLifecycleOwner) {
             with(binding) {
                 changeColor(it, tvWhatDifficultNotGrow, clWhatDifficultNotGrow)
             }
