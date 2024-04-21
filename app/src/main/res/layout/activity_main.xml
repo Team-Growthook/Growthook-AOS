@@ -11,21 +11,25 @@
         android:id="@+id/fcv_home"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:name="com.growthook.aos.presentation.home.HomeFragment"
         app:layout_constraintBottom_toTopOf="@id/bnv_home"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/main_graph"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bnv_home"
+        style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"
         android:layout_width="0dp"
         android:layout_height="76dp"
-        android:paddingVertical="7dp"
-        style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"
         android:background="@drawable/shape_bottom_nav"
+        android:paddingVertical="7dp"
         app:itemIconTint="@color/sel_main_bottom_nav"
-        app:itemTextColor="@color/sel_main_bottom_nav"
         app:itemRippleColor="@android:color/transparent"
+        app:itemTextColor="@color/sel_main_bottom_nav"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
