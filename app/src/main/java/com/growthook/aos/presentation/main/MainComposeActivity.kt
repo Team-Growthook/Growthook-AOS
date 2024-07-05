@@ -12,13 +12,18 @@ import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.material.BottomNavigation
+import androidx.compose.material.Text
 import androidx.compose.material3.Icon
-import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -26,6 +31,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.growthook.aos.App
+import com.growthook.aos.R
 import com.growthook.aos.presentation.MainActivityViewModel
 import com.growthook.aos.presentation.home.HomeScreen
 import com.growthook.aos.presentation.mypage.MyPageScreen
@@ -111,7 +117,9 @@ fun GrowthookBottomBar(
     currentDestination: NavDestination?,
     onNavigateToDestination: (route: String) -> Unit,
 ) {
-    NavigationBar(
+    BottomNavigation(
+        backgroundColor = colorResource(id = R.color.Gray700),
+        contentColor = colorResource(id = R.color.Gray700),
         modifier =
             Modifier
                 .windowInsetsPadding(
@@ -137,7 +145,30 @@ fun GrowthookBottomBar(
                         contentDescription = null,
                     )
                 },
+                label = {
+                    val labelColor =
+                        if (selected) {
+                            colorResource(id = R.color.MainGreen400)
+                        } else {
+                            colorResource(id = R.color.Gray400)
+                        }
+                    Text(text = item.title, color = labelColor)
+                },
+                colors =
+                    NavigationBarItemDefaults.colors(
+                        indicatorColor = Color.Transparent,
+                        selectedIconColor =
+                            colorResource(
+                                id = R.color.MainGreen400,
+                            ),
+                    ),
             )
         }
     }
+}
+
+@Preview
+@Composable
+fun MainActivityPreview() {
+    MainComposeActivity()
 }
