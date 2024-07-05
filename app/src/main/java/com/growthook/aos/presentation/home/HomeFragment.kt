@@ -39,7 +39,6 @@ import timber.log.Timber
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
-
     private val viewModel: HomeViewModel by activityViewModels()
 
     private lateinit var selectMenuBottomSheet: SelectMenuBottomSheet
@@ -60,7 +59,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         container: ViewGroup?,
     ): FragmentHomeBinding = FragmentHomeBinding.inflate(inflater, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
 
@@ -148,30 +150,34 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun setInsightTracker() {
-        val longTracker = SelectionTracker.Builder<Long>(
-            "myLongSelection",
-            binding.rcvHomeInsight,
-            StableIdKeyProvider(binding.rcvHomeInsight),
-            HomeInsightAdapter.InsightDetailsLookup(binding.rcvHomeInsight),
-            StorageStrategy.createLongStorage(),
-        ).withSelectionPredicate(
-            SelectionPredicates.createSelectSingleAnything(),
-        ).build()
+        val longTracker =
+            SelectionTracker
+                .Builder<Long>(
+                    "myLongSelection",
+                    binding.rcvHomeInsight,
+                    StableIdKeyProvider(binding.rcvHomeInsight),
+                    HomeInsightAdapter.InsightDetailsLookup(binding.rcvHomeInsight),
+                    StorageStrategy.createLongStorage(),
+                ).withSelectionPredicate(
+                    SelectionPredicates.createSelectSingleAnything(),
+                ).build()
 
         insightAdapter.setSelectionLongTracker(longTracker)
-        longTracker.addObserver(object : SelectionTracker.SelectionObserver<Long>() {
-            override fun onSelectionChanged() {
-                super.onSelectionChanged()
+        longTracker.addObserver(
+            object : SelectionTracker.SelectionObserver<Long>() {
+                override fun onSelectionChanged() {
+                    super.onSelectionChanged()
 
-                val selectedInsight = insightAdapter.getSelectedLongInsight()
+                    val selectedInsight = insightAdapter.getSelectedLongInsight()
 
-                selectedInsight?.let {
-                    binding.fabHomeAddInsight.visibility = View.GONE
-                    selectMenuBottomSheet.show(parentFragmentManager, "show")
-                    viewModel.longClickInsight.value = it
+                    selectedInsight?.let {
+                        binding.fabHomeAddInsight.visibility = View.GONE
+                        selectMenuBottomSheet.show(parentFragmentManager, "show")
+                        viewModel.longClickInsight.value = it
+                    }
                 }
-            }
-        })
+            },
+        )
 
         viewModel.isMenuDismissed.observe(viewLifecycleOwner) {
             longTracker.clearSelection()
@@ -193,17 +199,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private fun selectedItem(item: Insight) {
         if (item.isLocked) {
-            BaseAlertDialog.Builder()
+            BaseAlertDialog
+                .Builder()
                 .setCancelable(false)
                 .build(
                     type = BaseAlertDialog.DialogType.RIGHT_INTENDED,
                     title = "잠금 해제하기",
-                    description = "씨앗의 잠금을 해제하기 위해\n" +
-                        "쑥 1개를 사용합니다.",
+                    description =
+                        "씨앗의 잠금을 해제하기 위해\n" +
+                            "쑥 1개를 사용합니다.",
                     positiveText = "사용하기",
                     negativeText = "포기하기",
-                    tipText = "Tip. 씨앗에서 할 일을 기록하고,\n" +
-                        "이를 달성하면 새로운 쑥을 얻을 수 있어요!",
+                    tipText =
+                        "Tip. 씨앗에서 할 일을 기록하고,\n" +
+                            "이를 달성하면 새로운 쑥을 얻을 수 있어요!",
                     isBackgroundImageVisility = false,
                     isDescriptionVisility = true,
                     isRemainThookVisility = true,
@@ -213,30 +222,34 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     positiveAction = {
                         val thookCount = viewModel.gatherdThook.value ?: 0
                         if (thookCount <= 0) {
-                            Toast.makeText(
-                                requireContext(),
-                                "잠금 해제를 위해서는 쑥이 필요해요 :(",
-                                Toast.LENGTH_SHORT,
-                            ).show()
+                            Toast
+                                .makeText(
+                                    requireContext(),
+                                    "잠금 해제를 위해서는 쑥이 필요해요 :(",
+                                    Toast.LENGTH_SHORT,
+                                ).show()
                         } else {
                             viewModel.unLockSeed(item.seedId)
                             viewModel.isUnlock.observe(viewLifecycleOwner) {
-                                Toast.makeText(context, "잠금이 영구적으로 해제되었어요!", Toast.LENGTH_SHORT)
+                                Toast
+                                    .makeText(context, "잠금이 영구적으로 해제되었어요!", Toast.LENGTH_SHORT)
                                     .show()
                                 if (item.hasActionPlan) {
                                     startActivity(
-                                        ActionplanInsightActivity.getIntent(
-                                            requireContext(),
-                                            item.seedId,
-                                            "HomeFragment",
-                                        ).addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION),
+                                        ActionplanInsightActivity
+                                            .getIntent(
+                                                requireContext(),
+                                                item.seedId,
+                                                "HomeFragment",
+                                            ).addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION),
                                     )
                                 } else {
                                     startActivity(
-                                        NoActionplanInsightActivity.getIntent(
-                                            requireContext(),
-                                            item.seedId,
-                                        ).addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION),
+                                        NoActionplanInsightActivity
+                                            .getIntent(
+                                                requireContext(),
+                                                item.seedId,
+                                            ).addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION),
                                     )
                                 }
                                 viewModel.getGatherdThook()
@@ -248,15 +261,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 ).show(parentFragmentManager, InsightMenuBottomsheet.DELETE_DIALOG)
         } else if (item.hasActionPlan) {
             startActivity(
-                ActionplanInsightActivity.getIntent(
-                    requireContext(),
-                    item.seedId,
-                    "HomeFragment",
-                ).addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION),
+                ActionplanInsightActivity
+                    .getIntent(
+                        requireContext(),
+                        item.seedId,
+                        "HomeFragment",
+                    ).addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION),
             )
         } else {
             startActivity(
-                NoActionplanInsightActivity.getIntent(requireContext(), item.seedId)
+                NoActionplanInsightActivity
+                    .getIntent(requireContext(), item.seedId)
                     .addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION),
             )
         }
@@ -279,7 +294,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private fun clickedCave(item: Cave) {
         startActivity(
-            CaveDetailActivity.getIntent(requireContext(), item.id)
+            CaveDetailActivity
+                .getIntent(requireContext(), item.id)
                 .addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION),
         )
     }
@@ -312,28 +328,34 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun setAlertMessage() {
-        val yesAlertBalloon = Balloon.Builder(requireContext())
-            .setLayout(R.layout.item_home_yes_alert)
-            .setIsVisibleArrow(false)
-            .setWidth(BalloonSizeSpec.WRAP)
-            .setHeight(BalloonSizeSpec.WRAP)
-            .setMarginRight(13)
-            .setLifecycleOwner(viewLifecycleOwner)
-            .setAutoDismissDuration(2000L)
-            .build()
+        val yesAlertBalloon =
+            Balloon
+                .Builder(requireContext())
+                .setLayout(R.layout.item_home_yes_alert)
+                .setIsVisibleArrow(false)
+                .setWidth(BalloonSizeSpec.WRAP)
+                .setHeight(BalloonSizeSpec.WRAP)
+                .setMarginRight(13)
+                .setLifecycleOwner(viewLifecycleOwner)
+                .setAutoDismissDuration(2000L)
+                .build()
 
-        val insightCountView = yesAlertBalloon.getContentView()
-            .findViewById<TextView>(R.id.tv_home_alert_insight_count)
+        val insightCountView =
+            yesAlertBalloon
+                .getContentView()
+                .findViewById<TextView>(R.id.tv_home_alert_insight_count)
 
-        val noAlertBalloon = Balloon.Builder(requireContext())
-            .setLayout(R.layout.item_home_no_alert)
-            .setIsVisibleArrow(false)
-            .setWidth(BalloonSizeSpec.WRAP)
-            .setHeight(BalloonSizeSpec.WRAP)
-            .setLifecycleOwner(viewLifecycleOwner)
-            .setMarginRight(13)
-            .setAutoDismissDuration(2000L)
-            .build()
+        val noAlertBalloon =
+            Balloon
+                .Builder(requireContext())
+                .setLayout(R.layout.item_home_no_alert)
+                .setIsVisibleArrow(false)
+                .setWidth(BalloonSizeSpec.WRAP)
+                .setHeight(BalloonSizeSpec.WRAP)
+                .setLifecycleOwner(viewLifecycleOwner)
+                .setMarginRight(13)
+                .setAutoDismissDuration(2000L)
+                .build()
 
         viewModel.alertAmount.observe(viewLifecycleOwner) { alertAmount ->
             if (alertAmount == 0) {

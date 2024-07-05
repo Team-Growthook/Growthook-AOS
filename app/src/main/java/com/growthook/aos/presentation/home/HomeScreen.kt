@@ -12,9 +12,10 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun HomeScreen() {
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = 30.dp),
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .padding(horizontal = 30.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(text = "HomeScreen")
