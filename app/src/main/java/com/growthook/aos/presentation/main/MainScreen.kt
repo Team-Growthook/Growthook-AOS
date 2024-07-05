@@ -69,9 +69,3 @@ fun MainScreen() {
         containerColor = Color.Transparent,
     )
 }
-
-@Preview
-@Composable
-fun MainScreenPreview() {
-    MainScreen()
-}

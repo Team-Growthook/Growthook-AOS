@@ -166,9 +166,3 @@ fun GrowthookBottomBar(
         }
     }
 }
-
-@Preview
-@Composable
-fun MainActivityPreview() {
-    MainComposeActivity()
-}
