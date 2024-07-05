@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.growthook.aos.data.service.KakaoAuthService
 import com.growthook.aos.databinding.ActivityLoginBinding
 import com.growthook.aos.presentation.MainActivity
+import com.growthook.aos.presentation.main.MainComposeActivity
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -36,7 +37,7 @@ class LoginActivity : AppCompatActivity() {
     private fun isKakaoLogin() {
         viewModel.isLoginSuccess.observe(this) { isSuccess ->
             if (isSuccess) {
-                val intent = Intent(this, MainActivity::class.java)
+                val intent = Intent(this, MainComposeActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
                 finish()
