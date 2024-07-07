@@ -11,7 +11,7 @@ import com.growthook.aos.App
 import com.growthook.aos.data.service.KakaoAuthService
 import com.growthook.aos.databinding.FragmentMypageBinding
 import com.growthook.aos.presentation.MainActivity
-import com.growthook.aos.presentation.MainActivity.Companion.USER_ID
+import com.growthook.aos.presentation.main.MainComposeActivity.Companion.USER_ID
 import com.growthook.aos.presentation.mypage.detailinfo.DetailMyPageActivity
 import com.growthook.aos.presentation.onboarding.OnboardingActivity
 import com.growthook.aos.util.base.BaseAlertDialog
@@ -22,7 +22,6 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class MyPageFragment : BaseFragment<FragmentMypageBinding>() {
-
     @Inject
     lateinit var kakaoAuthService: KakaoAuthService
 
@@ -33,7 +32,10 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>() {
         container: ViewGroup?,
     ): FragmentMypageBinding = FragmentMypageBinding.inflate(inflater, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
         setNickName()
         setGatherdThook()
@@ -69,7 +71,8 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>() {
 
     private fun clickLogout() {
         binding.btnMyPageLogout.setOnClickListener {
-            BaseAlertDialog.Builder()
+            BaseAlertDialog
+                .Builder()
                 .setCancelable(false)
                 .build(
                     type = BaseAlertDialog.DialogType.LEFT_INTENDED,
@@ -117,46 +120,50 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>() {
 
     private fun clickInstruction() {
         binding.btnMyPageInstructions.setOnClickListener {
-            val intent = Intent(
-                Intent.ACTION_VIEW,
-                Uri.parse("https://www.notion.so/a6ac706599224bbbb9f7a6b449c1a02f?pvs=4"),
-            )
+            val intent =
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://www.notion.so/a6ac706599224bbbb9f7a6b449c1a02f?pvs=4"),
+                )
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION)
-            App.trackEvent("${MainActivity.USER_ID} + 사용법 보기")
+            App.trackEvent("$USER_ID + 사용법 보기")
             startActivity(intent)
         }
     }
 
     private fun clickNotice() {
         binding.btnMyPageNotice.setOnClickListener {
-            val intent = Intent(
-                Intent.ACTION_VIEW,
-                Uri.parse("https://www.notion.so/9bba9068c49e42d98e0d9b5bd59674c9?pvs=4"),
-            )
+            val intent =
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://www.notion.so/9bba9068c49e42d98e0d9b5bd59674c9?pvs=4"),
+                )
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION)
-            App.trackEvent("${MainActivity.USER_ID} + 공지사항 보기")
+            App.trackEvent("$USER_ID + 공지사항 보기")
             startActivity(intent)
         }
     }
 
     private fun clickFAQ() {
         binding.btnMyPageFaq.setOnClickListener {
-            val intent = Intent(
-                Intent.ACTION_VIEW,
-                Uri.parse("https://www.notion.so/6cdc4f9f7f38490084a89da1bfa083ab?pvs=4"),
-            )
+            val intent =
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://www.notion.so/6cdc4f9f7f38490084a89da1bfa083ab?pvs=4"),
+                )
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION)
-            App.trackEvent("${MainActivity.USER_ID} + 자주 묻는 질문 보기")
+            App.trackEvent("$USER_ID + 자주 묻는 질문 보기")
             startActivity(intent)
         }
     }
 
     private fun clickPolicy() {
         binding.btnMyPagePolicy.setOnClickListener {
-            val intent = Intent(
-                Intent.ACTION_VIEW,
-                Uri.parse("https://www.notion.so/9edc8ab432d34da682b9320f9bc6fd31?pvs=4"),
-            )
+            val intent =
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://www.notion.so/9edc8ab432d34da682b9320f9bc6fd31?pvs=4"),
+                )
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION)
             App.trackEvent("$USER_ID + 약관 및 정책 보기")
             startActivity(intent)

@@ -4,7 +4,7 @@ plugins {
     id 'kotlin-kapt'
     id 'com.google.dagger.hilt.android'
     id "kotlin-parcelize"
-    id 'org.jetbrains.kotlin.plugin.serialization' version '1.8.0'
+    id 'org.jetbrains.kotlin.plugin.serialization' version '1.9.0'
 }
 
 Properties properties = new Properties()
@@ -12,7 +12,7 @@ properties.load(project.rootProject.file('local.properties').newDataInputStream(
 
 android {
     namespace 'com.growthook.aos'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.growthook.aos"
@@ -37,11 +37,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility JavaVersion.VERSION_18
+        targetCompatibility JavaVersion.VERSION_18
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.2"
+        kotlinCompilerExtensionVersion = "1.5.2"
     }
 
     packagingOptions {
@@ -51,7 +51,7 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = '17'
+        jvmTarget = '18'
     }
     buildFeatures {
         buildConfig true
@@ -66,6 +66,8 @@ dependencies {
     implementation 'com.google.android.material:material:1.5.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation "androidx.recyclerview:recyclerview:1.3.2"
+    implementation("androidx.compose.ui:ui-tooling-preview:1.6.8")
+    debugImplementation "androidx.compose.ui:ui-tooling"
 
     // Test
     testImplementation 'junit:junit:4.13.2'
@@ -78,8 +80,8 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2"
 
     // hilt
-    implementation "com.google.dagger:hilt-android:2.44"
-    kapt "com.google.dagger:hilt-compiler:2.44"
+    implementation "com.google.dagger:hilt-android:2.46.1"
+    kapt "com.google.dagger:hilt-compiler:2.46.1"
 
     // network
     implementation "com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.11"
@@ -105,9 +107,9 @@ dependencies {
     implementation "androidx.datastore:datastore-preferences:1.0.0"
 
     // material
-    implementation "androidx.compose.material3:material3:1.0.1"
-    implementation "androidx.compose.material3:material3-window-size-class:1.0.1"
-    implementation "androidx.compose.material:material:1.3.1"
+    implementation "androidx.compose.material3:material3:1.2.1"
+    implementation "androidx.compose.material3:material3-window-size-class:1.2.1"
+    implementation "androidx.compose.material:material:1.6.8"
     implementation "com.google.android.material:material:1.9.0"
 
     // ballon
@@ -125,6 +127,12 @@ dependencies {
 
     // amplitude
     implementation 'com.amplitude:analytics-android:1.14.0'
+
+    // jetpack navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:2.7.7"
+    implementation "androidx.navigation:navigation-ui-ktx:2.7.7"
+    androidTestImplementation "androidx.navigation:navigation-testing:2.7.7"
+    implementation "androidx.navigation:navigation-compose:2.7.7"
 }
 kapt {
     correctErrorTypes true
